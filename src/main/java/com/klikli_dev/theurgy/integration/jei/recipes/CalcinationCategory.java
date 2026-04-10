@@ -20,11 +20,11 @@ import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -68,18 +68,32 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
 
-    @Override
     public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
     @Override
-    public IDrawable getIcon() {
+    public @NotNull Component getTitle() {
+        return this.localizedName;
+    }
+
+    @Override
+    public int getWidth() {
+        return this.background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.background.getHeight();
+    }
+
+    @Override
+    public @NotNull IDrawable getIcon() {
         return this.icon;
     }
 
     @Override
-    public void draw(@NotNull RecipeHolder<CalcinationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<CalcinationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 1, 20);
         this.animatedFire.draw(guiGraphics, 1, 20);
 
@@ -89,7 +103,7 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
         this.drawCookTime(recipe, guiGraphics, 34);
     }
 
-    protected void drawCookTime(RecipeHolder<CalcinationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+    protected void drawCookTime(RecipeHolder<CalcinationRecipe> recipe, GuiGraphicsExtractor guiGraphics, int y) {
         int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -97,20 +111,15 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
             Minecraft minecraft = Minecraft.getInstance();
             Font font = minecraft.font;
             int stringWidth = font.width(timeString);
-            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
+            guiGraphics.text(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
-    }
-
-    @Override
-    public @NotNull Component getTitle() {
-        return this.localizedName;
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CalcinationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(VanillaTypes.ITEM_STACK, recipe.value().getIngredients().getFirst().items().stream().map(ItemStack::new).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
+                .addIngredients(VanillaTypes.ITEM_STACK, recipe.value().getIngredients().getFirst().items().map(h -> new ItemStack(h.value())).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
 
         builder.addSlot(OUTPUT, 61, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
@@ -118,7 +127,7 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
     }
 
     @Override
-    public @NotNull RecipeType<RecipeHolder<CalcinationRecipe>> getRecipeType() {
-        return JeiRecipeTypes.CALCINATION;
+    public @NotNull IRecipeType<RecipeHolder<CalcinationRecipe>> getRecipeType() {
+        return (IRecipeType<RecipeHolder<CalcinationRecipe>>) (Object) JeiRecipeTypes.CALCINATION;
     }
 }

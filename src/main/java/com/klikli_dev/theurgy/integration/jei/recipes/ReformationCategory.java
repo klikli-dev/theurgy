@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -23,19 +24,23 @@ import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -71,18 +76,32 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
 
-    @Override
     public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
     @Override
-    public IDrawable getIcon() {
+    public @NotNull Component getTitle() {
+        return this.localizedName;
+    }
+
+    @Override
+    public int getWidth() {
+        return this.background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.background.getHeight();
+    }
+
+    @Override
+    public @NotNull IDrawable getIcon() {
         return this.icon;
     }
 
     @Override
-    public void draw(@NotNull RecipeHolder<ReformationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<ReformationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
 
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 19, 19);
 
@@ -96,15 +115,14 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
         this.drawSourcePedestalCount(recipe, guiGraphics, 78);
 
         //the barrier in combination with the tooltip handling in the tooltip method shows the user that target sulfur will not be consumed
-        RenderSystem.enableDepthTest();
         var barrier = new ItemStack(Items.BARRIER);
         Font font = Minecraft.getInstance().font;
-        guiGraphics.renderFakeItem(barrier, 45, 1);
-        guiGraphics.renderItemDecorations(font, barrier, 45, 1);
-        RenderSystem.disableBlend();
+        // guiGraphics.renderFakeItem(barrier, 45, 1);
+        // guiGraphics.renderItemDecorations(font, barrier, 45, 1);
     }
 
-    protected void drawCookTime(RecipeHolder<ReformationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+
+    protected void drawCookTime(RecipeHolder<ReformationRecipe> recipe, GuiGraphicsExtractor guiGraphics, int y) {
         int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -112,44 +130,38 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
             Minecraft minecraft = Minecraft.getInstance();
             Font font = minecraft.font;
             int stringWidth = font.width(timeString);
-            guiGraphics.drawString(font, timeString, 140 - stringWidth / 2, y, 0xFF808080, false);
+            guiGraphics.text(font, timeString, 140 - stringWidth / 2, y, 0xFF808080, false);
         }
     }
 
-    protected void drawFlux(RecipeHolder<ReformationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+    protected void drawFlux(RecipeHolder<ReformationRecipe> recipe, GuiGraphicsExtractor guiGraphics, int y) {
         int flux = recipe.value().getMercuryFlux();
         Component timeString = Component.translatable(TheurgyConstants.I18n.JEI.MERCURY_FLUX, flux);
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
-        guiGraphics.drawString(font, timeString, 1, y, 0xFF808080, false);
+        guiGraphics.text(font, timeString, 1, y, 0xFF808080, false);
     }
 
-    protected void drawSourcePedestalCount(RecipeHolder<ReformationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+    protected void drawSourcePedestalCount(RecipeHolder<ReformationRecipe> recipe, GuiGraphicsExtractor guiGraphics, int y) {
         int count = recipe.value().getSources().size();
         Component timeString = Component.translatable(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, count);
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
         int stringWidth = font.width(timeString);
-        guiGraphics.drawString(font, timeString, 95 - stringWidth, y, 0xFF808080, false);
+        guiGraphics.text(font, timeString, 95 - stringWidth, y, 0xFF808080, false);
     }
-
-    @Override
-    public @NotNull Component getTitle() {
-        return this.localizedName;
-    }
-
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<ReformationRecipe> recipe, @NotNull IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.CATALYST, 1, 15)
+        builder.addSlot(INPUT, 1, 15)
                 .addItemStack(new ItemStack(ItemRegistry.SULFURIC_FLUX_EMITTER.get()));
 
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 45, 19)
+        builder.addSlot(INPUT, 45, 19)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(recipe.value().getTarget());
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 45, 35)
+        builder.addSlot(INPUT, 45, 35)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()));
 
         //8 source slots, 2 columns, 4 rows
@@ -162,7 +174,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
 
             if (i < recipe.value().getSources().size()) {
                 var ingredient = recipe.value().getSources().get(i);
-                slot.addIngredients(VanillaTypes.ITEM_STACK, ingredient.ingredient().items().stream().map(ItemStack::new).map(stack -> stack.copyWithCount(ingredient.count())).toList());
+                slot.addIngredients(VanillaTypes.ITEM_STACK, ingredient.ingredient().items().map(h -> new ItemStack(h.value())).map(stack -> stack.copyWithCount(ingredient.count())).toList());
             }
 
             sourceSlotY -= 18; // Move upwards
@@ -172,20 +184,20 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
             }
         }
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 90 + 9, startY + 18)
+        builder.addSlot(INPUT, 90 + 9, startY + 18)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()));
 
 
         builder.addSlot(OUTPUT, 160, 19)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
                 .addItemStack(recipe.value().getResultItem(RegistryAccess.EMPTY));
-        builder.addSlot(RecipeIngredientRole.CATALYST, 160, 42)
+        builder.addSlot(INPUT, 160, 42)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));
     }
 
     @Override
-    public @NotNull RecipeType<RecipeHolder<ReformationRecipe>> getRecipeType() {
-        return JeiRecipeTypes.REFORMATION;
+    public @NotNull IRecipeType<RecipeHolder<ReformationRecipe>> getRecipeType() {
+        return (IRecipeType<RecipeHolder<ReformationRecipe>>) (Object) JeiRecipeTypes.REFORMATION;
     }
 
     @Override

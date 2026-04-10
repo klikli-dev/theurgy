@@ -16,17 +16,16 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -65,19 +64,17 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
                 });
     }
 
-    public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
-        return (view, tooltip) -> {
-            var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
-            if (displayed.isEmpty())
-                return;
+    public static void addFluidTooltip(IRecipeSlotsView view, List<Component> tooltip, long overrideAmount) {
+        var displayed = view.getSlotViews(INPUT).get(0).getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
+        if (displayed.isEmpty())
+            return;
 
-            var fluidStack = displayed.get();
+        var fluidStack = displayed.get();
 
-            var amount = overrideAmount == -1 ? fluidStack.getAmount() : overrideAmount;
-            var text = Component.translatable(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, amount).withStyle(ChatFormatting.GOLD);
+        var amount = overrideAmount == -1 ? fluidStack.getAmount() : overrideAmount;
+        var text = Component.translatable(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, amount).withStyle(ChatFormatting.GOLD);
 
-            tooltip.add(text);
-        };
+        tooltip.add(text);
     }
 
     protected IDrawableAnimated getAnimatedArrow(RecipeHolder<LiquefactionRecipe> recipe) {
@@ -88,18 +85,32 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
 
-    @Override
     public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
     @Override
-    public IDrawable getIcon() {
+    public @NotNull Component getTitle() {
+        return this.localizedName;
+    }
+
+    @Override
+    public int getWidth() {
+        return this.background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.background.getHeight();
+    }
+
+    @Override
+    public @NotNull IDrawable getIcon() {
         return this.icon;
     }
 
     @Override
-    public void draw(@NotNull RecipeHolder<LiquefactionRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<LiquefactionRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 12, 20);
         this.animatedFire.draw(guiGraphics, 12, 20);
 
@@ -109,7 +120,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
         this.drawCookTime(recipe, guiGraphics, 34);
     }
 
-    protected void drawCookTime(RecipeHolder<LiquefactionRecipe> recipe, GuiGraphics guiGraphics, int y) {
+    protected void drawCookTime(RecipeHolder<LiquefactionRecipe> recipe, GuiGraphicsExtractor guiGraphics, int y) {
         int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -117,13 +128,8 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
             Minecraft minecraft = Minecraft.getInstance();
             Font font = minecraft.font;
             int stringWidth = font.width(timeString);
-            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
+            guiGraphics.text(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
-    }
-
-    @Override
-    public @NotNull Component getTitle() {
-        return this.localizedName;
     }
 
     @Override
@@ -131,8 +137,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
-                .setFluidRenderer(1000, false, 16, 16)
-                .addTooltipCallback(addFluidTooltip(recipe.value().getSolventAmount()));
+                .setFluidRenderer(1000, false, 16, 16);
 
         builder.addSlot(INPUT, 19, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
@@ -153,8 +158,8 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
     }
 
     @Override
-    public @NotNull RecipeType<RecipeHolder<LiquefactionRecipe>> getRecipeType() {
-        return JeiRecipeTypes.LIQUEFACTION;
+    public @NotNull IRecipeType<RecipeHolder<LiquefactionRecipe>> getRecipeType() {
+        return (IRecipeType<RecipeHolder<LiquefactionRecipe>>) (Object) JeiRecipeTypes.LIQUEFACTION;
     }
 
 }

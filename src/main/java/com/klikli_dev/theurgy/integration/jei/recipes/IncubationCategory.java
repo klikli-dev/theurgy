@@ -19,18 +19,17 @@ import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -69,18 +68,32 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
 
-    @Override
     public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
     @Override
-    public IDrawable getIcon() {
+    public @NotNull Component getTitle() {
+        return this.localizedName;
+    }
+
+    @Override
+    public int getWidth() {
+        return this.background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.background.getHeight();
+    }
+
+    @Override
+    public @NotNull IDrawable getIcon() {
         return this.icon;
     }
 
     @Override
-    public void draw(@NotNull RecipeHolder<IncubationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<IncubationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 28, 44);
         this.animatedFire.draw(guiGraphics, 28, 44);
 
@@ -90,7 +103,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
         this.drawCookTime(recipe, guiGraphics, 47);
     }
 
-    protected void drawCookTime(RecipeHolder<IncubationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+    protected void drawCookTime(RecipeHolder<IncubationRecipe> recipe, GuiGraphicsExtractor guiGraphics, int y) {
         int cookTime = recipe.value().time();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -98,15 +111,9 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
             Minecraft minecraft = Minecraft.getInstance();
             Font font = minecraft.font;
             int stringWidth = font.width(timeString);
-            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
+            guiGraphics.text(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
-
-    @Override
-    public @NotNull Component getTitle() {
-        return this.localizedName;
-    }
-
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<IncubationRecipe> recipe, @NotNull IFocusGroup focuses) {
@@ -116,7 +123,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
 
         builder.addSlot(INPUT, 1, 21)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addItemStacks(recipe.value().sulfur().items().stream().map(ItemStack::new).toList());
+                .addItemStacks(recipe.value().sulfur().items().map(h -> new ItemStack(h.value())).toList());
 
         builder.addSlot(INPUT, 1, 42)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
@@ -124,11 +131,11 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
 
         builder.addSlot(OUTPUT, 61, 22)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStacks(Collections.singletonList(recipe.value().result().getStacks()));
+                .addItemStacks(Arrays.asList(recipe.value().result().getStacks()));
     }
 
     @Override
-    public @NotNull RecipeType<RecipeHolder<IncubationRecipe>> getRecipeType() {
-        return JeiRecipeTypes.INCUBATION;
+    public @NotNull IRecipeType<RecipeHolder<IncubationRecipe>> getRecipeType() {
+        return (IRecipeType<RecipeHolder<IncubationRecipe>>) (Object) JeiRecipeTypes.INCUBATION;
     }
 }

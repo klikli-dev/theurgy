@@ -60,19 +60,19 @@ public class JeiPlugin implements IModPlugin {
         var level = Minecraft.getInstance().level;
 
         var calcinationRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.CALCINATION.get(), level);
-        registration.addRecipes(JeiRecipeTypes.CALCINATION, calcinationRecipes);
+        registration.addRecipes(JeiRecipeTypes.CALCINATION, calcinationRecipes.stream().toList());
 
         var liquefactionRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.LIQUEFACTION.get(), level);
-        registration.addRecipes(JeiRecipeTypes.LIQUEFACTION, liquefactionRecipes);
+        registration.addRecipes(JeiRecipeTypes.LIQUEFACTION, liquefactionRecipes.stream().toList());
 
         var distillationRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.DISTILLATION.get(), level);
-        registration.addRecipes(JeiRecipeTypes.DISTILLATION, distillationRecipes);
+        registration.addRecipes(JeiRecipeTypes.DISTILLATION, distillationRecipes.stream().toList());
 
         var incubationRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.INCUBATION.get(), level);
-        registration.addRecipes(JeiRecipeTypes.INCUBATION, incubationRecipes);
+        registration.addRecipes(JeiRecipeTypes.INCUBATION, incubationRecipes.stream().toList());
 
         var accumulationRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.ACCUMULATION.get(), level);
-        registration.addRecipes(JeiRecipeTypes.ACCUMULATION, accumulationRecipes);
+        registration.addRecipes(JeiRecipeTypes.ACCUMULATION, accumulationRecipes.stream().toList());
 
         //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
         //See also Theurgy.Client#onRecipesUpdated
@@ -90,16 +90,16 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(JeiRecipeTypes.REFORMATION, reformationRecipes);
 
         //filter fermentation recipes to exclude those that use sulfurs without recipe as input
-//        var fermentationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get()).stream()
-//                .filter(r -> r.getIngredients().stream().anyMatch(i -> sulfursWithoutRecipe.stream().noneMatch(i)))
+        //var fermentationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get()).stream()
+        //        .filter(r -> r.getIngredients().stream().anyMatch(i -> sulfursWithoutRecipe.stream().noneMatch(i)))
         //that filter is too naive, it would also exclude recipes that use a sulfur tag as input and only one item in that tag is unavailable
         //IF we even need that filter we instead need to check if ALL items in the tag are unavailable
-//                .toList();
+        //        .toList();
         var fermentationRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.FERMENTATION.get(), level);
-        registration.addRecipes(JeiRecipeTypes.FERMENTATION, fermentationRecipes);
+        registration.addRecipes(JeiRecipeTypes.FERMENTATION, fermentationRecipes.stream().toList());
 
         var digestionRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.DIGESTION.get(), level);
-        registration.addRecipes(JeiRecipeTypes.DIGESTION, digestionRecipes);
+        registration.addRecipes(JeiRecipeTypes.DIGESTION, digestionRecipes.stream().toList());
 
         this.registerIngredientInfo(registration, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
     }
@@ -111,37 +111,26 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CALCINATION_OVEN.get()),
-                JeiRecipeTypes.CALCINATION);
+        registration.addCraftingStation(JeiRecipeTypes.CALCINATION, new ItemStack(BlockRegistry.CALCINATION_OVEN.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get()),
-                JeiRecipeTypes.LIQUEFACTION);
+        registration.addCraftingStation(JeiRecipeTypes.LIQUEFACTION, new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.DISTILLER.get()),
-                JeiRecipeTypes.DISTILLATION);
+        registration.addCraftingStation(JeiRecipeTypes.DISTILLATION, new ItemStack(BlockRegistry.DISTILLER.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.INCUBATOR.get()),
-                JeiRecipeTypes.INCUBATION);
+        registration.addCraftingStation(JeiRecipeTypes.INCUBATION, new ItemStack(BlockRegistry.INCUBATOR.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
-                JeiRecipeTypes.ACCUMULATION);
+        registration.addCraftingStation(JeiRecipeTypes.ACCUMULATION, new ItemStack(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.SULFURIC_FLUX_EMITTER.get()),
-                JeiRecipeTypes.REFORMATION);
+        registration.addCraftingStation(JeiRecipeTypes.REFORMATION, new ItemStack(BlockRegistry.SULFURIC_FLUX_EMITTER.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get()),
-                JeiRecipeTypes.REFORMATION);
+        registration.addCraftingStation(JeiRecipeTypes.REFORMATION, new ItemStack(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get()),
-                JeiRecipeTypes.REFORMATION);
+        registration.addCraftingStation(JeiRecipeTypes.REFORMATION, new ItemStack(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()),
-                JeiRecipeTypes.REFORMATION);
+        registration.addCraftingStation(JeiRecipeTypes.REFORMATION, new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.FERMENTATION_VAT.get()),
-                JeiRecipeTypes.FERMENTATION);
+        registration.addCraftingStation(JeiRecipeTypes.FERMENTATION, new ItemStack(BlockRegistry.FERMENTATION_VAT.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.DIGESTION_VAT.get()),
-                JeiRecipeTypes.DIGESTION);
+        registration.addCraftingStation(JeiRecipeTypes.DIGESTION, new ItemStack(BlockRegistry.DIGESTION_VAT.get()));
     }
 }

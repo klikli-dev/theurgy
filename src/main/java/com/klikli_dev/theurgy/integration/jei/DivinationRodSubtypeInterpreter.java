@@ -5,12 +5,12 @@
 package com.klikli_dev.theurgy.integration.jei;
 
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
-import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.world.item.ItemStack;
 
 
-public class DivinationRodSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
+public class DivinationRodSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
 
     private static final DivinationRodSubtypeInterpreter instance = new DivinationRodSubtypeInterpreter();
 
@@ -20,7 +20,7 @@ public class DivinationRodSubtypeInterpreter implements IIngredientSubtypeInterp
     }
 
     @Override
-    public String apply(ItemStack ingredient, UidContext context) {
+    public Object getSubtypeData(ItemStack ingredient, UidContext context) {
         var settingTier = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_TIER, "");
         var settingAllowedBlocksTag = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG, "");
         var settingDisallowedBlocksTag = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DISALLOWED_BLOCKS_TAG, "");

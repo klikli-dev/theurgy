@@ -9,7 +9,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 /**
  * Helpts to get Jei Drawables for scenarios where we don't render stuff "raw" but instead pass it to JEI.
@@ -32,7 +32,7 @@ public class JeiDrawables {
             }
 
             @Override
-            public void draw(GuiGraphics guiGraphics, int xOffset, int yOffset) {
+            public void draw(GuiGraphicsExtractor guiGraphics, int xOffset, int yOffset) {
                 texture.render(guiGraphics, xOffset, yOffset);
             }
         };

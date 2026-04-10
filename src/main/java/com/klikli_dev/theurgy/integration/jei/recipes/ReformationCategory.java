@@ -11,12 +11,12 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
+import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -34,12 +34,9 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
@@ -154,15 +151,15 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<ReformationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 15)
-                .addItemStack(new ItemStack(ItemRegistry.SULFURIC_FLUX_EMITTER.get()));
+                .add(new ItemStack(ItemRegistry.SULFURIC_FLUX_EMITTER.get()));
 
 
         builder.addSlot(INPUT, 45, 19)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.value().getTarget());
+                .add(recipe.value().getTarget());
 
         builder.addSlot(INPUT, 45, 35)
-                .addItemStack(new ItemStack(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()));
+                .add(new ItemStack(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()));
 
         //8 source slots, 2 columns, 4 rows
         int sourceSlotX = 90;
@@ -174,7 +171,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
 
             if (i < recipe.value().getSources().size()) {
                 var ingredient = recipe.value().getSources().get(i);
-                slot.addIngredients(VanillaTypes.ITEM_STACK, ingredient.ingredient().items().map(h -> new ItemStack(h.value())).map(stack -> stack.copyWithCount(ingredient.count())).toList());
+                slot.addItemStacks(JeiIngredients.getStacks(ingredient));
             }
 
             sourceSlotY -= 18; // Move upwards
@@ -185,14 +182,14 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
         }
 
         builder.addSlot(INPUT, 90 + 9, startY + 18)
-                .addItemStack(new ItemStack(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()));
+                .add(new ItemStack(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()));
 
 
         builder.addSlot(OUTPUT, 160, 19)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.value().getResultItem(RegistryAccess.EMPTY));
+                .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
         builder.addSlot(INPUT, 160, 42)
-                .addItemStack(new ItemStack(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));
+                .add(new ItemStack(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));
     }
 
     @Override

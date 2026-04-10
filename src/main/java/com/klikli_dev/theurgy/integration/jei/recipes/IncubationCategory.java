@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
+import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -119,15 +120,15 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<IncubationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.value().mercury());
+                .add(recipe.value().mercury());
 
         builder.addSlot(INPUT, 1, 21)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addItemStacks(recipe.value().sulfur().items().map(h -> new ItemStack(h.value())).toList());
+                .addItemStacks(JeiIngredients.getStacks(recipe.value().sulfur()));
 
         builder.addSlot(INPUT, 1, 42)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.value().salt());
+                .add(recipe.value().salt());
 
         builder.addSlot(OUTPUT, 61, 22)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)

@@ -137,15 +137,15 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
             assert recipe.value().solute() != null;
             builder.addSlot(INPUT, 1, 21)
                     .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                    .addIngredients(recipe.value().solute());
+                    .add(recipe.value().solute());
         }
 
         builder.addSlot(OUTPUT, 56, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addFluidStack(recipe.value().result().fluid().value(), recipe.value().result().amount());
+                .add(recipe.value().result().fluid().value(), recipe.value().result().amount());
 
         //now add the bucket to the recipe lookup for the output fluid
-        builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.value().result().fluid().value().getBucket()));
+        builder.addInvisibleIngredients(OUTPUT).add(new ItemStack(recipe.value().result().fluid().value().getBucket()));
     }
 
     @Override

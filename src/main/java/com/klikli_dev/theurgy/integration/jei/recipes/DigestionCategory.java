@@ -11,9 +11,9 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
+import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -134,7 +134,7 @@ public class DigestionCategory implements IRecipeCategory<RecipeHolder<Digestion
 
         var ingredient = ingredients.get(ingredientIndex);
 
-        builder.addIngredients(VanillaTypes.ITEM_STACK, ingredient.ingredient().items().map(h -> new ItemStack(h.value())).map(i -> i.copyWithCount(ingredient.count())).toList());
+        builder.addItemStacks(JeiIngredients.getStacks(ingredient));
     }
 
     @Override
@@ -153,7 +153,7 @@ public class DigestionCategory implements IRecipeCategory<RecipeHolder<Digestion
 
         builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.value().getResultItem(RegistryAccess.EMPTY));
+                .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
 
         builder.addSlot(INPUT, 1 + 18, 1 + 18)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)

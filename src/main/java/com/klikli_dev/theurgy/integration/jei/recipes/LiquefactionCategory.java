@@ -141,10 +141,10 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
 
         builder.addSlot(INPUT, 19, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.value().getIngredients().getFirst());
+                .add(recipe.value().getIngredients().getFirst());
         builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.value().getResultItem(RegistryAccess.EMPTY));
+                .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(INPUT).addItemStacks(recipe.value().getSolvent().ingredient().fluids().stream().map(f -> new ItemStack(f.value().getBucket())).toList());

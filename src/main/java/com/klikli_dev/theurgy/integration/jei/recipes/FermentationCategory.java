@@ -136,17 +136,17 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
         if (!recipe.value().getIngredients().isEmpty())
-            topLeft.addIngredients(recipe.value().getIngredients().get(0));
+            topLeft.add(recipe.value().getIngredients().get(0));
 
         if (recipe.value().getIngredients().size() > 1)
-            topRight.addIngredients(recipe.value().getIngredients().get(1));
+            topRight.add(recipe.value().getIngredients().get(1));
 
         if (recipe.value().getIngredients().size() > 2)
-            bottomLeft.addIngredients(recipe.value().getIngredients().get(2));
+            bottomLeft.add(recipe.value().getIngredients().get(2));
 
         builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.value().getResultItem(RegistryAccess.EMPTY));
+                .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
 
         builder.addSlot(INPUT, 1 + 18, 1 + 18)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)

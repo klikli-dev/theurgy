@@ -11,9 +11,9 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
+import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -119,11 +119,11 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CalcinationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(VanillaTypes.ITEM_STACK, recipe.value().getIngredients().getFirst().items().map(h -> new ItemStack(h.value())).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
+                .addItemStacks(JeiIngredients.getStacks(recipe.value().getIngredients().getFirst(), recipe.value().getIngredientCount()));
 
         builder.addSlot(OUTPUT, 61, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.value().getResultItem(RegistryAccess.EMPTY));
+                .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDBuilder;
 import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDProvider;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -33,6 +34,10 @@ public class GenericCraftingProgressInWorldHUDProvider implements InWorldHUDProv
 
     @Override
     public boolean applies(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
+        // Exclude MercuryCatalyst - it has its own HUD with flux display
+        if (state.is(BlockRegistry.MERCURY_CATALYST.get())) {
+            return false;
+        }
         HasCraftingBehaviour<?, ?, ?> craftingBlockEntity = this.getCraftingBlockEntity(level, pos, state, blockEntity);
         return craftingBlockEntity != null && craftingBlockEntity.craftingBehaviour().isProcessing();
     }

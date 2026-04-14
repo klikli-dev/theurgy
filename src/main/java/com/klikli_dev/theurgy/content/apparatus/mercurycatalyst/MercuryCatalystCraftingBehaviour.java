@@ -121,6 +121,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         //first see if we have leftover flux to convert
         if (this.mercuryFluxToConvert > 0) {
             if (canProcess) {
+                this.tryStartProcessing(); // Mark as processing for HUD
                 var storage = this.mercuryFluxStorageSupplier.get();
                 var maxFluxToConvert = Math.min(this.mercuryFluxToConvert, this.currentMercuryFluxPerTick);
                 // Use addInternalFlux for internal crafting flux generation
@@ -142,6 +143,9 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             if (canProcess && this.couldCraftLastTick) {
                 this.craft(recipe);
             }
+        } else {
+            // No input, stop processing
+            this.stopProcessing();
         }
     }
 

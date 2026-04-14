@@ -5,7 +5,11 @@
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
@@ -37,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 
-public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStackFitProvider {
+public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStackFitProvider, HasCraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, LevelAwareCachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> {
 
     public static final int CAPACITY = 50000;
 
@@ -47,7 +51,12 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     public MonitoredItemStackHandler inventory;
     public MercuryCatalystMercuryFluxStorage mercuryFluxStorage;
 
-    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+    protected MercuryCatalystCraftingBehaviour craftingBehaviour;
+
+    @Override
+    public CraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, LevelAwareCachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> craftingBehaviour() {
+        return this.craftingBehaviour;
+    }
 
     public MercuryCatalystBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_CATALYST.get(), pPos, pBlockState);

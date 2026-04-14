@@ -117,12 +117,20 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
     }
 
     protected void pushMercuryFlux() {
-        // Collect all valid flux handlers first
+        // Collect all valid flux handlers first, excluding MercuryCatalyst (one-way: catalyst -> capacitor)
         var directions = Direction.allShuffled(this.getLevel().getRandom());
         var targets = new java.util.ArrayList<com.klikli_dev.theurgy.content.capability.MercuryFluxStorage>();
         
         for (var direction : directions) {
-            var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), null);
+            var adjacentPos = this.getBlockPos().relative(direction);
+            var adjacentBlock = this.level.getBlockState(adjacentPos).getBlock();
+            
+            // Skip MercuryCatalyst blocks - one-way flow from catalyst to capacitor
+            if (adjacentBlock instanceof com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock) {
+                continue;
+            }
+            
+            var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, adjacentPos, null);
             if (fluxStorage != null) {
                 targets.add(fluxStorage);
             }

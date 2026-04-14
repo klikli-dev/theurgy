@@ -33,6 +33,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     private final ItemHandlerRecipeInput ingredientCheckInput = new ItemHandlerRecipeInput(this.ingredientCheckInventory);
 
     protected int mercuryFluxToConvert;
+    protected int totalMercuryFluxToConvert; // Total flux for this conversion cycle (for progress calculation)
     protected int currentMercuryFluxPerTick;
 
 
@@ -61,12 +62,14 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     @Override
     public void saveAdditional(ValueOutput output) {
         output.putInt("mercuryFluxToConvert", this.mercuryFluxToConvert);
+        output.putInt("totalMercuryFluxToConvert", this.totalMercuryFluxToConvert);
         output.putInt("currentMercuryFluxPerTick", this.currentMercuryFluxPerTick);
     }
 
     @Override
     public void loadAdditional(ValueInput input) {
         this.mercuryFluxToConvert = input.getIntOr("mercuryFluxToConvert", 0);
+        this.totalMercuryFluxToConvert = input.getIntOr("totalMercuryFluxToConvert", 0);
         this.currentMercuryFluxPerTick = input.getIntOr("currentMercuryFluxPerTick", 0);
     }
 
@@ -145,10 +148,21 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     @Override
     protected boolean craft(@Nullable RecipeHolder<CatalysationRecipe> pRecipe) {
         this.mercuryFluxToConvert = pRecipe.value().totalMercuryFlux();
+        this.totalMercuryFluxToConvert = this.mercuryFluxToConvert; // Track total for progress calculation
         this.currentMercuryFluxPerTick = pRecipe.value().mercuryFluxPerTick();
 
         this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
 
         return true;
+    }
+
+    @Override
+    public int progressPercent() {
+        if (this.totalMercuryFluxToConvert <= 0) {
+            return 0;
+        }
+        // Calculate progress based on how much flux has been processed vs total
+        int processed = this.totalMercuryFluxToConvert - this.mercuryFluxToConvert;
+        return Math.clamp(processed * 100 / this.totalMercuryFluxToConvert, 0, 100);
     }
 }

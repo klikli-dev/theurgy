@@ -252,6 +252,22 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             return 0;
         }
 
+        /**
+         * Internal method for the crafting behaviour to add flux generated from processing.
+         * This bypasses the non-receiving restriction.
+         */
+        public int addInternalFlux(int amount) {
+            int energyReceived = Math.min(this.capacity - this.energy, amount);
+            this.energy += energyReceived;
+            
+            if (energyReceived > 0) {
+                MercuryCatalystBlockEntity.this.setChanged();
+                this.trySendBlockUpdated();
+            }
+            
+            return energyReceived;
+        }
+
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
             var extracted = super.extractEnergy(maxExtract, simulate);

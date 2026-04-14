@@ -120,8 +120,9 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             if (canProcess) {
                 var storage = this.mercuryFluxStorageSupplier.get();
                 var maxFluxToConvert = Math.min(this.mercuryFluxToConvert, this.currentMercuryFluxPerTick);
-                int fluxAccepted = storage.receiveEnergy(maxFluxToConvert, false);
-                this.mercuryFluxToConvert -= fluxAccepted;
+                // Use addInternalFlux for internal crafting flux generation
+                int fluxAdded = ((MercuryCatalystBlockEntity.MercuryCatalystMercuryFluxStorage) storage).addInternalFlux(maxFluxToConvert);
+                this.mercuryFluxToConvert -= fluxAdded;
             }
         } else if (hasInput) {
             //only even check for recipe if we have input to avoid unnecessary lookups

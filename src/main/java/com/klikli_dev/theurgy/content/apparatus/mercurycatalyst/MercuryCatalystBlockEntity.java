@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
@@ -115,21 +116,36 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     }
 
     protected void pushMercuryFlux() {
+        // Collect all valid flux handlers first
         var directions = Direction.allShuffled(this.getLevel().getRandom());
+        var targets = new java.util.ArrayList<MercuryFluxStorage>();
+        
         for (var direction : directions) {
-            if (this.mercuryFluxStorage.getEnergyStored() <= 0)
-                break;
-
-            var blockEntity = this.getLevel().getBlockEntity(this.getBlockPos().relative(direction));
-            if (blockEntity == null)
-                continue;
-
             var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), null);
-            if (fluxStorage == null)
-                continue;
-
-            var energy = this.mercuryFluxStorage.extractEnergy(PUSH_RATE_PER_TICK * PUSH_TICK_INTERVAL, true);
-            var received = fluxStorage.receiveEnergy(energy, false);
+            if (fluxStorage != null) {
+                targets.add(fluxStorage);
+            }
+        }
+        
+        if (targets.isEmpty()) {
+            return;
+        }
+        
+        // Calculate how much to push to each target
+        int totalToPush = this.mercuryFluxStorage.extractEnergy(PUSH_RATE_PER_TICK * PUSH_TICK_INTERVAL, true);
+        if (totalToPush <= 0) {
+            return;
+        }
+        
+        int perTarget = totalToPush / targets.size();
+        int remainder = totalToPush % targets.size();
+        
+        // Distribute evenly to all targets
+        for (int i = 0; i < targets.size(); i++) {
+            int amount = perTarget + (i < remainder ? 1 : 0);
+            if (amount <= 0) continue;
+            
+            var received = targets.get(i).receiveEnergy(amount, false);
             this.mercuryFluxStorage.extractEnergy(received, false);
         }
     }

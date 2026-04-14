@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/mercury_capacitor_template",
+  "textures": {
+    "particle": "minecraft:block/iron_block",
+    "texture": "theurgy:block/mercury_capacitor"
+  }
+}

@@ -23,6 +23,7 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlock;
@@ -118,6 +119,13 @@ public class BlockRegistry {
 
     public static final DeferredBlock<MercuryCatalystBlock> MERCURY_CATALYST =
             BLOCKS.registerBlock("mercury_catalyst", MercuryCatalystBlock::new, () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f));
+
+    public static final DeferredBlock<MercuryCapacitorBlock> MERCURY_CAPACITOR =
+            BLOCKS.registerBlock("mercury_capacitor", MercuryCapacitorBlock::new, () -> BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)

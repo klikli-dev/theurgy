@@ -192,6 +192,8 @@ public class ItemRegistry {
             ITEMS.registerItem("sal_ammoniac_tank", p -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> MERCURY_CATALYST =
             ITEMS.registerItem("mercury_catalyst", p -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), p.useBlockDescriptionPrefix()));
+    public static final DeferredItem<BlockItem> MERCURY_CAPACITOR =
+            ITEMS.registerItem("mercury_capacitor", p -> new BlockItem(BlockRegistry.MERCURY_CAPACITOR.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<CaloricFluxEmitterBlockItem> CALORIC_FLUX_EMITTER =
             ITEMS.registerItem("caloric_flux_emitter", p -> new CaloricFluxEmitterBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<SulfuricFluxEmitterBlockItem> SULFURIC_FLUX_EMITTER =

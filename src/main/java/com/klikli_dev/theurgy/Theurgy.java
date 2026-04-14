@@ -16,6 +16,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVe
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
@@ -294,10 +295,12 @@ public class Theurgy {
         public static void onRegisterItemColors(RegisterColorHandlersEvent.ItemTintSources event) {
             //event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
             event.register(Theurgy.loc("mercury_catalyst_tint"), MercuryCatalystBlock.ItemTintSource.MAP_CODEC);
+            event.register(Theurgy.loc("mercury_capacitor_tint"), MercuryCapacitorBlock.ItemTintSource.MAP_CODEC);
         }
 
         public static void onRegisterBlockColors(RegisterColorHandlersEvent.BlockTintSources event) {
             event.register(List.of(new MercuryCatalystBlock.BlockTintSource()), BlockRegistry.MERCURY_CATALYST.get());
+            event.register(List.of(new MercuryCapacitorBlock.BlockTintSource()), BlockRegistry.MERCURY_CAPACITOR.get());
         }
 
         public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {

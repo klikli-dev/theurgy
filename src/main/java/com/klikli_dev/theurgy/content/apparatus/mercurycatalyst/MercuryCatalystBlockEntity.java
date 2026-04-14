@@ -233,19 +233,14 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         private int lastUpdateLevel;
 
         public MercuryCatalystMercuryFluxStorage(int capacity) {
-            super(capacity);
+            // Non-receiving: only internal flux generation can fill this storage
+            super(capacity, 0, capacity);
         }
 
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            var received = super.receiveEnergy(maxReceive, simulate);
-
-            if (received > 0) {
-                MercuryCatalystBlockEntity.this.setChanged();
-                this.trySendBlockUpdated();
-            }
-
-            return received;
+            // Do not receive any external flux - only internal generation
+            return 0;
         }
 
         @Override

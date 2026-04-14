@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "Q": "minecraft:quartz_block",
+    "c": "theurgy:mercury_catalyst",
+    "g": "#c:ingots/gold",
+    "m": "#theurgy:alchemical_mercuries"
+  },
+  "pattern": [
+    "gmg",
+    "cQc",
+    "gmg"
+  ],
+  "result": {
+    "id": "theurgy:mercury_capacitor"
+  }
+}

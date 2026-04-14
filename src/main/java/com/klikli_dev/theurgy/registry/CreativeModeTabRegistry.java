@@ -62,6 +62,7 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.SAL_AMMONIAC_TANK.get());
 
                 output.accept(ItemRegistry.MERCURY_CATALYST.get());
+                output.accept(ItemRegistry.MERCURY_CAPACITOR.get());
                 output.accept(ItemRegistry.CALORIC_FLUX_EMITTER.get());
 
                 output.accept(ItemRegistry.SULFURIC_FLUX_EMITTER.get());

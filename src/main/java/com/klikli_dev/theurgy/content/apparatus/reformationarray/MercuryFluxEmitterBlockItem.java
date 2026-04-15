@@ -32,6 +32,13 @@ public class MercuryFluxEmitterBlockItem extends BlockItem {
     public InteractionResult useOn(UseOnContext ctx) {
         Level level = ctx.getLevel();
         BlockPos pos = ctx.getClickedPos();
+        Player player = ctx.getPlayer();
+        
+        // If player is holding shift, allow normal block placement instead of selection
+        if (player != null && player.isShiftKeyDown()) {
+            return super.useOn(ctx);
+        }
+        
         if (this.getSelectionBehaviour().canCreate(level, pos, level.getBlockState(pos)))
             return InteractionResult.SUCCESS;
         return super.useOn(ctx);

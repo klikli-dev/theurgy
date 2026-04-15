@@ -65,9 +65,26 @@ public class MercuryCapacitorBlock extends Block implements EntityBlock {
     }
 
     public static int getColorFromFillLevel(float fillLevel) {
-        int r = (int) ((1 - fillLevel) * 255.0);
-        int g = (int) ((1 - fillLevel) * 255.0);
-        int b = (int) (255.0); // b always stays the same
+        // Map fill level to a color gradient:
+        // Empty (0%) -> Red: (255, 0, 0)
+        // Halfway (50%) -> Blue: (0, 0, 255)
+        // Full (100%) -> Green: (0, 255, 0)
+
+        int r, g, b;
+
+        if (fillLevel <= 0.5f) {
+            // Interpolate from Red to Blue
+            float t = fillLevel * 2; // 0 to 1 as fillLevel goes from 0 to 0.5
+            r = (int) (255 * (1 - t));
+            g = 0;
+            b = (int) (255 * t);
+        } else {
+            // Interpolate from Blue to Green
+            float t = (fillLevel - 0.5f) * 2; // 0 to 1 as fillLevel goes from 0.5 to 1
+            r = 0;
+            g = (int) (255 * t);
+            b = (int) (255 * (1 - t));
+        }
 
         // Ensure the values are within 0-255 range
         r = Math.max(0, Math.min(255, r));
@@ -82,14 +99,26 @@ public class MercuryCapacitorBlock extends Block implements EntityBlock {
 
     public static int getParticleColorFromFillLevel(float fillLevel) {
         // Map fill level to a color gradient:
-        // Empty (0%) -> White: 0xFFFFFF
-        // Full (100%) -> Blue: 0x0000FF
-        
-        // Interpolate from white (255, 255, 255) to blue (0, 0, 255)
-        int r = (int) ((1 - fillLevel) * 255.0);
-        int g = (int) ((1 - fillLevel) * 255.0);
-        int b = 255;
-        
+        // Empty (0%) -> Red: (255, 0, 0)
+        // Halfway (50%) -> Blue: (0, 0, 255)
+        // Full (100%) -> Green: (0, 255, 0)
+
+        int r, g, b;
+
+        if (fillLevel <= 0.5f) {
+            // Interpolate from Red to Blue
+            float t = fillLevel * 2; // 0 to 1 as fillLevel goes from 0 to 0.5
+            r = (int) (255 * (1 - t));
+            g = 0;
+            b = (int) (255 * t);
+        } else {
+            // Interpolate from Blue to Green
+            float t = (fillLevel - 0.5f) * 2; // 0 to 1 as fillLevel goes from 0.5 to 1
+            r = 0;
+            g = (int) (255 * t);
+            b = (int) (255 * (1 - t));
+        }
+
         // Ensure the values are within 0-255 range
         r = Math.max(0, Math.min(255, r));
         g = Math.max(0, Math.min(255, g));

@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
@@ -53,6 +54,7 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         state.particleColor = MercuryCapacitorBlock.getParticleColorFromFillLevel(fillLevel);
         state.cameraPosition = cameraPosition;
         state.blockPos = blockEntity.getBlockPos();
+        state.gameTime = blockEntity.getLevel().getGameTime() + (long) partialTick;
     }
 
     @Override
@@ -62,6 +64,20 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         }
 
         pPoseStack.pushPose();
+
+        // Animation parameters
+        float time = state.gameTime;
+        float rotationSpeed = 0.5f; // radians per tick
+        float wobbleAmount = 0.1f; // max tilt angle in radians (~5.7 degrees)
+        float wobbleSpeed1 = 0.7f;
+        float wobbleSpeed2 = 1.1f;
+
+        // Calculate rotation angle
+        float rotation = time * rotationSpeed * ((float) Math.PI * 2f / 20f);
+
+        // Calculate wobble angles
+        float wobbleX = Mth.sin(time * wobbleSpeed1 * ((float) Math.PI * 2f / 60f)) * wobbleAmount;
+        float wobbleY = Mth.sin(time * wobbleSpeed2 * ((float) Math.PI * 2f / 60f)) * wobbleAmount;
 
         // Center the quad at the block center (local coordinates 0-1)
         float halfSize = 0.25f;
@@ -100,14 +116,35 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         // Calculate the actual up as perpendicular to both camera direction and right
         up = cameraDirection.cross(right).normalize();
 
-        // Calculate quad vertices relative to center
-        Vec3 p1 = localCenter.add(right.scale(-halfSize)).add(up.scale(-halfSize)); // Bottom-left
-        Vec3 p2 = localCenter.add(right.scale(halfSize)).add(up.scale(-halfSize));   // Bottom-right
-        Vec3 p3 = localCenter.add(right.scale(halfSize)).add(up.scale(halfSize));   // Top-right
-        Vec3 p4 = localCenter.add(right.scale(-halfSize)).add(up.scale(halfSize));  // Top-left
+        // Apply rotation around the camera direction (the normal)
+        float cosR = Mth.cos(rotation);
+        float sinR = Mth.sin(rotation);
+        Vec3 rotatedRight = right.scale(cosR).add(up.scale(sinR));
+        Vec3 rotatedUp = up.scale(cosR).subtract(right.scale(sinR));
 
-        // The normal points toward the camera
-        Vec3 normal = cameraDirection;
+        // Apply wobble (tilt) - rotate around right axis for wobbleX, around up axis for wobbleY
+        float cosWx = Mth.cos(wobbleX);
+        float sinWx = Mth.sin(wobbleX);
+        float cosWy = Mth.cos(wobbleY);
+        float sinWy = Mth.sin(wobbleY);
+
+        // Apply wobbleX: rotate up around right
+        Vec3 wobbledUp = up.scale(cosWx).add(cameraDirection.scale(sinWx));
+        Vec3 wobbledNormalX = cameraDirection.scale(cosWx).subtract(up.scale(sinWx));
+        // Apply wobbleY: rotate right around up (on the wobbled plane)
+        Vec3 wobbledRight = rotatedRight.scale(cosWy).add(wobbledUp.scale(sinWy));
+
+        // Calculate final normal as perpendicular to wobbled vectors
+        Vec3 finalNormal = wobbledRight.cross(wobbledUp).normalize();
+
+        // Calculate quad vertices relative to center
+        Vec3 p1 = localCenter.add(wobbledRight.scale(-halfSize)).add(wobbledUp.scale(-halfSize)); // Bottom-left
+        Vec3 p2 = localCenter.add(wobbledRight.scale(halfSize)).add(wobbledUp.scale(-halfSize));   // Bottom-right
+        Vec3 p3 = localCenter.add(wobbledRight.scale(halfSize)).add(wobbledUp.scale(halfSize));   // Top-right
+        Vec3 p4 = localCenter.add(wobbledRight.scale(-halfSize)).add(wobbledUp.scale(halfSize));  // Top-left
+
+        // The normal points toward the camera (wobbled)
+        Vec3 normal = finalNormal;
 
         // Full brightness for glow effect
         int light = LightCoordsUtil.FULL_BRIGHT;
@@ -147,5 +184,6 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         public int particleColor;
         public Vec3 cameraPosition;
         public BlockPos blockPos;
+        public long gameTime;
     }
 }

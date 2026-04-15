@@ -36,6 +36,7 @@ public class Networking {
         registrar.playToClient(MessageRequestSulfuricFluxEmitterSelection.TYPE, MessageRequestSulfuricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
 
         registrar.playToClient(MessageShowCaloricFlux.TYPE, MessageShowCaloricFlux.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageShowMercuryFlux.TYPE, MessageShowMercuryFlux.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageShowSulfuricFluxEmitterStatus.TYPE, MessageShowSulfuricFluxEmitterStatus.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageShowCaloricFluxEmitterStatus.TYPE, MessageShowCaloricFluxEmitterStatus.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageShowLogisticsNodeStatus.TYPE, MessageShowLogisticsNodeStatus.STREAM_CODEC, MessageHandler::handle);

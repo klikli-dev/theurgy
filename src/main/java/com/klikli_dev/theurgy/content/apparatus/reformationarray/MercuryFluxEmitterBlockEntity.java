@@ -6,8 +6,8 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
-import com.klikli_dev.theurgy.content.particle.ParticleColor;
-import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.messages.MessageShowMercuryFlux;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
@@ -21,6 +21,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -99,21 +102,14 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
             int extracted = this.mercuryFluxStorage.extractEnergy(FLUX_PER_TRANSFER, false);
             if (extracted > 0) {
                 targetFluxHandler.receiveEnergy(extracted, false);
+
+                Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos()));
             }
         }
     }
 
     public void tickClient() {
-        // Spawn glow particles showing flux transfer
-        if (this.level.getRandom().nextFloat() < 0.07f && !this.selectedPoints.isEmpty()) {
-            var emitterPos = this.getBlockPos();
-            this.level.addParticle(GlowParticleProvider.createOptions(
-                    ParticleColor.fromInt(0x00FFFF), // Cyan for mercury flux
-                    true,
-                    0.5f,
-                    0.75f,
-                    200), emitterPos.getX() + 0.5f, emitterPos.getY() + 1.0f, emitterPos.getZ() + 0.5f, 0, 0, 0);
-        }
+        // Particles are handled via MessageShowMercuryFlux
     }
 
     @Override

@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -68,15 +69,15 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
         }
 
         // Get the source block (the block we are attached to)
-        var sourcePos = this.getBlockPos().relative(this.getBlockState().getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING).getOpposite());
+        var facing = this.getBlockState().getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING);
+        var sourcePos = this.getBlockPos().relative(facing.getOpposite());
         
         // Check if source block has mercury flux capability
+        // Use facing direction as the side we're accessing from
         var sourceFluxHandler = this.getLevel().getCapability(
                 CapabilityRegistry.MERCURY_FLUX_HANDLER,
                 sourcePos,
-                this.getLevel().getBlockState(sourcePos),
-                null,
-                null
+                facing
         );
 
         // Try to receive flux from source if we have space
@@ -89,12 +90,26 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
 
         // Transfer to target if we have flux
         if (this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_TRANSFER) {
+            var targetPos = selectedPoint.getBlockPos();
+            
+            // Determine direction from emitter to target
+            var dx = targetPos.getX() - this.getBlockPos().getX();
+            var dy = targetPos.getY() - this.getBlockPos().getY();
+            var dz = targetPos.getZ() - this.getBlockPos().getZ();
+            
+            net.minecraft.core.Direction directionToTarget = null;
+            if (Math.abs(dx) >= Math.abs(dy) && Math.abs(dx) >= Math.abs(dz)) {
+                directionToTarget = dx > 0 ? net.minecraft.core.Direction.EAST : net.minecraft.core.Direction.WEST;
+            } else if (Math.abs(dy) >= Math.abs(dz)) {
+                directionToTarget = dy > 0 ? net.minecraft.core.Direction.UP : net.minecraft.core.Direction.DOWN;
+            } else {
+                directionToTarget = dz > 0 ? net.minecraft.core.Direction.SOUTH : net.minecraft.core.Direction.NORTH;
+            }
+            
             var targetFluxHandler = this.getLevel().getCapability(
                     CapabilityRegistry.MERCURY_FLUX_HANDLER,
-                    selectedPoint.getBlockPos(),
-                    this.getLevel().getBlockState(selectedPoint.getBlockPos()),
-                    null,
-                    null
+                    targetPos,
+                    directionToTarget != null ? directionToTarget.getOpposite() : null
             );
 
             if (targetFluxHandler != null && targetFluxHandler.getMaxEnergyStored() - targetFluxHandler.getEnergyStored() >= FLUX_PER_TRANSFER) {
@@ -107,7 +122,30 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void tickClient() {
-        // No client-side ticks needed for now
+        // Spawn particles showing flux transfer
+        if (this.level.getGameTime() % 20 == 0 && !this.selectedPoints.isEmpty()) {
+            var selectedPoint = this.selectedPoints.getFirst();
+            
+            // Spawn particle at emitter position
+            var emitterPos = this.getBlockPos();
+            this.level.addParticle(
+                net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER,
+                emitterPos.getX() + 0.5,
+                emitterPos.getY() + 0.5,
+                emitterPos.getZ() + 0.5,
+                0, 0.1, 0
+            );
+            
+            // Spawn particle at target position
+            var targetPos = selectedPoint.getBlockPos();
+            this.level.addParticle(
+                net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER,
+                targetPos.getX() + 0.5,
+                targetPos.getY() + 0.5,
+                targetPos.getZ() + 0.5,
+                0, 0.1, 0
+            );
+        }
     }
 
     @Override

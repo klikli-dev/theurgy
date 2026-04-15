@@ -5,8 +5,6 @@
 package com.klikli_dev.theurgy.content.apparatus.mercurycapacitor;
 
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
-import com.klikli_dev.theurgy.content.particle.ParticleColor;
-import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -102,18 +100,8 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
     }
 
     public void tickClient() {
-        //Spawn a glow particle at the center of the block, changing color based on fill level
-        if (this.level != null && this.level.getRandom().nextFloat() < 0.07f) {
-            float fillLevel = this.mercuryFluxStorage.getEnergyStored() / (float) this.mercuryFluxStorage.getMaxEnergyStored();
-            int particleColor = MercuryCapacitorBlock.getParticleColorFromFillLevel(fillLevel);
-            
-            var pos = this.getBlockPos();
-            this.level.addParticle(GlowParticleProvider.createOptions(
-                    ParticleColor.fromInt(particleColor),
-                    0.5f,
-                    0.75f,
-                    200), pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 0, 0, 0);
-        }
+        // Glow particle is now rendered by MercuryCapacitorRenderer instead of spawning particles
+        // This method is kept for potential future client-side logic
     }
 
     protected void pushMercuryFlux() {

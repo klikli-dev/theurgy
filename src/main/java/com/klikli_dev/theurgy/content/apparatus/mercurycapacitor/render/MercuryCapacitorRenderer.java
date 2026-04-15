@@ -67,17 +67,16 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
 
         // Animation parameters
         float time = state.gameTime;
-        float rotationSpeed = 0.5f; // radians per tick
-        float wobbleAmount = 0.1f; // max tilt angle in radians (~5.7 degrees)
-        float wobbleSpeed1 = 0.7f;
-        float wobbleSpeed2 = 1.1f;
+        float spinSpeed = 0.8f; // rotation speed around normal (left/right spin)
+        float spinAmplitude = (float) Math.PI * 2f / 60f; // one full rotation per ~60 ticks
+        float wobbleAmount = 0.15f; // max pitch angle toward/away from camera
+        float wobbleSpeed = 0.6f; // wobble speed
 
-        // Calculate rotation angle
-        float rotation = time * rotationSpeed * ((float) Math.PI * 2f / 20f);
+        // Calculate spin angle (rotation around camera direction)
+        float spinAngle = time * spinSpeed * spinAmplitude;
 
-        // Calculate wobble angles
-        float wobbleX = Mth.sin(time * wobbleSpeed1 * ((float) Math.PI * 2f / 60f)) * wobbleAmount;
-        float wobbleY = Mth.sin(time * wobbleSpeed2 * ((float) Math.PI * 2f / 60f)) * wobbleAmount;
+        // Calculate wobble angle (tilt toward/away from camera - pitch around right axis)
+        float wobbleAngle = Mth.sin(time * wobbleSpeed * spinAmplitude) * wobbleAmount;
 
         // Center the quad at the block center (local coordinates 0-1)
         float halfSize = 0.25f;
@@ -90,11 +89,11 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
                 state.blockPos.getZ() + 0.5
         );
 
-        // Get direction from quad center to camera
+        // Get direction from quad center to camera (this is the normal)
         Vec3 cameraDirection = state.cameraPosition.subtract(worldCenter).normalize();
 
-        // Calculate the right and up vectors for the billboard
-        // Default up is Y+, default right is X+
+        // Calculate billboard basis vectors
+        // Start with world up and right
         Vec3 worldUp = new Vec3(0, 1, 0);
         Vec3 worldRight = new Vec3(1, 0, 0);
 
@@ -104,7 +103,7 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
             worldUp = cameraDirection.y > 0 ? new Vec3(0, 0, -1) : new Vec3(0, 0, 1);
         }
 
-        // Project vectors onto a plane perpendicular to camera direction
+        // Project world vectors onto the plane perpendicular to camera direction
         Vec3 right = worldRight.subtract(cameraDirection.scale(cameraDirection.dot(worldRight))).normalize();
         Vec3 up = worldUp.subtract(cameraDirection.scale(cameraDirection.dot(worldUp))).normalize();
 
@@ -113,35 +112,28 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
             right = worldUp.cross(cameraDirection).normalize();
         }
 
-        // Calculate the actual up as perpendicular to both camera direction and right
+        // Make sure up is perpendicular to both camera direction and right
         up = cameraDirection.cross(right).normalize();
 
-        // Apply rotation around the camera direction (the normal)
-        float cosR = Mth.cos(rotation);
-        float sinR = Mth.sin(rotation);
-        Vec3 rotatedRight = right.scale(cosR).add(up.scale(sinR));
-        Vec3 rotatedUp = up.scale(cosR).subtract(right.scale(sinR));
+        // Step 1: Apply spin (rotation around camera direction / normal)
+        float cosSpin = Mth.cos(spinAngle);
+        float sinSpin = Mth.sin(spinAngle);
+        Vec3 spunRight = right.scale(cosSpin).add(up.scale(sinSpin));
+        Vec3 spunUp = up.scale(cosSpin).subtract(right.scale(sinSpin));
 
-        // Apply wobble (tilt) - rotate around right axis for wobbleX, around up axis for wobbleY
-        float cosWx = Mth.cos(wobbleX);
-        float sinWx = Mth.sin(wobbleX);
-        float cosWy = Mth.cos(wobbleY);
-        float sinWy = Mth.sin(wobbleY);
-
-        // Apply wobbleX: rotate up around right
-        Vec3 wobbledUp = up.scale(cosWx).add(cameraDirection.scale(sinWx));
-        Vec3 wobbledNormalX = cameraDirection.scale(cosWx).subtract(up.scale(sinWx));
-        // Apply wobbleY: rotate right around up (on the wobbled plane)
-        Vec3 wobbledRight = rotatedRight.scale(cosWy).add(wobbledUp.scale(sinWy));
-
-        // Calculate final normal as perpendicular to wobbled vectors
-        Vec3 finalNormal = wobbledRight.cross(wobbledUp).normalize();
+        // Step 2: Apply wobble (tilt toward/away from camera - pitch around the spun right axis)
+        float cosWobble = Mth.cos(wobbleAngle);
+        float sinWobble = Mth.sin(wobbleAngle);
+        Vec3 finalUp = spunUp.scale(cosWobble).add(cameraDirection.scale(sinWobble));
+        Vec3 finalNormal = cameraDirection.scale(cosWobble).subtract(spunUp.scale(sinWobble));
+        // Recalculate final right to stay perpendicular
+        Vec3 finalRight = finalNormal.cross(finalUp).normalize();
 
         // Calculate quad vertices relative to center
-        Vec3 p1 = localCenter.add(wobbledRight.scale(-halfSize)).add(wobbledUp.scale(-halfSize)); // Bottom-left
-        Vec3 p2 = localCenter.add(wobbledRight.scale(halfSize)).add(wobbledUp.scale(-halfSize));   // Bottom-right
-        Vec3 p3 = localCenter.add(wobbledRight.scale(halfSize)).add(wobbledUp.scale(halfSize));   // Top-right
-        Vec3 p4 = localCenter.add(wobbledRight.scale(-halfSize)).add(wobbledUp.scale(halfSize));  // Top-left
+        Vec3 p1 = localCenter.add(finalRight.scale(-halfSize)).add(finalUp.scale(-halfSize)); // Bottom-left
+        Vec3 p2 = localCenter.add(finalRight.scale(halfSize)).add(finalUp.scale(-halfSize));   // Bottom-right
+        Vec3 p3 = localCenter.add(finalRight.scale(halfSize)).add(finalUp.scale(halfSize));   // Top-right
+        Vec3 p4 = localCenter.add(finalRight.scale(-halfSize)).add(finalUp.scale(halfSize));  // Top-left
 
         // The normal points toward the camera (wobbled)
         Vec3 normal = finalNormal;

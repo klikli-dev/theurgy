@@ -28,6 +28,7 @@ import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBraz
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlock;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlock;
@@ -140,6 +141,13 @@ public class BlockRegistry {
 
     public static final DeferredBlock<SulfuricFluxEmitterBlock> SULFURIC_FLUX_EMITTER =
             BLOCKS.registerBlock("sulfuric_flux_emitter", SulfuricFluxEmitterBlock::new, () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f));
+
+    public static final DeferredBlock<MercuryFluxEmitterBlock> MERCURY_FLUX_EMITTER =
+            BLOCKS.registerBlock("mercury_flux_emitter", MercuryFluxEmitterBlock::new, () -> BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)

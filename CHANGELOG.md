@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.83.0] - 2026-04-15
+### :sparkles: New Features
+- [`afade30`](https://github.com/klikli-dev/theurgy/commit/afade308268ed95f9d93ae1133e57901b1241872) - Add Mercury Capacitor block *(PR [#336](https://github.com/klikli-dev/theurgy/pull/336) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5a13361`](https://github.com/klikli-dev/theurgy/commit/5a1336197356c524140fea9999a13a3e5c732fb1) - add berry-based fermentation starter recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`35430f8`](https://github.com/klikli-dev/theurgy/commit/35430f8fb8e3a96d06ae90047ba16c1fe386c913) - Add Mercury Flux Emitter block *(PR [#338](https://github.com/klikli-dev/theurgy/pull/338) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.82.1] - 2026-04-11
 ### :wrench: Chores
 - [`d0875d1`](https://github.com/klikli-dev/theurgy/commit/d0875d1063268bb848ec45c3bf04c0a4813563b5) - update occultism dependency *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1440,3 +1447,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.1-1.81.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.1-1.81.0...release/v26.1.1-1.81.1
 [release/v26.1.2-1.82.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-0.0.0...release/v26.1.2-1.82.0
 [release/v26.1.2-1.82.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.82.0...release/v26.1.2-1.82.1
+[release/v26.1.2-1.83.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.82.1...release/v26.1.2-1.83.0

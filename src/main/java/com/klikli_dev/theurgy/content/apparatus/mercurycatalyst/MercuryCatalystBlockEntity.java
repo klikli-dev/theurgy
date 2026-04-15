@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -221,6 +222,12 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             return MercuryCatalystBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
+        }
+
+        @Override
+        public boolean isValid(int index, ItemResource resource) {
+            if (resource.isEmpty()) return true;
+            return MercuryCatalystBlockEntity.this.craftingBehaviour.canProcess(resource.toStack(1));
         }
 
         @Override

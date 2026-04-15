@@ -18,6 +18,6 @@ public class ParticleSprites {
             return;
         }
 
-        GLOW = map.getSprite(Theurgy.loc("particle/particle_glow"));
+        GLOW = map.getSprite(Theurgy.loc("particle_glow"));
     }
 }

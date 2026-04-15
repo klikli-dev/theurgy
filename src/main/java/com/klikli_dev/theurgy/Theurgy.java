@@ -338,6 +338,13 @@ public class Theurgy {
         }
 
         public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
+            var player = event.getEntity();
+            
+            // If player is holding shift, don't interfere with normal block placement
+            if (player != null && player.isShiftKeyDown()) {
+                return;
+            }
+
             if (BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);

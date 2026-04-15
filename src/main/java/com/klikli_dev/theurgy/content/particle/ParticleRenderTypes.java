@@ -5,6 +5,7 @@
 
 package com.klikli_dev.theurgy.content.particle;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.pipeline.DepthStencilState;
 import com.mojang.blaze3d.platform.CompareOp;
@@ -22,7 +23,7 @@ public class ParticleRenderTypes {
      */
     private static SingleQuadParticle.Layer createNoDepthWriteLayer(boolean translucent) {
         RenderPipeline noDepthPipeline = RenderPipeline.builder()
-                .withLocation("theurgy:particle_" + (translucent ? "translucent" : "opaque") + "_no_depth")
+                .withLocation(Theurgy.loc("particle_" + (translucent ? "translucent" : "opaque") + "_no_depth"))
                 .withVertexShader("core/particle")
                 .withFragmentShader("core/particle")
                 .withSampler("Sampler0")

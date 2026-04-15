@@ -54,6 +54,7 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity implements
             var pos = this.getBlockPos();
             this.level.addParticle(GlowParticleProvider.createOptions(
                     ParticleColor.fromInt(0x0000FF),
+                    true,
                     0.5f,
                     0.75f,
                     200), pos.getX() + 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 0, 0, 0);

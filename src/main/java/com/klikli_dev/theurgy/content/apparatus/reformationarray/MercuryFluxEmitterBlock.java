@@ -87,7 +87,10 @@ public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityB
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         var facing = pState.getValue(FACING);
-        var facingNeighborState = pLevel.getBlockState(pPos.relative(facing.getOpposite()));
+        var facingNeighborPos = pPos.relative(facing.getOpposite());
+        var facingNeighborState = pLevel.getBlockState(facingNeighborPos);
+
+        // Check if the neighbor block is sturdy enough for placement
         return facingNeighborState.isFaceSturdy(pLevel, pPos, facing);
     }
 

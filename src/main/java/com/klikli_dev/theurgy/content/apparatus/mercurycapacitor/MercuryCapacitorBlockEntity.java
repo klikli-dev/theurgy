@@ -107,7 +107,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
     protected void pushMercuryFlux() {
         // Collect all valid flux handlers first
         var directions = Direction.allShuffled(this.getLevel().getRandom());
-        var targets = new java.util.ArrayList<com.klikli_dev.theurgy.content.capability.MercuryFluxStorage>();
+        var targets = new ArrayList<MercuryFluxStorage>();
         
         for (var direction : directions) {
             var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), direction.getOpposite());

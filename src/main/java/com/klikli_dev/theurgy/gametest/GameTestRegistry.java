@@ -50,8 +50,8 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_HAS_CORRECT_CAPACITY =
             TEST_FUNCTIONS.register("mercury_capacitor_has_correct_capacity", () -> MercuryCapacitorGameTests::hasCorrectCapacity);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_DISABLED_STORES_FLUX =
-            TEST_FUNCTIONS.register("mercury_capacitor_disabled_stores_flux", () -> MercuryCapacitorGameTests::disabledCapacitorStillStoresFlux);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_DISABLED_DOES_NOT_RECEIVE_FLUX =
+            TEST_FUNCTIONS.register("mercury_capacitor_disabled_does_not_receive_flux", () -> MercuryCapacitorGameTests::disabledCapacitorDoesNotReceiveFlux);
 
     // --- Liquefaction Cauldron ---
 
@@ -450,7 +450,7 @@ public class GameTestRegistry {
         registerTest(event, CAPACITOR_STARTS_EMPTY, environment, structure, 40, 0);
         registerTest(event, CAPACITOR_RECEIVES_FLUX, environment, structure, 200, 0);
         registerTest(event, CAPACITOR_HAS_CORRECT_CAPACITY, environment, structure, 40, 0);
-        registerTest(event, CAPACITOR_DISABLED_STORES_FLUX, environment, structure, 100, 0);
+        registerTest(event, CAPACITOR_DISABLED_DOES_NOT_RECEIVE_FLUX, environment, structure, 100, 0);
     }
 
     private static void registerLiquefactionCauldronTests(RegisterGameTestsEvent event) {

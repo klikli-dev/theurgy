@@ -88,10 +88,10 @@ public class MercuryCapacitorGameTests {
     }
 
     /**
-     * Tests that the Mercury Capacitor still stores flux internally when disabled (e.g. by redstone),
-     * even though it does not push it to neighbors.
+     * Tests that a disabled Mercury Capacitor does not receive flux from neighbors,
+     * even though it still stores any flux it already has.
      */
-    public static void disabledCapacitorStillStoresFlux(GameTestHelper helper) {
+    public static void disabledCapacitorDoesNotReceiveFlux(GameTestHelper helper) {
         helper.setBlock(CAPACITOR_POS, BlockRegistry.MERCURY_CAPACITOR.get()
                 .defaultBlockState().setValue(BlockStateProperties.ENABLED, false));
         helper.setBlock(CATALYST_POS, BlockRegistry.MERCURY_CATALYST.get());
@@ -102,15 +102,14 @@ public class MercuryCapacitorGameTests {
             catalystBE.inventory.setStackInSlot(0, new net.minecraft.world.item.ItemStack(com.klikli_dev.theurgy.registry.ItemRegistry.MERCURY_SHARD.get(), 1));
         });
 
-        // Wait for flux to be generated, then check capacitor didn't receive it (because it's disabled)
-        helper.runAfterDelay(60, () -> {
+        // Wait for flux to be generated and check that disabled capacitor didn't receive it
+        helper.succeedWhen(() -> {
             var capacitorBE = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
-            // Capacitor should still have no flux because it's disabled and can't receive
+            // Capacitor should have no flux because it's disabled and can't receive from neighbors
             helper.assertTrue(
                     capacitorBE.mercuryFluxStorage.getEnergyStored() == 0,
                     "Disabled capacitor should not receive flux from neighbors"
             );
-            helper.succeed();
         });
     }
 

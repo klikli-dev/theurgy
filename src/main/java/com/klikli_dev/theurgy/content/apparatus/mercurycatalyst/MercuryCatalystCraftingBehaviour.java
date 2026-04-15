@@ -111,9 +111,8 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         if (pRecipe == null) return false;
 
         var storage = this.mercuryFluxStorageSupplier.get();
-        // Check if there's room for flux (without using receiveEnergy which is blocked externally)
-        int neededFlux = pRecipe.value().totalMercuryFlux();
-        return storage.getEnergyStored() + neededFlux <= storage.getMaxEnergyStored();
+        // Check if there's any room available to start the process
+        return storage.getEnergyStored() < storage.getMaxEnergyStored();
     }
 
     @Override

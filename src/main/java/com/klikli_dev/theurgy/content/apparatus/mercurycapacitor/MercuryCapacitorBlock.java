@@ -83,10 +83,9 @@ public class MercuryCapacitorBlock extends Block implements EntityBlock {
     public static int getParticleColorFromFillLevel(float fillLevel) {
         // Map fill level to a color gradient:
         // Empty (0%) -> White: 0xFFFFFF
-        // Half (50%) -> Cyan: 0x00FFFF
         // Full (100%) -> Blue: 0x0000FF
         
-        // Interpolate from white (255, 255, 255) through cyan (0, 255, 255) to blue (0, 0, 255)
+        // Interpolate from white (255, 255, 255) to blue (0, 0, 255)
         int r = (int) ((1 - fillLevel) * 255.0);
         int g = (int) ((1 - fillLevel) * 255.0);
         int b = 255;
@@ -96,8 +95,8 @@ public class MercuryCapacitorBlock extends Block implements EntityBlock {
         g = Math.max(0, Math.min(255, g));
         b = Math.max(0, Math.min(255, b));
 
-        // Combine the R, G, B values into a RGB integer
-        return (r << 16) | (g << 8) | b;
+        // Combine the R, G, B values into a RGB integer with full opacity
+        return ARGB.opaque((r << 16) | (g << 8) | b);
     }
 
     @Override

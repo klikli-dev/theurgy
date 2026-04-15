@@ -118,11 +118,12 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
 
     protected void pushMercuryFlux() {
         // Collect all valid flux handlers first
-        var directions = Direction.allShuffled(this.getLevel().getRandom());
+        var directions = new java.util.ArrayList<>(java.util.Arrays.asList(Direction.values()));
+        java.util.Collections.shuffle(directions, new java.util.Random(this.getLevel().getRandom().nextLong()));
         var targets = new java.util.ArrayList<com.klikli_dev.theurgy.content.capability.MercuryFluxStorage>();
         
         for (var direction : directions) {
-            var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), null);
+            var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), direction.getOpposite());
             if (fluxStorage != null) {
                 targets.add(fluxStorage);
             }
@@ -132,8 +133,8 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
             return;
         }
         
-        // Calculate how much to push to each target
-        int totalToPush = this.mercuryFluxStorage.extractEnergy(PUSH_RATE_PER_TICK * PUSH_TICK_INTERVAL, true);
+        // Calculate how much to push to each target (scale by number of targets to maintain throughput)
+        int totalToPush = this.mercuryFluxStorage.extractEnergy(PUSH_RATE_PER_TICK * PUSH_TICK_INTERVAL * targets.size(), true);
         if (totalToPush <= 0) {
             return;
         }
@@ -182,7 +183,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
     protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE.get(), this.mercuryFluxStorage.getEnergyStored());
     }
 
     public class MercuryCapacitorMercuryFluxStorage extends DefaultMercuryFluxStorage {

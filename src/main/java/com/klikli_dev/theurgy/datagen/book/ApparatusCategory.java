@@ -16,6 +16,7 @@ import com.klikli_dev.theurgy.datagen.book.apparatus.InsertHelperEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.CaloricFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCapacitorEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalystEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryFluxEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.SulfuricFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.reformation.*;
@@ -38,7 +39,7 @@ public class ApparatusCategory extends CategoryProvider {
                 "__________________________________",
                 "______________t_ç_d_ʂ_r_ŕ_________",
                 "__________________________________",
-                "____________ć_l___b_____ş_________",
+                "__________ṁ_ć_l___b_____ş_________",
                 "__________________________________",
                 "__________m_ì___i_________________",
                 "__________________________________",
@@ -138,6 +139,9 @@ public class ApparatusCategory extends CategoryProvider {
 
         var mercuryCatalystEntry = new MercuryCatalystEntry(this).generate('m');
         mercuryCatalystEntry.addParent(this.parent(mercuryFluxEntry));
+
+        var mercuryFluxEmitterEntry = new MercuryFluxEmitterEntry(this).generate('ṁ');
+        mercuryFluxEmitterEntry.addParent(this.parent(mercuryCatalystEntry));
 
         var mercuryCapacitorEntry = new MercuryCapacitorEntry(this).generate('c');
         mercuryCapacitorEntry.addParent(this.parent(mercuryCatalystEntry));

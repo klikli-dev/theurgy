@@ -63,15 +63,19 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
 
         pPoseStack.pushPose();
 
-        // Translate to block position
-        pPoseStack.translate(state.blockPos.getX(), state.blockPos.getY(), state.blockPos.getZ());
-
-        // Center the quad at the block center
+        // Center the quad at the block center (local coordinates 0-1)
         float halfSize = 0.25f;
-        Vec3 center = new Vec3(0.5, 0.5, 0.5);
+        Vec3 localCenter = new Vec3(0.5, 0.5, 0.5);
+        
+        // Center in world coordinates for camera direction calculation
+        Vec3 worldCenter = new Vec3(
+                state.blockPos.getX() + 0.5,
+                state.blockPos.getY() + 0.5,
+                state.blockPos.getZ() + 0.5
+        );
 
         // Get direction from quad center to camera
-        Vec3 cameraDirection = state.cameraPosition.subtract(center).normalize();
+        Vec3 cameraDirection = state.cameraPosition.subtract(worldCenter).normalize();
 
         // Calculate the right and up vectors for the billboard
         // Default up is Y+, default right is X+
@@ -97,10 +101,10 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         up = cameraDirection.cross(right).normalize();
 
         // Calculate quad vertices relative to center
-        Vec3 p1 = center.add(right.scale(-halfSize)).add(up.scale(-halfSize)); // Bottom-left
-        Vec3 p2 = center.add(right.scale(halfSize)).add(up.scale(-halfSize));   // Bottom-right
-        Vec3 p3 = center.add(right.scale(halfSize)).add(up.scale(halfSize));   // Top-right
-        Vec3 p4 = center.add(right.scale(-halfSize)).add(up.scale(halfSize));  // Top-left
+        Vec3 p1 = localCenter.add(right.scale(-halfSize)).add(up.scale(-halfSize)); // Bottom-left
+        Vec3 p2 = localCenter.add(right.scale(halfSize)).add(up.scale(-halfSize));   // Bottom-right
+        Vec3 p3 = localCenter.add(right.scale(halfSize)).add(up.scale(halfSize));   // Top-right
+        Vec3 p4 = localCenter.add(right.scale(-halfSize)).add(up.scale(halfSize));  // Top-left
 
         // The normal points toward the camera
         Vec3 normal = cameraDirection;

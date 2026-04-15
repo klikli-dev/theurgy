@@ -86,11 +86,6 @@ public class MercuryCapacitorBlock extends Block implements EntityBlock {
             b = (int) (255 * (1 - t));
         }
 
-        // Ensure the values are within 0-255 range
-        r = Math.max(0, Math.min(255, r));
-        g = Math.max(0, Math.min(255, g));
-        b = Math.max(0, Math.min(255, b));
-
         // Combine the R, G, B values into a RGB integer
         int rgb = (r << 16) | (g << 8) | b;
 
@@ -118,11 +113,6 @@ public class MercuryCapacitorBlock extends Block implements EntityBlock {
             g = (int) (255 * t);
             b = (int) (255 * (1 - t));
         }
-
-        // Ensure the values are within 0-255 range
-        r = Math.max(0, Math.min(255, r));
-        g = Math.max(0, Math.min(255, g));
-        b = Math.max(0, Math.min(255, b));
 
         // Combine the R, G, B values into a RGB integer with full opacity
         return ARGB.opaque((r << 16) | (g << 8) | b);

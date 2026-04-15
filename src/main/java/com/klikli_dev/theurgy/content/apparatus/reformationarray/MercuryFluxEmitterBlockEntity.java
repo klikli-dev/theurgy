@@ -69,7 +69,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         if (Objects.requireNonNull(this.getLevel()).getGameTime() % TICK_INTERVAL != 0)
             return; //slow tick
 
-        if (!this.getBlockState().getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.ENABLED))
+        if (!this.getBlockState().getValue(BlockStateProperties.ENABLED))
             return; //disabled with active redstone
 
         if (this.selectedPoints.isEmpty())
@@ -106,10 +106,6 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
                 Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos()));
             }
         }
-    }
-
-    public void tickClient() {
-        // Particles are handled via MessageShowMercuryFlux
     }
 
     @Override

@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.render;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockEntity;
+import com.klikli_dev.theurgy.content.render.ParticleSprites;
 import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -17,6 +18,7 @@ import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.phys.Vec3;
@@ -25,7 +27,7 @@ import org.jspecify.annotations.Nullable;
 
 public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapacitorBlockEntity, MercuryCapacitorRenderer.MercuryCapacitorRenderState> {
 
-    private static final Identifier GLOW_TEXTURE = Theurgy.loc("particle/particle_glow");
+    private static final Identifier PARTICLE_ATLAS = TextureAtlas.LOCATION_PARTICLES;
 
     public MercuryCapacitorRenderer(BlockEntityRendererProvider.Context pContext) {
     }
@@ -53,8 +55,8 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
 
     @Override
     public void submit(MercuryCapacitorRenderState state, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
-        if (!state.hasEnergy || state.cameraPosition == null) {
-            return; // Don't render if empty or no camera position
+        if (!state.hasEnergy || state.cameraPosition == null || ParticleSprites.GLOW == null) {
+            return; // Don't render if empty, no camera position, or sprite not loaded
         }
 
         pPoseStack.pushPose();
@@ -101,11 +103,17 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         // Full brightness for glow effect
         int light = LightCoordsUtil.FULL_BRIGHT;
 
-        submitNodeCollector.submitCustomGeometry(pPoseStack, RenderTypes.entityTranslucentCullNoDepth(GLOW_TEXTURE), (pose, builder) -> {
-            putVertex(builder, pose, p1, state.particleColor, 0, 1, light, normal);
-            putVertex(builder, pose, p2, state.particleColor, 1, 1, light, normal);
-            putVertex(builder, pose, p3, state.particleColor, 1, 0, light, normal);
-            putVertex(builder, pose, p4, state.particleColor, 0, 0, light, normal);
+        // Get sprite UV coordinates
+        float u0 = ParticleSprites.GLOW.getU0();
+        float u1 = ParticleSprites.GLOW.getU1();
+        float v0 = ParticleSprites.GLOW.getV0();
+        float v1 = ParticleSprites.GLOW.getV1();
+
+        submitNodeCollector.submitCustomGeometry(pPoseStack, RenderTypes.particleTranslucent(PARTICLE_ATLAS), (pose, builder) -> {
+            putVertex(builder, pose, p1, state.particleColor, u0, v1, light, normal);
+            putVertex(builder, pose, p2, state.particleColor, u1, v1, light, normal);
+            putVertex(builder, pose, p3, state.particleColor, u1, v0, light, normal);
+            putVertex(builder, pose, p4, state.particleColor, u0, v0, light, normal);
         });
 
         pPoseStack.popPose();

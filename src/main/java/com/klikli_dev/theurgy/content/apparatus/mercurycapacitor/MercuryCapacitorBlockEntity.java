@@ -35,7 +35,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
     /**
      * 10x the capacity of the MercuryCatalyst (500,000 instead of 50,000)
      */
-    public static final int CAPACITY = 500000;
+    public static final int CAPACITY = 1000 * 50 * 10;
 
     public static final int PUSH_TICK_INTERVAL = 20;
     public static final int PUSH_RATE_PER_SIDE_PER_TICK = 2;

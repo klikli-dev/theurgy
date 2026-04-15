@@ -44,6 +44,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeFermentationStarterRecipeForTag(Tags.Items.EGGS);
         this.makeFermentationStarterRecipeForTag(ItemTags.LOGS);
         this.makeFermentationStarterRecipeForTag(ItemTags.PLANKS);
+        this.makeFermentationStarterRecipeForTag(ItemTagRegistry.FOODS_BERRY);
 
         this.makeRecipesForCropTag(ItemTagRegistry.FERMENTATION_STARTERS);
         this.makeRecipesForCropTag(ItemTagRegistry.SUGARS);

@@ -14,6 +14,9 @@ public class ItemTagRegistry {
 
     public static final TagKey<Item> FERMENTATION_STARTERS = tag("fermentation_starters");
 
+    // Tag for berries (food items) - used in fermentation starter recipes
+    public static final TagKey<Item> FOODS_BERRY = cTag("foods/berry");
+
     //complementary tag to Tags.Items.ORES, Tags.Items.RAW_MATERIALS, Tags.Items.INGOTS and Tags.Items.GEMS
     public static final TagKey<Item> OTHER_MINERALS = tag("other_minerals");
 

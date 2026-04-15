@@ -75,6 +75,11 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
         this.tag(ItemTagRegistry.FERMENTATION_STARTERS)
                 .add(ItemRegistry.FERMENTATION_STARTER.get());
 
+        // Populate the berry foods tag with vanilla berry items
+        this.tag(ItemTagRegistry.FOODS_BERRY)
+                .add(Items.SWEET_BERRIES)
+                .add(Items.GLOW_BERRIES);
+
         //add the tier tags into the material tag
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT)

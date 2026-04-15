@@ -65,19 +65,6 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
 
         pPoseStack.pushPose();
 
-        // Animation parameters
-        float time = state.gameTime;
-        float spinSpeed = 0.8f; // rotation speed around normal (left/right spin)
-        float spinAmplitude = (float) Math.PI * 2f / 60f; // one full rotation per ~60 ticks
-        float wobbleAmount = 0.15f; // max pitch angle toward/away from camera
-        float wobbleSpeed = 0.6f; // wobble speed
-
-        // Calculate spin angle (rotation around camera direction)
-        float spinAngle = time * spinSpeed * spinAmplitude;
-
-        // Calculate wobble angle (tilt toward/away from camera - pitch around right axis)
-        float wobbleAngle = Mth.sin(time * wobbleSpeed * spinAmplitude) * wobbleAmount;
-
         // Center the quad at the block center (local coordinates 0-1)
         float halfSize = 0.25f;
         Vec3 localCenter = new Vec3(0.5, 0.5, 0.5);
@@ -115,28 +102,14 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         // Make sure up is perpendicular to both camera direction and right
         up = cameraDirection.cross(right).normalize();
 
-        // Step 1: Apply spin (rotation around camera direction / normal)
-        float cosSpin = Mth.cos(spinAngle);
-        float sinSpin = Mth.sin(spinAngle);
-        Vec3 spunRight = right.scale(cosSpin).add(up.scale(sinSpin));
-        Vec3 spunUp = up.scale(cosSpin).subtract(right.scale(sinSpin));
-
-        // Step 2: Apply wobble (tilt toward/away from camera - pitch around the spun right axis)
-        float cosWobble = Mth.cos(wobbleAngle);
-        float sinWobble = Mth.sin(wobbleAngle);
-        Vec3 finalUp = spunUp.scale(cosWobble).add(cameraDirection.scale(sinWobble));
-        Vec3 finalNormal = cameraDirection.scale(cosWobble).subtract(spunUp.scale(sinWobble));
-        // Recalculate final right to stay perpendicular
-        Vec3 finalRight = finalNormal.cross(finalUp).normalize();
-
         // Calculate quad vertices relative to center
-        Vec3 p1 = localCenter.add(finalRight.scale(-halfSize)).add(finalUp.scale(-halfSize)); // Bottom-left
-        Vec3 p2 = localCenter.add(finalRight.scale(halfSize)).add(finalUp.scale(-halfSize));   // Bottom-right
-        Vec3 p3 = localCenter.add(finalRight.scale(halfSize)).add(finalUp.scale(halfSize));   // Top-right
-        Vec3 p4 = localCenter.add(finalRight.scale(-halfSize)).add(finalUp.scale(halfSize));  // Top-left
+        Vec3 p1 = localCenter.add(right.scale(-halfSize)).add(up.scale(-halfSize)); // Bottom-left
+        Vec3 p2 = localCenter.add(right.scale(halfSize)).add(up.scale(-halfSize));   // Bottom-right
+        Vec3 p3 = localCenter.add(right.scale(halfSize)).add(up.scale(halfSize));   // Top-right
+        Vec3 p4 = localCenter.add(right.scale(-halfSize)).add(up.scale(halfSize));  // Top-left
 
-        // The normal points toward the camera (wobbled)
-        Vec3 normal = finalNormal;
+        // The normal points toward the camera
+        Vec3 normal = cameraDirection;
 
         // Full brightness for glow effect
         int light = LightCoordsUtil.FULL_BRIGHT;

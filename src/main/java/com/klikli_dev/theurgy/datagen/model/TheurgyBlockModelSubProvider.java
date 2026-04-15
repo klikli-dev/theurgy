@@ -55,6 +55,7 @@ public class TheurgyBlockModelSubProvider {
         this.registerMercuryCapacitor(blockModels, itemModels);
         this.registerCaloricFluxEmitter(blockModels, itemModels);
         this.registerSulfuricFluxEmitter(blockModels, itemModels);
+        this.registerMercuryFluxEmitter(blockModels, itemModels);
         this.registerSimpleTemplateBlock(blockModels, itemModels, BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), "block/reformation_source_pedestal_template", Map.of(
                 "texture", Theurgy.loc("block/reformation_source_pedestal"),
                 "particle", Identifier.withDefaultNamespace("block/copper_block")
@@ -254,6 +255,10 @@ public class TheurgyBlockModelSubProvider {
 
     private void registerSulfuricFluxEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.registerEmitter(blockModels, itemModels, BlockRegistry.SULFURIC_FLUX_EMITTER.get(), "block/sulfuric_flux_emitter_template", Theurgy.loc("block/sulfuric_flux_emitter"));
+    }
+
+    private void registerMercuryFluxEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        this.registerEmitter(blockModels, itemModels, BlockRegistry.MERCURY_FLUX_EMITTER.get(), "block/mercury_flux_emitter_template", Theurgy.loc("block/mercury_flux_emitter"));
     }
 
     private void registerEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, String parentPath, Identifier emitterTexture) {

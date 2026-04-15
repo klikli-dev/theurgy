@@ -285,6 +285,20 @@ public class CapabilityRegistry {
                 (blockEntity, side) -> blockEntity.mercuryFluxStorage);
 
         event.registerBlockEntity(
+                MERCURY_FLUX_HANDLER,
+                BlockEntityRegistry.MERCURY_FLUX_EMITTER.get(),
+                (blockEntity, side) -> {
+                    // Only expose capability on the side the emitter is attached to (opposite to FACING)
+                    var blockState = blockEntity.getBlockState();
+                    var facing = blockState.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING);
+                    var attachedSide = facing.getOpposite();
+                    if (side == null || side == attachedSide) {
+                        return blockEntity.mercuryFluxStorage;
+                    }
+                    return null;
+                });
+
+        event.registerBlockEntity(
                 ITEM_HANDLER,
                 BlockEntityRegistry.REFORMATION_RESULT_PEDESTAL.get(),
                 (blockEntity, side) -> blockEntity.outputInventoryTakeOnlyWrapper);

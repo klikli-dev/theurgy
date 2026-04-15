@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.mercurycapacitor;
 
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -107,7 +109,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
     protected void pushMercuryFlux() {
         // Collect all valid flux handlers first
         var directions = Direction.allShuffled(this.getLevel().getRandom());
-        var targets = new java.util.ArrayList<com.klikli_dev.theurgy.content.capability.MercuryFluxStorage>();
+        var targets = new ArrayList<MercuryFluxStorage>();
         
         for (var direction : directions) {
             var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), direction.getOpposite());

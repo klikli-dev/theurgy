@@ -139,6 +139,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET, "Sulfuric Flux Emitter has no linked target pedestal.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES, "Sulfuric Flux Emitter has no linked source pedestals.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT, "Sulfuric Flux Emitter has no linked result pedestal.");
+
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_MERCURY_FLUX_EMITTER, "Transfer mercury flux to: ");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_MERCURY_FLUX_EMITTER, "Mercury Flux Emitter targets %1$s.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_MERCURY_FLUX_EMITTER_NO_SELECTION, "Mercury Flux Emitter has no target.");
         this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_NO_RECIPE, "Cannot close vat, the items in it do not form a valid fermentation recipe.");
         this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.");
 
@@ -420,6 +424,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 this.f("""
                                 {0} on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.
                                 Then place the emitter on a Mercury Flux source, such as a Mercury Catalyst.
+                                View The Hermetica for more information.
+                                """,
+                        this.green("Right-Click"))
+        );
+
+        this.addBlock(BlockRegistry.MERCURY_FLUX_EMITTER, "Mercury Flux Emitter");
+        this.addTooltip(BlockRegistry.MERCURY_FLUX_EMITTER.get()::asItem,
+                "Transfers Mercury Flux from the attached block to a target block.",
+                "Used to move Mercury Flux between blocks.",
+                this.f("""
+                                {0} on a target block to link it to the emitter.
+                                Then place the emitter on a Mercury Flux source block.
                                 View The Hermetica for more information.
                                 """,
                         this.green("Right-Click"))

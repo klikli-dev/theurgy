@@ -26,6 +26,7 @@ import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBraz
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
@@ -105,6 +106,10 @@ public class BlockEntityRegistry {
     public static final Supplier<BlockEntityType<SulfuricFluxEmitterBlockEntity>> SULFURIC_FLUX_EMITTER =
             BLOCKS.register("sulfuric_flux_emitter", () ->
                     new BlockEntityType<>(SulfuricFluxEmitterBlockEntity::new, java.util.Set.of(BlockRegistry.SULFURIC_FLUX_EMITTER.get())));
+
+    public static final Supplier<BlockEntityType<MercuryFluxEmitterBlockEntity>> MERCURY_FLUX_EMITTER =
+            BLOCKS.register("mercury_flux_emitter", () ->
+                    new BlockEntityType<>(MercuryFluxEmitterBlockEntity::new, java.util.Set.of(BlockRegistry.MERCURY_FLUX_EMITTER.get())));
 
     public static final Supplier<BlockEntityType<FermentationVatBlockEntity>> FERMENTATION_VAT =
             BLOCKS.register("fermentation_vat", () ->

@@ -129,7 +129,7 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
     }
 
     private void putVertex(VertexConsumer builder, PoseStack.Pose pose, Vec3 pos, int color, float u, float v, int light, Vec3 normal) {
-        int a = color >> 24 & 0xff;
+        int a = (int) ((color >> 24 & 0xff) * 0.75f);
         int r = color >> 16 & 0xff;
         int g = color >> 8 & 0xff;
         int b = color & 0xff;

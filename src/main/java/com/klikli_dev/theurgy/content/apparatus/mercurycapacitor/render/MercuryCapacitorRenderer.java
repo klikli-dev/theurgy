@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.LightCoordsUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
@@ -51,6 +52,7 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         state.hasEnergy = blockEntity.mercuryFluxStorage.getEnergyStored() > 0;
         state.particleColor = MercuryCapacitorBlock.getParticleColorFromFillLevel(fillLevel);
         state.cameraPosition = cameraPosition;
+        state.blockPos = blockEntity.getBlockPos();
     }
 
     @Override
@@ -60,6 +62,9 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         }
 
         pPoseStack.pushPose();
+
+        // Translate to block position
+        pPoseStack.translate(state.blockPos.getX(), state.blockPos.getY(), state.blockPos.getZ());
 
         // Center the quad at the block center
         float halfSize = 0.25f;
@@ -137,5 +142,6 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         public boolean hasEnergy;
         public int particleColor;
         public Vec3 cameraPosition;
+        public BlockPos blockPos;
     }
 }

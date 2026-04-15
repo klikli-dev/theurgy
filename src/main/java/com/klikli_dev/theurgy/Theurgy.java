@@ -218,6 +218,7 @@ public class Theurgy {
             Outliner.get().tick();
             BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
             BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
+            BlockRegistry.MERCURY_FLUX_EMITTER.get().selectionBehaviour().tick(player);
 
 
             WireItem.onClientTick(player);
@@ -348,6 +349,12 @@ public class Theurgy {
                 event.setCancellationResult(InteractionResult.SUCCESS);
                 return;
             }
+
+            if (BlockRegistry.MERCURY_FLUX_EMITTER.get().selectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+                return;
+            }
         }
 
 
@@ -358,6 +365,11 @@ public class Theurgy {
             }
 
             if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                event.setCanceled(true);
+                return;
+            }
+
+            if (BlockRegistry.MERCURY_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 return;
             }

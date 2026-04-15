@@ -39,7 +39,7 @@
   "block.theurgy.liquefaction_cauldron.tooltip.usage": "Coloque isto sobre um dispositivo de aquecimento como um Braseiro Piromântico.\n§aClique com o Botão Direito§r§7 com ingredientes para adicioná-los ao caldeirão para processamento.\n",
   "block.theurgy.logistics_capability_probe": "Sonda de Capacidade Logística",
   "block.theurgy.logistics_capability_probe.tooltip": "Marca o bloco anexado como um alvo de capacidade para um proxy vinculado.",
-  "block.theurgy.logistics_capability_probe.tooltip.usage": "§aClique-Direito§r§7 em uma face de bloco para anexar a sonda ao seu alvo.\nFios podem ser conectados à sonda colocada como outros pontos de extremidade logísticos.\n",
+  "block.theurgy.logistics_capability_probe.tooltip.usage": "§aClique com o Botão Direito§r§7 em uma face de bloco para anexar a sonda ao seu alvo.\nFios podem ser conectados à sonda colocada como outros pontos de extremidade logísticos.\n",
   "block.theurgy.logistics_capability_proxy": "Proxy de Capacidade Logística",
   "block.theurgy.logistics_capability_proxy.tooltip": "Intermedeia as capacidades dos blocos alvo das sondas conectadas.",
   "block.theurgy.logistics_capability_proxy.tooltip.usage": "Coloque o proxy e, em seguida, conecte-o a uma ou mais sondas de capacidade com Fios Mercuriais.\nO proxy encaminha o acesso de capacidade para os alvos das sondas conectadas em ordem round-robin.\n",

@@ -16,6 +16,7 @@ public class RenderTypes {
 
     protected static final RenderType DISTANCE_LINES = net.minecraft.client.renderer.rendertype.RenderTypes.lines();
     protected static final Function<Identifier, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
+    protected static final Function<Identifier, RenderType> PARTICLE_TRANSLUCENT = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture, true));
     protected static final RenderType TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET = entityTranslucentCullNoDepth(TextureAtlas.LOCATION_BLOCKS);
     private static final Identifier BLANK_TEXTURE = Theurgy.loc("textures/misc/blank.png");
     private static final RenderType FLUID = net.minecraft.client.renderer.rendertype.RenderTypes.itemTranslucent(TextureAtlas.LOCATION_BLOCKS);
@@ -26,6 +27,10 @@ public class RenderTypes {
 
     public static RenderType entityTranslucentCullNoDepth(Identifier pLocation) {
         return ENTITY_TRANSLUCENT_CULL_NO_DEPTH.apply(pLocation);
+    }
+
+    public static RenderType particleTranslucent(Identifier pLocation) {
+        return PARTICLE_TRANSLUCENT.apply(pLocation);
     }
 
     public static RenderType translucentCullNoDepthBlockSheet() {

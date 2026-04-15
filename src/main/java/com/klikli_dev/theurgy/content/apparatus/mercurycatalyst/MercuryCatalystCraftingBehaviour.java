@@ -33,6 +33,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     private final ItemHandlerRecipeInput ingredientCheckInput = new ItemHandlerRecipeInput(this.ingredientCheckInventory);
 
     protected int mercuryFluxToConvert;
+    protected int totalMercuryFluxToConvert; // Total flux for this conversion cycle (for progress calculation)
     protected int currentMercuryFluxPerTick;
 
 
@@ -61,12 +62,14 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     @Override
     public void saveAdditional(ValueOutput output) {
         output.putInt("mercuryFluxToConvert", this.mercuryFluxToConvert);
+        output.putInt("totalMercuryFluxToConvert", this.totalMercuryFluxToConvert);
         output.putInt("currentMercuryFluxPerTick", this.currentMercuryFluxPerTick);
     }
 
     @Override
     public void loadAdditional(ValueInput input) {
         this.mercuryFluxToConvert = input.getIntOr("mercuryFluxToConvert", 0);
+        this.totalMercuryFluxToConvert = input.getIntOr("totalMercuryFluxToConvert", 0);
         this.currentMercuryFluxPerTick = input.getIntOr("currentMercuryFluxPerTick", 0);
     }
 
@@ -108,9 +111,8 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         if (pRecipe == null) return false;
 
         var storage = this.mercuryFluxStorageSupplier.get();
-        int fluxAccepted = storage.receiveEnergy(pRecipe.value().totalMercuryFlux(), true);
-
-        return fluxAccepted > 0;
+        // Check if there's any room available to start the process
+        return storage.getEnergyStored() < storage.getMaxEnergyStored();
     }
 
     @Override
@@ -118,10 +120,12 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         //first see if we have leftover flux to convert
         if (this.mercuryFluxToConvert > 0) {
             if (canProcess) {
+                this.tryStartProcessing(); // Mark as processing for HUD
                 var storage = this.mercuryFluxStorageSupplier.get();
                 var maxFluxToConvert = Math.min(this.mercuryFluxToConvert, this.currentMercuryFluxPerTick);
-                int fluxAccepted = storage.receiveEnergy(maxFluxToConvert, false);
-                this.mercuryFluxToConvert -= fluxAccepted;
+                // Use addInternalFlux for internal crafting flux generation
+                int fluxAdded = ((MercuryCatalystBlockEntity.MercuryCatalystMercuryFluxStorage) storage).addInternalFlux(maxFluxToConvert);
+                this.mercuryFluxToConvert -= fluxAdded;
             }
         } else if (hasInput) {
             //only even check for recipe if we have input to avoid unnecessary lookups
@@ -138,16 +142,30 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             if (canProcess && this.couldCraftLastTick) {
                 this.craft(recipe);
             }
+        } else {
+            // No input, stop processing
+            this.stopProcessing();
         }
     }
 
     @Override
     protected boolean craft(@Nullable RecipeHolder<CatalysationRecipe> pRecipe) {
         this.mercuryFluxToConvert = pRecipe.value().totalMercuryFlux();
+        this.totalMercuryFluxToConvert = this.mercuryFluxToConvert; // Track total for progress calculation
         this.currentMercuryFluxPerTick = pRecipe.value().mercuryFluxPerTick();
 
         this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
 
         return true;
+    }
+
+    @Override
+    public int progressPercent() {
+        if (this.totalMercuryFluxToConvert <= 0) {
+            return 0;
+        }
+        // Calculate progress based on how much flux has been processed vs total
+        int processed = this.totalMercuryFluxToConvert - this.mercuryFluxToConvert;
+        return Math.clamp(processed * 100 / this.totalMercuryFluxToConvert, 0, 100);
     }
 }

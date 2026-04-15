@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.render.inworldhud.provider.BlockTitleInWor
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.FluidStorageInWorldHUDProvider;
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.GenericCraftingProgressInWorldHUDProvider;
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.ItemStorageInWorldHUDProvider;
+import com.klikli_dev.theurgy.content.render.inworldhud.provider.MercuryCatalystInWorldHUDProvider;
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.MercuryFluxStorageInWorldHUDProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -39,6 +40,8 @@ public class InWorldHUDRegistry {
         registerGenericProvider(new MercuryFluxStorageInWorldHUDProvider());
         registerGenericProvider(new FluidStorageInWorldHUDProvider());
         registerGenericProvider(new ItemStorageInWorldHUDProvider());
+
+        registerBlockProvider(MercuryCatalystInWorldHUDProvider.appliesBlock(), new MercuryCatalystInWorldHUDProvider());
 
         defaultsRegistered = true;
     }

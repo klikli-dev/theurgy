@@ -21,6 +21,7 @@ import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy.Logisti
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
@@ -80,6 +81,10 @@ public class BlockEntityRegistry {
     public static final Supplier<BlockEntityType<MercuryCatalystBlockEntity>> MERCURY_CATALYST =
             BLOCKS.register("mercury_catalyst", () ->
                     new BlockEntityType<>(MercuryCatalystBlockEntity::new, java.util.Set.of(BlockRegistry.MERCURY_CATALYST.get())));
+
+    public static final Supplier<BlockEntityType<MercuryCapacitorBlockEntity>> MERCURY_CAPACITOR =
+            BLOCKS.register("mercury_capacitor", () ->
+                    new BlockEntityType<>(MercuryCapacitorBlockEntity::new, java.util.Set.of(BlockRegistry.MERCURY_CAPACITOR.get())));
 
     public static final Supplier<BlockEntityType<CaloricFluxEmitterBlockEntity>> CALORIC_FLUX_EMITTER =
             BLOCKS.register("caloric_flux_emitter", () ->

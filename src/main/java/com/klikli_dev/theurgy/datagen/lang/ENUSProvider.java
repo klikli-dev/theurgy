@@ -396,6 +396,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                                 """,
                         this.green("Right-Click")));
 
+        this.addBlock(BlockRegistry.MERCURY_CAPACITOR, "Mercury Capacitor");
+        this.addTooltip(BlockRegistry.MERCURY_CAPACITOR.get()::asItem,
+                "A large mercury flux storage unit.",
+                "Stores up to 10x the mercury flux of a Mercury Catalyst.",
+                "Can receive and send mercury flux to adjacent blocks.");
+
         this.addBlock(BlockRegistry.CALORIC_FLUX_EMITTER, "Caloric Flux Emitter");
         this.addTooltip(BlockRegistry.CALORIC_FLUX_EMITTER.get()::asItem,
                 "Remotely heats an Apparatus by emitting Caloric Flux at it.",

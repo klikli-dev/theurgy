@@ -4,20 +4,27 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
+import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageRequestSulfuricFluxEmitterSelection;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Consumer;
 
 public class SulfuricFluxEmitterBlockItem extends BlockItem {
     public SulfuricFluxEmitterBlockItem(Block pBlock, Properties pProperties) {
@@ -47,5 +54,20 @@ public class SulfuricFluxEmitterBlockItem extends BlockItem {
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {
         return BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour();
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, tooltipFlag);
+
+        if (stack.has(DataComponentRegistry.MERCURY_FLUX_STORAGE.get())) {
+            int stored = stack.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get());
+            int capacity = SulfuricFluxEmitterBlockEntity.CAPACITY;
+
+            tooltipAdder.accept(Component.translatable(
+                    TheurgyConstants.I18n.JEI.MERCURY_FLUX,
+                    stored + " / " + capacity
+            ).withStyle(ChatFormatting.GRAY));
+        }
     }
 }

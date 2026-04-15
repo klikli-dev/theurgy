@@ -67,6 +67,7 @@ public class CapabilityRegistry {
         registerLiquefactionCauldron(event);
         registerLogisticsCapabilityProxy(event);
         registerMercuryCatalyst(event);
+        registerMercuryCapacitor(event);
         registerPyromanticBrazier(event);
         registerReformationArray(event);
         registerSalAmmoniacAccumulator(event);
@@ -257,6 +258,13 @@ public class CapabilityRegistry {
                 ITEM_HANDLER,
                 BlockEntityRegistry.MERCURY_CATALYST.get(),
                 (blockEntity, side) -> blockEntity.inventory);
+    }
+
+    public static void registerMercuryCapacitor(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                MERCURY_FLUX_HANDLER,
+                BlockEntityRegistry.MERCURY_CAPACITOR.get(),
+                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
     }
 
     public static void registerPyromanticBrazier(RegisterCapabilitiesEvent event) {

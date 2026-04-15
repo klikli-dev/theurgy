@@ -7,6 +7,8 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
@@ -190,8 +192,10 @@ public class ItemRegistry {
             ITEMS.registerItem("sal_ammoniac_accumulator", p -> new SalAmmoniacAccumulatorBlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> SAL_AMMONIAC_TANK =
             ITEMS.registerItem("sal_ammoniac_tank", p -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), p.useBlockDescriptionPrefix()));
-    public static final DeferredItem<BlockItem> MERCURY_CATALYST =
-            ITEMS.registerItem("mercury_catalyst", p -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), p.useBlockDescriptionPrefix()));
+    public static final DeferredItem<MercuryCatalystBlockItem> MERCURY_CATALYST =
+            ITEMS.registerItem("mercury_catalyst", p -> new MercuryCatalystBlockItem(BlockRegistry.MERCURY_CATALYST.get(), p.useBlockDescriptionPrefix()));
+    public static final DeferredItem<MercuryCapacitorBlockItem> MERCURY_CAPACITOR =
+            ITEMS.registerItem("mercury_capacitor", p -> new MercuryCapacitorBlockItem(BlockRegistry.MERCURY_CAPACITOR.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<CaloricFluxEmitterBlockItem> CALORIC_FLUX_EMITTER =
             ITEMS.registerItem("caloric_flux_emitter", p -> new CaloricFluxEmitterBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<SulfuricFluxEmitterBlockItem> SULFURIC_FLUX_EMITTER =

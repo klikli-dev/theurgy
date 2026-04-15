@@ -60,6 +60,9 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelfWithComponents(BlockRegistry.SULFURIC_FLUX_EMITTER.get(),
                 DataComponentRegistry.MERCURY_FLUX_STORAGE.get()
         );
+        this.dropSelfWithComponents(BlockRegistry.MERCURY_CAPACITOR.get(),
+                DataComponentRegistry.MERCURY_FLUX_STORAGE.get()
+        );
         this.dropSelf(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get());
         this.dropSelf(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get());
         this.dropSelf(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());

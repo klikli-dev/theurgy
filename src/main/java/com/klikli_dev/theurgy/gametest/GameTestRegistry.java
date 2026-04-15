@@ -36,6 +36,23 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISABLED_CATALYST_STILL_GENERATES_FLUX =
             TEST_FUNCTIONS.register("mercury_catalyst_disabled_still_generates_flux", () -> MercuryCatalystGameTests::disabledCatalystStillGeneratesFlux);
 
+    // --- Mercury Capacitor ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_PLACEMENT =
+            TEST_FUNCTIONS.register("mercury_capacitor_placement", () -> MercuryCapacitorGameTests::placementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_STARTS_EMPTY =
+            TEST_FUNCTIONS.register("mercury_capacitor_starts_empty", () -> MercuryCapacitorGameTests::startsEmpty);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_RECEIVES_FLUX =
+            TEST_FUNCTIONS.register("mercury_capacitor_receives_flux", () -> MercuryCapacitorGameTests::receivesFluxFromCatalyst);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_HAS_CORRECT_CAPACITY =
+            TEST_FUNCTIONS.register("mercury_capacitor_has_correct_capacity", () -> MercuryCapacitorGameTests::hasCorrectCapacity);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_DISABLED_DOES_NOT_RECEIVE_FLUX =
+            TEST_FUNCTIONS.register("mercury_capacitor_disabled_does_not_receive_flux", () -> MercuryCapacitorGameTests::disabledCapacitorDoesNotReceiveFlux);
+
     // --- Liquefaction Cauldron ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_PLACEMENT_CREATES_TWO_BLOCK_STRUCTURE =
@@ -399,6 +416,7 @@ public class GameTestRegistry {
 
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
+        registerMercuryCapacitorTests(event);
         registerCalcinationOvenTests(event);
         registerPyromanticBrazierTests(event);
         registerLiquefactionCauldronTests(event);
@@ -422,6 +440,17 @@ public class GameTestRegistry {
         registerTest(event, MERCURY_SHARD_GENERATES_FLUX, environment, structure, 200, 0);
         registerTest(event, MERCURY_SHARD_IS_CONSUMED, environment, structure, 200, 0);
         registerTest(event, DISABLED_CATALYST_STILL_GENERATES_FLUX, environment, structure, 100, 0);
+    }
+
+    private static void registerMercuryCapacitorTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("mercury_capacitor"));
+        var structure = Theurgy.loc("mercury_capacitor_test");
+
+        registerTest(event, CAPACITOR_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, CAPACITOR_STARTS_EMPTY, environment, structure, 40, 0);
+        registerTest(event, CAPACITOR_RECEIVES_FLUX, environment, structure, 200, 0);
+        registerTest(event, CAPACITOR_HAS_CORRECT_CAPACITY, environment, structure, 40, 0);
+        registerTest(event, CAPACITOR_DISABLED_DOES_NOT_RECEIVE_FLUX, environment, structure, 100, 0);
     }
 
     private static void registerLiquefactionCauldronTests(RegisterGameTestsEvent event) {

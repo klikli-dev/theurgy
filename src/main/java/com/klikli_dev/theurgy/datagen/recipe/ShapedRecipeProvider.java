@@ -250,6 +250,17 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
 
+        this.makeRecipe(new ShapedRecipeBuilder(
+                ItemRegistry.MERCURY_CAPACITOR.get(), 1)
+                .pattern("gmg")
+                .pattern("QcQ")
+                .pattern("gmg")
+                .define('Q', Items.QUARTZ_BLOCK)
+                .define('c', ItemRegistry.MERCURY_CATALYST.get())
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
+        );
+
         this.makeRecipe(this.name(ItemRegistry.CALORIC_FLUX_EMITTER.get()) + "_from_campfire", new ShapedRecipeBuilder(
                 ItemRegistry.CALORIC_FLUX_EMITTER.get(), 1)
                 .pattern(" h ")

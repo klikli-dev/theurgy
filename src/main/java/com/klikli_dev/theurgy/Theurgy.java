@@ -16,6 +16,8 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVe
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.render.MercuryCapacitorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
@@ -148,6 +150,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterMenuScreens);
             modEventBus.addListener(Client::onRegisterClientTooltipComponentFactories);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
+            modEventBus.addListener(ParticleSprites::onTextureAtlasStitched);
             modEventBus.addListener(KeyMappingsRegistry::onRegisterKeyMappings);
             modEventBus.addListener(Client::onRegisterItemProperties);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
@@ -275,6 +278,7 @@ public class Theurgy {
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(), IncubatorSaltVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), SalAmmoniacTankRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.DIGESTION_VAT.get(), DigestionVatRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.MERCURY_CAPACITOR.get(), MercuryCapacitorRenderer::new);
         }
 
         public static void onRegisterItemProperties(RegisterRangeSelectItemModelPropertyEvent event) {
@@ -294,10 +298,12 @@ public class Theurgy {
         public static void onRegisterItemColors(RegisterColorHandlersEvent.ItemTintSources event) {
             //event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
             event.register(Theurgy.loc("mercury_catalyst_tint"), MercuryCatalystBlock.ItemTintSource.MAP_CODEC);
+            event.register(Theurgy.loc("mercury_capacitor_tint"), MercuryCapacitorBlock.ItemTintSource.MAP_CODEC);
         }
 
         public static void onRegisterBlockColors(RegisterColorHandlersEvent.BlockTintSources event) {
             event.register(List.of(new MercuryCatalystBlock.BlockTintSource()), BlockRegistry.MERCURY_CATALYST.get());
+            event.register(List.of(new MercuryCapacitorBlock.BlockTintSource()), BlockRegistry.MERCURY_CAPACITOR.get());
         }
 
         public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {

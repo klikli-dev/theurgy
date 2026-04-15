@@ -14,6 +14,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.math.Quadrant;
 import com.mojang.math.Transformation;
@@ -51,6 +52,7 @@ public class TheurgyBlockModelSubProvider {
         this.registerSalAmmoniacAccumulator(blockModels, itemModels);
         this.registerSalAmmoniacTank(blockModels, itemModels);
         this.registerMercuryCatalyst(blockModels, itemModels);
+        this.registerMercuryCapacitor(blockModels, itemModels);
         this.registerCaloricFluxEmitter(blockModels, itemModels);
         this.registerSulfuricFluxEmitter(blockModels, itemModels);
         this.registerSimpleTemplateBlock(blockModels, itemModels, BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), "block/reformation_source_pedestal_template", Map.of(
@@ -233,6 +235,17 @@ public class TheurgyBlockModelSubProvider {
         this.registerSingleStateBlock(blockModels, block, this.blockModel(block));
         this.emitParentModel(itemModels.modelOutput, this.itemModel(block), this.blockModel(block), Map.of());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.tintedModel(this.itemModel(block), MercuryCatalystBlock.ItemTintSource.INSTANCE));
+    }
+
+    private void registerMercuryCapacitor(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        var block = BlockRegistry.MERCURY_CAPACITOR.get();
+        this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc("block/mercury_capacitor_template"), Map.of(
+                "texture", Theurgy.loc("block/mercury_capacitor"),
+                "particle", Identifier.withDefaultNamespace("block/iron_block")
+        ));
+        this.registerSingleStateBlock(blockModels, block, this.blockModel(block));
+        this.emitParentModel(itemModels.modelOutput, this.itemModel(block), this.blockModel(block), Map.of());
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.tintedModel(this.itemModel(block), MercuryCapacitorBlock.ItemTintSource.INSTANCE));
     }
 
     private void registerCaloricFluxEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {

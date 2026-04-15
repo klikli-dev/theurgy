@@ -96,14 +96,17 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
             if (targetFluxHandler == null)
                 return;
 
-            if (targetFluxHandler.getMaxEnergyStored() - targetFluxHandler.getEnergyStored() < FLUX_PER_TRANSFER)
-                return; //target is full
+            int accepted = targetFluxHandler.receiveEnergy(FLUX_PER_TRANSFER, true);
+            if (accepted <= 0)
+                return;
 
-            int extracted = this.mercuryFluxStorage.extractEnergy(FLUX_PER_TRANSFER, false);
+            int extracted = this.mercuryFluxStorage.extractEnergy(accepted, false);
             if (extracted > 0) {
-                targetFluxHandler.receiveEnergy(extracted, false);
+                int inserted = targetFluxHandler.receiveEnergy(extracted, false);
+                if (inserted <= 0)
+                    return;
 
-                Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos()));
+                Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(MercuryFluxEmitterBlock.FACING)));
             }
         }
     }

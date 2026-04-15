@@ -8,9 +8,9 @@
     "m": "#theurgy:alchemical_mercuries"
   },
   "pattern": [
-    "QgQ",
-    "cQc",
-    "QgQ"
+    "gmg",
+    "QcQ",
+    "gmg"
   ],
   "result": {
     "id": "theurgy:mercury_capacitor"

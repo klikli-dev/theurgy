@@ -42,7 +42,8 @@ public class MercuryCapacitorEntry extends EntryProvider {
         this.pageText(
                 """
                         The capacitor displays its fill level through its color:
-                        \\
+                          \s
+                          \s
                         - [#](ff0000)Red[#]() = Close to empty
                         - [#](ad03fc)Purple[#]() = Around halfway
                         - [#](00ff00)Green[#]() = Full

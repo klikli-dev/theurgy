@@ -5,6 +5,8 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.particle.ParticleColor;
+import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -13,7 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -122,29 +123,15 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void tickClient() {
-        // Spawn particles showing flux transfer
-        if (this.level.getGameTime() % 20 == 0 && !this.selectedPoints.isEmpty()) {
-            var selectedPoint = this.selectedPoints.getFirst();
-            
-            // Spawn particle at emitter position
+        // Spawn glow particles showing flux transfer
+        if (this.level.getRandom().nextFloat() < 0.07f && !this.selectedPoints.isEmpty()) {
             var emitterPos = this.getBlockPos();
-            this.level.addParticle(
-                net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER,
-                emitterPos.getX() + 0.5,
-                emitterPos.getY() + 0.5,
-                emitterPos.getZ() + 0.5,
-                0, 0.1, 0
-            );
-            
-            // Spawn particle at target position
-            var targetPos = selectedPoint.getBlockPos();
-            this.level.addParticle(
-                net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER,
-                targetPos.getX() + 0.5,
-                targetPos.getY() + 0.5,
-                targetPos.getZ() + 0.5,
-                0, 0.1, 0
-            );
+            this.level.addParticle(GlowParticleProvider.createOptions(
+                    ParticleColor.fromInt(0x00FFFF), // Cyan for mercury flux
+                    true,
+                    0.5f,
+                    0.75f,
+                    200), emitterPos.getX() + 0.5f, emitterPos.getY() + 1.0f, emitterPos.getZ() + 0.5f, 0, 0, 0);
         }
     }
 

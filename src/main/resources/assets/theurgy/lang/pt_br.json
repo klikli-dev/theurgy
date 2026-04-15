@@ -69,7 +69,7 @@
   "block.theurgy.mercury_flux_emitter": "Emissor de Fluxo de Mercúrio",
   "block.theurgy.mercury_flux_emitter.tooltip": "Transfere Fluxo de Mercúrio do bloco anexado para um bloco alvo.",
   "block.theurgy.mercury_flux_emitter.tooltip.extended": "Usado para mover Fluxo de Mercúrio entre blocos.",
-  "block.theurgy.mercury_flux_emitter.tooltip.usage": "§aClique-Direito§r§7 em um bloco alvo para vinculá-lo ao emissor.\nEm seguida, coloque o emissor em um bloco de fonte de Fluxo de Mercúrio.\nVeja A Hermética para mais informações.\n",
+  "block.theurgy.mercury_flux_emitter.tooltip.usage": "§aClique com o Botão Direito§r§7 em um bloco alvo para vinculá-lo ao emissor.\nEm seguida, coloque o emissor em um bloco de fonte de Fluxo de Mercúrio.\nVeja A Hermética para mais informações.\n",
   "block.theurgy.pyromantic_brazier": "Braseiro Piromântico",
   "block.theurgy.pyromantic_brazier.tooltip": "Um dispositivo simples para aquecer aparatos alquímicos.",
   "block.theurgy.pyromantic_brazier.tooltip.extended": "Coloque isto abaixo de outros aparatos alquímicos para aquecê-los",

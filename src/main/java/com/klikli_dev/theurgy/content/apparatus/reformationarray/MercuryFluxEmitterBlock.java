@@ -121,11 +121,7 @@ public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityB
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         if (pLevel.isClientSide()) {
-            return (lvl, pos, blockState, t) -> {
-                if (t instanceof MercuryFluxEmitterBlockEntity blockEntity) {
-                    blockEntity.tickClient();
-                }
-            };
+            return null;
         }
         return (lvl, pos, blockState, t) -> {
             if (t instanceof MercuryFluxEmitterBlockEntity blockEntity) {

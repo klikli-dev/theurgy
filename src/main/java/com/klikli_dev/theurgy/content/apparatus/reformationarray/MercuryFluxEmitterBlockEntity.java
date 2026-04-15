@@ -77,57 +77,28 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
             return;
         }
 
-        // Get the source block (the block we are attached to)
-        var facing = this.getBlockState().getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING);
-        var sourcePos = this.getBlockPos().relative(facing.getOpposite());
-
-        // Check if source block has mercury flux capability
-        var sourceFluxHandler = Objects.requireNonNull(this.level).getCapability(
-                CapabilityRegistry.MERCURY_FLUX_HANDLER,
-                sourcePos,
-                facing
-        );
-
-        if (sourceFluxHandler == null)
-            return;
-
-        // Try to receive flux from source if we have space
-        if (this.mercuryFluxStorage.getMaxEnergyStored() - this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_TRANSFER) {
-            int extracted = sourceFluxHandler.extractEnergy(FLUX_PER_TRANSFER, false);
-            if (extracted > 0) {
-                this.mercuryFluxStorage.receiveEnergy(extracted, false);
-            }
-        }
-
         // Transfer to target if we have flux
         if (this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_TRANSFER) {
             var targetPos = selectedPoint.getBlockPos();
+            var targetState = selectedPoint.getBlockState();
 
-            // Determine direction from emitter to target
-            var dx = targetPos.getX() - this.getBlockPos().getX();
-            var dy = targetPos.getY() - this.getBlockPos().getY();
-            var dz = targetPos.getZ() - this.getBlockPos().getZ();
-
-            net.minecraft.core.Direction directionToTarget = null;
-            if (Math.abs(dx) >= Math.abs(dy) && Math.abs(dx) >= Math.abs(dz)) {
-                directionToTarget = dx > 0 ? net.minecraft.core.Direction.EAST : net.minecraft.core.Direction.WEST;
-            } else if (Math.abs(dy) >= Math.abs(dz)) {
-                directionToTarget = dy > 0 ? net.minecraft.core.Direction.UP : net.minecraft.core.Direction.DOWN;
-            } else {
-                directionToTarget = dz > 0 ? net.minecraft.core.Direction.SOUTH : net.minecraft.core.Direction.NORTH;
-            }
-
-            var targetFluxHandler = this.getLevel().getCapability(
+            var targetFluxHandler = Objects.requireNonNull(this.level).getCapability(
                     CapabilityRegistry.MERCURY_FLUX_HANDLER,
                     targetPos,
-                    directionToTarget != null ? directionToTarget.getOpposite() : null
+                    targetState,
+                    null,
+                    null
             );
 
-            if (targetFluxHandler != null && targetFluxHandler.getMaxEnergyStored() - targetFluxHandler.getEnergyStored() >= FLUX_PER_TRANSFER) {
-                int extracted = this.mercuryFluxStorage.extractEnergy(FLUX_PER_TRANSFER, false);
-                if (extracted > 0) {
-                    targetFluxHandler.receiveEnergy(extracted, false);
-                }
+            if (targetFluxHandler == null)
+                return;
+
+            if (targetFluxHandler.getMaxEnergyStored() - targetFluxHandler.getEnergyStored() < FLUX_PER_TRANSFER)
+                return; //target is full
+
+            int extracted = this.mercuryFluxStorage.extractEnergy(FLUX_PER_TRANSFER, false);
+            if (extracted > 0) {
+                targetFluxHandler.receiveEnergy(extracted, false);
             }
         }
     }

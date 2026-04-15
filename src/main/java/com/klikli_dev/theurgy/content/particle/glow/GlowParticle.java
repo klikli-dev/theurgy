@@ -6,6 +6,7 @@
 package com.klikli_dev.theurgy.content.particle.glow;
 
 
+import com.klikli_dev.theurgy.content.particle.ParticleRenderTypes;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
@@ -53,7 +54,7 @@ public class GlowParticle extends SingleQuadParticle {
 
     @Override
     public SingleQuadParticle.Layer getLayer() {
-        return SingleQuadParticle.Layer.TRANSLUCENT;
+        return this.disableDepthTest ? ParticleRenderTypes.EMBER_RENDER_NO_DEPTH : ParticleRenderTypes.EMBER_RENDER;
     }
 
     @Override

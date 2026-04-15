@@ -176,9 +176,13 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
 
     public void setSelectedPoints(List<MercuryFluxEmitterSelectedPoint> selectedPoints) {
         this.selectedPoints = selectedPoints;
+        this.selectedPoints.removeIf(p -> !p.getBlockPos().closerThan(this.getBlockPos(), this.getSelectionBehaviour().getBlockRange()));
         this.setChanged();
     }
 
+    /**
+     * client-side variant that does no checks
+     */
     public void setSelectedPointsClient(List<MercuryFluxEmitterSelectedPoint> selectedPoints) {
         this.selectedPoints = selectedPoints;
     }

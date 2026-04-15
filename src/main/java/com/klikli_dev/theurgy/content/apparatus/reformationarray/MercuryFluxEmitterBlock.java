@@ -50,7 +50,7 @@ public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityB
     public MercuryFluxEmitterBlock(Properties pProperties) {
         super(pProperties);
         this.selectionBehaviour = new MercuryFluxEmitterSelectionBehaviour();
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.ENABLED, true));
     }
 
     public SelectionBehaviour<MercuryFluxEmitterSelectedPoint> selectionBehaviour() {
@@ -108,7 +108,7 @@ public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityB
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, net.minecraft.world.level.block.state.properties.BlockStateProperties.ENABLED);
     }
 
     @Nullable

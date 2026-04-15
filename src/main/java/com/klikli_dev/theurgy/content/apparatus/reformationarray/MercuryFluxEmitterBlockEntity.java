@@ -4,10 +4,12 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
+import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
@@ -42,11 +44,16 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
 
     protected List<MercuryFluxEmitterSelectedPoint> selectedPoints;
 
-    public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
+public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_FLUX_EMITTER.get(), pPos, pBlockState);
 
         this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
+
         this.selectedPoints = new ArrayList<>();
+    }
+
+    public SelectionBehaviour<MercuryFluxEmitterSelectedPoint> getSelectionBehaviour() {
+        return BlockRegistry.MERCURY_FLUX_EMITTER.get().selectionBehaviour();
     }
 
     @Override
@@ -56,33 +63,36 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-        if (Objects.requireNonNull(this.getLevel()).getGameTime() % TICK_INTERVAL != 0) {
-            return;
-        }
+        if (Objects.requireNonNull(this.getLevel()).getGameTime() % TICK_INTERVAL != 0)
+            return; //slow tick
 
-        if (this.selectedPoints.isEmpty()) {
-            return;
-        }
+        if (!this.getBlockState().getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.ENABLED))
+            return; //disabled with active redstone
 
-        var selectedPoint = this.selectedPoints.getFirst();
-        if (!this.getLevel().isLoaded(selectedPoint.getBlockPos())) {
+        if (this.selectedPoints.isEmpty())
+            return;
+
+        var selectedPoint = this.selectedPoints.getFirst(); //we only have one target point
+        if (!this.getSelectionBehaviour().isValid(selectedPoint)) {
             return;
         }
 
         // Get the source block (the block we are attached to)
         var facing = this.getBlockState().getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING);
         var sourcePos = this.getBlockPos().relative(facing.getOpposite());
-        
+
         // Check if source block has mercury flux capability
-        // Use facing direction as the side we're accessing from
-        var sourceFluxHandler = this.getLevel().getCapability(
+        var sourceFluxHandler = Objects.requireNonNull(this.level).getCapability(
                 CapabilityRegistry.MERCURY_FLUX_HANDLER,
                 sourcePos,
                 facing
         );
 
+        if (sourceFluxHandler == null)
+            return;
+
         // Try to receive flux from source if we have space
-        if (sourceFluxHandler != null && this.mercuryFluxStorage.getMaxEnergyStored() - this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_TRANSFER) {
+        if (this.mercuryFluxStorage.getMaxEnergyStored() - this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_TRANSFER) {
             int extracted = sourceFluxHandler.extractEnergy(FLUX_PER_TRANSFER, false);
             if (extracted > 0) {
                 this.mercuryFluxStorage.receiveEnergy(extracted, false);
@@ -92,12 +102,12 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
         // Transfer to target if we have flux
         if (this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_TRANSFER) {
             var targetPos = selectedPoint.getBlockPos();
-            
+
             // Determine direction from emitter to target
             var dx = targetPos.getX() - this.getBlockPos().getX();
             var dy = targetPos.getY() - this.getBlockPos().getY();
             var dz = targetPos.getZ() - this.getBlockPos().getZ();
-            
+
             net.minecraft.core.Direction directionToTarget = null;
             if (Math.abs(dx) >= Math.abs(dy) && Math.abs(dx) >= Math.abs(dz)) {
                 directionToTarget = dx > 0 ? net.minecraft.core.Direction.EAST : net.minecraft.core.Direction.WEST;
@@ -106,7 +116,7 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
             } else {
                 directionToTarget = dz > 0 ? net.minecraft.core.Direction.SOUTH : net.minecraft.core.Direction.NORTH;
             }
-            
+
             var targetFluxHandler = this.getLevel().getCapability(
                     CapabilityRegistry.MERCURY_FLUX_HANDLER,
                     targetPos,

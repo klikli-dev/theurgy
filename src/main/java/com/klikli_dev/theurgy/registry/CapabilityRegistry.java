@@ -285,6 +285,11 @@ public class CapabilityRegistry {
                 (blockEntity, side) -> blockEntity.mercuryFluxStorage);
 
         event.registerBlockEntity(
+                MERCURY_FLUX_HANDLER,
+                BlockEntityRegistry.MERCURY_FLUX_EMITTER.get(),
+                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
+
+        event.registerBlockEntity(
                 ITEM_HANDLER,
                 BlockEntityRegistry.REFORMATION_RESULT_PEDESTAL.get(),
                 (blockEntity, side) -> blockEntity.outputInventoryTakeOnlyWrapper);

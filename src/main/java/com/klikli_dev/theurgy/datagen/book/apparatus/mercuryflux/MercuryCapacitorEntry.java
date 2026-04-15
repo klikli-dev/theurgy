@@ -43,32 +43,11 @@ public class MercuryCapacitorEntry extends EntryProvider {
                 """
                         The capacitor displays its fill level through its color:
                         \\
-                        \\
                         - [#](ff0000)Red[#]() = Close to empty
                         - [#](ad03fc)Purple[#]() = Around halfway
                         - [#](00ff00)Green[#]() = Full
-                        \\
-                        \\
-                        Right-click with a redstone torch or lever to enable/disable the capacitor. When disabled, it will not receive or send mercury flux.
                         """,
                 this.itemLink(ItemRegistry.MERCURY_CAPACITOR.get())
-        );
-
-        this.page("redstone", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-        );
-        this.pageTitle("Redstone");
-        this.pageText(
-                """
-                        By default the block is enabled.
-                        \\
-                        \\
-                        You can disable it with an active redstone signal.
-                        \\
-                        \\
-                        When disabled, the capacitor will not receive or send mercury flux to neighboring blocks.
-                        """
         );
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

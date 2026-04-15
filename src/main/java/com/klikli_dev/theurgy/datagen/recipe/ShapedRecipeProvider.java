@@ -252,9 +252,9 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
         this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.MERCURY_CAPACITOR.get(), 1)
-                .pattern("gmg")
+                .pattern("QgQ")
                 .pattern("cQc")
-                .pattern("gmg")
+                .pattern("QgQ")
                 .define('Q', Items.QUARTZ_BLOCK)
                 .define('c', ItemRegistry.MERCURY_CATALYST.get())
                 .define('g', Tags.Items.INGOTS_GOLD)

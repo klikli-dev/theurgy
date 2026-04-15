@@ -2634,7 +2634,7 @@
   "jei.theurgy.ingredient.sal_ammoniac_crystal.description": "Obtido ao minerar Minério de Sal Amoníaco.",
   "key.category.theurgy.keybindings": "Theurgy",
   "key.theurgy.change_item_mode": "Alterar modo de item",
-  "key.theurgy.show_held_stack_fit_outline": "Contorno do ajuste da pilha mantida",
+  "key.theurgy.show_held_stack_fit_outline": "Contorno do ajuste de pilha em mãos",
   "message.theurgy.divination_rod.attuning_not_allowed": "§4Aviso§r§7: Este tipo de varinha de adivinhação não pode ser sintonizado manualmente.",
   "message.theurgy.divination_rod.block_disallowed": "§4Aviso§r§7: A varinha de adivinhação não pode ser sintonizada com este tipo de bloco: %s.",
   "message.theurgy.divination_rod.block_not_allowed": "§4Aviso§r§7: A varinha de adivinhação não pode ser sintonizada com este tipo de bloco: %s.",

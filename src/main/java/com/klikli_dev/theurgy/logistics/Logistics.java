@@ -501,18 +501,25 @@ public class Logistics extends SavedData {
         var network = new LogisticsNetwork();
 
         //add the root node
-        network.addNode(rootNode);
-        this.blockPosToNetwork.put(rootNode, network);
-        onNodeAdded.accept(rootNode);
+        this.addNodeToNetwork(network, rootNode, onNodeAdded);
 
         //now add all other nodes
         connected.forEach(c -> {
-            network.addNode(c);
-            this.blockPosToNetwork.put(c, network);
-            onNodeAdded.accept(c);
+            this.addNodeToNetwork(network, c, onNodeAdded);
         });
 
         return network;
+    }
+
+    private void addNodeToNetwork(LogisticsNetwork network, GlobalPos node, Consumer<GlobalPos> onNodeAdded) {
+        network.addNode(node);
+        this.blockPosToNetwork.put(node, network);
+        onNodeAdded.accept(node);
+
+        var leafNode = this.getLeafNode(node);
+        if (leafNode != null) {
+            network.trackLeafNode(leafNode);
+        }
     }
 
 }

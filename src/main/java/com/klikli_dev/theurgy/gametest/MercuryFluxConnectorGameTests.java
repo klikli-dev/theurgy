@@ -7,15 +7,17 @@ package com.klikli_dev.theurgy.gametest;
 import com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector.LogisticsMercuryFluxConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
-import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 /**
@@ -26,9 +28,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
  *   [Catalyst] [ConnectorA]  ...  [ConnectorB] [Capacitor1]
  *                                   [ConnectorC] [Capacitor2]
  * </pre>
- * ConnectorA is attached to the catalyst (faces WEST toward it).
- * ConnectorB is attached to Capacitor1 (faces EAST toward it).
- * ConnectorC is attached to Capacitor2 (faces EAST toward it).
+ * ConnectorA is attached to the catalyst (faces EAST, attached block is opposite the facing).
+ * ConnectorB is attached to Capacitor1 (faces WEST, attached block is opposite the facing).
+ * ConnectorC is attached to Capacitor2 (faces WEST, attached block is opposite the facing).
  * All connectors are wired into the same logistics network.
  * <p>
  * The catalyst pushes flux into ConnectorA's buffer (source→conduit).
@@ -36,15 +38,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
  */
 public class MercuryFluxConnectorGameTests {
 
-    // Catalyst at (1,2,2), connectorA at (2,2,2) facing WEST toward catalyst
+    // Catalyst at (1,2,2), connectorA at (2,2,2) facing EAST so it targets the catalyst to its WEST
     private static final BlockPos CATALYST_POS = new BlockPos(1, 2, 2);
     private static final BlockPos CONNECTOR_A_POS = new BlockPos(2, 2, 2);
 
-    // Capacitor1 at (5,2,2), connectorB at (4,2,2) facing EAST toward capacitor
+    // Capacitor1 at (5,2,2), connectorB at (4,2,2) facing WEST so it targets the capacitor to its EAST
     private static final BlockPos CONNECTOR_B_POS = new BlockPos(4, 2, 2);
     private static final BlockPos CAPACITOR_1_POS = new BlockPos(5, 2, 2);
 
-    // Capacitor2 at (5,2,4), connectorC at (4,2,4) facing EAST toward capacitor
+    // Capacitor2 at (5,2,4), connectorC at (4,2,4) facing WEST so it targets the capacitor to its EAST
     private static final BlockPos CONNECTOR_C_POS = new BlockPos(4, 2, 4);
     private static final BlockPos CAPACITOR_2_POS = new BlockPos(5, 2, 4);
 
@@ -124,9 +126,9 @@ public class MercuryFluxConnectorGameTests {
         // Place blocks
         helper.setBlock(CATALYST_POS, BlockRegistry.MERCURY_CATALYST.get());
         helper.setBlock(CONNECTOR_A_POS, BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
-        helper.setBlock(CONNECTOR_B_POS, BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()
                 .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST));
+        helper.setBlock(CONNECTOR_B_POS, BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()
+                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
         helper.setBlock(CAPACITOR_1_POS, BlockRegistry.MERCURY_CAPACITOR.get());
 
         helper.runAfterDelay(1, () -> {
@@ -134,13 +136,7 @@ public class MercuryFluxConnectorGameTests {
             var catalystBE = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
             catalystBE.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
 
-            // Wire the two connectors together in the logistics network
-            var logistics = Logistics.get();
-            var dimension = helper.getLevel().dimension();
-            logistics.add(
-                    GlobalPos.of(dimension, helper.absolutePos(CONNECTOR_A_POS)),
-                    GlobalPos.of(dimension, helper.absolutePos(CONNECTOR_B_POS))
-            );
+            connectWithWire(helper, CONNECTOR_A_POS, CONNECTOR_B_POS);
         });
 
         // Wait for flux generation + push + forward (catalyst pushes every 20 ticks, connector forwards every 20 ticks)
@@ -163,12 +159,12 @@ public class MercuryFluxConnectorGameTests {
         // Place blocks
         helper.setBlock(CATALYST_POS, BlockRegistry.MERCURY_CATALYST.get());
         helper.setBlock(CONNECTOR_A_POS, BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
-        helper.setBlock(CONNECTOR_B_POS, BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()
                 .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST));
+        helper.setBlock(CONNECTOR_B_POS, BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()
+                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
         helper.setBlock(CAPACITOR_1_POS, BlockRegistry.MERCURY_CAPACITOR.get());
         helper.setBlock(CONNECTOR_C_POS, BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST));
+                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
         helper.setBlock(CAPACITOR_2_POS, BlockRegistry.MERCURY_CAPACITOR.get());
 
         helper.runAfterDelay(1, () -> {
@@ -176,15 +172,8 @@ public class MercuryFluxConnectorGameTests {
             var catalystBE = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
             catalystBE.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
 
-            // Wire all three connectors together
-            var logistics = Logistics.get();
-            var dimension = helper.getLevel().dimension();
-            var gA = GlobalPos.of(dimension, helper.absolutePos(CONNECTOR_A_POS));
-            var gB = GlobalPos.of(dimension, helper.absolutePos(CONNECTOR_B_POS));
-            var gC = GlobalPos.of(dimension, helper.absolutePos(CONNECTOR_C_POS));
-
-            logistics.add(gA, gB);
-            logistics.add(gA, gC);
+            connectWithWire(helper, CONNECTOR_A_POS, CONNECTOR_B_POS);
+            connectWithWire(helper, CONNECTOR_A_POS, CONNECTOR_C_POS);
         });
 
         // Wait for flux to be generated, pushed, and forwarded to both capacitors
@@ -200,5 +189,18 @@ public class MercuryFluxConnectorGameTests {
                     "Capacitor 2 should have received flux through the logistics network"
             );
         });
+    }
+
+    private static void connectWithWire(GameTestHelper helper, BlockPos from, BlockPos to) {
+        var player = helper.makeMockPlayer(GameType.CREATIVE);
+        player.getAbilities().instabuild = true;
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ItemRegistry.COPPER_WIRE.get(), 1));
+
+        helper.useBlock(from, player, centeredHitResult(helper, from));
+        helper.useBlock(to, player, centeredHitResult(helper, to));
+    }
+
+    private static BlockHitResult centeredHitResult(GameTestHelper helper, BlockPos pos) {
+        return new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(pos)), Direction.UP, helper.absolutePos(pos), false);
     }
 }

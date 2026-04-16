@@ -142,6 +142,6 @@ public class BlockEntityRegistry {
 
     public static final Supplier<BlockEntityType<LogisticsMercuryFluxConnectorBlockEntity>> LOGISTICS_MERCURY_FLUX_CONNECTOR =
             BLOCKS.register("logistics_mercury_flux_connector", () ->
-                    new BlockEntityType<>(LogisticsMercuryFluxConnectorBlockEntity::new, java.util.Set.of()));
+                    new BlockEntityType<>(LogisticsMercuryFluxConnectorBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get())));
 
 }

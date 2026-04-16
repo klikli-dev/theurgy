@@ -47,7 +47,8 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
 
     public LogisticsMercuryFluxConnectorBehaviour(BlockEntity blockEntity) {
         super(blockEntity, CapabilityRegistry.MERCURY_FLUX_HANDLER);
-        this.buffer = new DefaultMercuryFluxStorage(BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE, DEFAULT_TRANSFER_RATE);
+        // High maxReceive so source blocks can fill the buffer quickly
+        this.buffer = new DefaultMercuryFluxStorage(BUFFER_CAPACITY, BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE);
     }
 
     /**

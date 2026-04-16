@@ -8,8 +8,6 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.Logistics
 import com.klikli_dev.theurgy.content.behaviour.filter.FilterBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
-import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
 import com.klikli_dev.theurgy.content.item.mode.FrequencySetter;
@@ -71,7 +69,7 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
 
     @Override
     public List<Pair<BlockPos, Integer>> getStatusHighlights() {
-        if (this.level.isClientSide())
+        if (this.getLevel() == null || this.getLevel().isClientSide())
             return List.of();
 
         List<Pair<BlockPos, Integer>> result = new ArrayList<>();
@@ -88,7 +86,8 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     public void onLoad() {
         super.onLoad();
 
-        if (!this.level.isClientSide()) {
+        if (this.getLevel() != null && !this.getLevel().isClientSide()) {
+            this.ensureAttachedTarget();
             this.leafNode().onLoad();
             this.updateBlockStateToMatchFilter();
         }
@@ -98,7 +97,7 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     public void onChunkUnloaded() {
         super.onChunkUnloaded();
 
-        if (!this.level.isClientSide()) {
+        if (this.getLevel() != null && !this.getLevel().isClientSide()) {
             this.leafNode().onChunkUnload();
         }
     }
@@ -149,11 +148,25 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     }
 
     protected void updateBlockStateToMatchFilter() {
+        var level = this.getLevel();
+        if (level == null) {
+            return;
+        }
+
         var isEmpty = !this.getBlockState().getValue(LogisticsItemConnectorBlock.HAS_FILTER);
         if (this.filter().filter().isEmpty() != isEmpty) {
             var newState = this.getBlockState().setValue(LogisticsItemConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());
-            this.level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
+            level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
         }
+    }
+
+    protected void ensureAttachedTarget() {
+        if (!this.leafNode().targets().isEmpty()) {
+            return;
+        }
+
+        var attachedPos = this.getBlockPos().relative(this.getBlockState().getValue(LogisticsItemConnectorBlock.FACING).getOpposite());
+        this.leafNode().targets().add(attachedPos);
     }
 
     protected void sendBlockUpdated() {
@@ -165,11 +178,12 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
         super.preRemoveSideEffects(pPos, pState);
 
-        if (this.level != null) {
-            this.filter().onRemove(pState, this.level, pPos, pState, false);
+        var level = this.getLevel();
+        if (level != null) {
+            this.filter().onRemove(pState, level, pPos, pState, false);
 
-            var removedWires = Wires.get(this.level).removeWiresFor(pPos);
-            Block.popResource(this.level, pPos, new net.minecraft.world.item.ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+            var removedWires = Wires.get(level).removeWiresFor(pPos);
+            Block.popResource(level, pPos, new net.minecraft.world.item.ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
 
             this.leafNode().onDestroyed();
         }

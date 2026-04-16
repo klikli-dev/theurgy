@@ -1221,6 +1221,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY, "Set frequency to %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_WITH_TARGET, "Set frequency from %s to %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_SUCCESS, "Set frequency to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_CAPACITOR_SIDE, "Cycle capacitor side");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_CAPACITOR_SIDE_WITH_TARGET, "Set %s from %s to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_CAPACITOR_SIDE_SUCCESS, "%s set to %s");
+        this.add("theurgy.side_mode.none", "None");
+        this.add("theurgy.side_mode.input", "Input");
+        this.add("theurgy.side_mode.output", "Output");
+        this.add("theurgy.side_mode.both", "Both");
+        this.add("theurgy.side.north", "North");
+        this.add("theurgy.side.south", "South");
+        this.add("theurgy.side.east", "East");
+        this.add("theurgy.side.west", "West");
+        this.add("theurgy.side.up", "Up");
+        this.add("theurgy.side.down", "Down");
 
         this.addItem(ItemRegistry.LIST_FILTER, "Mercurial List Filter");
         this.addUsageTooltip(ItemRegistry.LIST_FILTER,

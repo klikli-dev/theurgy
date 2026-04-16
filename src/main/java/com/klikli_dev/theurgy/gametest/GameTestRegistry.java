@@ -53,6 +53,12 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_DISABLED_DOES_NOT_RECEIVE_FLUX =
             TEST_FUNCTIONS.register("mercury_capacitor_disabled_does_not_receive_flux", () -> MercuryCapacitorGameTests::disabledCapacitorDoesNotReceiveFlux);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_NO_PING_PONG =
+            TEST_FUNCTIONS.register("mercury_capacitor_no_ping_pong", () -> MercuryCapacitorGameTests::unconfiguredCapacitorsDoNotPingPong);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAPACITOR_SIDE_MODES =
+            TEST_FUNCTIONS.register("mercury_capacitor_side_modes", () -> MercuryCapacitorGameTests::sideModesCanBeConfigured);
+
     // --- Liquefaction Cauldron ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_PLACEMENT_CREATES_TWO_BLOCK_STRUCTURE =

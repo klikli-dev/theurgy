@@ -352,12 +352,7 @@ public class Logistics extends SavedData {
             network = netA;
         } else if (netA != netB) {
             //merge networks
-            if (netA.nodes().size() == 1) //in case netB is also 1 that is fine.
-                network = this.mergeSingle(netB, netA);
-            else if (netB.nodes().size() == 1)
-                network = this.mergeSingle(netA, netB);
-            else
-                network = this.merge(netA, netB);
+            network = this.merge(netA, netB);
         } else {
             //already in the same network .. so we just choose A
             network = netA;
@@ -471,16 +466,6 @@ public class Logistics extends SavedData {
     }
 
     /**
-     * Merges a network with only one node into a larger network.
-     * This means it will never perform a cache rebuild.
-     * Instead, in the case of a leaf being the added one it being added to the network will fire the necessary event.
-     */
-    private LogisticsNetwork mergeSingle(LogisticsNetwork network, LogisticsNetwork singleNodeNetwork) {
-        network.merge(singleNodeNetwork);
-        return network;
-    }
-
-    /**
      * Builds a logistics network from a root node and it's connected nodes.
      *
      * @param rootNode    the root node. This has no special meaning, it is just the first one we query.
@@ -492,18 +477,29 @@ public class Logistics extends SavedData {
         var network = new LogisticsNetwork();
 
         //add the root node
-        network.addNode(rootNode);
-        this.blockPosToNetwork.put(rootNode, network);
-        onNodeAdded.accept(rootNode);
+        this.addNodeToNetwork(network, rootNode, onNodeAdded);
 
         //now add all other nodes
         connected.forEach(c -> {
-            network.addNode(c);
-            this.blockPosToNetwork.put(c, network);
-            onNodeAdded.accept(c);
+            this.addNodeToNetwork(network, c, onNodeAdded);
         });
 
         return network;
+    }
+
+    private void addNodeToNetwork(LogisticsNetwork network, GlobalPos node, Consumer<GlobalPos> onNodeAdded) {
+        network.addNode(node);
+        this.blockPosToNetwork.put(node, network);
+        onNodeAdded.accept(node);
+
+        if (server() == null) {
+            return;
+        }
+
+        var leafNode = this.getLeafNode(node);
+        if (leafNode != null) {
+            network.trackLeafNode(leafNode);
+        }
     }
 
 }

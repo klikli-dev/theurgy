@@ -57,10 +57,13 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
 
         this.mercuryFluxStorage = new MercuryCapacitorMercuryFluxStorage(CAPACITY);
 
-        // Initialize all sides to NONE by default
-        for (var direction : Direction.values()) {
-            this.sideModes.put(direction, SideMode.NONE);
-        }
+        // Default: TOP and BOTTOM are OUTPUT (push flux up/down), other sides are INPUT (receive flux)
+        this.sideModes.put(Direction.UP, SideMode.OUTPUT);
+        this.sideModes.put(Direction.DOWN, SideMode.OUTPUT);
+        this.sideModes.put(Direction.NORTH, SideMode.INPUT);
+        this.sideModes.put(Direction.SOUTH, SideMode.INPUT);
+        this.sideModes.put(Direction.EAST, SideMode.INPUT);
+        this.sideModes.put(Direction.WEST, SideMode.INPUT);
     }
 
     /**

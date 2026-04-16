@@ -116,7 +116,8 @@ public class MercuryCapacitorGameTests {
 
     /**
      * Tests that two unconnected capacitors do not ping-pong flux when placed next to each other.
-     * By default all sides are NONE, so they should not exchange flux.
+     * By default TOP/BOTTOM are OUTPUT and SIDES are INPUT, so they should not exchange flux
+     * directly unless configured otherwise.
      */
     public static void unconfiguredCapacitorsDoNotPingPong(GameTestHelper helper) {
         // Place two capacitors next to each other - no connectors between them
@@ -131,6 +132,8 @@ public class MercuryCapacitorGameTests {
         });
 
         // Wait for several tick cycles and verify no flux transfer happens
+        // Since capacitor B is to the EAST of capacitor A, and EAST side is INPUT (not OUTPUT),
+        // no flux should be pushed to it
         helper.runAtTickTime(100, () -> {
             var capacitorA = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
             var capacitorB = helper.getBlockEntity(CAPACITOR_B_POS, MercuryCapacitorBlockEntity.class);
@@ -151,6 +154,7 @@ public class MercuryCapacitorGameTests {
 
     /**
      * Tests that side modes can be configured and respected.
+     * Default: UP/DOWN = OUTPUT, SIDES = INPUT
      */
     public static void sideModesCanBeConfigured(GameTestHelper helper) {
         helper.setBlock(CAPACITOR_POS, BlockRegistry.MERCURY_CAPACITOR.get());
@@ -158,19 +162,37 @@ public class MercuryCapacitorGameTests {
         helper.runAfterDelay(1, () -> {
             var capacitor = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
 
-            // All sides should default to NONE
-            for (var direction : net.minecraft.core.Direction.values()) {
-                helper.assertTrue(
-                        capacitor.getSideMode(direction) == SideMode.NONE,
-                        "Side " + direction + " should default to NONE"
-                );
-            }
+            // Verify default modes: TOP and BOTTOM are OUTPUT, sides are INPUT
+            helper.assertTrue(
+                    capacitor.getSideMode(net.minecraft.core.Direction.UP) == SideMode.OUTPUT,
+                    "UP side should be OUTPUT by default"
+            );
+            helper.assertTrue(
+                    capacitor.getSideMode(net.minecraft.core.Direction.DOWN) == SideMode.OUTPUT,
+                    "DOWN side should be OUTPUT by default"
+            );
+            helper.assertTrue(
+                    capacitor.getSideMode(net.minecraft.core.Direction.NORTH) == SideMode.INPUT,
+                    "NORTH side should be INPUT by default"
+            );
+            helper.assertTrue(
+                    capacitor.getSideMode(net.minecraft.core.Direction.SOUTH) == SideMode.INPUT,
+                    "SOUTH side should be INPUT by default"
+            );
+            helper.assertTrue(
+                    capacitor.getSideMode(net.minecraft.core.Direction.EAST) == SideMode.INPUT,
+                    "EAST side should be INPUT by default"
+            );
+            helper.assertTrue(
+                    capacitor.getSideMode(net.minecraft.core.Direction.WEST) == SideMode.INPUT,
+                    "WEST side should be INPUT by default"
+            );
 
-            // Set the EAST side to OUTPUT
+            // Change EAST side to OUTPUT
             capacitor.setSideMode(net.minecraft.core.Direction.EAST, SideMode.OUTPUT);
             helper.assertTrue(
                     capacitor.getSideMode(net.minecraft.core.Direction.EAST) == SideMode.OUTPUT,
-                    "East side should be OUTPUT"
+                    "East side should be OUTPUT after change"
             );
         });
 

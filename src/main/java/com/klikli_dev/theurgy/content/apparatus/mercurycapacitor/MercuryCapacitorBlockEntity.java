@@ -48,6 +48,11 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
     public MercuryCapacitorMercuryFluxStorage mercuryFluxStorage;
 
     /**
+     * Pre-constructed side-aware storage wrappers for each direction.
+     */
+    private final Map<Direction, MercuryFluxStorage> sideAwareStorages = new EnumMap<>(Direction.class);
+
+    /**
      * Side configuration for each direction. Default is NONE (no interaction).
      */
     private final Map<Direction, SideMode> sideModes = new EnumMap<>(Direction.class);
@@ -56,6 +61,11 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         super(BlockEntityRegistry.MERCURY_CAPACITOR.get(), pPos, pBlockState);
 
         this.mercuryFluxStorage = new MercuryCapacitorMercuryFluxStorage(CAPACITY);
+
+        // Pre-construct side-aware storage wrappers
+        for (var direction : Direction.values()) {
+            this.sideAwareStorages.put(direction, new SideAwareMercuryFluxStorage(this.mercuryFluxStorage, direction));
+        }
 
         // Default: TOP and BOTTOM are OUTPUT (push flux up/down), other sides are INPUT (receive flux)
         this.sideModes.put(Direction.UP, SideMode.OUTPUT);
@@ -81,7 +91,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         if (side == null) {
             return this.mercuryFluxStorage;
         }
-        return new SideAwareMercuryFluxStorage(this.mercuryFluxStorage, side);
+        return this.sideAwareStorages.getOrDefault(side, this.mercuryFluxStorage);
     }
 
     /**

@@ -5,8 +5,6 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
-import com.klikli_dev.theurgy.content.behaviour.filter.FilterBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
@@ -41,30 +39,18 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<MercuryFluxStorage, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
+public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<MercuryFluxStorage, @Nullable Direction>, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
     protected LogisticsMercuryFluxConnectorBehaviour leafNodeBehaviour;
-    protected FilterBehaviour filterBehaviour;
 
     public LogisticsMercuryFluxConnectorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get(), pPos, pBlockState);
         this.leafNodeBehaviour = new LogisticsMercuryFluxConnectorBehaviour(this);
-        this.filterBehaviour = new FilterBehaviour(this).withCallback(
-                (filter) -> {
-                    this.updateBlockStateToMatchFilter();
-                    this.leafNode().filter(filter);
-                }
-        );
     }
 
     @Override
     public LogisticsMercuryFluxConnectorBehaviour leafNode() {
         return this.leafNodeBehaviour;
-    }
-
-    @Override
-    public FilterBehaviour filter() {
-        return this.filterBehaviour;
     }
 
     @Override
@@ -89,7 +75,6 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
         if (this.getLevel() != null && !this.getLevel().isClientSide()) {
             this.ensureAttachedTarget();
             this.leafNode().onLoad();
-            this.updateBlockStateToMatchFilter();
         }
     }
 
@@ -106,14 +91,12 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.leafNode().loadAdditional(input);
-        this.filter().loadAdditional(input);
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         this.leafNode().saveAdditional(output);
-        this.filter().saveAdditional(output);
     }
 
     @Override
@@ -139,25 +122,10 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
 
     public void readNetwork(ValueInput input) {
         this.leafNode().readNetwork(input);
-        this.filter().readNetwork(input);
     }
 
     public void writeNetwork(ValueOutput output) {
         this.leafNode().writeNetwork(output);
-        this.filter().writeNetwork(output);
-    }
-
-    protected void updateBlockStateToMatchFilter() {
-        var level = this.getLevel();
-        if (level == null) {
-            return;
-        }
-
-        var isEmpty = !this.getBlockState().getValue(LogisticsItemConnectorBlock.HAS_FILTER);
-        if (this.filter().filter().isEmpty() != isEmpty) {
-            var newState = this.getBlockState().setValue(LogisticsItemConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());
-            level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
-        }
     }
 
     protected void ensureAttachedTarget() {
@@ -180,8 +148,6 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
 
         var level = this.getLevel();
         if (level != null) {
-            this.filter().onRemove(pState, level, pPos, pState, false);
-
             var removedWires = Wires.get(level).removeWiresFor(pPos);
             Block.popResource(level, pPos, new net.minecraft.world.item.ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
 

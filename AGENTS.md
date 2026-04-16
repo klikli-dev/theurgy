@@ -8,6 +8,9 @@
 - If prompted to work in a worktree, create the worktree based off the main branch for that minecraft version.
 - Read `gradle.properties` to find the current minecraft version used.
 
+## Java 
+Do not use fully qualified class names in code. Always import classes and use their simple names. 
+
 ## Minecraft source lookups
 - Prefer the `minecraft-dev` MCP tools for all vanilla lookups, diffs, and signature checks.
 - Always use **Mojmaps** when querying Minecraft code with `minecraft-dev`.

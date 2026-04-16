@@ -417,6 +417,12 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_FLUID_EXTRACTS_WORLD_SOURCE =
             TEST_FUNCTIONS.register("logistics_fluid_extracts_world_source", () -> LogisticsGameTests::fluidExtractorPullsFromWorldSource);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER =
+            TEST_FUNCTIONS.register("logistics_item_extractor_targets_in_any_registration_order", () -> LogisticsGameTests::itemExtractorFindsInserterTargetRegardlessOfRegistrationOrder);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER_REVERSED =
+            TEST_FUNCTIONS.register("logistics_item_extractor_targets_in_any_registration_order_reversed", () -> LogisticsGameTests::itemExtractorFindsInserterTargetRegardlessOfRegistrationOrderReversed);
+
     // --- Logistics Capability Proxy ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LCP_PLACEMENT =
@@ -662,6 +668,8 @@ private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent even
         registerTest(event, LOG_INSERTER_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, LOG_EXTRACTOR_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, LOG_FLUID_EXTRACTS_WORLD_SOURCE, environment, structure, 80, 0);
+        registerTest(event, LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER, environment, structure, 40, 0);
+        registerTest(event, LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER_REVERSED, environment, structure, 40, 0);
         registerTest(event, LCP_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, LCP_FLUID_FORWARDING, environment, structure, 100, 0);
         registerTest(event, LCP_FLUID_ROUND_ROBIN, environment, structure, 100, 0);

@@ -114,7 +114,7 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
             if (!forceSetRemoved) {
                 this.targetCapabilities.stream()
                         .filter(cache -> cache.pos().equals(targetPos))
-                        .filter(cache -> cache.getCapability() != null)
+                        .filter(this::hasAvailableTargetCapability)
                         .forEach(cache -> network.onInserterNodeTargetAdded(targetGlobalPos, cache, this));
             }
         }
@@ -126,7 +126,7 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
      */
     protected void notifyTargetCapabilityCacheCreated(BlockCapabilityCache<T, C> capability) {
         //only notify if we actually have a valid one - otherwise onCapabilityInvalidated will handle it on load of target
-        var targetValid = capability.getCapability() != null;
+        var targetValid = this.hasAvailableTargetCapability(capability);
 
         var targetGlobalPos = GlobalPos.of(this.level().dimension(), capability.pos());
 
@@ -142,7 +142,15 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
      * @return
      */
     public List<BlockCapabilityCache<T, C>> availableTargetCapabilities() {
-        return this.targetCapabilities.stream().filter(cache -> cache.getCapability() != null).toList();
+        return this.targetCapabilities.stream().filter(this::hasAvailableTargetCapability).toList();
+    }
+
+    protected boolean hasAvailableTargetCapability(BlockCapabilityCache<T, C> capability) {
+        if (capability.getCapability() != null) {
+            return true;
+        }
+
+        return this.level().getCapability(this.capabilityType(), capability.pos(), capability.context()) != null;
     }
 
     /**

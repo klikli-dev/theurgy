@@ -24,7 +24,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -155,6 +154,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
 
     public void readNetwork(ValueInput input) {
         this.selectedPoints = input.read("selectedPoints", MercuryFluxEmitterSelectedPoint.LIST_CODEC).orElseGet(ArrayList::new);
+        this.selectedPoints.forEach(point -> point.setLevel(this.getLevel()));
     }
 
     public void writeNetwork(ValueOutput output) {
@@ -178,7 +178,8 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
     }
 
     public void setSelectedPoints(List<MercuryFluxEmitterSelectedPoint> selectedPoints) {
-        this.selectedPoints = selectedPoints;
+        this.selectedPoints = new ArrayList<>(selectedPoints);
+        this.selectedPoints.forEach(point -> point.setLevel(this.getLevel()));
         this.selectedPoints.removeIf(p -> !p.getBlockPos().closerThan(this.getBlockPos(), this.getSelectionBehaviour().getBlockRange()));
         this.setChanged();
     }
@@ -187,7 +188,8 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
      * client-side variant that does no checks
      */
     public void setSelectedPointsClient(List<MercuryFluxEmitterSelectedPoint> selectedPoints) {
-        this.selectedPoints = selectedPoints;
+        this.selectedPoints = new ArrayList<>(selectedPoints);
+        this.selectedPoints.forEach(point -> point.setLevel(this.getLevel()));
     }
 
     public List<MercuryFluxEmitterSelectedPoint> getSelectedPoints() {

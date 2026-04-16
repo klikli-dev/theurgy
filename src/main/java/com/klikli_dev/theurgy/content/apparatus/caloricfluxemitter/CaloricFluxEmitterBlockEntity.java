@@ -128,6 +128,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
 
     public void setSelectedPoints(List<CaloricFluxEmitterSelectedPoint> selectedPoints) {
         this.selectedPoints = selectedPoints;
+        this.selectedPoints.forEach(point -> point.setLevel(this.getLevel()));
         this.selectedPoints.removeIf(p -> !p.getBlockPos().closerThan(this.getBlockPos(), this.getSelectionBehaviour().getBlockRange()));
         this.setChanged();
     }
@@ -137,6 +138,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
      */
     public void setSelectedPointsClient(List<CaloricFluxEmitterSelectedPoint> selectedPoints) {
         this.selectedPoints = selectedPoints;
+        this.selectedPoints.forEach(point -> point.setLevel(this.getLevel()));
     }
 
     public class MercuryFluxStorage extends DefaultMercuryFluxStorage {

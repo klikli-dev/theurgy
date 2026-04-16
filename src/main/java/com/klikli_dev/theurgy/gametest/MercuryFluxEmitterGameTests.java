@@ -25,10 +25,10 @@ public class MercuryFluxEmitterGameTests {
 
     public static void placementWithFacing(GameTestHelper helper) {
         helper.setBlock(EMITTER_POS, BlockRegistry.MERCURY_FLUX_EMITTER.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.DOWN));
+                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.UP));
 
         helper.assertBlockPresent(BlockRegistry.MERCURY_FLUX_EMITTER.get(), EMITTER_POS);
-        helper.assertBlockProperty(EMITTER_POS, BlockStateProperties.FACING, net.minecraft.core.Direction.DOWN);
+        helper.assertBlockProperty(EMITTER_POS, BlockStateProperties.FACING, net.minecraft.core.Direction.UP);
         helper.succeed();
     }
 
@@ -50,7 +50,7 @@ public class MercuryFluxEmitterGameTests {
         // Setup: Catalyst generates flux, Emitter on top, Capacitor a few blocks away
         helper.setBlock(CATALYST_POS, BlockRegistry.MERCURY_CATALYST.get());
         helper.setBlock(EMITTER_POS, BlockRegistry.MERCURY_FLUX_EMITTER.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.DOWN));
+                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.UP));
         helper.setBlock(CAPACITOR_POS, BlockRegistry.MERCURY_CAPACITOR.get());
 
         helper.runAtTickTime(1, () -> {
@@ -72,7 +72,7 @@ public class MercuryFluxEmitterGameTests {
         // Setup: Catalyst generates flux, Emitter on top, Capacitor a few blocks away
         helper.setBlock(CATALYST_POS, BlockRegistry.MERCURY_CATALYST.get());
         helper.setBlock(EMITTER_POS, BlockRegistry.MERCURY_FLUX_EMITTER.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.DOWN));
+                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.UP));
         helper.setBlock(CAPACITOR_POS, BlockRegistry.MERCURY_CAPACITOR.get());
 
         // Link emitter to capacitor

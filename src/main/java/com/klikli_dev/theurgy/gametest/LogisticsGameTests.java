@@ -146,12 +146,13 @@ public class LogisticsGameTests {
         helper.setBlock(ITEM_EXTRACTOR_POS, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
         helper.setBlock(ITEM_EXTRACTOR_TARGET_POS, Blocks.CHEST);
 
+        var inserterPos = helper.absolutePos(ITEM_INSERTER_POS);
+        var inserterTargetPos = helper.absolutePos(ITEM_INSERTER_TARGET_POS);
+        var extractorPos = helper.absolutePos(ITEM_EXTRACTOR_POS);
+        var extractorTargetPos = helper.absolutePos(ITEM_EXTRACTOR_TARGET_POS);
+
         helper.runAfterDelay(1, () -> {
             var level = helper.getLevel();
-            var inserterPos = helper.absolutePos(ITEM_INSERTER_POS);
-            var inserterTargetPos = helper.absolutePos(ITEM_INSERTER_TARGET_POS);
-            var extractorPos = helper.absolutePos(ITEM_EXTRACTOR_POS);
-            var extractorTargetPos = helper.absolutePos(ITEM_EXTRACTOR_TARGET_POS);
 
             var inserter = helper.getBlockEntity(ITEM_INSERTER_POS, LogisticsItemInserterBlockEntity.class);
             var extractor = helper.getBlockEntity(ITEM_EXTRACTOR_POS, LogisticsItemExtractorBlockEntity.class);
@@ -176,6 +177,11 @@ public class LogisticsGameTests {
                 Logistics.get().add(inserter.leafNode());
                 Logistics.get().add(extractor.leafNode());
             }
+        });
+
+        helper.succeedWhen(() -> {
+            var level = helper.getLevel();
+            var extractor = helper.getBlockEntity(ITEM_EXTRACTOR_POS, LogisticsItemExtractorBlockEntity.class);
 
             helper.assertTrue(
                     extractor.leafNode().insertTargets().stream().anyMatch(target ->
@@ -183,8 +189,6 @@ public class LogisticsGameTests {
                                     && target.capability().pos().equals(inserterTargetPos)),
                     "Extractor should discover the inserter target regardless of registration order"
             );
-
-            helper.succeed();
         });
     }
 }

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "d": "#c:dyes/blue",
+    "m": "theurgy:mercury_shard"
+  },
+  "pattern": [
+    "d",
+    "m"
+  ],
+  "result": {
+    "id": "theurgy:logistics_mercury_flux_connector"
+  }
+}

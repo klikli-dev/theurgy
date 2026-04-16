@@ -22,6 +22,7 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extracto
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector.LogisticsMercuryFluxConnectorBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
@@ -213,6 +214,12 @@ public class BlockRegistry {
 
     public static final DeferredBlock<LogisticsFluidExtractorBlock> LOGISTICS_FLUID_EXTRACTOR =
             BLOCKS.registerBlock("logistics_fluid_extractor", LogisticsFluidExtractorBlock::new, () -> BlockBehaviour.Properties.of()
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff());
+
+    public static final DeferredBlock<LogisticsMercuryFluxConnectorBlock> LOGISTICS_MERCURY_FLUX_CONNECTOR =
+            BLOCKS.registerBlock("logistics_mercury_flux_connector", LogisticsMercuryFluxConnectorBlock::new, () -> BlockBehaviour.Properties.of()
                     .strength(0.1f)
                     .noOcclusion()
                     .forceSolidOff());

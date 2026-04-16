@@ -75,6 +75,7 @@ public class TheurgyBlockModelSubProvider {
         this.registerLogisticsConnector(blockModels, itemModels, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), Theurgy.loc("block/logistics_item_extractor"));
         this.registerLogisticsConnector(blockModels, itemModels, BlockRegistry.LOGISTICS_FLUID_INSERTER.get(), Theurgy.loc("block/logistics_fluid_inserter"));
         this.registerLogisticsConnector(blockModels, itemModels, BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get(), Theurgy.loc("block/logistics_fluid_extractor"));
+        this.registerLogisticsConnector(blockModels, itemModels, BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get(), Theurgy.loc("block/logistics_mercury_flux_connector"));
         this.registerLogisticsProbe(blockModels, itemModels, BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get(), Theurgy.loc("block/logistics_capability_probe"));
         this.registerLogisticsCapabilityProxy(blockModels, itemModels, BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get(), Theurgy.loc("block/logistics_proxy"));
         this.registerLogisticsNode(blockModels, itemModels);

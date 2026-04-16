@@ -579,6 +579,20 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                         this.green("Right-Click")
                 )
         );
+
+        this.addBlock(BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR, "Mercurial Flux Connector");
+        this.addTooltip(BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()::asItem,
+                "Transfers Mercury Flux between blocks via a Mercurial Logistics Network",
+                null,
+                this.f(
+                        """
+                                {0} the target block with the connector to place it.
+                                Then {0} the connector with a cable to connect it to the network.
+                                Connectors automatically balance flux between connected blocks.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
     }
 
     private void addNiter(AlchemicalNiterItem niter) {

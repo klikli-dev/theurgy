@@ -253,12 +253,9 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get(),
-                (blockEntity, side) -> {
-                    // Proxy the mercury flux capability from the attached block
-                    var targetCap = blockEntity.leafNode().availableTargetCapabilities();
-                    if (targetCap.isEmpty()) return null;
-                    return targetCap.getFirst().getCapability();
-                });
+                // Expose the connector's own buffer so source blocks can push into it.
+                // The connector then forwards buffer contents through the logistics network.
+                (blockEntity, side) -> blockEntity.leafNode().buffer());
     }
 
 

@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
+import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
@@ -16,31 +17,45 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 /**
- * A leaf node behaviour that exposes a mercury flux handler (from the attached block) to the logistics network,
- * and balances flux between connected blocks on tick.
+ * A leaf node behaviour that acts as a mercury flux conduit in the logistics network.
  * <p>
- * Unlike item/fluid inserters and extractors, there is no inserter/extractor split — the block decides whether
- * it pushes or pulls based on relative energy levels. This mirrors how NeoForge energy (FE) works: two blocks
- * are connected by attaching a connector to both, and the source pushes if it has more energy than the target.
+ * Unlike item/fluid inserters and extractors, there is no inserter/extractor split.
+ * The connector has its own internal buffer that source blocks (e.g., Mercury Catalyst) push
+ * flux into. On tick, the connector forwards buffer contents to other connectors' attached
+ * blocks (sinks) through the logistics network. This mirrors how NeoForge energy (FE) works:
+ * the source block decides to push; the cable (connector) just forwards.
+ * <p>
+ * Flow: Source → Connector A buffer → (logistics network) → Connector B's attached block (sink)
  */
 public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviour<MercuryFluxStorage, @Nullable Direction> {
 
     public static final int DEFAULT_TRANSFER_RATE = 100;
     public static final int TRANSFER_EVERY_N_TICKS = 20; // 1 second
+    public static final int BUFFER_CAPACITY = 1000;
 
     private final int slowTickRandomOffset = (int) (Math.random() * TRANSFER_EVERY_N_TICKS);
     private boolean enabled = true;
     private Direction directionOverride = null;
+    private final DefaultMercuryFluxStorage buffer;
 
     public LogisticsMercuryFluxConnectorBehaviour(BlockEntity blockEntity) {
         super(blockEntity, CapabilityRegistry.MERCURY_FLUX_HANDLER);
+        this.buffer = new DefaultMercuryFluxStorage(BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE, DEFAULT_TRANSFER_RATE);
+    }
+
+    /**
+     * Returns the connector's internal flux buffer.
+     * This is exposed via capability registration so source blocks can push into it.
+     */
+    public MercuryFluxStorage buffer() {
+        return this.buffer;
     }
 
     @Override
@@ -95,36 +110,34 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
 
     @Override
     public @Nullable Direction getTargetContext(BlockPos targetPos) {
-        // The target is the block the connector is attached to (opposite to FACING)
+        // The target is the block the connector is attached to.
+        // FACING points toward the attached block, so the context is FACING
+        // (accessing the target from the direction the connector faces).
         return this.directionOverride != null ? this.directionOverride :
-                this.blockEntity.getBlockState().getValue(BlockStateProperties.FACING).getOpposite();
+                this.blockEntity.getBlockState().getValue(BlockStateProperties.FACING);
     }
 
     /**
-     * Called every server tick to balance flux between this connector's attached block and other
-     * mercury flux handlers in the same network.
+     * Called every server tick to forward flux from this connector's buffer
+     * to other connectors' attached blocks (sinks) in the logistics network.
+     * <p>
+     * This follows the conduit pattern: source blocks push into the connector's buffer,
+     * and the connector forwards the buffer contents to remote sinks via the network.
      */
     public void tickServer() {
         if (!this.enabled) return;
+        if (this.buffer.getEnergyStored() <= 0) return;
 
         // Slow tick to avoid processing every tick
         if ((this.slowTickRandomOffset + this.blockEntity.getLevel().getGameTime()) % TRANSFER_EVERY_N_TICKS != 0)
             return;
 
-        // Get the flux handler of the block we're attached to
-        var targetCaps = this.availableTargetCapabilities();
-        if (targetCaps.isEmpty()) return;
-
-        // Get the first (and usually only) target capability - the block we're attached to
-        var localCap = targetCaps.getFirst().getCapability();
-        if (localCap == null) return;
-
-        // Find all other mercury flux connectors in the same network and frequency
+        // Collect all valid sink targets from other connectors in the same network
         var network = Logistics.get().getNetwork(this.globalPos());
         if (network == null) return;
 
         Set<GlobalPos> otherNodes = network.getLeafNodes(this.capabilityType(), this.frequency());
-        if (otherNodes.isEmpty()) return;
+        List<MercuryFluxStorage> sinks = new ArrayList<>();
 
         for (var other : otherNodes) {
             if (other.equals(this.globalPos())) continue;
@@ -133,56 +146,50 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
             if (otherNode == null || !(otherNode instanceof LogisticsMercuryFluxConnectorBehaviour otherConnector))
                 continue;
 
+            if (!otherConnector.enabled()) continue;
+
+            // Get the MercuryFluxStorage of the block the other connector is attached to (the sink)
             var otherTargetCaps = otherConnector.availableTargetCapabilities();
             if (otherTargetCaps.isEmpty()) continue;
 
-            var otherCap = otherTargetCaps.getFirst().getCapability();
-            if (otherCap == null) continue;
-
-            this.balanceFlux(localCap, otherCap);
-        }
-    }
-
-    /**
-     * Balances mercury flux between two handlers by transferring from the one with more
-     * to the one with less, up to DEFAULT_TRANSFER_RATE.
-     */
-    protected void balanceFlux(MercuryFluxStorage a, MercuryFluxStorage b) {
-        int storedA = a.getEnergyStored();
-        int storedB = b.getEnergyStored();
-
-        if (storedA == storedB) return;
-
-        MercuryFluxStorage source;
-        MercuryFluxStorage target;
-
-        if (storedA > storedB) {
-            source = a;
-            target = b;
-        } else {
-            source = b;
-            target = a;
+            var sinkCap = otherTargetCaps.getFirst().getCapability();
+            if (sinkCap != null && sinkCap.canReceive()) {
+                sinks.add(sinkCap);
+            }
         }
 
-        // Transfer from source to target
-        int toTransfer = Math.min(DEFAULT_TRANSFER_RATE, source.getEnergyStored());
-        if (toTransfer <= 0) return;
+        if (sinks.isEmpty()) return;
 
-        int accepted = target.receiveEnergy(toTransfer, true);
-        if (accepted <= 0) return;
+        // Distribute buffer contents evenly among all sinks (same pattern as MercuryCapacitor)
+        int totalToPush = this.buffer.extractEnergy(DEFAULT_TRANSFER_RATE * sinks.size(), true);
+        if (totalToPush <= 0) return;
 
-        int extracted = source.extractEnergy(accepted, false);
-        target.receiveEnergy(extracted, false);
+        int perTarget = totalToPush / sinks.size();
+        int remainder = totalToPush % sinks.size();
+
+        for (int i = 0; i < sinks.size(); i++) {
+            int amount = perTarget + (i < remainder ? 1 : 0);
+            if (amount <= 0) continue;
+
+            int received = sinks.get(i).receiveEnergy(amount, false);
+            this.buffer.extractEnergy(received, false);
+        }
     }
 
     @Override
     public void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
+        ValueOutput bufferOutput = output.child("buffer");
+        this.buffer.serialize(bufferOutput);
+        if (bufferOutput.isEmpty()) {
+            output.discard("buffer");
+        }
     }
 
     @Override
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
+        input.child("buffer").ifPresent(this.buffer::deserialize);
     }
 
     @Override

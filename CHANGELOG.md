@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.84.0] - 2026-04-16
+### :sparkles: New Features
+- [`e71d40d`](https://github.com/klikli-dev/theurgy/commit/e71d40d953e65b4cf0852c8588e93ad2bd89c370) - [26.1.2] Updated PT_BR localization *(PR [#339](https://github.com/klikli-dev/theurgy/pull/339) by [@PrincessStellar](https://github.com/PrincessStellar))*
+
+
 ## [release/v26.1.2-1.83.0] - 2026-04-15
 ### :sparkles: New Features
 - [`afade30`](https://github.com/klikli-dev/theurgy/commit/afade308268ed95f9d93ae1133e57901b1241872) - Add Mercury Capacitor block *(PR [#336](https://github.com/klikli-dev/theurgy/pull/336) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1448,3 +1453,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.82.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-0.0.0...release/v26.1.2-1.82.0
 [release/v26.1.2-1.82.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.82.0...release/v26.1.2-1.82.1
 [release/v26.1.2-1.83.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.82.1...release/v26.1.2-1.83.0
+[release/v26.1.2-1.84.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.83.0...release/v26.1.2-1.84.0

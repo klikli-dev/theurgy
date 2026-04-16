@@ -501,6 +501,10 @@ public class Logistics extends SavedData {
         this.blockPosToNetwork.put(node, network);
         onNodeAdded.accept(node);
 
+        if (server() == null) {
+            return;
+        }
+
         var leafNode = this.getLeafNode(node);
         if (leafNode != null) {
             network.trackLeafNode(leafNode);

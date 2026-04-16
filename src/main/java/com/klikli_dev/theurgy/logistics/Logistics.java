@@ -357,12 +357,7 @@ public class Logistics extends SavedData {
             network = netA;
         } else if (netA != netB) {
             //merge networks
-            if (netA.nodes().size() == 1) //in case netB is also 1 that is fine.
-                network = this.mergeSingle(netB, netA);
-            else if (netB.nodes().size() == 1)
-                network = this.mergeSingle(netA, netB);
-            else
-                network = this.merge(netA, netB);
+            network = this.merge(netA, netB);
         } else {
             //already in the same network .. so we just choose A
             network = netA;
@@ -477,16 +472,6 @@ public class Logistics extends SavedData {
         }
 
         return result;
-    }
-
-    /**
-     * Merges a network with only one node into a larger network.
-     * This means it will never perform a cache rebuild.
-     * Instead, in the case of a leaf being the added one it being added to the network will fire the necessary event.
-     */
-    private LogisticsNetwork mergeSingle(LogisticsNetwork network, LogisticsNetwork singleNodeNetwork) {
-        network.merge(singleNodeNetwork);
-        return network;
     }
 
     /**

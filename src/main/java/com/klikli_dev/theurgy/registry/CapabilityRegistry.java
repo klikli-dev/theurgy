@@ -275,7 +275,7 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.MERCURY_CAPACITOR.get(),
-                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
+                (blockEntity, side) -> blockEntity.getMercuryFluxStorage(side));
     }
 
     public static void registerPyromanticBrazier(RegisterCapabilitiesEvent event) {

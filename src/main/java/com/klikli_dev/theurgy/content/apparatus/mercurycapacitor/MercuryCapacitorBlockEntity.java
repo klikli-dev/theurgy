@@ -74,11 +74,78 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
     }
 
     /**
+     * Returns a mercury flux storage wrapper that respects side mode for receiving.
+     * If side is null, returns the full storage (for internal use).
+     */
+    public MercuryFluxStorage getMercuryFluxStorage(@Nullable Direction side) {
+        if (side == null) {
+            return this.mercuryFluxStorage;
+        }
+        return new SideAwareMercuryFluxStorage(this.mercuryFluxStorage, side);
+    }
+
+    /**
+     * Wrapper that enforces side mode on receive operations.
+     */
+    private class SideAwareMercuryFluxStorage implements MercuryFluxStorage {
+        private final MercuryFluxStorage delegate;
+        private final Direction side;
+
+        public SideAwareMercuryFluxStorage(MercuryFluxStorage delegate, Direction side) {
+            this.delegate = delegate;
+            this.side = side;
+        }
+
+        @Override
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            // Only allow receiving if side is INPUT or BOTH
+            if (mode != SideMode.INPUT && mode != SideMode.BOTH) {
+                return 0;
+            }
+            return this.delegate.receiveEnergy(maxReceive, simulate);
+        }
+
+        @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+            return this.delegate.extractEnergy(maxExtract, simulate);
+        }
+
+        @Override
+        public int getEnergyStored() {
+            return this.delegate.getEnergyStored();
+        }
+
+        @Override
+        public void setEnergyStored(int energy) {
+            this.delegate.setEnergyStored(energy);
+        }
+
+        @Override
+        public int getMaxEnergyStored() {
+            return this.delegate.getMaxEnergyStored();
+        }
+
+        @Override
+        public boolean canExtract() {
+            return this.delegate.canExtract();
+        }
+
+        @Override
+        public boolean canReceive() {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            // Only allow receiving if side is INPUT or BOTH
+            return (mode == SideMode.INPUT || mode == SideMode.BOTH) && this.delegate.canReceive();
+        }
+    }
+
+    /**
      * Set the mode for a specific side.
      */
     public void setSideMode(Direction direction, SideMode mode) {
         this.sideModes.put(direction, mode);
         this.setChanged();
+        this.sendBlockUpdated();
     }
 
     /**

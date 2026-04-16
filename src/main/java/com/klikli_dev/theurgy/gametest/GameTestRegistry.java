@@ -434,6 +434,23 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LCP_FLUID_ROUND_ROBIN =
             TEST_FUNCTIONS.register("logistics_capability_proxy_fluid_round_robin", () -> LogisticsCapabilityProxyGameTests::fluidCapabilityRoundRobin);
 
+    // --- Mercury Flux Connector ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MFC_PLACEMENT =
+            TEST_FUNCTIONS.register("mercury_flux_connector_placement", () -> MercuryFluxConnectorGameTests::placementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MFC_BUFFER_EMPTY =
+            TEST_FUNCTIONS.register("mercury_flux_connector_buffer_empty", () -> MercuryFluxConnectorGameTests::bufferStartsEmpty);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MFC_EXPOSES_CAPABILITY =
+            TEST_FUNCTIONS.register("mercury_flux_connector_exposes_capability", () -> MercuryFluxConnectorGameTests::exposesFluxCapability);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MFC_FORWARDS_FLUX =
+            TEST_FUNCTIONS.register("mercury_flux_connector_forwards_flux", () -> MercuryFluxConnectorGameTests::forwardsFluxFromCatalystToCapacitor);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MFC_FORWARDS_TO_MULTIPLE =
+            TEST_FUNCTIONS.register("mercury_flux_connector_forwards_to_multiple", () -> MercuryFluxConnectorGameTests::forwardsFluxToMultipleCapacitors);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerMercuryCapacitorTests(event);
@@ -451,6 +468,7 @@ public class GameTestRegistry {
         registerMercuryFluxEmitterTests(event);
         registerReformationPedestalTests(event);
         registerLogisticsTests(event);
+        registerMercuryFluxConnectorTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -660,7 +678,7 @@ private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent even
         registerTest(event, RP_RESULT_EXTRACT, environment, structure, 40, 0);
     }
 
-    private static void registerLogisticsTests(RegisterGameTestsEvent event) {
+private static void registerLogisticsTests(RegisterGameTestsEvent event) {
         var environment = event.registerEnvironment(Theurgy.loc("logistics"));
         var structure = Theurgy.loc("logistics_test");
 
@@ -673,6 +691,17 @@ private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent even
         registerTest(event, LCP_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, LCP_FLUID_FORWARDING, environment, structure, 100, 0);
         registerTest(event, LCP_FLUID_ROUND_ROBIN, environment, structure, 100, 0);
+    }
+
+    private static void registerMercuryFluxConnectorTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("mercury_flux_connector"));
+        var structure = Theurgy.loc("mercury_capacitor_test");
+
+        registerTest(event, MFC_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, MFC_BUFFER_EMPTY, environment, structure, 40, 0);
+        registerTest(event, MFC_EXPOSES_CAPABILITY, environment, structure, 40, 0);
+        registerTest(event, MFC_FORWARDS_FLUX, environment, structure, 400, 0);
+        registerTest(event, MFC_FORWARDS_TO_MULTIPLE, environment, structure, 400, 0);
     }
 
     private static void registerTest(

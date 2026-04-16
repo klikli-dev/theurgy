@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.85.0] - 2026-04-16
+### :bug: Bug Fixes
+- [`783021f`](https://github.com/klikli-dev/theurgy/commit/783021f40c5b2372bff105defdd59a8854372eb1) - backfill logistics inserter targets regardless of link order *(PR [#341](https://github.com/klikli-dev/theurgy/pull/341) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4ae6b83`](https://github.com/klikli-dev/theurgy/commit/4ae6b83774f09bd7b31337fcd55010e4418afce5) - forwardport logistics network cache crash to 26.1.2 *(PR [#342](https://github.com/klikli-dev/theurgy/pull/342) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.84.0] - 2026-04-16
 ### :sparkles: New Features
 - [`e71d40d`](https://github.com/klikli-dev/theurgy/commit/e71d40d953e65b4cf0852c8588e93ad2bd89c370) - [26.1.2] Updated PT_BR localization *(PR [#339](https://github.com/klikli-dev/theurgy/pull/339) by [@PrincessStellar](https://github.com/PrincessStellar))*
@@ -1454,3 +1460,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.82.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.82.0...release/v26.1.2-1.82.1
 [release/v26.1.2-1.83.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.82.1...release/v26.1.2-1.83.0
 [release/v26.1.2-1.84.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.83.0...release/v26.1.2-1.84.0
+[release/v26.1.2-1.85.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.84.0...release/v26.1.2-1.85.0

@@ -23,11 +23,6 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<MercuryFluxStorage, @Nullable Direction>, TargetDirectionSetter, EnabledSetter, FrequencySetter {
+public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<MercuryFluxStorage, @Nullable Direction>, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
     protected LogisticsMercuryFluxConnectorBehaviour leafNodeBehaviour;
 
@@ -153,17 +148,6 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
 
             this.leafNode().onDestroyed();
         }
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return null;
     }
 
     @Override

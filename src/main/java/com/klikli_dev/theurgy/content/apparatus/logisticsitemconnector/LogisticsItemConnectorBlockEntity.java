@@ -16,11 +16,6 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
+public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
     protected LeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> leafNodeBehaviour;
     protected FilterBehaviour filterBehaviour;
@@ -122,17 +117,6 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     @Override
     public LeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> leafNode() {
         return this.leafNodeBehaviour;
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return null;
     }
 
     protected void updateBlockStateToMatchFilter() {

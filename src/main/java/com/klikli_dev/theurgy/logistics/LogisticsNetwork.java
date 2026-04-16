@@ -51,9 +51,7 @@ public class LogisticsNetwork {
     }
 
     public void addLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
-        var pos = leafNode.globalPos();
-        this.leafNodes.add(pos);
-        this.keyToLeafNodes.put(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
+        this.trackLeafNode(leafNode);
 
         if (leafNode.mode() == LeafNodeMode.INSERT) {
             this.onLoadInsertNode(leafNode.asInserter());
@@ -64,9 +62,7 @@ public class LogisticsNetwork {
     }
 
     public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
-        var pos = leafNode.globalPos();
-        this.leafNodes.remove(pos);
-        this.keyToLeafNodes.remove(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
+        this.untrackLeafNode(leafNode);
 
         if (leafNode.mode() == LeafNodeMode.INSERT) {
             this.onUnloadInsertNode(leafNode.asInserter());
@@ -74,6 +70,22 @@ public class LogisticsNetwork {
         if (leafNode.mode() == LeafNodeMode.EXTRACT) {
             this.onUnloadExtractNode(leafNode.asExtractor());
         }
+    }
+
+    /**
+     * Registers a loaded leaf node with this network without notifying other nodes.
+     * Used when reconstructing a network after graph changes so caches can be rebuilt afterwards.
+     */
+    public void trackLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
+        var pos = leafNode.globalPos();
+        this.leafNodes.add(pos);
+        this.keyToLeafNodes.put(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
+    }
+
+    public void untrackLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
+        var pos = leafNode.globalPos();
+        this.leafNodes.remove(pos);
+        this.keyToLeafNodes.remove(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
     }
 
     public <T, C> void onInserterNodeTargetAdded(GlobalPos targetPos, BlockCapabilityCache<T, C> capability, InserterNodeBehaviour<T, C> leafNode) {

@@ -147,11 +147,11 @@ public class WireItem extends Item {
             Logistics.get().add(posA, posB);
 
             if (level.getBlockEntity(posA.pos()) instanceof HasLeafNodeBehaviour<?, ?> blockEntity) {
-                Logistics.get().add(blockEntity.leafNode());
+                blockEntity.leafNodes().forEach(Logistics.get()::add);
             }
 
             if (level.getBlockEntity(posB.pos()) instanceof HasLeafNodeBehaviour<?, ?> blockEntity) {
-                Logistics.get().add(blockEntity.leafNode());
+                blockEntity.leafNodes().forEach(Logistics.get()::add);
             }
         }
 

@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageMercuryFluxEmitterSelection;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -59,7 +60,8 @@ public class MercuryFluxEmitterSelectionBehaviour extends SelectionBehaviour<Mer
         if (!level.isLoaded(pos))
             return false;
 
-        return level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, pos, state, null, null) != null;
+        return level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, pos, state, null, null) != null
+                || level.getCapability(Capabilities.Energy.BLOCK, pos, state, null, null) != null;
     }
 
     @Override

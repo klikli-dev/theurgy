@@ -256,6 +256,11 @@ public class CapabilityRegistry {
                 // Expose the connector's own buffer so source blocks can push into it.
                 // The connector then forwards buffer contents through the logistics network.
                 (blockEntity, side) -> blockEntity.leafNode().buffer());
+
+        event.registerBlockEntity(
+                Capabilities.Energy.BLOCK,
+                BlockEntityRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get(),
+                (blockEntity, side) -> blockEntity.energyLeafNode().buffer());
     }
 
 
@@ -305,6 +310,19 @@ public class CapabilityRegistry {
                     var attachedSide = facing.getOpposite();
                     if (side == null || side == attachedSide) {
                         return blockEntity.mercuryFluxHandler;
+                    }
+                    return null;
+                });
+
+        event.registerBlockEntity(
+                Capabilities.Energy.BLOCK,
+                BlockEntityRegistry.MERCURY_FLUX_EMITTER.get(),
+                (blockEntity, side) -> {
+                    var blockState = blockEntity.getBlockState();
+                    var facing = blockState.getValue(BlockStateProperties.FACING);
+                    var attachedSide = facing.getOpposite();
+                    if (side == null || side == attachedSide) {
+                        return blockEntity.energyStorage;
                     }
                     return null;
                 });

@@ -27,7 +27,7 @@ import java.util.Set;
  */
 public class LogisticsNetwork {
     private final Set<GlobalPos> nodes = new ObjectOpenHashSet<>();
-    private final Set<GlobalPos> leafNodes = new ObjectOpenHashSet<>();
+    private final Set<TrackedLeafNode> leafNodes = new ObjectOpenHashSet<>();
     private final SetMultimap<Key, GlobalPos> keyToLeafNodes = HashMultimap.create();
 
     public Set<GlobalPos> nodes() {
@@ -78,13 +78,13 @@ public class LogisticsNetwork {
      */
     public void trackLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
         var pos = leafNode.globalPos();
-        this.leafNodes.add(pos);
+        this.leafNodes.add(new TrackedLeafNode(pos, leafNode.capabilityType()));
         this.keyToLeafNodes.put(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
     }
 
     public void untrackLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
         var pos = leafNode.globalPos();
-        this.leafNodes.remove(pos);
+        this.leafNodes.remove(new TrackedLeafNode(pos, leafNode.capabilityType()));
         this.keyToLeafNodes.remove(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
     }
 
@@ -275,7 +275,7 @@ public class LogisticsNetwork {
         Logistics.get().enableLeafNodeCache();
         //first unload all to unlink them
         for (var leafNode : this.leafNodes) {
-            var node = Logistics.get().getLeafNode(leafNode);
+            var node = Logistics.get().getLeafNode(leafNode.pos(), leafNode.capability());
             if (node != null) {
                 if (node.mode() == LeafNodeMode.EXTRACT) {
                     this.onUnloadExtractNode(node.asExtractor());
@@ -288,7 +288,7 @@ public class LogisticsNetwork {
         }
         //then load all to link them
         for (var leafNode : this.leafNodes) {
-            var node = Logistics.get().getLeafNode(leafNode);
+            var node = Logistics.get().getLeafNode(leafNode.pos(), leafNode.capability());
             if (node != null) {
                 if (node.mode() == LeafNodeMode.EXTRACT) {
                     //now there is no need to call load here, as the load insert will notify the extractors
@@ -303,5 +303,8 @@ public class LogisticsNetwork {
     }
 
     public record Key(BlockCapability<?, ?> capability, int frequency) {
+    }
+
+    public record TrackedLeafNode(GlobalPos pos, BlockCapability<?, ?> capability) {
     }
 }

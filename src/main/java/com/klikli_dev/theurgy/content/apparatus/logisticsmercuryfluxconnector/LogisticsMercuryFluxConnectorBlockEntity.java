@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
 import com.klikli_dev.theurgy.content.item.mode.FrequencySetter;
@@ -38,15 +39,26 @@ import java.util.List;
 public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<MercuryFluxHandler, @Nullable Direction>, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
     protected LogisticsMercuryFluxConnectorBehaviour leafNodeBehaviour;
+    protected LogisticsMercuryFluxConnectorEnergyBehaviour energyLeafNodeBehaviour;
 
     public LogisticsMercuryFluxConnectorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get(), pPos, pBlockState);
         this.leafNodeBehaviour = new LogisticsMercuryFluxConnectorBehaviour(this);
+        this.energyLeafNodeBehaviour = new LogisticsMercuryFluxConnectorEnergyBehaviour(this);
     }
 
     @Override
     public LogisticsMercuryFluxConnectorBehaviour leafNode() {
         return this.leafNodeBehaviour;
+    }
+
+    public LogisticsMercuryFluxConnectorEnergyBehaviour energyLeafNode() {
+        return this.energyLeafNodeBehaviour;
+    }
+
+    @Override
+    public List<? extends LeafNodeBehaviour<?, ?>> leafNodes() {
+        return List.of(this.leafNode(), this.energyLeafNode());
     }
 
     @Override
@@ -70,7 +82,7 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
 
         if (this.getLevel() != null && !this.getLevel().isClientSide()) {
             this.ensureAttachedTarget();
-            this.leafNode().onLoad();
+            this.leafNodes().forEach(LeafNodeBehaviour::onLoad);
         }
     }
 
@@ -79,7 +91,7 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
         super.onChunkUnloaded();
 
         if (this.getLevel() != null && !this.getLevel().isClientSide()) {
-            this.leafNode().onChunkUnload();
+            this.leafNodes().forEach(LeafNodeBehaviour::onChunkUnload);
         }
     }
 
@@ -87,12 +99,19 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.leafNode().loadAdditional(input);
+        this.energyLeafNode().readNetwork(input);
+        input.child("energyLeafNode").ifPresent(this.energyLeafNode()::loadAdditional);
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         this.leafNode().saveAdditional(output);
+        ValueOutput energyLeafOutput = output.child("energyLeafNode");
+        this.energyLeafNode().saveAdditional(energyLeafOutput);
+        if (energyLeafOutput.isEmpty()) {
+            output.discard("energyLeafNode");
+        }
     }
 
     @Override
@@ -118,19 +137,22 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
 
     public void readNetwork(ValueInput input) {
         this.leafNode().readNetwork(input);
+        this.energyLeafNode().readNetwork(input);
     }
 
     public void writeNetwork(ValueOutput output) {
         this.leafNode().writeNetwork(output);
+        this.energyLeafNode().writeNetwork(output);
     }
 
     protected void ensureAttachedTarget() {
-        if (!this.leafNode().targets().isEmpty()) {
-            return;
-        }
-
         var attachedPos = this.getBlockPos().relative(this.getBlockState().getValue(LogisticsItemConnectorBlock.FACING).getOpposite());
-        this.leafNode().targets().add(attachedPos);
+        if (this.leafNode().targets().isEmpty()) {
+            this.leafNode().targets().add(attachedPos);
+        }
+        if (this.energyLeafNode().targets().isEmpty()) {
+            this.energyLeafNode().targets().add(attachedPos);
+        }
     }
 
     protected void sendBlockUpdated() {
@@ -147,13 +169,14 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
             var removedWires = Wires.get(level).removeWiresFor(pPos);
             Block.popResource(level, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
 
-            this.leafNode().onDestroyed();
+            this.leafNodes().forEach(LeafNodeBehaviour::onDestroyed);
         }
     }
 
     @Override
     public void enabled(boolean enabled) {
         this.leafNode().enabled(enabled);
+        this.energyLeafNode().enabled(enabled);
         this.setChanged();
         this.sendBlockUpdated();
     }
@@ -166,6 +189,7 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     @Override
     public void targetDirection(Direction direction) {
         this.leafNode().directionOverride(direction);
+        this.energyLeafNode().directionOverride(direction);
         this.setChanged();
         this.sendBlockUpdated();
     }
@@ -183,6 +207,7 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     @Override
     public void frequency(int frequency) {
         this.leafNode().frequency(frequency);
+        this.energyLeafNode().frequency(frequency);
         this.setChanged();
         this.sendBlockUpdated();
     }
@@ -190,5 +215,10 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     @Override
     public int frequency() {
         return this.leafNode().frequency();
+    }
+
+    public void tickServer() {
+        this.leafNode().tickServer();
+        this.energyLeafNode().tickServer();
     }
 }

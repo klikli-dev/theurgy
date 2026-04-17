@@ -37,6 +37,9 @@ public class IntroEntry extends EntryProvider {
         this.pageTitle("Mercurial Logistics");
         this.pageText("""
                 If the conversion between matter and energy in both directions can be controlled, then a much more efficient transportation system can be created, utilizing metal wires instead of hoppers or pipes: Mercurial Logistics.
+                \\
+                \\
+                Some logistics apparatus, such as the Mercurial Flux Connector, can carry either Mercury Flux or NeoForge Energy / RF - each through its own separate capability and transfer logic.
                 """
         );
     }

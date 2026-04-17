@@ -6,11 +6,9 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
-import com.klikli_dev.theurgy.network.Networking;
-import com.klikli_dev.theurgy.network.messages.MessageShowMercuryFlux;
+import com.klikli_dev.theurgy.content.capability.SimpleTheurgyEnergyHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import net.minecraft.core.BlockPos;
@@ -22,11 +20,8 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
@@ -34,8 +29,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class MercuryFluxEmitterBlockEntity extends BlockEntity {
 
@@ -44,14 +37,19 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
     public static final int TICK_INTERVAL = 20;
 
     public MercuryFluxEmitterMercuryFluxHandler mercuryFluxHandler;
+    public MercuryFluxEmitterEnergyStorage energyStorage;
+    protected MercuryFluxEmitterMercuryFluxBehaviour mercuryFluxEmissionBehaviour;
+    protected MercuryFluxEmitterEnergyBehaviour energyEmissionBehaviour;
 
     protected List<MercuryFluxEmitterSelectedPoint> selectedPoints;
 
-public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
+    public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_FLUX_EMITTER.get(), pPos, pBlockState);
 
         this.mercuryFluxHandler = new MercuryFluxEmitterMercuryFluxHandler(CAPACITY);
-
+        this.energyStorage = new MercuryFluxEmitterEnergyStorage(CAPACITY);
+        this.mercuryFluxEmissionBehaviour = new MercuryFluxEmitterMercuryFluxBehaviour(this);
+        this.energyEmissionBehaviour = new MercuryFluxEmitterEnergyBehaviour(this);
         this.selectedPoints = new ArrayList<>();
     }
 
@@ -66,65 +64,24 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
     }
 
     public void tickServer() {
-        if (Objects.requireNonNull(this.getLevel()).getGameTime() % TICK_INTERVAL != 0)
-            return; //slow tick
-
-        if (!this.getBlockState().getValue(BlockStateProperties.ENABLED))
-            return; //disabled with active redstone
-
-        if (this.selectedPoints.isEmpty())
-            return;
-
-        var selectedPoint = this.selectedPoints.getFirst(); //we only have one target point
-        if (!this.getSelectionBehaviour().isValid(selectedPoint)) {
-            return;
-        }
-
-        // Transfer to target if we have flux
-        if (this.mercuryFluxHandler.getAmountAsInt() >= FLUX_PER_TRANSFER) {
-            var targetPos = selectedPoint.getBlockPos();
-            var targetState = selectedPoint.getBlockState();
-
-            var targetFluxHandler = Objects.requireNonNull(this.level).getCapability(
-                    CapabilityRegistry.MERCURY_FLUX_HANDLER,
-                    targetPos,
-                    targetState,
-                    null,
-                    null
-            );
-
-            if (targetFluxHandler == null)
-                return;
-
-            try (Transaction tx = Transaction.openRoot()) {
-                int extracted = this.mercuryFluxHandler.extract(FLUX_PER_TRANSFER, tx);
-                if (extracted > 0) {
-                    int inserted = targetFluxHandler.insert(extracted, tx);
-                    if (inserted <= 0) {
-                        return;
-                    }
-
-                    int remainder = extracted - inserted;
-                    if (remainder > 0 && this.mercuryFluxHandler.insert(remainder, tx) != remainder) {
-                        return;
-                    }
-
-                    tx.commit();
-
-                    Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(MercuryFluxEmitterBlock.FACING)));
-                }
-            }
-        }
+        this.mercuryFluxEmissionBehaviour.tickServer();
+        this.energyEmissionBehaviour.tickServer();
     }
 
     @Override
     protected void saveAdditional(@NotNull ValueOutput output) {
         super.saveAdditional(output);
 
-        ValueOutput storageOutput = output.child("mercuryFluxHandler");
-        this.mercuryFluxHandler.serialize(storageOutput);
-        if (storageOutput.isEmpty()) {
+        ValueOutput mercuryFluxOutput = output.child("mercuryFluxHandler");
+        this.mercuryFluxHandler.serialize(mercuryFluxOutput);
+        if (mercuryFluxOutput.isEmpty()) {
             output.discard("mercuryFluxHandler");
+        }
+
+        ValueOutput energyOutput = output.child("energyStorage");
+        this.energyStorage.serialize(energyOutput);
+        if (energyOutput.isEmpty()) {
+            output.discard("energyStorage");
         }
 
         output.store("selectedPoints", MercuryFluxEmitterSelectedPoint.LIST_CODEC, this.selectedPoints);
@@ -135,6 +92,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super.loadAdditional(input);
 
         input.child("mercuryFluxHandler").ifPresent(this.mercuryFluxHandler::deserialize);
+        input.child("energyStorage").ifPresent(this.energyStorage::deserialize);
         this.selectedPoints = input.read("selectedPoints", MercuryFluxEmitterSelectedPoint.LIST_CODEC).orElseGet(ArrayList::new);
     }
 
@@ -206,6 +164,18 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
     public class MercuryFluxEmitterMercuryFluxHandler extends SimpleMercuryFluxHandler {
 
         public MercuryFluxEmitterMercuryFluxHandler(int capacity) {
+            super(capacity);
+        }
+
+        @Override
+        protected void onEnergyChanged(int previousAmount) {
+            MercuryFluxEmitterBlockEntity.this.setChanged();
+        }
+    }
+
+    public class MercuryFluxEmitterEnergyStorage extends SimpleTheurgyEnergyHandler {
+
+        public MercuryFluxEmitterEnergyStorage(int capacity) {
             super(capacity);
         }
 

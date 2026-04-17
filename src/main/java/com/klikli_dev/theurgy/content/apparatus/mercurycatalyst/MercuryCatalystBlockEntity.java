@@ -86,7 +86,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     }
 
     public void readNetwork(ValueInput input) {
-        this.findMercuryFluxInput(input).ifPresent(value -> {
+        input.child("mercuryFluxHandler").ifPresent(value -> {
             this.mercuryFluxHandler.deserialize(value);
             if (this.level != null) {
                 this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
@@ -183,7 +183,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         super.loadAdditional(input);
 
         input.child("inventory").ifPresent(this.inventory::deserialize);
-        this.findMercuryFluxInput(input).ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
+        input.child("mercuryFluxHandler").ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
 
         this.craftingBehaviour.loadAdditional(input);
     }
@@ -200,12 +200,6 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             ValueIOUtils.deserialize(this.level.registryAccess(), this.inventory, pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()).copyTag());
 
         this.craftingBehaviour.applyImplicitComponents(pComponentInput);
-    }
-
-    private java.util.Optional<ValueInput> findMercuryFluxInput(ValueInput input) {
-        return input.child("mercuryFluxHandler")
-                .or(() -> input.child("MercuryFluxHandler"))
-                .or(() -> input.child("mercuryFluxStorage"));
     }
 
     @Override

@@ -62,7 +62,6 @@ public class SimpleMercuryHandler implements MercuryFluxHandler, NBTSerializable
         return energyExtracted;
     }
 
-    @Override
     public int getEnergyStored() {
         return this.energy;
     }
@@ -72,17 +71,24 @@ public class SimpleMercuryHandler implements MercuryFluxHandler, NBTSerializable
         this.energy = Math.max(0, Math.min(this.capacity, energy));
     }
 
-    @Override
     public int getMaxEnergyStored() {
         return this.capacity;
     }
 
     @Override
+    public long getAmountAsLong() {
+        return this.energy;
+    }
+
+    @Override
+    public long getCapacityAsLong() {
+        return this.capacity;
+    }
+
     public boolean canExtract() {
         return this.maxExtract > 0;
     }
 
-    @Override
     public boolean canReceive() {
         return this.maxReceive > 0;
     }

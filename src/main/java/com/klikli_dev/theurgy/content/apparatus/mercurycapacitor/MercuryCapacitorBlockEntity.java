@@ -125,32 +125,25 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
             return this.delegate.extractEnergy(maxExtract, simulate);
         }
 
-        @Override
         public int getEnergyStored() {
             return this.delegate.getEnergyStored();
         }
 
-        @Override
         public void setEnergyStored(int energy) {
             this.delegate.setEnergyStored(energy);
         }
 
-        @Override
         public int getMaxEnergyStored() {
             return this.delegate.getMaxEnergyStored();
         }
-
         @Override
-        public boolean canExtract() {
-            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
-            return (mode == SideMode.OUTPUT || mode == SideMode.BOTH) && this.delegate.canExtract();
+        public long getAmountAsLong() {
+            return this.delegate.getAmountAsLong();
         }
 
         @Override
-        public boolean canReceive() {
-            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
-            // Only allow receiving if side is INPUT or BOTH
-            return (mode == SideMode.INPUT || mode == SideMode.BOTH) && this.delegate.canReceive();
+        public long getCapacityAsLong() {
+            return this.delegate.getCapacityAsLong();
         }
     }
 

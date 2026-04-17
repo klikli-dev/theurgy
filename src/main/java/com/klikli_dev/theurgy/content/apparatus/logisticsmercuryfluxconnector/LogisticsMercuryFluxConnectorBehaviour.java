@@ -158,7 +158,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
             if (otherTargetCaps.isEmpty()) continue;
 
             var sinkCap = otherTargetCaps.getFirst().getCapability();
-            if (sinkCap != null && sinkCap.canReceive()) {
+            if (sinkCap != null && sinkCap.getAmountAsLong() < sinkCap.getCapacityAsLong()) {
                 sinks.add(sinkCap);
             }
         }

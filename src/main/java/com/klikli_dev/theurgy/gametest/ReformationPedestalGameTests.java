@@ -99,4 +99,5 @@ public class ReformationPedestalGameTests {
             helper.succeed();
         });
     }
+
 }

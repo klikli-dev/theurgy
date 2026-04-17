@@ -52,9 +52,10 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
             }
         } else {
             //if we have an item in hand, try to insert
+            int countBefore = stackInHand.getCount();
             var remainder = ItemStorageHelper.insertItem(blockItemHandler, INPUT_SLOT, stackInHand, false);
-            pPlayer.setItemInHand(pHand, remainder);
-            if (remainder.getCount() != stackInHand.getCount()) {
+            if (remainder.getCount() != countBefore) {
+                pPlayer.setItemInHand(pHand, remainder);
                 return InteractionResult.SUCCESS;
             }
         }

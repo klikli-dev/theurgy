@@ -34,6 +34,9 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MERCURY_SHARD_IS_CONSUMED =
             TEST_FUNCTIONS.register("mercury_catalyst_shard_is_consumed", () -> MercuryCatalystGameTests::mercuryShardIsConsumed);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MERCURY_CATALYST_REJECTED_PLACEABLE_DONT_DUPLICATE =
+            TEST_FUNCTIONS.register("mercury_catalyst_rejected_placeable_dont_duplicate", () -> MercuryCatalystGameTests::rejectedPlaceableBlockDoesNotDuplicate);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISABLED_CATALYST_STILL_GENERATES_FLUX =
             TEST_FUNCTIONS.register("mercury_catalyst_disabled_still_generates_flux", () -> MercuryCatalystGameTests::disabledCatalystStillGeneratesFlux);
 
@@ -176,6 +179,9 @@ public class GameTestRegistry {
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_REMOVE_FUEL =
             TEST_FUNCTIONS.register("pyromantic_brazier_remove_fuel", () -> PyromanticBrazierGameTests::removeFuelViaEmptyHand);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_REJECTED_PLACEABLE_DONT_DUPLICATE =
+            TEST_FUNCTIONS.register("pyromantic_brazier_rejected_placeable_dont_duplicate", () -> PyromanticBrazierGameTests::rejectedPlaceableBlockDoesNotDuplicate);
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_DROPS_ITEMS_WHEN_BROKEN =
             TEST_FUNCTIONS.register("pyromantic_brazier_drops_items_when_broken", () -> PyromanticBrazierGameTests::dropsItemsWhenBroken);
@@ -485,6 +491,7 @@ public class GameTestRegistry {
         registerTest(event, PLACEMENT_AND_DEFAULT_STATE, environment, structure, 40, 0);
         registerTest(event, MERCURY_SHARD_GENERATES_FLUX, environment, structure, 200, 0);
         registerTest(event, MERCURY_SHARD_IS_CONSUMED, environment, structure, 200, 0);
+        registerTest(event, MERCURY_CATALYST_REJECTED_PLACEABLE_DONT_DUPLICATE, environment, structure, 40, 0);
         registerTest(event, DISABLED_CATALYST_STILL_GENERATES_FLUX, environment, structure, 100, 0);
     }
 
@@ -552,6 +559,7 @@ public class GameTestRegistry {
         registerTest(event, BRAZIER_HEAT_DISTILLER, environment, structure, 100, 0);
         registerTest(event, BRAZIER_STOPS_HEAT_NO_FUEL, environment, structure, 300, 0);
         registerTest(event, BRAZIER_REMOVE_FUEL, environment, structure, 40, 0);
+        registerTest(event, BRAZIER_REJECTED_PLACEABLE_DONT_DUPLICATE, environment, structure, 40, 0);
         registerTest(event, BRAZIER_DROPS_ITEMS_WHEN_BROKEN, environment, structure, 40, 0);
     }
 

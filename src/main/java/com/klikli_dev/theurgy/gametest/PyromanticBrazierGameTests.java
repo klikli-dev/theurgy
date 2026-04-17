@@ -10,12 +10,15 @@ import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class PyromanticBrazierGameTests {
 
@@ -148,6 +151,26 @@ public class PyromanticBrazierGameTests {
         });
     }
 
+    public static void rejectedPlaceableBlockDoesNotDuplicate(GameTestHelper helper) {
+        helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
+            var player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIRT, 1));
+
+            helper.useBlock(BRAZIER_POS, player, centeredHitResult(helper, BRAZIER_POS));
+            helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Placed block should be consumed on first click");
+            helper.assertBlockPresent(Blocks.DIRT, ABOVE_BRAZIER_POS);
+            helper.assertTrue(blockEntity.inventory.getStackInSlot(0).isEmpty(), "Brazier should not accept rejected blocks as fuel");
+
+            helper.useBlock(BRAZIER_POS, player, centeredHitResult(helper, BRAZIER_POS));
+            helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Second click should not recreate the consumed block");
+            helper.assertBlockPresent(Blocks.DIRT, ABOVE_BRAZIER_POS);
+            helper.succeed();
+        });
+    }
+
     /**
      * Tests that fuel items are dropped as entities when the brazier is broken.
      */
@@ -167,6 +190,10 @@ public class PyromanticBrazierGameTests {
             // Verify exact count of coal items dropped
             helper.assertItemEntityCountIs(Items.COAL, BRAZIER_POS, 2.0, 3);
         });
+    }
+
+    private static BlockHitResult centeredHitResult(GameTestHelper helper, BlockPos pos) {
+        return new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(pos)), Direction.UP, helper.absolutePos(pos), false);
     }
 
     // --- Heat Provision ---

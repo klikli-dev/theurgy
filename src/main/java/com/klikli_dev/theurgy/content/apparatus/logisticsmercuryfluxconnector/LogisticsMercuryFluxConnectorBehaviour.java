@@ -48,7 +48,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
 
     public LogisticsMercuryFluxConnectorBehaviour(BlockEntity blockEntity) {
         super(blockEntity, CapabilityRegistry.MERCURY_FLUX_HANDLER);
-        // High maxReceive so source blocks can fill the buffer quickly
+        // High maxInsert so source blocks can fill the buffer quickly
         this.buffer = new com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler(BUFFER_CAPACITY, BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE);
     }
 

@@ -125,20 +125,6 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
             return this.delegate.extract(amount, transaction);
         }
 
-        public int getEnergyStored() {
-            return this.delegate.getAmountAsInt();
-        }
-
-        public void setEnergyStored(int energy) {
-            if (this.delegate instanceof SimpleMercuryFluxHandler smh) {
-                smh.setEnergyStored(energy);
-            }
-        }
-
-        public int getMaxEnergyStored() {
-            return this.delegate.getCapacityAsInt();
-        }
-
         @Override
         public long getAmountAsLong() {
             return this.delegate.getAmountAsLong();
@@ -323,7 +309,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
 
         if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()) != null)
             //noinspection DataFlowIssue
-            this.mercuryFluxHandler.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
+            this.mercuryFluxHandler.set(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
     }
 
     @Override
@@ -349,7 +335,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         public void trySendBlockUpdated() {
-            var currentLevel = this.getEnergyStored();
+            var currentLevel = this.getAmountAsInt();
             if (Math.abs(this.lastUpdateLevel - currentLevel) > UPDATE_THRESHOLD) {
                 this.lastUpdateLevel = currentLevel;
                 MercuryCapacitorBlockEntity.this.sendBlockUpdated();

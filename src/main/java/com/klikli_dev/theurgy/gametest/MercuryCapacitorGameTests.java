@@ -132,7 +132,7 @@ public class MercuryCapacitorGameTests {
         // Fill capacitor A with flux manually
         helper.runAfterDelay(1, () -> {
             var capacitorA = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
-                    capacitorA.mercuryFluxHandler.setEnergyStored(10000);
+                    capacitorA.mercuryFluxHandler.set(10000);
         });
 
         // Wait for several tick cycles and verify no flux transfer happens

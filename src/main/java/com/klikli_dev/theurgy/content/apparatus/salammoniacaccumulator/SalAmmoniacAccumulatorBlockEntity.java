@@ -17,7 +17,6 @@ import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -69,12 +68,12 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
+        return this.saveWithoutMetadata(pRegistries);
     }
 
     @Override
     public void handleUpdateTag(@NotNull ValueInput input) {
-        this.readNetwork(input);
+        this.loadWithComponents(input);
     }
 
     @Nullable
@@ -85,7 +84,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     @Override
     public void onDataPacket(@NotNull Connection connection, @NotNull ValueInput input) {
-        this.readNetwork(input);
+        this.loadWithComponents(input);
     }
 
     public void readNetwork(ValueInput input) {

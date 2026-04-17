@@ -37,4 +37,3 @@ public final class ValueIOUtils {
         reader.accept(TagValueInput.create(ProblemReporter.DISCARDING, registries, tag));
     }
 }
-

@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extract
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,12 +53,12 @@ public class LogisticsFluidExtractorBlockEntity extends LogisticsFluidConnectorB
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
+        return this.saveWithoutMetadata(pRegistries);
     }
 
     @Override
     public void handleUpdateTag(@NotNull ValueInput input) {
-        this.readNetwork(input);
+        this.loadWithComponents(input);
     }
 
     @Nullable
@@ -70,7 +69,7 @@ public class LogisticsFluidExtractorBlockEntity extends LogisticsFluidConnectorB
 
     @Override
     public void onDataPacket(@NotNull Connection connection, @NotNull ValueInput input) {
-        this.readNetwork(input);
+        this.loadWithComponents(input);
     }
 
     public void readNetwork(ValueInput input) {

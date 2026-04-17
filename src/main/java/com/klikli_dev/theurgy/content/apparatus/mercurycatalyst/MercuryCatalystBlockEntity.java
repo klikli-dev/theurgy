@@ -4,9 +4,6 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
-import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
@@ -66,12 +63,12 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
+        return this.saveWithoutMetadata(pRegistries);
     }
 
     @Override
     public void handleUpdateTag(ValueInput input) {
-        this.readNetwork(input);
+        this.loadWithComponents(input);
     }
 
     @Nullable
@@ -82,24 +79,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
 
     @Override
     public void onDataPacket(Connection connection, ValueInput input) {
-        this.readNetwork(input);
-    }
-
-    public void readNetwork(ValueInput input) {
-        input.child("mercuryFluxHandler").ifPresent(value -> {
-            this.mercuryFluxHandler.deserialize(value);
-            if (this.level != null) {
-                this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
-            }
-        });
-    }
-
-    public void writeNetwork(ValueOutput output) {
-        ValueOutput fluxOutput = output.child("mercuryFluxHandler");
-        this.mercuryFluxHandler.serialize(fluxOutput);
-        if (fluxOutput.isEmpty()) {
-            output.discard("mercuryFluxHandler");
-        }
+        this.loadWithComponents(input);
     }
 
     public void sendBlockUpdated() {
@@ -206,7 +186,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-            pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
 
         pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, CustomData.of(ValueIOUtils.serialize(this.level.registryAccess(), this.inventory)));
 

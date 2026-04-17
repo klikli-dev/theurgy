@@ -9,7 +9,6 @@ import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -91,12 +90,12 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
+        return this.saveWithoutMetadata(pRegistries);
     }
 
     @Override
     public void handleUpdateTag(ValueInput input) {
-        this.readNetwork(input);
+        this.loadWithComponents(input);
     }
 
     @Nullable
@@ -107,7 +106,7 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
 
     @Override
     public void onDataPacket(Connection connection, ValueInput input) {
-        this.readNetwork(input);
+        this.loadWithComponents(input);
     }
 
     public void readNetwork(ValueInput input) {

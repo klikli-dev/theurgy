@@ -10,7 +10,6 @@ import com.klikli_dev.theurgy.content.item.mode.SideModeSetter;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -162,12 +161,12 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
+        return this.saveWithoutMetadata(pRegistries);
     }
 
     @Override
     public void handleUpdateTag(ValueInput input) {
-        this.readNetwork(input);
+        this.loadWithComponents(input);
     }
 
     @Nullable
@@ -178,39 +177,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
 
     @Override
     public void onDataPacket(Connection connection, ValueInput input) {
-        this.readNetwork(input);
-    }
-
-    public void readNetwork(ValueInput input) {
-        input.child("mercuryFluxHandler").ifPresent(value -> {
-            this.mercuryFluxHandler.deserialize(value);
-            if (this.level != null) {
-                this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
-            }
-        });
-
-        input.child("sideModes").ifPresent(child -> {
-            for (var direction : Direction.values()) {
-                var modeOrdinal = child.getInt(direction.name()).orElse(0);
-                // Clamp to valid ordinal range to prevent ArrayIndexOutOfBoundsException from corrupted NBT
-                var safeOrdinal = Math.clamp(modeOrdinal, 0, SideMode.values().length - 1);
-                this.sideModes.put(direction, SideMode.values()[safeOrdinal]);
-            }
-        });
-    }
-
-    public void writeNetwork(ValueOutput output) {
-        ValueOutput fluxOutput = output.child("mercuryFluxHandler");
-        this.mercuryFluxHandler.serialize(fluxOutput);
-        if (fluxOutput.isEmpty()) {
-            output.discard("mercuryFluxHandler");
-        }
-
-        ValueOutput sideModesOutput = output.child("sideModes");
-        for (var direction : Direction.values()) {
-            var mode = this.sideModes.getOrDefault(direction, SideMode.NONE);
-            sideModesOutput.putInt(direction.name(), mode.ordinal());
-        }
+        this.loadWithComponents(input);
     }
 
     public void sendBlockUpdated() {

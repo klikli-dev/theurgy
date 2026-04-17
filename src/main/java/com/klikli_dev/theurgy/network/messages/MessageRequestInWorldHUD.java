@@ -32,7 +32,7 @@ public record MessageRequestInWorldHUD(BlockPos pos) implements Message {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        ServerLevel level = (ServerLevel) player.level();
+        ServerLevel level = player.level();
         InWorldHUDSnapshot snapshot = InWorldHUDSnapshot.EMPTY;
 
         if (level.isLoaded(this.pos) && this.isActuallyLookingAt(player, level)) {

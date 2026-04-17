@@ -114,7 +114,7 @@ public class LogisticsCapabilityProbeBlock extends DirectionalBlock implements H
 
     public List<Pair<BlockPos, Integer>> getStatusHighlights(Level level, BlockPos pos, BlockState state) {
         List<Pair<BlockPos, Integer>> result = new ArrayList<>();
-        var target = this.getTarget(level, pos, state);
+        var target = getTarget(level, pos, state);
         if (target != null) {
             result.add(Pair.of(target.pos(), 0x00FF00));
         }

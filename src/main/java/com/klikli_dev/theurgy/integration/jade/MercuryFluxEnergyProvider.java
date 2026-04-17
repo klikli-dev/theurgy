@@ -74,9 +74,7 @@ public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamS
 
     @Override
     public boolean shouldRequestData(T accessor) {
-        return !accessor.showDetails() && IWailaConfig.get().plugin().get(JadeIds.UNIVERSAL_ENERGY_STORAGE_DETAILED)
-                ? false
-                : WailaCommonRegistration.instance().energyStorageProviders.hitsAny(accessor, IServerExtensionProvider::shouldRequestData);
+        return (accessor.showDetails() || !IWailaConfig.get().plugin().get(JadeIds.UNIVERSAL_ENERGY_STORAGE_DETAILED)) && WailaCommonRegistration.instance().energyStorageProviders.hitsAny(accessor, IServerExtensionProvider::shouldRequestData);
     }
 
     public static class Extension implements IServerExtensionProvider<EnergyView.Data> {

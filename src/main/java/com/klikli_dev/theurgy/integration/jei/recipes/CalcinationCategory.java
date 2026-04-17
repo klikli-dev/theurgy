@@ -128,6 +128,6 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
 
     @Override
     public @NotNull IRecipeType<RecipeHolder<CalcinationRecipe>> getRecipeType() {
-        return (IRecipeType<RecipeHolder<CalcinationRecipe>>) (Object) JeiRecipeTypes.CALCINATION;
+        return JeiRecipeTypes.CALCINATION;
     }
 }

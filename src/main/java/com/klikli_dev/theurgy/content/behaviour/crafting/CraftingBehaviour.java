@@ -64,7 +64,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
             return 0;
         }
 
-        return Math.clamp(this.progress * 100 / this.totalTime, 0, 100);
+        return Math.clamp(this.progress * 100L / this.totalTime, 0, 100);
     }
 
     public void readNetwork(ValueInput input) {

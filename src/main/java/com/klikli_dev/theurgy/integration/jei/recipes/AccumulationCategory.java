@@ -150,7 +150,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
 
     @Override
     public @NotNull IRecipeType<RecipeHolder<AccumulationRecipe>> getRecipeType() {
-        return (IRecipeType<RecipeHolder<AccumulationRecipe>>) (Object) JeiRecipeTypes.ACCUMULATION;
+        return JeiRecipeTypes.ACCUMULATION;
     }
 
 }

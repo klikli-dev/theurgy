@@ -121,10 +121,10 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         float v1 = ParticleSprites.GLOW.getV1();
 
         submitNodeCollector.submitCustomGeometry(pPoseStack, RenderTypes.particleTranslucent(PARTICLE_ATLAS), (pose, builder) -> {
-            putVertex(builder, pose, p1, state.particleColor, u0, v1, light, normal);
-            putVertex(builder, pose, p2, state.particleColor, u1, v1, light, normal);
-            putVertex(builder, pose, p3, state.particleColor, u1, v0, light, normal);
-            putVertex(builder, pose, p4, state.particleColor, u0, v0, light, normal);
+            this.putVertex(builder, pose, p1, state.particleColor, u0, v1, light, normal);
+            this.putVertex(builder, pose, p2, state.particleColor, u1, v1, light, normal);
+            this.putVertex(builder, pose, p3, state.particleColor, u1, v0, light, normal);
+            this.putVertex(builder, pose, p4, state.particleColor, u0, v0, light, normal);
         });
 
         pPoseStack.popPose();

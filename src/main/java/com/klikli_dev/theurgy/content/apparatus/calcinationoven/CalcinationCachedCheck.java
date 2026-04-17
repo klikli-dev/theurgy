@@ -38,8 +38,8 @@ class CalcinationCachedCheck implements LevelAwareRecipeCheck<ItemHandlerRecipeI
         if (lastRecipe != null) {
             var recipe = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level).orElse(null);
             //test only the ingredient within the sized ingredient to allow to find recipes even for too small stack sizes
-            if (recipe != null && ((CalcinationRecipe) recipe.value()).sizedIngredient().ingredient().test(stack)) {
-                return Optional.of((RecipeHolder<CalcinationRecipe>) recipe);
+            if (recipe != null && recipe.value().sizedIngredient().ingredient().test(stack)) {
+                return Optional.of(recipe);
             }
         }
 

@@ -166,6 +166,6 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         }
         // Calculate progress based on how much flux has been processed vs total
         int processed = this.totalMercuryFluxToConvert - this.mercuryFluxToConvert;
-        return Math.clamp(processed * 100 / this.totalMercuryFluxToConvert, 0, 100);
+        return Math.clamp(processed * 100L / this.totalMercuryFluxToConvert, 0, 100);
     }
 }

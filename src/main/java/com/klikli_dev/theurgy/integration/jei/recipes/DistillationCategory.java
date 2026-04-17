@@ -128,6 +128,6 @@ public class DistillationCategory implements IRecipeCategory<RecipeHolder<Distil
 
     @Override
     public @NotNull IRecipeType<RecipeHolder<DistillationRecipe>> getRecipeType() {
-        return (IRecipeType<RecipeHolder<DistillationRecipe>>) (Object) JeiRecipeTypes.DISTILLATION;
+        return JeiRecipeTypes.DISTILLATION;
     }
 }

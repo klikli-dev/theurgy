@@ -39,8 +39,8 @@ class DistillationCachedCheck implements LevelAwareRecipeCheck<ItemHandlerRecipe
             var recipe = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level).orElse(null);
             //test only the ingredient without the (separate) ingredient count check that the recipe.matches() would.
             //that means we call ingredient().test() instead of .test() (which would also match the count)
-            if (recipe != null && ((DistillationRecipe) recipe.value()).getIngredient().ingredient().test(stack)) {
-                return Optional.of((RecipeHolder<DistillationRecipe>) recipe);
+            if (recipe != null && recipe.value().getIngredient().ingredient().test(stack)) {
+                return Optional.of(recipe);
             }
         }
 

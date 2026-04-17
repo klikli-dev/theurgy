@@ -159,7 +159,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
 
     @Override
     public @NotNull IRecipeType<RecipeHolder<LiquefactionRecipe>> getRecipeType() {
-        return (IRecipeType<RecipeHolder<LiquefactionRecipe>>) (Object) JeiRecipeTypes.LIQUEFACTION;
+        return JeiRecipeTypes.LIQUEFACTION;
     }
 
 }

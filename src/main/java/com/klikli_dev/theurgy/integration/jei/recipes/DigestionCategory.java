@@ -173,7 +173,7 @@ public class DigestionCategory implements IRecipeCategory<RecipeHolder<Digestion
 
     @Override
     public @NotNull IRecipeType<RecipeHolder<DigestionRecipe>> getRecipeType() {
-        return (IRecipeType<RecipeHolder<DigestionRecipe>>) (Object) JeiRecipeTypes.DIGESTION;
+        return JeiRecipeTypes.DIGESTION;
     }
 
 }

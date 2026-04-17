@@ -194,7 +194,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
 
     @Override
     public @NotNull IRecipeType<RecipeHolder<ReformationRecipe>> getRecipeType() {
-        return (IRecipeType<RecipeHolder<ReformationRecipe>>) (Object) JeiRecipeTypes.REFORMATION;
+        return JeiRecipeTypes.REFORMATION;
     }
 
     @Override

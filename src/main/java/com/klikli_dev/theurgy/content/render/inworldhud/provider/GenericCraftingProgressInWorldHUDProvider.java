@@ -54,7 +54,7 @@ public class GenericCraftingProgressInWorldHUDProvider implements InWorldHUDProv
     }
 
     private String progressBar(int progressPercent) {
-        int filledSegments = Math.clamp(progressPercent * BAR_WIDTH / 100, 0, BAR_WIDTH);
+        int filledSegments = Math.clamp((long) progressPercent * BAR_WIDTH / 100, 0, BAR_WIDTH);
         return FILLED_SEGMENT.repeat(filledSegments) + EMPTY_SEGMENT.repeat(BAR_WIDTH - filledSegments);
     }
 

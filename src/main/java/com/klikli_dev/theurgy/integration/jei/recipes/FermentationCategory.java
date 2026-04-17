@@ -166,7 +166,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
 
     @Override
     public @NotNull IRecipeType<RecipeHolder<FermentationRecipe>> getRecipeType() {
-        return (IRecipeType<RecipeHolder<FermentationRecipe>>) (Object) JeiRecipeTypes.FERMENTATION;
+        return JeiRecipeTypes.FERMENTATION;
     }
 
 }

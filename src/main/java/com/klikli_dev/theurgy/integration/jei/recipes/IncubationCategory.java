@@ -137,6 +137,6 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
 
     @Override
     public @NotNull IRecipeType<RecipeHolder<IncubationRecipe>> getRecipeType() {
-        return (IRecipeType<RecipeHolder<IncubationRecipe>>) (Object) JeiRecipeTypes.INCUBATION;
+        return JeiRecipeTypes.INCUBATION;
     }
 }

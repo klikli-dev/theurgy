@@ -360,7 +360,6 @@ public class Theurgy {
             if (BlockRegistry.MERCURY_FLUX_EMITTER.get().selectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
-                return;
             }
         }
 

@@ -39,7 +39,7 @@ public record MessageRequestHeldStackFit(BlockPos displayPos, int requestId) imp
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        ServerLevel level = (ServerLevel) player.level();
+        ServerLevel level = player.level();
         HeldStackFitStatus status = HeldStackFitStatus.NOT_APPLICABLE;
 
         if (level.isLoaded(this.displayPos) && this.isActuallyLookingAt(player, level)) {

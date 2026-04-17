@@ -121,7 +121,7 @@ public class TheurgyRecipeManager {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     void storeClientRecipesUnchecked(RecipeMap recipeMap, RecipeType<?> type) {
-        this.storeClientRecipes((RecipeMap) recipeMap, (RecipeType) type);
+        this.storeClientRecipes(recipeMap, (RecipeType) type);
     }
 
     private <I extends RecipeInput, T extends Recipe<I>> void storeClientRecipes(RecipeMap recipeMap, RecipeType<T> type) {

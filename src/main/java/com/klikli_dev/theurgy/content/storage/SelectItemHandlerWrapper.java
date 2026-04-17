@@ -5,6 +5,8 @@
 package com.klikli_dev.theurgy.content.storage;
 
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -63,7 +65,7 @@ public class SelectItemHandlerWrapper implements SettableItemStorage {
     }
 
     @Override
-    public net.neoforged.neoforge.transfer.item.ItemResource getResource(int index) {
+    public ItemResource getResource(int index) {
         return this.handlers[this.selector.get()].getResource(index);
     }
 
@@ -73,22 +75,22 @@ public class SelectItemHandlerWrapper implements SettableItemStorage {
     }
 
     @Override
-    public long getCapacityAsLong(int index, net.neoforged.neoforge.transfer.item.ItemResource resource) {
+    public long getCapacityAsLong(int index, ItemResource resource) {
         return this.handlers[this.selector.get()].getCapacityAsLong(index, resource);
     }
 
     @Override
-    public boolean isValid(int index, net.neoforged.neoforge.transfer.item.ItemResource resource) {
+    public boolean isValid(int index, ItemResource resource) {
         return this.handlers[this.selector.get()].isValid(index, resource);
     }
 
     @Override
-    public int insert(int index, net.neoforged.neoforge.transfer.item.ItemResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+    public int insert(int index, ItemResource resource, int amount, TransactionContext transaction) {
         return this.handlers[this.selector.get()].insert(index, resource, amount, transaction);
     }
 
     @Override
-    public int extract(int index, net.neoforged.neoforge.transfer.item.ItemResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+    public int extract(int index, ItemResource resource, int amount, TransactionContext transaction) {
         return this.handlers[this.selector.get()].extract(index, resource, amount, transaction);
     }
 }

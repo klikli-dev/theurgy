@@ -11,9 +11,12 @@ import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmit
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import java.util.List;
 
 public class MercuryFluxEmitterGameTests {
 
@@ -25,10 +28,10 @@ public class MercuryFluxEmitterGameTests {
 
     public static void placementWithFacing(GameTestHelper helper) {
         helper.setBlock(EMITTER_POS, BlockRegistry.MERCURY_FLUX_EMITTER.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.UP));
+                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP));
 
         helper.assertBlockPresent(BlockRegistry.MERCURY_FLUX_EMITTER.get(), EMITTER_POS);
-        helper.assertBlockProperty(EMITTER_POS, BlockStateProperties.FACING, net.minecraft.core.Direction.UP);
+        helper.assertBlockProperty(EMITTER_POS, BlockStateProperties.FACING, Direction.UP);
         helper.succeed();
     }
 
@@ -50,13 +53,13 @@ public class MercuryFluxEmitterGameTests {
         // Setup: Catalyst generates flux, Emitter on top, Capacitor a few blocks away
         helper.setBlock(CATALYST_POS, BlockRegistry.MERCURY_CATALYST.get());
         helper.setBlock(EMITTER_POS, BlockRegistry.MERCURY_FLUX_EMITTER.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.UP));
+                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP));
         helper.setBlock(CAPACITOR_POS, BlockRegistry.MERCURY_CAPACITOR.get());
 
         helper.runAtTickTime(1, () -> {
             var emitter = helper.getBlockEntity(EMITTER_POS, MercuryFluxEmitterBlockEntity.class);
             emitter.setSelectedPoints(
-                    java.util.List.of(new MercuryFluxEmitterSelectedPoint(helper.absolutePos(CAPACITOR_POS)))
+                    List.of(new MercuryFluxEmitterSelectedPoint(helper.absolutePos(CAPACITOR_POS)))
             );
         });
 
@@ -72,14 +75,14 @@ public class MercuryFluxEmitterGameTests {
         // Setup: Catalyst generates flux, Emitter on top, Capacitor a few blocks away
         helper.setBlock(CATALYST_POS, BlockRegistry.MERCURY_CATALYST.get());
         helper.setBlock(EMITTER_POS, BlockRegistry.MERCURY_FLUX_EMITTER.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, net.minecraft.core.Direction.UP));
+                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP));
         helper.setBlock(CAPACITOR_POS, BlockRegistry.MERCURY_CAPACITOR.get());
 
         // Link emitter to capacitor
         helper.runAtTickTime(1, () -> {
             var emitter = helper.getBlockEntity(EMITTER_POS, MercuryFluxEmitterBlockEntity.class);
             emitter.setSelectedPoints(
-                    java.util.List.of(new MercuryFluxEmitterSelectedPoint(helper.absolutePos(CAPACITOR_POS)))
+                    List.of(new MercuryFluxEmitterSelectedPoint(helper.absolutePos(CAPACITOR_POS)))
             );
         });
 

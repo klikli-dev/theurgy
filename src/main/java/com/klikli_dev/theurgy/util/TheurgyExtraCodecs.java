@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.util;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import com.google.common.graph.EndpointPair;
 import com.google.common.graph.MutableGraph;
 import com.mojang.datafixers.util.Either;
@@ -20,7 +22,7 @@ import java.util.function.Supplier;
 
 public class TheurgyExtraCodecs {
     public static final Codec<FluidStack> SINGLE_FLUID_CODEC = BuiltInRegistries.FLUID.byNameCodec().xmap(fluid -> new FluidStack(fluid, 1), FluidStack::getFluid);
-    private static final com.google.common.collect.BiMap<String, ToolMaterial> TIERS = com.google.common.collect.ImmutableBiMap.of(
+    private static final BiMap<String, ToolMaterial> TIERS = ImmutableBiMap.of(
             "wood", ToolMaterial.WOOD,
             "stone", ToolMaterial.STONE,
             "iron", ToolMaterial.IRON,

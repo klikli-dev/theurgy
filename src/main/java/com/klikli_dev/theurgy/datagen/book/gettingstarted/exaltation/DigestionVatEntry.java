@@ -12,6 +12,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
 import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
+import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ReformationArrayEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
@@ -37,7 +38,7 @@ public class DigestionVatEntry extends EntryProvider {
                         \\
                         View the {0} Category on how to craft and use the required apparatus.
                         """,
-                this.entryLink("Apparatus", ApparatusCategory.CATEGORY_ID, com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry.ENTRY_ID)
+                this.entryLink("Apparatus", ApparatusCategory.CATEGORY_ID, TransmutationAndExaltationEntry.ENTRY_ID)
         );
 
         this.page("reformation_array", () -> BookTextPageModel.create()

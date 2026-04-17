@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.integration.jade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;
 import snownee.jade.api.Accessor;
@@ -97,7 +98,7 @@ public class MercuryFluxEnergyClientProvider<T extends Accessor<?>> extends Merc
         public static final Extension INSTANCE = new Extension();
 
         @Override
-        public net.minecraft.resources.Identifier getUid() {
+        public Identifier getUid() {
             return ID;
         }
 

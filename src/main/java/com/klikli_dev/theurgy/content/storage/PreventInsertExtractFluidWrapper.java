@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.storage;
 
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
 public class PreventInsertExtractFluidWrapper implements ResourceHandler<FluidResource> {
     protected final ResourceHandler<FluidResource> compose;
@@ -40,12 +41,12 @@ public class PreventInsertExtractFluidWrapper implements ResourceHandler<FluidRe
     }
 
     @Override
-    public int insert(int index, FluidResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+    public int insert(int index, FluidResource resource, int amount, TransactionContext transaction) {
         return 0;
     }
 
     @Override
-    public int extract(int index, FluidResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+    public int extract(int index, FluidResource resource, int amount, TransactionContext transaction) {
         return 0;
     }
 }

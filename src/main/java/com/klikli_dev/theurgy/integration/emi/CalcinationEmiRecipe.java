@@ -17,6 +17,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +45,7 @@ public class CalcinationEmiRecipe implements EmiRecipe {
     @Override
     public List<EmiIngredient> getInputs() {
         var inputs = new ArrayList<EmiIngredient>();
-        inputs.add(EmiIngredient.of(this.recipe.value().getIngredients().getFirst().items().stream().map(net.minecraft.world.item.ItemStack::new)
+        inputs.add(EmiIngredient.of(this.recipe.value().getIngredients().getFirst().items().stream().map(ItemStack::new)
                 .map(EmiStack::of).toList()));
         return inputs;
     }

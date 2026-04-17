@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeMap;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
@@ -40,7 +41,7 @@ public final class TheurgyRecipeManagerClient {
                 .map(DeferredHolder::get)
                 .map(AlchemicalSulfurItem.class::cast)
                 .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> {
-                    var resultItem = r.value().getResultItem(net.minecraft.core.RegistryAccess.EMPTY);
+                    var resultItem = r.value().getResultItem(RegistryAccess.EMPTY);
                     return resultItem != null && resultItem.getItem() == sulfur;
                 }))
                 .map(ItemStack::new)

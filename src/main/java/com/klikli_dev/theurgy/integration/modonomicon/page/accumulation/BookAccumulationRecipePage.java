@@ -17,8 +17,10 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import net.minecraft.world.level.Level;
 
@@ -101,7 +103,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         return ItemStack.EMPTY;
     }
 
-    private RecipeDisplayEntry getRecipeDisplayEntryOrNull(ServerLevel serverLevel, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> key) {
+    private RecipeDisplayEntry getRecipeDisplayEntryOrNull(ServerLevel serverLevel, ResourceKey<Recipe<?>> key) {
         if (key == null) {
             return null;
         }

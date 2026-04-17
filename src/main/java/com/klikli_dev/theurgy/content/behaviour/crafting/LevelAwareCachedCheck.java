@@ -21,7 +21,7 @@ public class LevelAwareCachedCheck<W extends RecipeInput, R extends Recipe<W>> i
     private final RecipeType<R> type;
     private final RecipeManager.CachedCheck<W, R> serverCheck;
     @Nullable
-    private ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe;
+    private ResourceKey<Recipe<?>> lastRecipe;
 
     public LevelAwareCachedCheck(RecipeType<R> type) {
         this.type = type;

@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.storage;
 
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
 import java.util.function.Supplier;
 
@@ -49,12 +50,12 @@ public class SelectFluidHandlerWrapper implements ResourceHandler<FluidResource>
     }
 
     @Override
-    public int insert(int index, FluidResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+    public int insert(int index, FluidResource resource, int amount, TransactionContext transaction) {
         return this.handlers[this.selector.get()].insert(index, resource, amount, transaction);
     }
 
     @Override
-    public int extract(int index, FluidResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+    public int extract(int index, FluidResource resource, int amount, TransactionContext transaction) {
         return this.handlers[this.selector.get()].extract(index, resource, amount, transaction);
     }
 }

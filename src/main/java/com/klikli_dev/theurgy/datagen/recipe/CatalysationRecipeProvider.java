@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,7 +20,7 @@ public class CatalysationRecipeProvider extends JsonRecipeProvider {
 
     public static final int PER_TICK = CatalysationRecipe.DEFAULT_MERCURY_FLUX_PER_TICK;
 
-    public CatalysationRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+    public CatalysationRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(packOutput, lookupProvider, Theurgy.MODID, "catalysation");
     }
 

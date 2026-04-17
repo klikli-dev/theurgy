@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -224,7 +225,7 @@ public class DigestionCachedCheck implements LevelAwareRecipeCheck<ItemHandlerWi
         }
 
         Optional<RecipeHolder<DigestionRecipe>> optional;
-        if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+        if (level instanceof ServerLevel serverLevel) {
             optional = this.internal.getRecipeFor(container, serverLevel);
         } else {
             optional = TheurgyRecipeManager.get().getRecipeFor(this.type, container, level, this.lastRecipeForItemHandler);

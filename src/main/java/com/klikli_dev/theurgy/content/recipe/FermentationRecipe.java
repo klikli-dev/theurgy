@@ -5,8 +5,10 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 
+import com.klikli_dev.theurgy.content.recipe.display.FermentationRecipeDisplay;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -21,7 +23,10 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.util.RecipeMatcher;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 
@@ -92,7 +97,7 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         if (containerItemsCount != this.ingredients.size())
             return false;
 
-        return net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null;
+        return RecipeMatcher.findMatches(inputs, this.ingredients) != null;
     }
 
     @Override
@@ -163,13 +168,13 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
-        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.FermentationRecipeDisplay(
+    public List<RecipeDisplay> display() {
+        return List.of(new FermentationRecipeDisplay(
                 this.fluid,
                 this.ingredients,
                 this.result,
                 this.time,
-                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.FERMENTATION_VAT.get().asItem())
+                new SlotDisplay.ItemSlotDisplay(BlockRegistry.FERMENTATION_VAT.get().asItem())
         ));
     }
 

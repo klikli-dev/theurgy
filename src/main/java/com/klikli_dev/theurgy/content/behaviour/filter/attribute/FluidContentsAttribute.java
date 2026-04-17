@@ -5,6 +5,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter.attribute;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -66,7 +67,7 @@ public class FluidContentsAttribute implements ItemAttribute {
 
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
-        return nbt.contains("id") ? new FluidContentsAttribute(BuiltInRegistries.FLUID.get(Identifier.tryParse(nbt.getString("id").orElse("minecraft:empty"))).map(net.minecraft.core.Holder::value).orElse(Fluids.EMPTY)) : EMPTY;
+        return nbt.contains("id") ? new FluidContentsAttribute(BuiltInRegistries.FLUID.get(Identifier.tryParse(nbt.getString("id").orElse("minecraft:empty"))).map(Holder::value).orElse(Fluids.EMPTY)) : EMPTY;
     }
 
     private List<Fluid> extractFluids(ItemStack stack) {

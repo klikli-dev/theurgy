@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
@@ -103,7 +104,7 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
         pPoseStack.translate(-0.5D, 0.0D, -0.5D);
 
         var baseTexture = state.open ? BASE_OPEN_TEXTURE : BASE_TEXTURE;
-        var baseRenderType = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(baseTexture);
+        var baseRenderType = RenderTypes.entitySolid(baseTexture);
         submitNodeCollector.submitModelPart(this.neck, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
         submitNodeCollector.submitModelPart(this.top, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
         submitNodeCollector.submitModelPart(this.bottom, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
@@ -115,12 +116,12 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
     }
 
     private void submitSide(ModelPart pModelPart, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, int packedLight, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
-        var renderType = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(SIDE_TEXTURE);
+        var renderType = RenderTypes.entitySolid(SIDE_TEXTURE);
         submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, null, -1, breakProgress);
     }
 
     private void submitFront(ModelPart pModelPart, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, int packedLight, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress, boolean isActive) {
-        var renderType = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(isActive ? FRONT_ACTIVE_TEXTURE : FRONT_TEXTURE);
+        var renderType = RenderTypes.entitySolid(isActive ? FRONT_ACTIVE_TEXTURE : FRONT_TEXTURE);
         submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, null, -1, breakProgress);
     }
 

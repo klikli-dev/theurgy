@@ -15,6 +15,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -112,7 +113,7 @@ public class LogisticsCapabilityProxyBlockEntity extends BlockEntity implements 
 
         if (this.level != null) {
             var removedWires = Wires.get(this.level).removeWiresFor(pPos);
-            Block.popResource(this.level, pPos, new net.minecraft.world.item.ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+            Block.popResource(this.level, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
             Logistics.get().remove(GlobalPos.of(this.level.dimension(), pPos));
         }
     }

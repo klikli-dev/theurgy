@@ -30,7 +30,7 @@ public class LevelUtil {
         if (serverLevel != null) {
             return serverLevel;
         }
-        return net.minecraft.client.Minecraft.getInstance().level;
+        return Minecraft.getInstance().level;
     }
 
     private static Level getOverworldServerLevel() {

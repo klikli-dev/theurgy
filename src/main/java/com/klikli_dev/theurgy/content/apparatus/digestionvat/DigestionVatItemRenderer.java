@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
@@ -23,7 +24,7 @@ public class DigestionVatItemRenderer implements SpecialModelRenderer<ItemStack>
     private static final DigestionVatBlockEntity blockEntity = new DigestionVatBlockEntity(BlockPos.ZERO, BlockRegistry.DIGESTION_VAT.get().defaultBlockState());
 
     @Override
-    public void submit(@org.jetbrains.annotations.Nullable ItemStack stack, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
+    public void submit(@Nullable ItemStack stack, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
         var renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity);
         if (renderer != null) {
             var renderState = renderer.createRenderState();
@@ -33,7 +34,7 @@ public class DigestionVatItemRenderer implements SpecialModelRenderer<ItemStack>
     }
 
     @Override
-    public @org.jetbrains.annotations.Nullable ItemStack extractArgument(ItemStack stack) {
+    public @Nullable ItemStack extractArgument(ItemStack stack) {
         return stack;
     }
 

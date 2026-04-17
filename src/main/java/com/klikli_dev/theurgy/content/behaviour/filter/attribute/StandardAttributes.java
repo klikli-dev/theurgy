@@ -9,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -57,7 +58,7 @@ public enum StandardAttributes implements ItemAttribute {
 
     private static boolean testRecipe(ItemStack s, Level level, RecipeType<? extends Recipe<SingleRecipeInput>> type) {
         var input = new SingleRecipeInput(s);
-        return ((net.minecraft.server.level.ServerLevel) level).getServer().getRecipeManager()
+        return ((ServerLevel) level).getServer().getRecipeManager()
                 .getRecipeFor(type, input, level)
                 .isPresent();
     }

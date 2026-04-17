@@ -16,6 +16,7 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -135,7 +136,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
             this.filter().onRemove(pState, this.level, pPos, pState, false);
 
             var removedWires = Wires.get(this.level).removeWiresFor(pPos);
-            Block.popResource(this.level, pPos, new net.minecraft.world.item.ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+            Block.popResource(this.level, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
 
             this.leafNode().onDestroyed();
         }

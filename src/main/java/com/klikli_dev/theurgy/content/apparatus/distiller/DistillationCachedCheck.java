@@ -8,8 +8,10 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareRecipeCheck;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -26,14 +28,14 @@ class DistillationCachedCheck implements LevelAwareRecipeCheck<ItemHandlerRecipe
     private final RecipeType<DistillationRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerRecipeInput, DistillationRecipe> internal;
     @Nullable
-    private net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe;
+    private ResourceKey<Recipe<?>> lastRecipe;
 
     public DistillationCachedCheck(RecipeType<DistillationRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe) {
+    private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
         if (lastRecipe != null) {
 
             var recipe = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level).orElse(null);

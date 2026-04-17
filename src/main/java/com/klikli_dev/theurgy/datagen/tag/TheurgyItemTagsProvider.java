@@ -15,6 +15,7 @@ import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagEntry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -457,22 +458,22 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
 
         //Set up tags for other mods that may not properly tag their mats
         this.tag(ItemTagRegistry.INGOTS_URANINITE)
-                .add(net.minecraft.tags.TagEntry.optionalElement(this.rl("powah:uraninite"))); //powah adds ore tags and raw material tags but not ingot tags
+                .add(TagEntry.optionalElement(this.rl("powah:uraninite"))); //powah adds ore tags and raw material tags but not ingot tags
 
         this.tag(ItemTagRegistry.ORES_DARK_GEM)
-                .add(net.minecraft.tags.TagEntry.optionalTag(this.rl("evilcraft:dark_ores")))
-                .add(net.minecraft.tags.TagEntry.optionalTag(this.rl("evilcraft:ores/dark_gem"))); //does not exist as of 1.21, but if they unify the pattern it will
+                .add(TagEntry.optionalTag(this.rl("evilcraft:dark_ores")))
+                .add(TagEntry.optionalTag(this.rl("evilcraft:ores/dark_gem"))); //does not exist as of 1.21, but if they unify the pattern it will
 
         this.tag(ItemTagRegistry.GEMS_DARK)
-                .add(net.minecraft.tags.TagEntry.optionalTag(this.rl("evilcraft:gems/dark")));
+                .add(TagEntry.optionalTag(this.rl("evilcraft:gems/dark")));
 
         this.tag(ItemTagRegistry.RAW_MATERIALS_DEMONITE)
-                .add(net.minecraft.tags.TagEntry.optionalElement(this.rl("bloodmagic:rawdemonite")));
+                .add(TagEntry.optionalElement(this.rl("bloodmagic:rawdemonite")));
         this.tag(ItemTagRegistry.INGOTS_DEMONITE)
-                .add(net.minecraft.tags.TagEntry.optionalElement(this.rl("bloodmagic:ingot_hellforged")));
+                .add(TagEntry.optionalElement(this.rl("bloodmagic:ingot_hellforged")));
 
         this.tag(ItemTagRegistry.GEMS_CHIMERITE)
-                .add(net.minecraft.tags.TagEntry.optionalElement(this.rl("mna:chimerite_gem")));
+                .add(TagEntry.optionalElement(this.rl("mna:chimerite_gem")));
     }
 
     public Identifier rl(String tag) {

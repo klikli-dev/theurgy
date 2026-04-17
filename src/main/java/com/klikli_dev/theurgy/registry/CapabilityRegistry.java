@@ -301,7 +301,7 @@ public class CapabilityRegistry {
                 (blockEntity, side) -> {
                     // Only expose capability on the side the emitter is attached to (opposite to FACING)
                     var blockState = blockEntity.getBlockState();
-                    var facing = blockState.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING);
+                    var facing = blockState.getValue(BlockStateProperties.FACING);
                     var attachedSide = facing.getOpposite();
                     if (side == null || side == attachedSide) {
                         return blockEntity.mercuryFluxStorage;

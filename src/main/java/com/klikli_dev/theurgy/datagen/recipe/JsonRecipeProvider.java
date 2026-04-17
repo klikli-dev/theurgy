@@ -14,6 +14,7 @@ import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -280,7 +281,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, Holder<Item> itemHolder) {
-            return this.ingredient(propertyName, Ingredient.of(net.minecraft.core.HolderSet.direct(itemHolder)));
+            return this.ingredient(propertyName, Ingredient.of(HolderSet.direct(itemHolder)));
         }
 
         public T condition(ICondition condition) {

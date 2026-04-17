@@ -16,6 +16,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import net.minecraft.world.item.crafting.display.SlotDisplayContext;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 
 public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<LiquefactionRecipe, BookLiquefactionRecipePage> {
@@ -47,7 +48,7 @@ public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<L
         }
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the fluid input slot
-        this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, display.solvent().ingredient().fluids().stream().map(f -> (FluidHolder) new NeoFluidHolder(new net.neoforged.neoforge.fluids.FluidStack(f.value(), display.solvent().amount()))).toList(), FluidType.BUCKET_VOLUME);
+        this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, display.solvent().ingredient().fluids().stream().map(f -> (FluidHolder) new NeoFluidHolder(new FluidStack(f.value(), display.solvent().amount()))).toList(), FluidType.BUCKET_VOLUME);
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the item input slot
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, display.ingredient());

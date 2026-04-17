@@ -6,9 +6,13 @@ package com.klikli_dev.theurgy.gametest;
 
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.SideMode;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class MercuryCapacitorGameTests {
@@ -57,8 +61,8 @@ public class MercuryCapacitorGameTests {
 
         // Insert mercury shard into catalyst to generate flux
         helper.runAfterDelay(1, () -> {
-            var catalystBE = helper.getBlockEntity(CATALYST_POS, com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity.class);
-            catalystBE.inventory.setStackInSlot(0, new net.minecraft.world.item.ItemStack(com.klikli_dev.theurgy.registry.ItemRegistry.MERCURY_SHARD.get(), 1));
+            var catalystBE = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
+            catalystBE.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
         });
 
         // Wait for catalyst to generate flux and push to capacitor
@@ -99,8 +103,8 @@ public class MercuryCapacitorGameTests {
 
         // Insert mercury shard into catalyst
         helper.runAfterDelay(1, () -> {
-            var catalystBE = helper.getBlockEntity(CATALYST_POS, com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity.class);
-            catalystBE.inventory.setStackInSlot(0, new net.minecraft.world.item.ItemStack(com.klikli_dev.theurgy.registry.ItemRegistry.MERCURY_SHARD.get(), 1));
+            var catalystBE = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
+            catalystBE.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
         });
 
         // Wait for flux to be generated and check that disabled capacitor didn't receive it
@@ -164,34 +168,34 @@ public class MercuryCapacitorGameTests {
 
             // Verify default modes: TOP and BOTTOM are OUTPUT, sides are INPUT
             helper.assertTrue(
-                    capacitor.getSideMode(net.minecraft.core.Direction.UP) == SideMode.OUTPUT,
+                    capacitor.getSideMode(Direction.UP) == SideMode.OUTPUT,
                     "UP side should be OUTPUT by default"
             );
             helper.assertTrue(
-                    capacitor.getSideMode(net.minecraft.core.Direction.DOWN) == SideMode.OUTPUT,
+                    capacitor.getSideMode(Direction.DOWN) == SideMode.OUTPUT,
                     "DOWN side should be OUTPUT by default"
             );
             helper.assertTrue(
-                    capacitor.getSideMode(net.minecraft.core.Direction.NORTH) == SideMode.INPUT,
+                    capacitor.getSideMode(Direction.NORTH) == SideMode.INPUT,
                     "NORTH side should be INPUT by default"
             );
             helper.assertTrue(
-                    capacitor.getSideMode(net.minecraft.core.Direction.SOUTH) == SideMode.INPUT,
+                    capacitor.getSideMode(Direction.SOUTH) == SideMode.INPUT,
                     "SOUTH side should be INPUT by default"
             );
             helper.assertTrue(
-                    capacitor.getSideMode(net.minecraft.core.Direction.EAST) == SideMode.INPUT,
+                    capacitor.getSideMode(Direction.EAST) == SideMode.INPUT,
                     "EAST side should be INPUT by default"
             );
             helper.assertTrue(
-                    capacitor.getSideMode(net.minecraft.core.Direction.WEST) == SideMode.INPUT,
+                    capacitor.getSideMode(Direction.WEST) == SideMode.INPUT,
                     "WEST side should be INPUT by default"
             );
 
             // Change EAST side to OUTPUT
-            capacitor.setSideMode(net.minecraft.core.Direction.EAST, SideMode.OUTPUT);
+            capacitor.setSideMode(Direction.EAST, SideMode.OUTPUT);
             helper.assertTrue(
-                    capacitor.getSideMode(net.minecraft.core.Direction.EAST) == SideMode.OUTPUT,
+                    capacitor.getSideMode(Direction.EAST) == SideMode.OUTPUT,
                     "East side should be OUTPUT after change"
             );
         });

@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.joml.Vector3f;
 
 import java.util.List;
@@ -432,7 +433,7 @@ public class TheurgyBlockModelSubProvider {
         };
     }
 
-    private MultiPartGenerator addFacingVariant(MultiPartGenerator generator, net.minecraft.world.level.block.state.properties.Property<Direction> property, Direction facing, Identifier model, int xRotation, int yRotation, boolean uvLock) {
+    private MultiPartGenerator addFacingVariant(MultiPartGenerator generator, Property<Direction> property, Direction facing, Identifier model, int xRotation, int yRotation, boolean uvLock) {
         return generator.with(
                 BlockModelGenerators.condition().term(property, facing),
                 BlockModelGenerators.variant(this.variant(model, xRotation, yRotation, uvLock))

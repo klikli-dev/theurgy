@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.*;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
@@ -26,7 +27,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = LiquefactionRecipe.DEFAULT_TIME;
 
-    public LiquefactionRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+    public LiquefactionRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(packOutput, lookupProvider, Theurgy.MODID, "liquefaction");
     }
 

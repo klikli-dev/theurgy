@@ -19,6 +19,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.Set;
@@ -119,7 +120,7 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
     }
 
     protected CopyComponentsFunction.Builder copyComponents(DataComponentType<?>... pIncludes) {
-        var builder = CopyComponentsFunction.copyComponentsFromBlockEntity(net.minecraft.world.level.storage.loot.parameters.LootContextParams.BLOCK_ENTITY);
+        var builder = CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY);
         for (var include : pIncludes) {
             builder.include(include);
         }

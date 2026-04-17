@@ -29,6 +29,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -129,7 +130,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
             builder.addSlot(INPUT, 1, 1)
                     .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                     .addIngredients(NeoForgeTypes.FLUID_STACK, recipe.value().evaporant().ingredient().fluids().stream()
-                            .map(f -> new net.neoforged.neoforge.fluids.FluidStack(f.value(), recipe.value().getEvaporantAmount())).toList())
+                            .map(f -> new FluidStack(f.value(), recipe.value().getEvaporantAmount())).toList())
                     .setFluidRenderer(1000, false, 16, 16);
         }
 

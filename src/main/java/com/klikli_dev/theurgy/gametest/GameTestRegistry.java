@@ -11,6 +11,7 @@ import net.minecraft.gametest.framework.FunctionGameTestInstance;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.gametest.framework.TestData;
 import net.minecraft.gametest.framework.TestEnvironmentDefinition;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -714,7 +715,7 @@ private static void registerLogisticsTests(RegisterGameTestsEvent event) {
             RegisterGameTestsEvent event,
             DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> test,
             Holder<TestEnvironmentDefinition<?>> environment,
-            net.minecraft.resources.Identifier structure,
+            Identifier structure,
             int maxTicks,
             int setupTicks
     ) {

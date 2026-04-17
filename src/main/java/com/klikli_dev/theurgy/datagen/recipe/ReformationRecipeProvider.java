@@ -18,6 +18,7 @@ import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
@@ -31,6 +32,7 @@ import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class ReformationRecipeProvider extends JsonRecipeProvider {
@@ -45,7 +47,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     private final Map<Identifier, JsonObject> recipeCache = new HashMap<>();
     private Set<AlchemicalDerivativeItem> noAutomaticRecipesFor = Set.of();
 
-    public ReformationRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+    public ReformationRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(packOutput, lookupProvider, Theurgy.MODID, "reformation");
     }
 

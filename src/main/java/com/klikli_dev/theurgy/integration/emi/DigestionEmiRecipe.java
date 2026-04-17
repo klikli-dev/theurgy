@@ -17,6 +17,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +46,7 @@ public class DigestionEmiRecipe implements EmiRecipe {
     public List<EmiIngredient> getInputs() {
         var inputs = new ArrayList<EmiIngredient>();
         this.recipe.value().getSizedIngredients().forEach(sizedIngredient ->
-                inputs.add(EmiIngredient.of(sizedIngredient.ingredient().items().stream().map(net.minecraft.world.item.ItemStack::new)
+                inputs.add(EmiIngredient.of(sizedIngredient.ingredient().items().stream().map(ItemStack::new)
                         .map(item -> EmiStack.of(item, sizedIngredient.count())).toList())));
 
         inputs.add(EmiIngredient.of(this.recipe.value().getFluid().ingredient().fluids()

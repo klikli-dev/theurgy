@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -50,7 +51,7 @@ public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityB
     public MercuryFluxEmitterBlock(Properties pProperties) {
         super(pProperties);
         this.selectionBehaviour = new MercuryFluxEmitterSelectionBehaviour();
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.ENABLED, true));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(BlockStateProperties.ENABLED, true));
     }
 
     public SelectionBehaviour<MercuryFluxEmitterSelectedPoint> selectionBehaviour() {
@@ -108,7 +109,7 @@ public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityB
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, net.minecraft.world.level.block.state.properties.BlockStateProperties.ENABLED);
+        pBuilder.add(FACING, BlockStateProperties.ENABLED);
     }
 
     @Nullable

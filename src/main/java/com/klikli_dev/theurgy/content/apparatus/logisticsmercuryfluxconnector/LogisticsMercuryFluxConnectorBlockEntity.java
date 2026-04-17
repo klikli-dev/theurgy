@@ -23,6 +23,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -144,7 +145,7 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
         var level = this.getLevel();
         if (level != null) {
             var removedWires = Wires.get(level).removeWiresFor(pPos);
-            Block.popResource(level, pPos, new net.minecraft.world.item.ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+            Block.popResource(level, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
 
             this.leafNode().onDestroyed();
         }

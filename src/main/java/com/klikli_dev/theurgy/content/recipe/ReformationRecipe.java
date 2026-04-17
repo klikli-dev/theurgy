@@ -4,7 +4,9 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
+import com.klikli_dev.theurgy.content.recipe.display.ReformationRecipeDisplay;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
@@ -18,6 +20,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -183,14 +187,14 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
     }
 
     @Override
-    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
-        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.ReformationRecipeDisplay(
+    public List<RecipeDisplay> display() {
+        return List.of(new ReformationRecipeDisplay(
                 this.sources,
                 this.target,
                 this.result,
                 this.mercuryFlux,
                 this.time,
-                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.REFORMATION_RESULT_PEDESTAL.get().asItem())
+                new SlotDisplay.ItemSlotDisplay(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get().asItem())
         ));
     }
 

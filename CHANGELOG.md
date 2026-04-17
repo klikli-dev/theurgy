@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.86.0] - 2026-04-17
+### :sparkles: New Features
+- [`1dd3254`](https://github.com/klikli-dev/theurgy/commit/1dd3254bc4cd59fea473707c30fdcb348edaccd5) - add Mercury Flux Logistics Connector *(PR [#343](https://github.com/klikli-dev/theurgy/pull/343) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`fe0d040`](https://github.com/klikli-dev/theurgy/commit/fe0d040cd00f9d263b5a171ac19ff2a24d1a7a19) - prevent apparatus rejected placement dupes *(PR [#346](https://github.com/klikli-dev/theurgy/pull/346) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#10](https://github.com/AllTheMods/ATM-11/issues/10) opened by [@jonas3483](https://github.com/jonas3483)*
+
+### :recycle: Refactors
+- [`4c86364`](https://github.com/klikli-dev/theurgy/commit/4c863649363daef7ec448a6288acc06ea011c33e) - adopt NeoForge EnergyHandler API for mercury flux *(PR [#345](https://github.com/klikli-dev/theurgy/pull/345) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`7a12fb5`](https://github.com/klikli-dev/theurgy/commit/7a12fb51dc6453c678cf741f446208f3c4678c39) - code cleanup *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5dc74ed`](https://github.com/klikli-dev/theurgy/commit/5dc74ed34c786d12faeab8674c822cfaa8129337) - code cleanup *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.85.0] - 2026-04-16
 ### :bug: Bug Fixes
 - [`783021f`](https://github.com/klikli-dev/theurgy/commit/783021f40c5b2372bff105defdd59a8854372eb1) - backfill logistics inserter targets regardless of link order *(PR [#341](https://github.com/klikli-dev/theurgy/pull/341) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1461,3 +1477,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.83.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.82.1...release/v26.1.2-1.83.0
 [release/v26.1.2-1.84.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.83.0...release/v26.1.2-1.84.0
 [release/v26.1.2-1.85.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.84.0...release/v26.1.2-1.85.0
+[release/v26.1.2-1.86.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.85.0...release/v26.1.2-1.86.0

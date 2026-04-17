@@ -60,9 +60,10 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
                     return InteractionResult.SUCCESS;
                 }
             } else {
+                int countBefore = stackInHand.getCount();
                 var remainder = blockEntity.inventory.insertItem(0, stackInHand, false);
-                pPlayer.setItemInHand(pHand, remainder);
-                if (remainder.getCount() != stackInHand.getCount()) {
+                if (remainder.getCount() != countBefore) {
+                    pPlayer.setItemInHand(pHand, remainder);
                     return InteractionResult.SUCCESS;
                 }
                 return InteractionResult.PASS;

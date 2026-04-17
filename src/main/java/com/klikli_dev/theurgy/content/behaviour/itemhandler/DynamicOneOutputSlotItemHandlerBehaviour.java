@@ -65,9 +65,10 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
         } else {
             for (int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++) {
                 //if we have an item in hand, try to insert
+                int countBefore = stackInHand.getCount();
                 var remainder = ItemStorageHelper.insertItem(blockItemHandler, inputSlot, stackInHand, false);
-                pPlayer.setItemInHand(pHand, remainder);
-                if (remainder.getCount() != stackInHand.getCount()) {
+                if (remainder.getCount() != countBefore) {
+                    pPlayer.setItemInHand(pHand, remainder);
                     return InteractionResult.SUCCESS;
                 }
             }

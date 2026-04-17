@@ -269,6 +269,9 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.sourcePedestalsWithContents = new ArrayList<>(input.read("sourcePedestalsWithContents", SulfuricFluxEmitterSelectedPoint.LIST_CODEC).orElseGet(ArrayList::new));
         this.targetPedestal = input.read("targetPedestal", SulfuricFluxEmitterSelectedPoint.CODEC).orElse(null);
         this.resultPedestal = input.read("resultPedestal", SulfuricFluxEmitterSelectedPoint.CODEC).orElse(null);
+        this.sourcePedestalsWithContents.forEach(point -> point.setLevel(this.getLevel()));
+        if (this.targetPedestal != null) this.targetPedestal.setLevel(this.getLevel());
+        if (this.resultPedestal != null) this.resultPedestal.setLevel(this.getLevel());
         this.craftingBehaviour.readNetwork(input);
     }
 
@@ -303,10 +306,13 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
         this.sourcePedestals.clear();
         this.sourcePedestals.addAll(sourcePedestals);
+        this.sourcePedestals.forEach(point -> point.setLevel(this.getLevel()));
         this.sourcePedestals.removeIf(p -> !p.getBlockPos().closerThan(this.getBlockPos(), range));
 
         this.targetPedestal = targetPedestal == null ? null : targetPedestal.getBlockPos().closerThan(this.getBlockPos(), range) ? targetPedestal : null;
         this.resultPedestal = resultPedestal == null ? null : resultPedestal.getBlockPos().closerThan(this.getBlockPos(), range) ? resultPedestal : null;
+        if (this.targetPedestal != null) this.targetPedestal.setLevel(this.getLevel());
+        if (this.resultPedestal != null) this.resultPedestal.setLevel(this.getLevel());
 
         this.checkValidMultiblockOnNextQuery = true;
 
@@ -319,9 +325,12 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public void setSelectedPointsClient(List<SulfuricFluxEmitterSelectedPoint> sourcePedestals, SulfuricFluxEmitterSelectedPoint targetPedestal, SulfuricFluxEmitterSelectedPoint resultPedestal) {
         this.sourcePedestals.clear();
         this.sourcePedestals.addAll(sourcePedestals);
+        this.sourcePedestals.forEach(point -> point.setLevel(this.getLevel()));
 
         this.targetPedestal = targetPedestal;
         this.resultPedestal = resultPedestal;
+        if (this.targetPedestal != null) this.targetPedestal.setLevel(this.getLevel());
+        if (this.resultPedestal != null) this.resultPedestal.setLevel(this.getLevel());
     }
 
     public void onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity pedestal) {

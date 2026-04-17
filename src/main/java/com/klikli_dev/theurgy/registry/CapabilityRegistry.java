@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenB
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector.LogisticsMercuryFluxConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
@@ -66,6 +67,7 @@ public class CapabilityRegistry {
         registerIncubator(event);
         registerLiquefactionCauldron(event);
         registerLogisticsCapabilityProxy(event);
+        registerLogisticsMercuryFluxConnector(event);
         registerMercuryCatalyst(event);
         registerMercuryCapacitor(event);
         registerPyromanticBrazier(event);
@@ -247,6 +249,15 @@ public class CapabilityRegistry {
         );
     }
 
+    public static void registerLogisticsMercuryFluxConnector(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                MERCURY_FLUX_HANDLER,
+                BlockEntityRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get(),
+                // Expose the connector's own buffer so source blocks can push into it.
+                // The connector then forwards buffer contents through the logistics network.
+                (blockEntity, side) -> blockEntity.leafNode().buffer());
+    }
+
 
     public static void registerMercuryCatalyst(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
@@ -264,7 +275,7 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.MERCURY_CAPACITOR.get(),
-                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
+                (blockEntity, side) -> blockEntity.getMercuryFluxStorage(side));
     }
 
     public static void registerPyromanticBrazier(RegisterCapabilitiesEvent event) {

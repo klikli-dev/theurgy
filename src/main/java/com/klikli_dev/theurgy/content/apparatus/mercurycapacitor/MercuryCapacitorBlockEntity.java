@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycapacitor;
 
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
+import com.klikli_dev.theurgy.content.item.mode.SideModeSetter;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -29,10 +30,12 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 
-public class MercuryCapacitorBlockEntity extends BlockEntity {
+public class MercuryCapacitorBlockEntity extends BlockEntity implements SideModeSetter {
 
     /**
      * 10x the capacity of the MercuryCatalyst (500,000 instead of 50,000)
@@ -44,10 +47,135 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
 
     public MercuryCapacitorMercuryFluxStorage mercuryFluxStorage;
 
+    /**
+     * Pre-constructed side-aware storage wrappers for each direction.
+     */
+    private final Map<Direction, MercuryFluxStorage> sideAwareStorages = new EnumMap<>(Direction.class);
+
+    /**
+     * Side configuration for each direction. Default is NONE (no interaction).
+     */
+    private final Map<Direction, SideMode> sideModes = new EnumMap<>(Direction.class);
+
     public MercuryCapacitorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_CAPACITOR.get(), pPos, pBlockState);
 
         this.mercuryFluxStorage = new MercuryCapacitorMercuryFluxStorage(CAPACITY);
+
+        // Pre-construct side-aware storage wrappers
+        for (var direction : Direction.values()) {
+            this.sideAwareStorages.put(direction, new SideAwareMercuryFluxStorage(this.mercuryFluxStorage, direction));
+        }
+
+        // Default: TOP and BOTTOM are OUTPUT (push flux up/down), other sides are INPUT (receive flux)
+        this.sideModes.put(Direction.UP, SideMode.OUTPUT);
+        this.sideModes.put(Direction.DOWN, SideMode.OUTPUT);
+        this.sideModes.put(Direction.NORTH, SideMode.INPUT);
+        this.sideModes.put(Direction.SOUTH, SideMode.INPUT);
+        this.sideModes.put(Direction.EAST, SideMode.INPUT);
+        this.sideModes.put(Direction.WEST, SideMode.INPUT);
+    }
+
+    /**
+     * Get the mode for a specific side.
+     */
+    public SideMode getSideMode(Direction direction) {
+        return this.sideModes.getOrDefault(direction, SideMode.NONE);
+    }
+
+    /**
+     * Returns a mercury flux storage wrapper that respects side mode for receiving.
+     * If side is null, returns the full storage (for internal use).
+     */
+    public MercuryFluxStorage getMercuryFluxStorage(@Nullable Direction side) {
+        if (side == null) {
+            return this.mercuryFluxStorage;
+        }
+        return this.sideAwareStorages.getOrDefault(side, this.mercuryFluxStorage);
+    }
+
+    /**
+     * Wrapper that enforces side mode on receive operations.
+     */
+    private class SideAwareMercuryFluxStorage implements MercuryFluxStorage {
+        private final MercuryFluxStorage delegate;
+        private final Direction side;
+
+        public SideAwareMercuryFluxStorage(MercuryFluxStorage delegate, Direction side) {
+            this.delegate = delegate;
+            this.side = side;
+        }
+
+        @Override
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            // Only allow receiving if side is INPUT or BOTH
+            if (mode != SideMode.INPUT && mode != SideMode.BOTH) {
+                return 0;
+            }
+            return this.delegate.receiveEnergy(maxReceive, simulate);
+        }
+
+        @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            if (mode != SideMode.OUTPUT && mode != SideMode.BOTH) {
+                return 0;
+            }
+            return this.delegate.extractEnergy(maxExtract, simulate);
+        }
+
+        @Override
+        public int getEnergyStored() {
+            return this.delegate.getEnergyStored();
+        }
+
+        @Override
+        public void setEnergyStored(int energy) {
+            this.delegate.setEnergyStored(energy);
+        }
+
+        @Override
+        public int getMaxEnergyStored() {
+            return this.delegate.getMaxEnergyStored();
+        }
+
+        @Override
+        public boolean canExtract() {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            return (mode == SideMode.OUTPUT || mode == SideMode.BOTH) && this.delegate.canExtract();
+        }
+
+        @Override
+        public boolean canReceive() {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            // Only allow receiving if side is INPUT or BOTH
+            return (mode == SideMode.INPUT || mode == SideMode.BOTH) && this.delegate.canReceive();
+        }
+    }
+
+    /**
+     * Set the mode for a specific side.
+     */
+    public void setSideMode(Direction direction, SideMode mode) {
+        this.sideModes.put(direction, mode);
+        this.setChanged();
+        this.sendBlockUpdated();
+    }
+
+    /**
+     * Cycle to the next mode for a specific side (for wand interaction).
+     */
+    public SideMode cycleSideMode(Direction direction) {
+        var current = this.getSideMode(direction);
+        var next = switch (current) {
+            case NONE -> SideMode.INPUT;
+            case INPUT -> SideMode.OUTPUT;
+            case OUTPUT -> SideMode.BOTH;
+            case BOTH -> SideMode.NONE;
+        };
+        this.setSideMode(direction, next);
+        return next;
     }
 
     @Override
@@ -78,6 +206,15 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
                 this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
             }
         });
+
+        input.child("sideModes").ifPresent(child -> {
+            for (var direction : Direction.values()) {
+                var modeOrdinal = child.getInt(direction.name()).orElse(0);
+                // Clamp to valid ordinal range to prevent ArrayIndexOutOfBoundsException from corrupted NBT
+                var safeOrdinal = Math.clamp(modeOrdinal, 0, SideMode.values().length - 1);
+                this.sideModes.put(direction, SideMode.values()[safeOrdinal]);
+            }
+        });
     }
 
     public void writeNetwork(ValueOutput output) {
@@ -85,6 +222,12 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
         this.mercuryFluxStorage.serialize(fluxOutput);
         if (fluxOutput.isEmpty()) {
             output.discard("mercuryFluxStorage");
+        }
+
+        ValueOutput sideModesOutput = output.child("sideModes");
+        for (var direction : Direction.values()) {
+            var mode = this.sideModes.getOrDefault(direction, SideMode.NONE);
+            sideModesOutput.putInt(direction.name(), mode.ordinal());
         }
     }
 
@@ -107,35 +250,40 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
     }
 
     protected void pushMercuryFlux() {
-        // Collect all valid flux handlers first
+        // Collect only sides that have OUTPUT or BOTH mode
         var directions = Direction.allShuffled(this.getLevel().getRandom());
         var targets = new ArrayList<MercuryFluxStorage>();
-        
+
         for (var direction : directions) {
+            var mode = this.getSideMode(direction);
+            if (mode != SideMode.OUTPUT && mode != SideMode.BOTH) {
+                continue;
+            }
+
             var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), direction.getOpposite());
             if (fluxStorage != null) {
                 targets.add(fluxStorage);
             }
         }
-        
+
         if (targets.isEmpty()) {
             return;
         }
-        
+
         // Calculate how much to push to each target (scale by number of targets to maintain throughput)
         int totalToPush = this.mercuryFluxStorage.extractEnergy(PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size(), true);
         if (totalToPush <= 0) {
             return;
         }
-        
+
         int perTarget = totalToPush / targets.size();
         int remainder = totalToPush % targets.size();
-        
+
         // Distribute evenly to all targets
         for (int i = 0; i < targets.size(); i++) {
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
-            
+
             var received = targets.get(i).receiveEnergy(amount, false);
             this.mercuryFluxStorage.extractEnergy(received, false);
         }
@@ -157,6 +305,15 @@ public class MercuryCapacitorBlockEntity extends BlockEntity {
         super.loadAdditional(input);
 
         input.child("mercuryFluxStorage").ifPresent(this.mercuryFluxStorage::deserialize);
+
+        input.child("sideModes").ifPresent(child -> {
+            for (var direction : Direction.values()) {
+                var modeOrdinal = child.getInt(direction.name()).orElse(0);
+                // Clamp to valid ordinal range to prevent ArrayIndexOutOfBoundsException from corrupted NBT
+                var safeOrdinal = Math.clamp(modeOrdinal, 0, SideMode.values().length - 1);
+                this.sideModes.put(direction, SideMode.values()[safeOrdinal]);
+            }
+        });
     }
 
     @Override

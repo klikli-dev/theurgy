@@ -27,6 +27,7 @@ import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResu
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmitterBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector.LogisticsMercuryFluxConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
@@ -138,5 +139,9 @@ public class BlockEntityRegistry {
     public static final Supplier<BlockEntityType<LogisticsCapabilityProxyBlockEntity>> LOGISTICS_CAPABILITY_PROXY =
             BLOCKS.register(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.getId().getPath(), () ->
                     new BlockEntityType<>(LogisticsCapabilityProxyBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get())));
+
+    public static final Supplier<BlockEntityType<LogisticsMercuryFluxConnectorBlockEntity>> LOGISTICS_MERCURY_FLUX_CONNECTOR =
+            BLOCKS.register("logistics_mercury_flux_connector", () ->
+                    new BlockEntityType<>(LogisticsMercuryFluxConnectorBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get())));
 
 }

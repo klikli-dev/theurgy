@@ -55,12 +55,8 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
-        if (pLevel.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
-
-        pPlayer.openMenu(blockEntity, pPos);
-        return InteractionResult.SUCCESS;
+        // Filter is configured via the Mercurial Wand, not via a GUI menu
+        return InteractionResult.PASS;
     }
 
     @Override

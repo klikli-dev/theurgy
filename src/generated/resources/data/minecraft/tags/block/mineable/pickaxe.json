@@ -25,6 +25,7 @@
     "theurgy:logistics_fluid_inserter",
     "theurgy:logistics_fluid_extractor",
     "theurgy:logistics_capability_probe",
-    "theurgy:logistics_capability_proxy"
+    "theurgy:logistics_capability_proxy",
+    "theurgy:logistics_mercury_flux_connector"
   ]
 }

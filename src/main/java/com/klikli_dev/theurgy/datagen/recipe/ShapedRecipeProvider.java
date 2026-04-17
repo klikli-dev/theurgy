@@ -432,6 +432,14 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         );
 
         this.makeRecipe(new ShapedRecipeBuilder(
+                ItemRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get(), 1)
+                .pattern("d")
+                .pattern("m")
+                .define('d', Tags.Items.DYES_BLUE)
+                .define('m', ItemRegistry.MERCURY_SHARD)
+        );
+
+        this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.LIST_FILTER.get(), 9)
                 .pattern("ppp")
                 .pattern("pmp")

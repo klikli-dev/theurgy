@@ -41,7 +41,8 @@ public abstract class MercurialWandItemMode extends ItemMode {
         CYCLE_DIRECTION("cycle_direction", new CycleSelectedDirectionMode()),
         SWITCH_LOGISTICS_ENABLED("switch_logistics_enabled", new SwitchLogisticsEnabledMode()),
         SELECT_FREQUENCY("select_frequency", new SelectFrequencyMode()),
-        SET_SELECTED_FREQUENCY("set_selected_frequency", new SetSelectedFrequencyMode());
+        SET_SELECTED_FREQUENCY("set_selected_frequency", new SetSelectedFrequencyMode()),
+        CYCLE_CAPACITOR_SIDE("cycle_capacitor_side", new CycleCapacitorSideMode());
 
         public static final Codec<Type> CODEC = StringRepresentable.fromValues(Type::values);
         public static final IntFunction<Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);

@@ -54,6 +54,39 @@ public class MercuryCapacitorEntry extends EntryProvider {
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/mercury_capacitor"))
         );
+
+        this.page("sides", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Side Configuration");
+        this.pageText("""
+                        Each side of the {0} can be configured to control how it interacts with adjacent blocks:
+                        
+                        - [#](00ff00)OUTPUT[#]() - Pushes mercury flux out of this side
+                        - [#](00ffff)INPUT[#]() - Receives mercury flux from this side
+                        - [#](808080)NONE[#]() - No interaction
+                        
+                        By default:
+                        - [#](00ff00)UP/DOWN[#]() are set to OUTPUT
+                        - [#](00ffff)NORTH/SOUTH/EAST/WEST[#]() are set to INPUT
+                        """,
+                this.itemLink(ItemRegistry.MERCURY_CAPACITOR.get())
+        );
+
+        this.page("wand", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Configuring with the Mercurial Wand");
+        this.pageText("""
+                        Use the {0} to change a capacitor's side configuration:
+                        
+                        1. Switch to the "Cycle Capacitor Side Mode" wand mode
+                        2. Right-click on a capacitor face to cycle through: INPUT → OUTPUT → BOTH → NONE → INPUT
+                        
+                        Note: The wand cycles through modes in a specific order, so you may need to click multiple times to reach your desired configuration.
+                        """,
+                this.itemLink(ItemRegistry.MERCURIAL_WAND.get())
+        );
     }
 
     @Override

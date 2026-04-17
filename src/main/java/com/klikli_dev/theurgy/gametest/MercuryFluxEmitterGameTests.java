@@ -43,7 +43,7 @@ public class MercuryFluxEmitterGameTests {
         helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(EMITTER_POS, MercuryFluxEmitterBlockEntity.class);
             helper.assertTrue(blockEntity != null, "Block entity should exist");
-            helper.assertTrue(blockEntity.mercuryFluxStorage.getMaxEnergyStored() == MercuryFluxEmitterBlockEntity.CAPACITY, "Should have correct energy capacity (" + MercuryFluxEmitterBlockEntity.CAPACITY + ")");
+            helper.assertTrue(blockEntity.mercuryFluxHandler.getMaxEnergyStored() == MercuryFluxEmitterBlockEntity.CAPACITY, "Should have correct energy capacity (" + MercuryFluxEmitterBlockEntity.CAPACITY + ")");
         });
     }
 
@@ -97,7 +97,7 @@ public class MercuryFluxEmitterGameTests {
         helper.succeedWhen(() -> {
             var capacitor = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    capacitor.mercuryFluxStorage.getEnergyStored() > 0,
+                    capacitor.mercuryFluxHandler.getEnergyStored() > 0,
                     "Mercury Capacitor should have received flux from Mercury Flux Emitter"
             );
         });

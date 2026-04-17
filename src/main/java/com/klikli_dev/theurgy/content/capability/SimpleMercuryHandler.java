@@ -15,25 +15,25 @@ import net.neoforged.neoforge.common.util.ValueIOSerializable;
 /**
  * Copy of EnergyStorage, separate to prevent conversion to/from FE
  */
-public class DefaultMercuryFluxStorage implements MercuryFluxStorage, NBTSerializable<Tag>, ValueIOSerializable {
+public class SimpleMercuryHandler implements MercuryFluxHandler, NBTSerializable<Tag>, ValueIOSerializable {
     protected int energy;
     protected int capacity;
     protected int maxReceive;
     protected int maxExtract;
 
-    public DefaultMercuryFluxStorage(int capacity) {
+    public SimpleMercuryHandler(int capacity) {
         this(capacity, capacity, capacity, 0);
     }
 
-    public DefaultMercuryFluxStorage(int capacity, int maxTransfer) {
+    public SimpleMercuryHandler(int capacity, int maxTransfer) {
         this(capacity, maxTransfer, maxTransfer, 0);
     }
 
-    public DefaultMercuryFluxStorage(int capacity, int maxReceive, int maxExtract) {
+    public SimpleMercuryHandler(int capacity, int maxReceive, int maxExtract) {
         this(capacity, maxReceive, maxExtract, 0);
     }
 
-    public DefaultMercuryFluxStorage(int capacity, int maxReceive, int maxExtract, int energy) {
+    public SimpleMercuryHandler(int capacity, int maxReceive, int maxExtract, int energy) {
         this.capacity = capacity;
         this.maxReceive = maxReceive;
         this.maxExtract = maxExtract;

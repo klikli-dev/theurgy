@@ -33,7 +33,7 @@ public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamS
             .cast();
     public static final MercuryFluxEnergyProvider<BlockAccessor> BLOCK = new MercuryFluxEnergyProvider<>();
 
-    public static @Nullable List<ViewGroup<EnergyView.Data>> wrapMercuryFluxStorage(Accessor<?> accessor) {
+    public static @Nullable List<ViewGroup<EnergyView.Data>> wrapMercuryFluxHandler(Accessor<?> accessor) {
         if (!(accessor instanceof BlockAccessor)) {
             return null;
         }
@@ -48,7 +48,7 @@ public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamS
         return List.of(group);
     }
 
-    public static boolean hasDefaultMercuryFluxStorage(Accessor<?> accessor) {
+    public static boolean hasSimpleMercuryHandler(Accessor<?> accessor) {
         return accessor instanceof BlockAccessor && CommonProxy.hasDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
     }
 
@@ -87,12 +87,12 @@ public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamS
 
         @Override
         public @Nullable List<ViewGroup<EnergyView.Data>> getGroups(Accessor<?> accessor) {
-            return wrapMercuryFluxStorage(accessor);
+            return wrapMercuryFluxHandler(accessor);
         }
 
         @Override
         public boolean shouldRequestData(Accessor<?> accessor) {
-            return hasDefaultMercuryFluxStorage(accessor);
+            return hasSimpleMercuryHandler(accessor);
         }
 
         @Override

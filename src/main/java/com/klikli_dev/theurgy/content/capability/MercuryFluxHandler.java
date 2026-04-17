@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.content.capability;
 /**
  * Copy of IEnergyStorage, separate to prevent conversion to/from FE
  */
-public interface MercuryFluxStorage {
+public interface MercuryFluxHandler {
     /**
      * Adds energy to the storage. Returns quantity of energy that was accepted.
      *

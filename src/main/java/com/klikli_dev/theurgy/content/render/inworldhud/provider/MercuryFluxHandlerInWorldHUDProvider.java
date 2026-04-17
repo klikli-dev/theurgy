@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class MercuryFluxStorageInWorldHUDProvider implements InWorldHUDProvider {
+public class MercuryFluxHandlerInWorldHUDProvider implements InWorldHUDProvider {
 
     @Override
     public boolean activatesHUD() {

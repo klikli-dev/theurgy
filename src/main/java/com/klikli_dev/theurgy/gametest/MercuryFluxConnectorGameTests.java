@@ -87,7 +87,7 @@ public class MercuryFluxConnectorGameTests {
     }
 
     /**
-     * Tests that the connector exposes a MercuryFluxStorage capability
+     * Tests that the connector exposes a MercuryFluxHandler capability
      * that source blocks can push into.
      */
     public static void exposesFluxCapability(GameTestHelper helper) {
@@ -143,7 +143,7 @@ public class MercuryFluxConnectorGameTests {
         helper.succeedWhen(() -> {
             var capacitorBE = helper.getBlockEntity(CAPACITOR_1_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    capacitorBE.mercuryFluxStorage.getEnergyStored() > 0,
+                    capacitorBE.mercuryFluxHandler.getEnergyStored() > 0,
                     "Capacitor should have received flux forwarded through the logistics network"
             );
         });
@@ -181,11 +181,11 @@ public class MercuryFluxConnectorGameTests {
             var cap1BE = helper.getBlockEntity(CAPACITOR_1_POS, MercuryCapacitorBlockEntity.class);
             var cap2BE = helper.getBlockEntity(CAPACITOR_2_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    cap1BE.mercuryFluxStorage.getEnergyStored() > 0,
+                    cap1BE.mercuryFluxHandler.getEnergyStored() > 0,
                     "Capacitor 1 should have received flux through the logistics network"
             );
             helper.assertTrue(
-                    cap2BE.mercuryFluxStorage.getEnergyStored() > 0,
+                    cap2BE.mercuryFluxHandler.getEnergyStored() > 0,
                     "Capacitor 2 should have received flux through the logistics network"
             );
         });

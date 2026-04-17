@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
 import com.klikli_dev.theurgy.content.item.mode.FrequencySetter;
 import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<MercuryFluxStorage, @Nullable Direction>, TargetDirectionSetter, EnabledSetter, FrequencySetter {
+public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<MercuryFluxHandler, @Nullable Direction>, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
     protected LogisticsMercuryFluxConnectorBehaviour leafNodeBehaviour;
 

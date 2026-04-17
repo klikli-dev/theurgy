@@ -6,7 +6,8 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
-import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryHandler;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.content.render.Color;
@@ -41,7 +42,7 @@ public class
 SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
     public static final int CAPACITY = 1000;
-    public MercuryFluxStorage mercuryFluxStorage;
+    public SulfuricFluxEmitterMercuryFluxHandler mercuryFluxHandler;
 
     public boolean isValidMultiblock;
     protected List<SulfuricFluxEmitterSelectedPoint> sourcePedestals;
@@ -57,14 +58,14 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public SulfuricFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.SULFURIC_FLUX_EMITTER.get(), pPos, pBlockState);
 
-        this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
+        this.mercuryFluxHandler = new SulfuricFluxEmitterMercuryFluxHandler(CAPACITY);
 
         this.checkValidMultiblockOnNextQuery = true;
 
         this.sourcePedestals = new ArrayList<>();
         this.sourcePedestalsWithContents = new ArrayList<>();
 
-        this.craftingBehaviour = new ReformationArrayCraftingBehaviour(this, () -> this.ItemHandlerRecipeInput, () -> null, this::getOutputInventory, () -> this.mercuryFluxStorage);
+        this.craftingBehaviour = new ReformationArrayCraftingBehaviour(this, () -> this.ItemHandlerRecipeInput, () -> null, this::getOutputInventory, () -> (MercuryFluxHandler) this.mercuryFluxHandler);
     }
 
     public void removeResultPedestal(ReformationResultPedestalBlockEntity pedestal) {
@@ -172,7 +173,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.onSourcePedestalContentChange(null); //only call it once as we don't need to call it on each
 
 
-        this.ItemHandlerRecipeInput = new ReformationArrayRecipeInput(sourceInventories, targetPedestalBlockEntity.inputInventory, this.mercuryFluxStorage);
+        this.ItemHandlerRecipeInput = new ReformationArrayRecipeInput(sourceInventories, targetPedestalBlockEntity.inputInventory, (MercuryFluxHandler) this.mercuryFluxHandler);
     }
 
     public void onDisassembleMultiblock() {
@@ -219,10 +220,10 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
-        ValueOutput mercuryFluxOutput = output.child("mercuryFluxStorage");
-        this.mercuryFluxStorage.serialize(mercuryFluxOutput);
+        ValueOutput mercuryFluxOutput = output.child("MercuryFluxHandler");
+        this.mercuryFluxHandler.serialize(mercuryFluxOutput);
         if (mercuryFluxOutput.isEmpty()) {
-            output.discard("mercuryFluxStorage");
+            output.discard("MercuryFluxHandler");
         }
 
         output.store("sourcePedestals", SulfuricFluxEmitterSelectedPoint.LIST_CODEC, this.sourcePedestals);
@@ -236,7 +237,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
-        input.child("mercuryFluxStorage").ifPresent(this.mercuryFluxStorage::deserialize);
+        input.child("MercuryFluxHandler").ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
         this.sourcePedestals = new ArrayList<>(input.read("sourcePedestals", SulfuricFluxEmitterSelectedPoint.LIST_CODEC).orElseGet(ArrayList::new));
         this.targetPedestal = input.read("targetPedestal", SulfuricFluxEmitterSelectedPoint.CODEC).orElse(null);
         this.resultPedestal = input.read("resultPedestal", SulfuricFluxEmitterSelectedPoint.CODEC).orElse(null);
@@ -287,14 +288,14 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         super.applyImplicitComponents(pComponentInput);
 
         if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()) != null)
-            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
+            this.mercuryFluxHandler.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
     }
 
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getEnergyStored());
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {
@@ -401,9 +402,9 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
     }
 
-    public class MercuryFluxStorage extends DefaultMercuryFluxStorage {
+    public class SulfuricFluxEmitterMercuryFluxHandler extends SimpleMercuryHandler {
 
-        public MercuryFluxStorage(int capacity) {
+        public SulfuricFluxEmitterMercuryFluxHandler(int capacity) {
             super(capacity);
         }
 

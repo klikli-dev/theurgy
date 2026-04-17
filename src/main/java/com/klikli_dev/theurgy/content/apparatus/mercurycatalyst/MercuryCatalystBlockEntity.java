@@ -7,8 +7,8 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
-import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryHandler;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
@@ -49,7 +49,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     public static final int PUSH_RATE_PER_SIDE_PER_TICK = 2;
 
     public MonitoredItemStackHandler inventory;
-    public MercuryCatalystMercuryFluxStorage mercuryFluxStorage;
+    public MercuryCatalystMercuryFluxHandler mercuryFluxHandler;
 
     protected MercuryCatalystCraftingBehaviour craftingBehaviour;
 
@@ -58,10 +58,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
 
         this.inventory = new Inventory();
 
-        this.mercuryFluxStorage = new MercuryCatalystMercuryFluxStorage(CAPACITY);
+        this.mercuryFluxHandler = new MercuryCatalystMercuryFluxHandler(CAPACITY);
 
 
-        this.craftingBehaviour = new MercuryCatalystCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.mercuryFluxStorage);
+        this.craftingBehaviour = new MercuryCatalystCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.mercuryFluxHandler);
     }
 
     @Override
@@ -86,8 +86,8 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     }
 
     public void readNetwork(ValueInput input) {
-        input.child("mercuryFluxStorage").ifPresent(value -> {
-            this.mercuryFluxStorage.deserialize(value);
+        input.child("MercuryFluxHandler").ifPresent(value -> {
+            this.mercuryFluxHandler.deserialize(value);
             if (this.level != null) {
                 this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
             }
@@ -95,10 +95,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     }
 
     public void writeNetwork(ValueOutput output) {
-        ValueOutput fluxOutput = output.child("mercuryFluxStorage");
-        this.mercuryFluxStorage.serialize(fluxOutput);
+        ValueOutput fluxOutput = output.child("MercuryFluxHandler");
+        this.mercuryFluxHandler.serialize(fluxOutput);
         if (fluxOutput.isEmpty()) {
-            output.discard("mercuryFluxStorage");
+            output.discard("MercuryFluxHandler");
         }
     }
 
@@ -122,7 +122,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     protected void pushMercuryFlux() {
         // Collect all valid flux handlers first
         var directions = Direction.allShuffled(this.getLevel().getRandom());
-        var targets = new ArrayList<MercuryFluxStorage>();
+        var targets = new ArrayList<MercuryFluxHandler>();
         
         for (var direction : directions) {
             var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), direction.getOpposite());
@@ -136,7 +136,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         }
         
         // Calculate how much to push to each target (scale by number of targets to maintain throughput)
-        int totalToPush = this.mercuryFluxStorage.extractEnergy(PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size(), true);
+        int totalToPush = this.mercuryFluxHandler.extractEnergy(PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size(), true);
         if (totalToPush <= 0) {
             return;
         }
@@ -150,7 +150,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             if (amount <= 0) continue;
             
             var received = targets.get(i).receiveEnergy(amount, false);
-            this.mercuryFluxStorage.extractEnergy(received, false);
+            this.mercuryFluxHandler.extractEnergy(received, false);
         }
     }
 
@@ -164,10 +164,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             output.discard("inventory");
         }
 
-        ValueOutput fluxOutput = output.child("mercuryFluxStorage");
-        this.mercuryFluxStorage.serialize(fluxOutput);
+        ValueOutput fluxOutput = output.child("MercuryFluxHandler");
+        this.mercuryFluxHandler.serialize(fluxOutput);
         if (fluxOutput.isEmpty()) {
-            output.discard("mercuryFluxStorage");
+            output.discard("MercuryFluxHandler");
         }
 
         this.craftingBehaviour.saveAdditional(output);
@@ -178,7 +178,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         super.loadAdditional(input);
 
         input.child("inventory").ifPresent(this.inventory::deserialize);
-        input.child("mercuryFluxStorage").ifPresent(this.mercuryFluxStorage::deserialize);
+        input.child("MercuryFluxHandler").ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
 
         this.craftingBehaviour.loadAdditional(input);
     }
@@ -189,7 +189,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
 
         if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()) != null)
             //noinspection DataFlowIssue
-            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
+            this.mercuryFluxHandler.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
 
         if (pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()) != null)
             ValueIOUtils.deserialize(this.level.registryAccess(), this.inventory, pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()).copyTag());
@@ -201,7 +201,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getEnergyStored());
 
         pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, CustomData.of(ValueIOUtils.serialize(this.level.registryAccess(), this.inventory)));
 
@@ -237,12 +237,12 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         }
     }
 
-    public class MercuryCatalystMercuryFluxStorage extends DefaultMercuryFluxStorage {
+    public class MercuryCatalystMercuryFluxHandler extends SimpleMercuryHandler {
 
         public static final int UPDATE_THRESHOLD = 100;
         private int lastUpdateLevel;
 
-        public MercuryCatalystMercuryFluxStorage(int capacity) {
+        public MercuryCatalystMercuryFluxHandler(int capacity) {
             // Non-receiving: only internal flux generation can fill this storage
             super(capacity, 0, capacity);
         }

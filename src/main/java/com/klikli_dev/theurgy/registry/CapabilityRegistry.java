@@ -12,7 +12,7 @@ import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.Liquefactio
 import com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector.LogisticsMercuryFluxConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -35,9 +35,9 @@ public class CapabilityRegistry {
     public static final BlockCapability<ResourceHandler<ItemResource>, @Nullable Direction> ITEM_HANDLER = Capabilities.Item.BLOCK;
     public static final BlockCapability<ResourceHandler<FluidResource>, @Nullable Direction> FLUID_HANDLER = Capabilities.Fluid.BLOCK;
 
-    public static final BlockCapability<MercuryFluxStorage, @Nullable Direction> MERCURY_FLUX_HANDLER = BlockCapability.createSided(
+    public static final BlockCapability<MercuryFluxHandler, @Nullable Direction> MERCURY_FLUX_HANDLER = BlockCapability.createSided(
             Theurgy.loc("mercury_flux_handler"),
-            MercuryFluxStorage.class);
+            MercuryFluxHandler.class);
     public static BlockCapability<HeatProvider, @Nullable Direction> HEAT_PROVIDER = BlockCapability.createSided(
             Theurgy.loc("heat_provider"),
             HeatProvider.class);
@@ -104,7 +104,7 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.CALORIC_FLUX_EMITTER.get(),
-                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
+                (blockEntity, side) -> blockEntity.mercuryFluxHandler);
     }
 
     public static void registerDigestionVat(RegisterCapabilitiesEvent event) {
@@ -263,7 +263,7 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.MERCURY_CATALYST.get(),
-                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
+                (blockEntity, side) -> blockEntity.mercuryFluxHandler);
 
         event.registerBlockEntity(
                 ITEM_HANDLER,
@@ -275,7 +275,7 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.MERCURY_CAPACITOR.get(),
-                (blockEntity, side) -> blockEntity.getMercuryFluxStorage(side));
+                (blockEntity, side) -> blockEntity.getMercuryFluxHandler(side));
     }
 
     public static void registerPyromanticBrazier(RegisterCapabilitiesEvent event) {
@@ -293,7 +293,7 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.SULFURIC_FLUX_EMITTER.get(),
-                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
+                (blockEntity, side) -> blockEntity.mercuryFluxHandler);
 
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
@@ -304,7 +304,7 @@ public class CapabilityRegistry {
                     var facing = blockState.getValue(BlockStateProperties.FACING);
                     var attachedSide = facing.getOpposite();
                     if (side == null || side == attachedSide) {
-                        return blockEntity.mercuryFluxStorage;
+                        return blockEntity.mercuryFluxHandler;
                     }
                     return null;
                 });

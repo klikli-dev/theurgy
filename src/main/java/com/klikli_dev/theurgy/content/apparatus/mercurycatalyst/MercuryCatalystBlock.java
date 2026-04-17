@@ -51,7 +51,7 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
 
     public static int getBlockColor(@NotNull BlockState pState, @NotNull BlockAndTintGetter pLevel, @NotNull BlockPos pPos) {
         if (pLevel.getBlockEntity(pPos) instanceof MercuryCatalystBlockEntity blockEntity) {
-            var fillLevel = blockEntity.mercuryFluxStorage.getEnergyStored() / (float) blockEntity.mercuryFluxStorage.getMaxEnergyStored();
+            var fillLevel = blockEntity.mercuryFluxHandler.getEnergyStored() / (float) blockEntity.mercuryFluxHandler.getMaxEnergyStored();
 
             //if empty we return white, if full we should return blue: 0x0000FF
             return getColorFromFillLevel(fillLevel);

@@ -65,7 +65,7 @@ public class SulfuricFluxEmitterGameTests {
         helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(EMITTER_POS, SulfuricFluxEmitterBlockEntity.class);
             helper.assertTrue(blockEntity != null, "Block entity should exist");
-            helper.assertTrue(blockEntity.mercuryFluxStorage.getMaxEnergyStored() == SulfuricFluxEmitterBlockEntity.CAPACITY, "Should have correct energy capacity (" + SulfuricFluxEmitterBlockEntity.CAPACITY + ")");
+            helper.assertTrue(blockEntity.mercuryFluxHandler.getCapacityAsInt() == SulfuricFluxEmitterBlockEntity.CAPACITY, "Should have correct energy capacity (" + SulfuricFluxEmitterBlockEntity.CAPACITY + ")");
         });
     }
 
@@ -87,8 +87,11 @@ public class SulfuricFluxEmitterGameTests {
 
         helper.runAtTickTime(2, () -> {
             var emitter = helper.getBlockEntity(EMITTER_POS, SulfuricFluxEmitterBlockEntity.class);
-            // Add initial energy
-            emitter.mercuryFluxStorage.receiveEnergy(500, false);
+                // Add initial energy
+                    try (var tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+                        emitter.mercuryFluxHandler.insert(500, tx);
+                        tx.commit();
+                    }
 
             var source = helper.getBlockEntity(SOURCE_PEDESTAL_POS, ReformationSourcePedestalBlockEntity.class);
             source.inputInventory.setStackInSlot(0, new ItemStack(NiterRegistry.MOBS_ABUNDANT.get(), 1));

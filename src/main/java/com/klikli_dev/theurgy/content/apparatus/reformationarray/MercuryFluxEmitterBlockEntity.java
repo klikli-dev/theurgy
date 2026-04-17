@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
-import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageShowMercuryFlux;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -35,6 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class MercuryFluxEmitterBlockEntity extends BlockEntity {
 
@@ -42,14 +43,14 @@ public class MercuryFluxEmitterBlockEntity extends BlockEntity {
     public static final int FLUX_PER_TRANSFER = 10;
     public static final int TICK_INTERVAL = 20;
 
-    public MercuryFluxStorage mercuryFluxStorage;
+    public MercuryFluxEmitterMercuryFluxHandler mercuryFluxHandler;
 
     protected List<MercuryFluxEmitterSelectedPoint> selectedPoints;
 
 public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_FLUX_EMITTER.get(), pPos, pBlockState);
 
-        this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
+        this.mercuryFluxHandler = new MercuryFluxEmitterMercuryFluxHandler(CAPACITY);
 
         this.selectedPoints = new ArrayList<>();
     }
@@ -80,7 +81,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         }
 
         // Transfer to target if we have flux
-        if (this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_TRANSFER) {
+        if (this.mercuryFluxHandler.getAmountAsInt() >= FLUX_PER_TRANSFER) {
             var targetPos = selectedPoint.getBlockPos();
             var targetState = selectedPoint.getBlockState();
 
@@ -95,17 +96,23 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
             if (targetFluxHandler == null)
                 return;
 
-            int accepted = targetFluxHandler.receiveEnergy(FLUX_PER_TRANSFER, true);
-            if (accepted <= 0)
-                return;
+            try (Transaction tx = Transaction.openRoot()) {
+                int extracted = this.mercuryFluxHandler.extract(FLUX_PER_TRANSFER, tx);
+                if (extracted > 0) {
+                    int inserted = targetFluxHandler.insert(extracted, tx);
+                    if (inserted <= 0) {
+                        return;
+                    }
 
-            int extracted = this.mercuryFluxStorage.extractEnergy(accepted, false);
-            if (extracted > 0) {
-                int inserted = targetFluxHandler.receiveEnergy(extracted, false);
-                if (inserted <= 0)
-                    return;
+                    int remainder = extracted - inserted;
+                    if (remainder > 0 && this.mercuryFluxHandler.insert(remainder, tx) != remainder) {
+                        return;
+                    }
 
-                Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(MercuryFluxEmitterBlock.FACING)));
+                    tx.commit();
+
+                    Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(MercuryFluxEmitterBlock.FACING)));
+                }
             }
         }
     }
@@ -114,10 +121,10 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
     protected void saveAdditional(@NotNull ValueOutput output) {
         super.saveAdditional(output);
 
-        ValueOutput storageOutput = output.child("mercuryFluxStorage");
-        this.mercuryFluxStorage.serialize(storageOutput);
+        ValueOutput storageOutput = output.child("mercuryFluxHandler");
+        this.mercuryFluxHandler.serialize(storageOutput);
         if (storageOutput.isEmpty()) {
-            output.discard("mercuryFluxStorage");
+            output.discard("mercuryFluxHandler");
         }
 
         output.store("selectedPoints", MercuryFluxEmitterSelectedPoint.LIST_CODEC, this.selectedPoints);
@@ -127,7 +134,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
     public void loadAdditional(@NotNull ValueInput input) {
         super.loadAdditional(input);
 
-        input.child("mercuryFluxStorage").ifPresent(this.mercuryFluxStorage::deserialize);
+        input.child("mercuryFluxHandler").ifPresent(this.mercuryFluxHandler::deserialize);
         this.selectedPoints = input.read("selectedPoints", MercuryFluxEmitterSelectedPoint.LIST_CODEC).orElseGet(ArrayList::new);
     }
 
@@ -166,7 +173,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super.applyImplicitComponents(pComponentInput);
 
         if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()) != null) {
-            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
+            this.mercuryFluxHandler.set(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
         }
     }
 
@@ -174,7 +181,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
     protected void collectImplicitComponents(DataComponentMap.@NotNull Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
     }
 
     public void setSelectedPoints(List<MercuryFluxEmitterSelectedPoint> selectedPoints) {
@@ -196,32 +203,15 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         return this.selectedPoints;
     }
 
-    public class MercuryFluxStorage extends DefaultMercuryFluxStorage {
+    public class MercuryFluxEmitterMercuryFluxHandler extends SimpleMercuryFluxHandler {
 
-        public MercuryFluxStorage(int capacity) {
+        public MercuryFluxEmitterMercuryFluxHandler(int capacity) {
             super(capacity);
         }
 
         @Override
-        public int receiveEnergy(int maxReceive, boolean simulate) {
-            var received = super.receiveEnergy(maxReceive, simulate);
-
-            if (received > 0) {
-                MercuryFluxEmitterBlockEntity.this.setChanged();
-            }
-
-            return received;
-        }
-
-        @Override
-        public int extractEnergy(int maxExtract, boolean simulate) {
-            var extracted = super.extractEnergy(maxExtract, simulate);
-
-            if (extracted > 0) {
-                MercuryFluxEmitterBlockEntity.this.setChanged();
-            }
-
-            return extracted;
+        protected void onEnergyChanged(int previousAmount) {
+            MercuryFluxEmitterBlockEntity.this.setChanged();
         }
     }
 }

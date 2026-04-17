@@ -96,7 +96,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
     public boolean matches(ReformationArrayRecipeInput pContainer, @NotNull Level pLevel) {
 
         //if we do not have enough flux, exit early
-        if (pContainer.getMercuryFluxStorage().getEnergyStored() < this.mercuryFlux)
+        if (pContainer.getMercuryFluxHandler().getAmountAsInt() < this.mercuryFlux)
             return false;
 
         //if the target does not match we can exit early.

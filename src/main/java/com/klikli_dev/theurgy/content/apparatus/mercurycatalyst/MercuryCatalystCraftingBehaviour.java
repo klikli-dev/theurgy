@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, LevelAwareCachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> {
 
-    private final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
+    private final Supplier<MercuryFluxHandler> mercuryFluxHandlerSupplier;
     private final MonitoredItemStackHandler ingredientCheckInventory = new MonitoredItemStackHandler() {
     };
     private final ItemHandlerRecipeInput ingredientCheckInput = new ItemHandlerRecipeInput(this.ingredientCheckInventory);
@@ -37,14 +37,14 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     protected int currentMercuryFluxPerTick;
 
 
-    public MercuryCatalystCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
+    public MercuryCatalystCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<MercuryFluxHandler> mercuryFluxHandlerSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerRecipeInput(inputInventorySupplier.get())),
                 inputInventorySupplier,
                 outputInventorySupplier,
                 new LevelAwareCachedCheck<>(RecipeTypeRegistry.CATALYSATION.get()));
 
-        this.mercuryFluxStorageSupplier = mercuryFluxStorageSupplier;
+        this.mercuryFluxHandlerSupplier = mercuryFluxHandlerSupplier;
     }
 
     @Override
@@ -110,9 +110,9 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     public boolean canCraft(@Nullable RecipeHolder<CatalysationRecipe> pRecipe) {
         if (pRecipe == null) return false;
 
-        var storage = this.mercuryFluxStorageSupplier.get();
+        var handler = this.mercuryFluxHandlerSupplier.get();
         // Check if there's any room available to start the process
-        return storage.getEnergyStored() < storage.getMaxEnergyStored();
+        return handler.getAmountAsInt() < handler.getCapacityAsInt();
     }
 
     @Override
@@ -121,10 +121,10 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         if (this.mercuryFluxToConvert > 0) {
             if (canProcess) {
                 this.tryStartProcessing(); // Mark as processing for HUD
-                var storage = this.mercuryFluxStorageSupplier.get();
+                var handler = this.mercuryFluxHandlerSupplier.get();
                 var maxFluxToConvert = Math.min(this.mercuryFluxToConvert, this.currentMercuryFluxPerTick);
                 // Use addInternalFlux for internal crafting flux generation
-                int fluxAdded = ((MercuryCatalystBlockEntity.MercuryCatalystMercuryFluxStorage) storage).addInternalFlux(maxFluxToConvert);
+                int fluxAdded = ((MercuryCatalystBlockEntity.MercuryCatalystMercuryFluxHandler) handler).addInternalFlux(maxFluxToConvert);
                 this.mercuryFluxToConvert -= fluxAdded;
             }
         } else if (hasInput) {

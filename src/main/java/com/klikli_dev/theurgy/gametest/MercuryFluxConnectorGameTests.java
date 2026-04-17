@@ -72,7 +72,7 @@ public class MercuryFluxConnectorGameTests {
         helper.runAfterDelay(1, () -> {
             var be = helper.getBlockEntity(CONNECTOR_A_POS, LogisticsMercuryFluxConnectorBlockEntity.class);
             helper.assertTrue(
-                    be.leafNode().buffer().getEnergyStored() == 0,
+                    be.leafNode().buffer().getAmountAsInt() == 0,
                     "Connector buffer should start empty"
             );
         });
@@ -80,14 +80,14 @@ public class MercuryFluxConnectorGameTests {
         helper.succeedWhen(() -> {
             var be = helper.getBlockEntity(CONNECTOR_A_POS, LogisticsMercuryFluxConnectorBlockEntity.class);
             helper.assertTrue(
-                    be.leafNode().buffer().getEnergyStored() == 0,
+                    be.leafNode().buffer().getAmountAsInt() == 0,
                     "Connector buffer should still be empty"
             );
         });
     }
 
     /**
-     * Tests that the connector exposes a MercuryFluxStorage capability
+     * Tests that the connector exposes a MercuryFluxHandler capability
      * that source blocks can push into.
      */
     public static void exposesFluxCapability(GameTestHelper helper) {
@@ -103,12 +103,15 @@ public class MercuryFluxConnectorGameTests {
             helper.assertTrue(fluxStorage != null, "Connector should expose MERCURY_FLUX_HANDLER capability");
 
             // Push some flux into the buffer
-            int received = fluxStorage.receiveEnergy(500, false);
-            helper.assertTrue(received == 500, "Should be able to push 500 flux into connector buffer, got " + received);
+            try (var tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+                int received = fluxStorage.insert(500, tx);
+                tx.commit();
+                helper.assertTrue(received == 500, "Should be able to push 500 flux into connector buffer, got " + received);
+            }
 
             var be = helper.getBlockEntity(CONNECTOR_A_POS, LogisticsMercuryFluxConnectorBlockEntity.class);
             helper.assertTrue(
-                    be.leafNode().buffer().getEnergyStored() == 500,
+                    be.leafNode().buffer().getAmountAsInt() == 500,
                     "Connector buffer should have 500 flux after push"
             );
 
@@ -143,7 +146,7 @@ public class MercuryFluxConnectorGameTests {
         helper.succeedWhen(() -> {
             var capacitorBE = helper.getBlockEntity(CAPACITOR_1_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    capacitorBE.mercuryFluxStorage.getEnergyStored() > 0,
+                    capacitorBE.mercuryFluxHandler.getAmountAsInt() > 0,
                     "Capacitor should have received flux forwarded through the logistics network"
             );
         });
@@ -181,11 +184,11 @@ public class MercuryFluxConnectorGameTests {
             var cap1BE = helper.getBlockEntity(CAPACITOR_1_POS, MercuryCapacitorBlockEntity.class);
             var cap2BE = helper.getBlockEntity(CAPACITOR_2_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    cap1BE.mercuryFluxStorage.getEnergyStored() > 0,
+                    cap1BE.mercuryFluxHandler.getAmountAsInt() > 0,
                     "Capacitor 1 should have received flux through the logistics network"
             );
             helper.assertTrue(
-                    cap2BE.mercuryFluxStorage.getEnergyStored() > 0,
+                    cap2BE.mercuryFluxHandler.getAmountAsInt() > 0,
                     "Capacitor 2 should have received flux through the logistics network"
             );
         });

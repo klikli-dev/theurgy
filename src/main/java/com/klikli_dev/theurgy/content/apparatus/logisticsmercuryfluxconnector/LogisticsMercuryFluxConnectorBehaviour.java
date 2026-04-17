@@ -6,8 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
-import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
@@ -22,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 /**
  * A leaf node behaviour that acts as a mercury flux conduit in the logistics network.
@@ -34,7 +34,7 @@ import java.util.Set;
  * <p>
  * Flow: Source → Connector A buffer → (logistics network) → Connector B's attached block (sink)
  */
-public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviour<MercuryFluxStorage, @Nullable Direction> {
+public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviour<MercuryFluxHandler, @Nullable Direction> {
 
     public static final int DEFAULT_TRANSFER_RATE = 100;
     public static final int TRANSFER_EVERY_N_TICKS = 20; // 1 second
@@ -43,19 +43,19 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
     private final int slowTickRandomOffset = (int) (Math.random() * TRANSFER_EVERY_N_TICKS);
     private boolean enabled = true;
     private Direction directionOverride = null;
-    private final DefaultMercuryFluxStorage buffer;
+    private final com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler buffer;
 
     public LogisticsMercuryFluxConnectorBehaviour(BlockEntity blockEntity) {
         super(blockEntity, CapabilityRegistry.MERCURY_FLUX_HANDLER);
-        // High maxReceive so source blocks can fill the buffer quickly
-        this.buffer = new DefaultMercuryFluxStorage(BUFFER_CAPACITY, BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE);
+        // High maxInsert so source blocks can fill the buffer quickly
+        this.buffer = new com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler(BUFFER_CAPACITY, BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE);
     }
 
     /**
      * Returns the connector's internal flux buffer.
      * This is exposed via capability registration so source blocks can push into it.
      */
-    public MercuryFluxStorage buffer() {
+    public MercuryFluxHandler buffer() {
         return this.buffer;
     }
 
@@ -131,7 +131,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
      */
     public void tickServer() {
         if (!this.enabled) return;
-        if (this.buffer.getEnergyStored() <= 0) return;
+        if (this.buffer.getAmountAsInt() <= 0) return;
 
         // Slow tick to avoid processing every tick
         if ((this.slowTickRandomOffset + this.blockEntity.getLevel().getGameTime()) % TRANSFER_EVERY_N_TICKS != 0)
@@ -142,7 +142,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
         if (network == null) return;
 
         Set<GlobalPos> otherNodes = network.getLeafNodes(this.capabilityType(), this.frequency());
-        List<MercuryFluxStorage> sinks = new ArrayList<>();
+        List<MercuryFluxHandler> sinks = new ArrayList<>();
 
         for (var other : otherNodes) {
             if (other.equals(this.globalPos())) continue;
@@ -153,12 +153,12 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
 
             if (!otherConnector.enabled()) continue;
 
-            // Get the MercuryFluxStorage of the block the other connector is attached to (the sink)
+            // Get the MercuryFluxHandler of the block the other connector is attached to (the sink)
             var otherTargetCaps = otherConnector.availableTargetCapabilities();
             if (otherTargetCaps.isEmpty()) continue;
 
             var sinkCap = otherTargetCaps.getFirst().getCapability();
-            if (sinkCap != null && sinkCap.canReceive()) {
+            if (sinkCap != null && this.canAcceptFlux(sinkCap)) {
                 sinks.add(sinkCap);
             }
         }
@@ -166,7 +166,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
         if (sinks.isEmpty()) return;
 
         // Distribute buffer contents evenly among all sinks (same pattern as MercuryCapacitor)
-        int totalToPush = this.buffer.extractEnergy(DEFAULT_TRANSFER_RATE * sinks.size(), true);
+        int totalToPush = Math.min(this.buffer.getAmountAsInt(), DEFAULT_TRANSFER_RATE * sinks.size());
         if (totalToPush <= 0) return;
 
         int perTarget = totalToPush / sinks.size();
@@ -176,8 +176,19 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
 
-            int received = sinks.get(i).receiveEnergy(amount, false);
-            this.buffer.extractEnergy(received, false);
+            try (Transaction tx = Transaction.openRoot()) {
+                int received = sinks.get(i).insert(amount, tx);
+                if (received > 0) {
+                    this.buffer.extract(received, tx);
+                    tx.commit();
+                }
+            }
+        }
+    }
+
+    private boolean canAcceptFlux(MercuryFluxHandler sinkCap) {
+        try (Transaction tx = Transaction.openRoot()) {
+            return sinkCap.insert(1, tx) > 0;
         }
     }
 

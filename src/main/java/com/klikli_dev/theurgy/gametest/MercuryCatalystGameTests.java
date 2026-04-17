@@ -41,7 +41,7 @@ public class MercuryCatalystGameTests {
         helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
             helper.assertTrue(
-                    blockEntity.mercuryFluxStorage.getEnergyStored() > 0,
+                    blockEntity.mercuryFluxHandler.getAmountAsInt() > 0,
                     "Mercury Catalyst should have generated mercury flux from mercury shard"
             );
         });
@@ -86,7 +86,7 @@ public class MercuryCatalystGameTests {
             var blockEntity = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
             // Crafting should still work, flux should be stored internally
             helper.assertTrue(
-                    blockEntity.mercuryFluxStorage.getEnergyStored() > 0,
+                    blockEntity.mercuryFluxHandler.getAmountAsInt() > 0,
                     "Crafting should still generate flux even when disabled"
             );
             helper.succeed();

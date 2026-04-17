@@ -49,8 +49,8 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
     ) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTick, cameraPosition, breakProgress);
 
-        float fillLevel = blockEntity.mercuryFluxStorage.getEnergyStored() / (float) blockEntity.mercuryFluxStorage.getMaxEnergyStored();
-        state.hasEnergy = blockEntity.mercuryFluxStorage.getEnergyStored() > 0;
+        float fillLevel = blockEntity.mercuryFluxHandler.getAmountAsInt() / (float) blockEntity.mercuryFluxHandler.getCapacityAsInt();
+        state.hasEnergy = blockEntity.mercuryFluxHandler.getAmountAsInt() > 0;
         state.particleColor = MercuryCapacitorBlock.getParticleColorFromFillLevel(fillLevel);
         state.cameraPosition = cameraPosition;
         state.blockPos = blockEntity.getBlockPos();

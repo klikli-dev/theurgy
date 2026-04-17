@@ -58,7 +58,7 @@ public class CaloricFluxEmitterGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(EMITTER_POS, CaloricFluxEmitterBlockEntity.class);
             helper.assertTrue(blockEntity != null, "Block entity should exist");
-            helper.assertTrue(blockEntity.mercuryFluxStorage.getMaxEnergyStored() > 0, "Should have energy capacity");
+            helper.assertTrue(blockEntity.mercuryFluxHandler.getCapacityAsInt() > 0, "Should have energy capacity");
             helper.succeed();
         });
     }

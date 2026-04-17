@@ -33,22 +33,22 @@ public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamS
             .cast();
     public static final MercuryFluxEnergyProvider<BlockAccessor> BLOCK = new MercuryFluxEnergyProvider<>();
 
-    public static @Nullable List<ViewGroup<EnergyView.Data>> wrapMercuryFluxStorage(Accessor<?> accessor) {
+    public static @Nullable List<ViewGroup<EnergyView.Data>> wrapMercuryFluxHandler(Accessor<?> accessor) {
         if (!(accessor instanceof BlockAccessor)) {
             return null;
         }
 
         var storage = CommonProxy.getDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
-        if (storage == null || storage.getMaxEnergyStored() <= 0) {
+        if (storage == null || storage.getCapacityAsInt() <= 0) {
             return null;
         }
 
-        ViewGroup<EnergyView.Data> group = new ViewGroup<>(List.of(new EnergyView.Data(storage.getEnergyStored(), storage.getMaxEnergyStored())));
+        ViewGroup<EnergyView.Data> group = new ViewGroup<>(List.of(new EnergyView.Data(storage.getAmountAsInt(), storage.getCapacityAsInt())));
         group.getExtraData().putString("Unit", "MF");
         return List.of(group);
     }
 
-    public static boolean hasDefaultMercuryFluxStorage(Accessor<?> accessor) {
+    public static boolean hasSimpleMercuryHandler(Accessor<?> accessor) {
         return accessor instanceof BlockAccessor && CommonProxy.hasDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
     }
 
@@ -87,12 +87,12 @@ public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamS
 
         @Override
         public @Nullable List<ViewGroup<EnergyView.Data>> getGroups(Accessor<?> accessor) {
-            return wrapMercuryFluxStorage(accessor);
+            return wrapMercuryFluxHandler(accessor);
         }
 
         @Override
         public boolean shouldRequestData(Accessor<?> accessor) {
-            return hasDefaultMercuryFluxStorage(accessor);
+            return hasSimpleMercuryHandler(accessor);
         }
 
         @Override

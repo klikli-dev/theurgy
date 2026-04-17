@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
@@ -18,19 +18,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeInput, ReformationRecipe, LevelAwareCachedCheck<ReformationArrayRecipeInput, ReformationRecipe>> {
 
-    protected final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
+    protected final Supplier<MercuryFluxHandler> mercuryFluxHandlerSupplier;
 
-    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeInput> recipeWrapperSupplier, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
+    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeInput> recipeWrapperSupplier, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<MercuryFluxHandler> mercuryFluxHandlerSupplier) {
         super(blockEntity,
                 recipeWrapperSupplier,
                 inputInventorySupplier,
                 outputInventorySupplier,
                 new LevelAwareCachedCheck<>(RecipeTypeRegistry.REFORMATION.get()));
 
-        this.mercuryFluxStorageSupplier = mercuryFluxStorageSupplier;
+        this.mercuryFluxHandlerSupplier = mercuryFluxHandlerSupplier;
     }
 
     @Override
@@ -44,7 +45,10 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
         //consume energy
-        this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.value().getMercuryFlux(), false);
+        try (var tx = Transaction.openRoot()) {
+            this.mercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux(), tx);
+            tx.commit();
+        }
 
         // Loop through required sources of recipe and through source inventories and extract
         Set<SettableItemStorage> usedInventories = new HashSet<>();

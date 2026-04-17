@@ -15,25 +15,25 @@ import net.neoforged.neoforge.common.util.ValueIOSerializable;
 /**
  * Copy of EnergyStorage, separate to prevent conversion to/from FE
  */
-public class SimpleMercuryHandler implements MercuryFluxHandler, NBTSerializable<Tag>, ValueIOSerializable {
+public class SimpleMercuryFluxHandler implements MercuryFluxHandler, NBTSerializable<Tag>, ValueIOSerializable {
     protected int energy;
     protected int capacity;
     protected int maxReceive;
     protected int maxExtract;
 
-    public SimpleMercuryHandler(int capacity) {
+    public SimpleMercuryFluxHandler(int capacity) {
         this(capacity, capacity, capacity, 0);
     }
 
-    public SimpleMercuryHandler(int capacity, int maxTransfer) {
+    public SimpleMercuryFluxHandler(int capacity, int maxTransfer) {
         this(capacity, maxTransfer, maxTransfer, 0);
     }
 
-    public SimpleMercuryHandler(int capacity, int maxReceive, int maxExtract) {
+    public SimpleMercuryFluxHandler(int capacity, int maxReceive, int maxExtract) {
         this(capacity, maxReceive, maxExtract, 0);
     }
 
-    public SimpleMercuryHandler(int capacity, int maxReceive, int maxExtract, int energy) {
+    public SimpleMercuryFluxHandler(int capacity, int maxReceive, int maxExtract, int energy) {
         this.capacity = capacity;
         this.maxReceive = maxReceive;
         this.maxExtract = maxExtract;
@@ -41,32 +41,43 @@ public class SimpleMercuryHandler implements MercuryFluxHandler, NBTSerializable
     }
 
     @Override
-    public int receiveEnergy(int maxReceive, boolean simulate) {
-        if (!this.canReceive())
-            return 0;
+    public int insert(int amount) {
+        if (amount <= 0 || !this.canReceive()) return 0;
 
-        int energyReceived = Math.min(this.capacity - this.energy, Math.min(this.maxReceive, maxReceive));
-        if (!simulate)
-            this.energy += energyReceived;
-        return energyReceived;
+        int energyInserted = Math.min(this.capacity - this.energy, Math.min(this.maxReceive, amount));
+        this.energy += energyInserted;
+        return energyInserted;
     }
 
     @Override
-    public int extractEnergy(int maxExtract, boolean simulate) {
-        if (!this.canExtract())
-            return 0;
+    public int extract(int amount) {
+        if (amount <= 0 || !this.canExtract()) return 0;
 
-        int energyExtracted = Math.min(this.energy, Math.min(this.maxExtract, maxExtract));
-        if (!simulate)
-            this.energy -= energyExtracted;
+        int energyExtracted = Math.min(this.energy, Math.min(this.maxExtract, amount));
+        this.energy -= energyExtracted;
         return energyExtracted;
+    }
+
+    /**
+     * Simulate insertion without changing state.
+     */
+    public int simulateInsert(int amount) {
+        if (amount <= 0 || !this.canReceive()) return 0;
+        return Math.min(this.capacity - this.energy, Math.min(this.maxReceive, amount));
+    }
+
+    /**
+     * Simulate extraction without changing state.
+     */
+    public int simulateExtract(int amount) {
+        if (amount <= 0 || !this.canExtract()) return 0;
+        return Math.min(this.energy, Math.min(this.maxExtract, amount));
     }
 
     public int getEnergyStored() {
         return this.energy;
     }
 
-    @Override
     public void setEnergyStored(int energy) {
         this.energy = Math.max(0, Math.min(this.capacity, energy));
     }

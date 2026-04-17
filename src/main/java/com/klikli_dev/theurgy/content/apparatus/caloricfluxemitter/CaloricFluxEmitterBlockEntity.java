@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageShowCaloricFlux;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -68,7 +68,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
             return;
         }
 
-        if (this.mercuryFluxHandler.getEnergyStored() >= FLUX_PER_HEAT) {
+        if (this.mercuryFluxHandler.getAmountAsInt() >= FLUX_PER_HEAT) {
             var heatReceiver = Objects.requireNonNull(this.level).getCapability(CapabilityRegistry.HEAT_RECEIVER, selectedPoint.getBlockPos(), selectedPoint.getBlockState(), null, null);
 
             if (!Objects.requireNonNull(heatReceiver).readyToReceive())
@@ -77,7 +77,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
             if (heatReceiver.getIsHotUntil() > this.getLevel().getGameTime() + TICK_INTERVAL)
                 return; //target block is still hot until next tick so do nothing
 
-            this.mercuryFluxHandler.extractEnergy(FLUX_PER_HEAT, false);
+            this.mercuryFluxHandler.extract(FLUX_PER_HEAT);
             heatReceiver.setHotUntil(this.getLevel().getGameTime() + HEAT_TARGET_FOR_TICKS);
 
             Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowCaloricFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(CaloricFluxEmitterBlock.FACING)));
@@ -119,7 +119,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     protected void collectImplicitComponents(DataComponentMap.@NotNull Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getEnergyStored());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
     }
 
     public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> getSelectionBehaviour() {
@@ -141,15 +141,15 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         this.selectedPoints.forEach(point -> point.setLevel(this.getLevel()));
     }
 
-    public class CaloricFluxEmitterMercuryFluxHandler extends SimpleMercuryHandler {
+    public class CaloricFluxEmitterMercuryFluxHandler extends SimpleMercuryFluxHandler {
 
         public CaloricFluxEmitterMercuryFluxHandler(int capacity) {
             super(capacity);
         }
 
         @Override
-        public int receiveEnergy(int maxReceive, boolean simulate) {
-            var received = super.receiveEnergy(maxReceive, simulate);
+        public int insert(int amount) {
+            var received = super.insert(amount);
 
             if (received > 0) {
                 CaloricFluxEmitterBlockEntity.this.setChanged();
@@ -159,8 +159,8 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         }
 
         @Override
-        public int extractEnergy(int maxExtract, boolean simulate) {
-            var extracted = super.extractEnergy(maxExtract, simulate);
+        public int extract(int amount) {
+            var extracted = super.extract(amount);
 
             if (extracted > 0) {
                 CaloricFluxEmitterBlockEntity.this.setChanged();

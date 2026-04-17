@@ -112,7 +112,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
 
         var handler = this.mercuryFluxHandlerSupplier.get();
         // Check if there's any room available to start the process
-        return handler.getEnergyStored() < handler.getMaxEnergyStored();
+        return handler.getAmountAsInt() < handler.getCapacityAsInt();
     }
 
     @Override

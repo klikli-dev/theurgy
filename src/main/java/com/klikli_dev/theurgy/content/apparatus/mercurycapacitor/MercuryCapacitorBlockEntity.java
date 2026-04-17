@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycapacitor;
 
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.item.mode.SideModeSetter;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -107,35 +107,38 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         @Override
-        public int receiveEnergy(int maxReceive, boolean simulate) {
+        public int insert(int amount) {
             var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
             // Only allow receiving if side is INPUT or BOTH
             if (mode != SideMode.INPUT && mode != SideMode.BOTH) {
                 return 0;
             }
-            return this.delegate.receiveEnergy(maxReceive, simulate);
+            return this.delegate.insert(amount);
         }
 
         @Override
-        public int extractEnergy(int maxExtract, boolean simulate) {
+        public int extract(int amount) {
             var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
             if (mode != SideMode.OUTPUT && mode != SideMode.BOTH) {
                 return 0;
             }
-            return this.delegate.extractEnergy(maxExtract, simulate);
+            return this.delegate.extract(amount);
         }
 
         public int getEnergyStored() {
-            return this.delegate.getEnergyStored();
+            return this.delegate.getAmountAsInt();
         }
 
         public void setEnergyStored(int energy) {
-            this.delegate.setEnergyStored(energy);
+            if (this.delegate instanceof SimpleMercuryFluxHandler smh) {
+                smh.setEnergyStored(energy);
+            }
         }
 
         public int getMaxEnergyStored() {
-            return this.delegate.getMaxEnergyStored();
+            return this.delegate.getCapacityAsInt();
         }
+
         @Override
         public long getAmountAsLong() {
             return this.delegate.getAmountAsLong();
@@ -264,7 +267,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         // Calculate how much to push to each target (scale by number of targets to maintain throughput)
-        int totalToPush = this.mercuryFluxHandler.extractEnergy(PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size(), true);
+        int totalToPush = this.mercuryFluxHandler.simulateExtract(PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size());
         if (totalToPush <= 0) {
             return;
         }
@@ -277,8 +280,10 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
 
-            var received = targets.get(i).receiveEnergy(amount, false);
-            this.mercuryFluxHandler.extractEnergy(received, false);
+            var received = targets.get(i).insert(amount);
+            if (received > 0) {
+                this.mercuryFluxHandler.extract(received);
+            }
         }
     }
 
@@ -297,7 +302,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
-        input.child("MercuryFluxHandler").ifPresent(this.mercuryFluxHandler::deserialize);
+        input.child("MercuryFluxHandler").ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
 
         input.child("sideModes").ifPresent(child -> {
             for (var direction : Direction.values()) {
@@ -322,10 +327,10 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
     protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getEnergyStored());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
     }
 
-    public class MercuryCapacitorMercuryFluxHandler extends SimpleMercuryHandler {
+    public class MercuryCapacitorMercuryFluxHandler extends SimpleMercuryFluxHandler {
 
         public static final int UPDATE_THRESHOLD = 1000;
         private int lastUpdateLevel;
@@ -335,8 +340,8 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         @Override
-        public int receiveEnergy(int maxReceive, boolean simulate) {
-            var received = super.receiveEnergy(maxReceive, simulate);
+        public int insert(int amount) {
+            var received = super.insert(amount);
 
             if (received > 0) {
                 MercuryCapacitorBlockEntity.this.setChanged();
@@ -347,8 +352,8 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         @Override
-        public int extractEnergy(int maxExtract, boolean simulate) {
-            var extracted = super.extractEnergy(maxExtract, simulate);
+        public int extract(int amount) {
+            var extracted = super.extract(amount);
 
             if (extracted > 0) {
                 MercuryCapacitorBlockEntity.this.setChanged();

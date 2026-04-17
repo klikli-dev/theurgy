@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
@@ -295,7 +295,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getEnergyStored());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {
@@ -402,15 +402,15 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
     }
 
-    public class SulfuricFluxEmitterMercuryFluxHandler extends SimpleMercuryHandler {
+    public class SulfuricFluxEmitterMercuryFluxHandler extends SimpleMercuryFluxHandler {
 
         public SulfuricFluxEmitterMercuryFluxHandler(int capacity) {
             super(capacity);
         }
 
         @Override
-        public int receiveEnergy(int maxReceive, boolean simulate) {
-            var received = super.receiveEnergy(maxReceive, simulate);
+        public int insert(int amount) {
+            var received = super.insert(amount);
 
             if (received > 0) {
                 SulfuricFluxEmitterBlockEntity.this.setChanged();
@@ -420,8 +420,8 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
 
         @Override
-        public int extractEnergy(int maxExtract, boolean simulate) {
-            var extracted = super.extractEnergy(maxExtract, simulate);
+        public int extract(int amount) {
+            var extracted = super.extract(amount);
 
             if (extracted > 0) {
                 SulfuricFluxEmitterBlockEntity.this.setChanged();

@@ -44,7 +44,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
         //consume energy
-        this.MercuryFluxHandlerSupplier.get().extractEnergy(pRecipe.value().getMercuryFlux(), false);
+        this.MercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux());
 
         // Loop through required sources of recipe and through source inventories and extract
         Set<SettableItemStorage> usedInventories = new HashSet<>();

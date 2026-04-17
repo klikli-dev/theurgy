@@ -43,7 +43,7 @@ public class MercuryFluxHandlerInWorldHUDProvider implements InWorldHUDProvider 
 
         builder.addLine(Component.translatable(
                 TheurgyConstants.I18n.JEI.MERCURY_FLUX,
-                storage.getEnergyStored() + " / " + storage.getMaxEnergyStored()
+                storage.getAmountAsInt() + " / " + storage.getCapacityAsInt()
         ).withStyle(ChatFormatting.GRAY));
     }
 }

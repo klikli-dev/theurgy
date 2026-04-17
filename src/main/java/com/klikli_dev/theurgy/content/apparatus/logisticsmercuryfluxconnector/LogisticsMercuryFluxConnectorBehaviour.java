@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
@@ -43,12 +43,12 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
     private final int slowTickRandomOffset = (int) (Math.random() * TRANSFER_EVERY_N_TICKS);
     private boolean enabled = true;
     private Direction directionOverride = null;
-    private final SimpleMercuryHandler buffer;
+    private final com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler buffer;
 
     public LogisticsMercuryFluxConnectorBehaviour(BlockEntity blockEntity) {
         super(blockEntity, CapabilityRegistry.MERCURY_FLUX_HANDLER);
         // High maxReceive so source blocks can fill the buffer quickly
-        this.buffer = new SimpleMercuryHandler(BUFFER_CAPACITY, BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE);
+        this.buffer = new com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler(BUFFER_CAPACITY, BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE);
     }
 
     /**
@@ -131,7 +131,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
      */
     public void tickServer() {
         if (!this.enabled) return;
-        if (this.buffer.getEnergyStored() <= 0) return;
+        if (this.buffer.getAmountAsInt() <= 0) return;
 
         // Slow tick to avoid processing every tick
         if ((this.slowTickRandomOffset + this.blockEntity.getLevel().getGameTime()) % TRANSFER_EVERY_N_TICKS != 0)
@@ -166,7 +166,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
         if (sinks.isEmpty()) return;
 
         // Distribute buffer contents evenly among all sinks (same pattern as MercuryCapacitor)
-        int totalToPush = this.buffer.extractEnergy(DEFAULT_TRANSFER_RATE * sinks.size(), true);
+        int totalToPush = this.buffer.simulateExtract(DEFAULT_TRANSFER_RATE * sinks.size());
         if (totalToPush <= 0) return;
 
         int perTarget = totalToPush / sinks.size();
@@ -176,8 +176,8 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
 
-            int received = sinks.get(i).receiveEnergy(amount, false);
-            this.buffer.extractEnergy(received, false);
+            int received = sinks.get(i).insert(amount);
+            this.buffer.extract(received);
         }
     }
 

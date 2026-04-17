@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageShowMercuryFlux;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -80,7 +80,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         }
 
         // Transfer to target if we have flux
-        if (this.mercuryFluxHandler.getEnergyStored() >= FLUX_PER_TRANSFER) {
+        if (this.mercuryFluxHandler.getAmountAsInt() >= FLUX_PER_TRANSFER) {
             var targetPos = selectedPoint.getBlockPos();
             var targetState = selectedPoint.getBlockState();
 
@@ -95,13 +95,13 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
             if (targetFluxHandler == null)
                 return;
 
-            int accepted = targetFluxHandler.receiveEnergy(FLUX_PER_TRANSFER, true);
+            int accepted = Math.min(FLUX_PER_TRANSFER, targetFluxHandler.getCapacityAsInt() - targetFluxHandler.getAmountAsInt());
             if (accepted <= 0)
                 return;
 
-            int extracted = this.mercuryFluxHandler.extractEnergy(accepted, false);
+            int extracted = this.mercuryFluxHandler.extract(accepted);
             if (extracted > 0) {
-                int inserted = targetFluxHandler.receiveEnergy(extracted, false);
+                int inserted = targetFluxHandler.insert(extracted);
                 if (inserted <= 0)
                     return;
 
@@ -174,7 +174,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
     protected void collectImplicitComponents(DataComponentMap.@NotNull Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getEnergyStored());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
     }
 
     public void setSelectedPoints(List<MercuryFluxEmitterSelectedPoint> selectedPoints) {
@@ -196,15 +196,15 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         return this.selectedPoints;
     }
 
-    public class MercuryFluxEmitterMercuryFluxHandler extends SimpleMercuryHandler {
+    public class MercuryFluxEmitterMercuryFluxHandler extends SimpleMercuryFluxHandler {
 
         public MercuryFluxEmitterMercuryFluxHandler(int capacity) {
             super(capacity);
         }
 
         @Override
-        public int receiveEnergy(int maxReceive, boolean simulate) {
-            var received = super.receiveEnergy(maxReceive, simulate);
+        public int insert(int amount) {
+            var received = super.insert(amount);
 
             if (received > 0) {
                 MercuryFluxEmitterBlockEntity.this.setChanged();
@@ -214,8 +214,8 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         }
 
         @Override
-        public int extractEnergy(int maxExtract, boolean simulate) {
-            var extracted = super.extractEnergy(maxExtract, simulate);
+        public int extract(int amount) {
+            var extracted = super.extract(amount);
 
             if (extracted > 0) {
                 MercuryFluxEmitterBlockEntity.this.setChanged();

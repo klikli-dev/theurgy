@@ -7,7 +7,8 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
@@ -61,7 +62,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         this.mercuryFluxHandler = new MercuryCatalystMercuryFluxHandler(CAPACITY);
 
 
-        this.craftingBehaviour = new MercuryCatalystCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.mercuryFluxHandler);
+        this.craftingBehaviour = new MercuryCatalystCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> (MercuryFluxHandler) this.mercuryFluxHandler);
     }
 
     @Override
@@ -136,7 +137,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         }
         
         // Calculate how much to push to each target (scale by number of targets to maintain throughput)
-        int totalToPush = this.mercuryFluxHandler.extractEnergy(PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size(), true);
+        int totalToPush = this.mercuryFluxHandler.simulateExtract(PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size());
         if (totalToPush <= 0) {
             return;
         }
@@ -149,8 +150,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
             
-            var received = targets.get(i).receiveEnergy(amount, false);
-            this.mercuryFluxHandler.extractEnergy(received, false);
+            var received = targets.get(i).insert(amount);
+            if (received > 0) {
+                this.mercuryFluxHandler.extract(received);
+            }
         }
     }
 
@@ -201,7 +204,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getEnergyStored());
+            pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
 
         pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, CustomData.of(ValueIOUtils.serialize(this.level.registryAccess(), this.inventory)));
 
@@ -237,7 +240,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         }
     }
 
-    public class MercuryCatalystMercuryFluxHandler extends SimpleMercuryHandler {
+    public class MercuryCatalystMercuryFluxHandler extends SimpleMercuryFluxHandler {
 
         public static final int UPDATE_THRESHOLD = 100;
         private int lastUpdateLevel;
@@ -248,20 +251,21 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         }
 
         @Override
-        public int receiveEnergy(int maxReceive, boolean simulate) {
+        public int insert(int amount) {
             // Do not receive any external flux - only internal generation
             return 0;
         }
 
         /**
          * Internal method for the crafting behaviour to add flux generated from processing.
-         * This bypasses the non-receiving restriction.
+         * This bypasses the non-receiving restriction by directly modifying energy.
          */
         public int addInternalFlux(int amount) {
-            int energyReceived = Math.min(this.capacity - this.energy, amount);
-            this.energy += energyReceived;
+            int spaceAvailable = this.capacity - this.energy;
+            int energyReceived = Math.min(spaceAvailable, amount);
             
             if (energyReceived > 0) {
+                this.energy += energyReceived;
                 MercuryCatalystBlockEntity.this.setChanged();
                 this.trySendBlockUpdated();
             }
@@ -270,8 +274,8 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         }
 
         @Override
-        public int extractEnergy(int maxExtract, boolean simulate) {
-            var extracted = super.extractEnergy(maxExtract, simulate);
+        public int extract(int amount) {
+            var extracted = super.extract(amount);
 
             if (extracted > 0) {
                 MercuryCatalystBlockEntity.this.setChanged();
@@ -282,7 +286,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         }
 
         public void trySendBlockUpdated() {
-            var currentLevel = this.getEnergyStored();
+            var currentLevel = this.getAmountAsInt();
             if (Math.abs(this.lastUpdateLevel - currentLevel) > UPDATE_THRESHOLD) {
                 this.lastUpdateLevel = currentLevel;
                 MercuryCatalystBlockEntity.this.sendBlockUpdated();

@@ -9,9 +9,8 @@ import com.google.common.primitives.Ints;
 /**
  * Copy of EnergyHandler, separate to prevent conversion to/from FE.
  * 
- * Mirrors the NeoForge EnergyHandler interface.
- * Keeps the legacy API (receiveEnergy, extractEnergy) for compatibility while also
- * providing the new API (insert, extract, getAmount, getCapacity).
+ * Mirrors the NeoForge EnergyHandler interface with long-based amount/capacity
+ * and direct insert/extract methods without simulate parameter.
  */
 public interface MercuryFluxHandler {
     /**
@@ -63,9 +62,7 @@ public interface MercuryFluxHandler {
      * @param amount The maximum amount of energy to insert. <strong>Must be non-negative.</strong>
      * @return The amount that was inserted. Between {@code 0} (inclusive) and {@code amount} (inclusive).
      */
-    default int insert(int amount) {
-        return receiveEnergy(amount, false);
-    }
+    int insert(int amount);
 
     /**
      * Extracts up to the given amount of energy from the handler.
@@ -73,48 +70,5 @@ public interface MercuryFluxHandler {
      * @param amount The maximum amount of energy to extract. <strong>Must be non-negative.</strong>
      * @return The amount that was extracted. Between {@code 0} (inclusive) and {@code amount} (inclusive).
      */
-    default int extract(int amount) {
-        return extractEnergy(amount, false);
-    }
-
-    // Legacy API - implementations should implement these
-    
-    /**
-     * Adds energy to the storage. Returns quantity of energy that was accepted.
-     *
-     * @param maxReceive Maximum amount of energy to be inserted.
-     * @param simulate   If TRUE, the insertion will only be simulated.
-     * @return Amount of energy that was (or would have been, if simulated) accepted by the storage.
-     */
-    int receiveEnergy(int maxReceive, boolean simulate);
-
-    /**
-     * Removes energy from the storage. Returns quantity of energy that was removed.
-     *
-     * @param maxExtract Maximum amount of energy to be extracted.
-     * @param simulate   If TRUE, the extraction will only be simulated.
-     * @return Amount of energy that was (or would have been, if simulated) extracted from the storage.
-     */
-    int extractEnergy(int maxExtract, boolean simulate);
-
-    /**
-     * Returns the amount of energy currently stored.
-     */
-    default int getEnergyStored() {
-        return getAmountAsInt();
-    }
-
-    /**
-     * Sets the amount of energy stored.
-     */
-    default void setEnergyStored(int energy) {
-        throw new UnsupportedOperationException("Default implementation does not support setEnergyStored");
-    }
-
-    /**
-     * Returns the maximum amount of energy that can be stored.
-     */
-    default int getMaxEnergyStored() {
-        return getCapacityAsInt();
-    }
+    int extract(int amount);
 }

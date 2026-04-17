@@ -38,7 +38,7 @@ public class MercuryCapacitorGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    blockEntity.mercuryFluxHandler.getEnergyStored() == 0,
+                    blockEntity.mercuryFluxHandler.getAmountAsInt() == 0,
                     "Mercury Capacitor should start with no flux stored"
             );
         });
@@ -46,7 +46,7 @@ public class MercuryCapacitorGameTests {
         helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    blockEntity.mercuryFluxHandler.getEnergyStored() == 0,
+                    blockEntity.mercuryFluxHandler.getAmountAsInt() == 0,
                     "Mercury Capacitor should still have no flux stored"
             );
         });
@@ -69,7 +69,7 @@ public class MercuryCapacitorGameTests {
         helper.succeedWhen(() -> {
             var capacitorBE = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    capacitorBE.mercuryFluxHandler.getEnergyStored() > 0,
+                    capacitorBE.mercuryFluxHandler.getAmountAsInt() > 0,
                     "Mercury Capacitor should have received flux from Mercury Catalyst"
             );
         });
@@ -84,7 +84,7 @@ public class MercuryCapacitorGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
             helper.assertTrue(
-                    blockEntity.mercuryFluxHandler.getMaxEnergyStored() == MercuryCapacitorBlockEntity.CAPACITY,
+                    blockEntity.mercuryFluxHandler.getCapacityAsInt() == MercuryCapacitorBlockEntity.CAPACITY,
                     "Mercury Capacitor should have capacity of " + MercuryCapacitorBlockEntity.CAPACITY
             );
         });
@@ -112,7 +112,7 @@ public class MercuryCapacitorGameTests {
             var capacitorBE = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
             // Capacitor should have no flux because it's disabled and can't receive from neighbors
             helper.assertTrue(
-                    capacitorBE.mercuryFluxHandler.getEnergyStored() == 0,
+                    capacitorBE.mercuryFluxHandler.getAmountAsInt() == 0,
                     "Disabled capacitor should not receive flux from neighbors"
             );
         });
@@ -144,11 +144,11 @@ public class MercuryCapacitorGameTests {
 
             // Both should have their original amounts - no transfer
             helper.assertTrue(
-                    capacitorA.mercuryFluxHandler.getEnergyStored() == 10000,
+                    capacitorA.mercuryFluxHandler.getAmountAsInt() == 10000,
                     "Capacitor A should still have 10000 flux (no ping-pong)"
             );
             helper.assertTrue(
-                    capacitorB.mercuryFluxHandler.getEnergyStored() == 0,
+                    capacitorB.mercuryFluxHandler.getAmountAsInt() == 0,
                     "Capacitor B should still have 0 flux (no ping-pong)"
             );
         });

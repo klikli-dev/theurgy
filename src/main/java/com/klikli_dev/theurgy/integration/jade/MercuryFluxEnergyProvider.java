@@ -39,11 +39,11 @@ public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamS
         }
 
         var storage = CommonProxy.getDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
-        if (storage == null || storage.getMaxEnergyStored() <= 0) {
+        if (storage == null || storage.getCapacityAsInt() <= 0) {
             return null;
         }
 
-        ViewGroup<EnergyView.Data> group = new ViewGroup<>(List.of(new EnergyView.Data(storage.getEnergyStored(), storage.getMaxEnergyStored())));
+        ViewGroup<EnergyView.Data> group = new ViewGroup<>(List.of(new EnergyView.Data(storage.getAmountAsInt(), storage.getCapacityAsInt())));
         group.getExtraData().putString("Unit", "MF");
         return List.of(group);
     }

@@ -4,9 +4,6 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
-import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
@@ -15,7 +12,7 @@ import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
+import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -27,7 +24,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -66,7 +63,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
+        return NetworkTagHelper.write(pRegistries, this::writeNetwork);
     }
 
     @Override
@@ -169,11 +166,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             output.discard("inventory");
         }
 
-        ValueOutput fluxOutput = output.child("mercuryFluxHandler");
-        this.mercuryFluxHandler.serialize(fluxOutput);
-        if (fluxOutput.isEmpty()) {
-            output.discard("mercuryFluxHandler");
-        }
+        this.writeNetwork(output);
 
         this.craftingBehaviour.saveAdditional(output);
     }
@@ -183,7 +176,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         super.loadAdditional(input);
 
         input.child("inventory").ifPresent(this.inventory::deserialize);
-        input.child("mercuryFluxHandler").ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
+        this.readNetwork(input);
 
         this.craftingBehaviour.loadAdditional(input);
     }
@@ -196,8 +189,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             //noinspection DataFlowIssue
             this.mercuryFluxHandler.set(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
 
-        if (pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()) != null)
-            ValueIOUtils.deserialize(this.level.registryAccess(), this.inventory, pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()).copyTag());
+        this.inventory.setStackInSlot(0, pComponentInput.getOrDefault(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get(), ItemContainerContents.EMPTY).copyOne());
 
         this.craftingBehaviour.applyImplicitComponents(pComponentInput);
     }
@@ -206,9 +198,12 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
-            pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
 
-        pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, CustomData.of(ValueIOUtils.serialize(this.level.registryAccess(), this.inventory)));
+        var inventoryContents = ItemContainerContents.fromItems(List.of(this.inventory.getStackInSlot(0)));
+        if (!inventoryContents.equals(ItemContainerContents.EMPTY)) {
+            pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, inventoryContents);
+        }
 
         this.craftingBehaviour.collectImplicitComponents(pComponents);
     }

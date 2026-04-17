@@ -13,7 +13,7 @@ import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
+import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -97,7 +97,7 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
+        return NetworkTagHelper.write(pRegistries, this::writeNetwork);
     }
 
     @Override

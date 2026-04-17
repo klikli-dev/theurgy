@@ -124,6 +124,10 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
      * <p>
      * This follows the conduit pattern: source blocks push into the connector's buffer,
      * and the connector forwards the buffer contents to remote sinks via the network.
+     * <p>
+     * Note: This currently iterates over all leaf nodes in the network, resulting in O(N²)
+     * complexity for N connectors. This is acceptable for typical use cases (small networks),
+     * but could be optimized in the future with a network-level controller or sink caching.
      */
     public void tickServer() {
         if (!this.enabled) return;

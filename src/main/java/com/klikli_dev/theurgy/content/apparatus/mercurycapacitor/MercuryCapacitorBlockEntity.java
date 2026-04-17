@@ -118,6 +118,10 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
 
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            if (mode != SideMode.OUTPUT && mode != SideMode.BOTH) {
+                return 0;
+            }
             return this.delegate.extractEnergy(maxExtract, simulate);
         }
 
@@ -138,7 +142,8 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
 
         @Override
         public boolean canExtract() {
-            return this.delegate.canExtract();
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            return (mode == SideMode.OUTPUT || mode == SideMode.BOTH) && this.delegate.canExtract();
         }
 
         @Override
@@ -205,7 +210,9 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         input.child("sideModes").ifPresent(child -> {
             for (var direction : Direction.values()) {
                 var modeOrdinal = child.getInt(direction.name()).orElse(0);
-                this.sideModes.put(direction, SideMode.values()[modeOrdinal]);
+                // Clamp to valid ordinal range to prevent ArrayIndexOutOfBoundsException from corrupted NBT
+                var safeOrdinal = Math.clamp(modeOrdinal, 0, SideMode.values().length - 1);
+                this.sideModes.put(direction, SideMode.values()[safeOrdinal]);
             }
         });
     }
@@ -302,7 +309,9 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         input.child("sideModes").ifPresent(child -> {
             for (var direction : Direction.values()) {
                 var modeOrdinal = child.getInt(direction.name()).orElse(0);
-                this.sideModes.put(direction, SideMode.values()[modeOrdinal]);
+                // Clamp to valid ordinal range to prevent ArrayIndexOutOfBoundsException from corrupted NBT
+                var safeOrdinal = Math.clamp(modeOrdinal, 0, SideMode.values().length - 1);
+                this.sideModes.put(direction, SideMode.values()[safeOrdinal]);
             }
         });
     }

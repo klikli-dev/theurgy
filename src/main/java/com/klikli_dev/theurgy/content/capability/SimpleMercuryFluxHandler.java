@@ -107,11 +107,6 @@ public class SimpleMercuryFluxHandler implements MercuryFluxHandler, NBTSerializ
         return 0;
     }
 
-    /**
-     * NOTE: simulation helpers removed. Callers should use getAmountAsInt()/getCapacityAsInt()
-     * and account for transfer limits themselves when necessary.
-     */
-
     public int getEnergyStored() {
         return this.energy;
     }

@@ -140,9 +140,9 @@ public class DataComponentRegistry {
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> MERCURY_CATALYST_INVENTORY = DATA_COMPONENTS.registerComponentType("mercury_catalyst_inventory", builder -> builder
-            .persistent(CustomData.CODEC)
-            .networkSynchronized(CustomData.STREAM_CODEC)
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemContainerContents>> MERCURY_CATALYST_INVENTORY = DATA_COMPONENTS.registerComponentType("mercury_catalyst_inventory", builder -> builder
+            .persistent(ItemContainerContents.CODEC)
+            .networkSynchronized(ItemContainerContents.STREAM_CODEC)
             .cacheEncoding()
     );
 

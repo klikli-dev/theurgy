@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -50,12 +51,12 @@ public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingB
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return this.saveWithoutMetadata(pRegistries);
+        return NetworkTagHelper.write(pRegistries, this::writeNetwork);
     }
 
     @Override
     public void handleUpdateTag(ValueInput input) {
-        this.loadWithComponents(input);
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -66,7 +67,7 @@ public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingB
 
     @Override
     public void onDataPacket(Connection connection, ValueInput input) {
-        this.loadWithComponents(input);
+        this.readNetwork(input);
     }
 
     public void readNetwork(ValueInput input) {

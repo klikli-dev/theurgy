@@ -10,6 +10,7 @@ import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
 import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -43,12 +44,12 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        return this.saveWithoutMetadata(pRegistries);
+        return NetworkTagHelper.write(pRegistries, this::writeNetwork);
     }
 
     @Override
     public void handleUpdateTag(@NotNull ValueInput input) {
-        this.loadWithComponents(input);
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -59,7 +60,7 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
 
     @Override
     public void onDataPacket(@NotNull Connection connection, @NotNull ValueInput input) {
-        this.loadWithComponents(input);
+        this.readNetwork(input);
     }
 
     public void readNetwork(ValueInput input) {

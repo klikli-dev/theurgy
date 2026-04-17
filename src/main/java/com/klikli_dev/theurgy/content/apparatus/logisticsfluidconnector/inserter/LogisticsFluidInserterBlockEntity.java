@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserte
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -35,12 +36,12 @@ public class LogisticsFluidInserterBlockEntity extends LogisticsFluidConnectorBl
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        return this.saveWithoutMetadata(pRegistries);
+        return NetworkTagHelper.write(pRegistries, this::writeNetwork);
     }
 
     @Override
     public void handleUpdateTag(@NotNull ValueInput input) {
-        this.loadWithComponents(input);
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -51,7 +52,7 @@ public class LogisticsFluidInserterBlockEntity extends LogisticsFluidConnectorBl
 
     @Override
     public void onDataPacket(@NotNull Connection connection, @NotNull ValueInput input) {
-        this.loadWithComponents(input);
+        this.readNetwork(input);
     }
 
     public void readNetwork(ValueInput input) {

@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentGetter;
@@ -139,12 +140,12 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        return this.saveWithoutMetadata(pRegistries);
+        return NetworkTagHelper.write(pRegistries, this::writeNetwork);
     }
 
     @Override
     public void handleUpdateTag(ValueInput input) {
-        this.loadWithComponents(input);
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -155,7 +156,7 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
 
     @Override
     public void onDataPacket(Connection connection, ValueInput input) {
-        this.loadWithComponents(input);
+        this.readNetwork(input);
     }
 
     public void readNetwork(ValueInput input) {

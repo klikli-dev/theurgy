@@ -220,10 +220,10 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
-        ValueOutput mercuryFluxOutput = output.child("MercuryFluxHandler");
+        ValueOutput mercuryFluxOutput = output.child("mercuryFluxHandler");
         this.mercuryFluxHandler.serialize(mercuryFluxOutput);
         if (mercuryFluxOutput.isEmpty()) {
-            output.discard("MercuryFluxHandler");
+            output.discard("mercuryFluxHandler");
         }
 
         output.store("sourcePedestals", SulfuricFluxEmitterSelectedPoint.LIST_CODEC, this.sourcePedestals);
@@ -237,7 +237,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
-        input.child("MercuryFluxHandler").ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
+        this.findMercuryFluxInput(input).ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
         this.sourcePedestals = new ArrayList<>(input.read("sourcePedestals", SulfuricFluxEmitterSelectedPoint.LIST_CODEC).orElseGet(ArrayList::new));
         this.targetPedestal = input.read("targetPedestal", SulfuricFluxEmitterSelectedPoint.CODEC).orElse(null);
         this.resultPedestal = input.read("resultPedestal", SulfuricFluxEmitterSelectedPoint.CODEC).orElse(null);
@@ -296,6 +296,12 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         super.collectImplicitComponents(pComponents);
 
         pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
+    }
+
+    private java.util.Optional<ValueInput> findMercuryFluxInput(ValueInput input) {
+        return input.child("mercuryFluxHandler")
+                .or(() -> input.child("MercuryFluxHandler"))
+                .or(() -> input.child("mercuryFluxStorage"));
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {

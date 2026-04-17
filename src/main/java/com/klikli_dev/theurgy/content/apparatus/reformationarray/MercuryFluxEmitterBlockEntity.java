@@ -96,19 +96,19 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
             if (targetFluxHandler == null)
                 return;
 
-            int accepted = Math.min(FLUX_PER_TRANSFER, targetFluxHandler.getCapacityAsInt() - targetFluxHandler.getAmountAsInt());
-            if (accepted <= 0)
-                return;
-
-            try (net.neoforged.neoforge.transfer.transaction.Transaction tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
-                int extracted = this.mercuryFluxHandler.extract(accepted, tx);
+            try (Transaction tx = Transaction.openRoot()) {
+                int extracted = this.mercuryFluxHandler.extract(FLUX_PER_TRANSFER, tx);
                 if (extracted > 0) {
                     int inserted = targetFluxHandler.insert(extracted, tx);
                     if (inserted <= 0) {
-                        // nothing accepted, abort
                         return;
                     }
-                    // commit the transfer
+
+                    int remainder = extracted - inserted;
+                    if (remainder > 0 && this.mercuryFluxHandler.insert(remainder, tx) != remainder) {
+                        return;
+                    }
+
                     tx.commit();
 
                     Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(MercuryFluxEmitterBlock.FACING)));

@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
@@ -159,7 +158,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
             if (otherTargetCaps.isEmpty()) continue;
 
             var sinkCap = otherTargetCaps.getFirst().getCapability();
-            if (sinkCap != null && sinkCap.getAmountAsLong() < sinkCap.getCapacityAsLong()) {
+            if (sinkCap != null && this.canAcceptFlux(sinkCap)) {
                 sinks.add(sinkCap);
             }
         }
@@ -184,6 +183,12 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
                     tx.commit();
                 }
             }
+        }
+    }
+
+    private boolean canAcceptFlux(MercuryFluxHandler sinkCap) {
+        try (Transaction tx = Transaction.openRoot()) {
+            return sinkCap.insert(1, tx) > 0;
         }
     }
 

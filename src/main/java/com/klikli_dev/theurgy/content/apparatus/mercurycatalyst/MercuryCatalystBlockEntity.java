@@ -7,9 +7,8 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
@@ -87,7 +86,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     }
 
     public void readNetwork(ValueInput input) {
-        input.child("MercuryFluxHandler").ifPresent(value -> {
+        this.findMercuryFluxInput(input).ifPresent(value -> {
             this.mercuryFluxHandler.deserialize(value);
             if (this.level != null) {
                 this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
@@ -96,10 +95,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     }
 
     public void writeNetwork(ValueOutput output) {
-        ValueOutput fluxOutput = output.child("MercuryFluxHandler");
+        ValueOutput fluxOutput = output.child("mercuryFluxHandler");
         this.mercuryFluxHandler.serialize(fluxOutput);
         if (fluxOutput.isEmpty()) {
-            output.discard("MercuryFluxHandler");
+            output.discard("mercuryFluxHandler");
         }
     }
 
@@ -170,10 +169,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             output.discard("inventory");
         }
 
-        ValueOutput fluxOutput = output.child("MercuryFluxHandler");
+        ValueOutput fluxOutput = output.child("mercuryFluxHandler");
         this.mercuryFluxHandler.serialize(fluxOutput);
         if (fluxOutput.isEmpty()) {
-            output.discard("MercuryFluxHandler");
+            output.discard("mercuryFluxHandler");
         }
 
         this.craftingBehaviour.saveAdditional(output);
@@ -184,7 +183,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         super.loadAdditional(input);
 
         input.child("inventory").ifPresent(this.inventory::deserialize);
-        input.child("MercuryFluxHandler").ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
+        this.findMercuryFluxInput(input).ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
 
         this.craftingBehaviour.loadAdditional(input);
     }
@@ -201,6 +200,12 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             ValueIOUtils.deserialize(this.level.registryAccess(), this.inventory, pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()).copyTag());
 
         this.craftingBehaviour.applyImplicitComponents(pComponentInput);
+    }
+
+    private java.util.Optional<ValueInput> findMercuryFluxInput(ValueInput input) {
+        return input.child("mercuryFluxHandler")
+                .or(() -> input.child("MercuryFluxHandler"))
+                .or(() -> input.child("mercuryFluxStorage"));
     }
 
     @Override

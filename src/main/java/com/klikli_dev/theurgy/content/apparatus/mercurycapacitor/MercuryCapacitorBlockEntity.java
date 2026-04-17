@@ -182,7 +182,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
     }
 
     public void readNetwork(ValueInput input) {
-        input.child("MercuryFluxHandler").ifPresent(value -> {
+        this.findMercuryFluxInput(input).ifPresent(value -> {
             this.mercuryFluxHandler.deserialize(value);
             if (this.level != null) {
                 this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
@@ -200,10 +200,10 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
     }
 
     public void writeNetwork(ValueOutput output) {
-        ValueOutput fluxOutput = output.child("MercuryFluxHandler");
+        ValueOutput fluxOutput = output.child("mercuryFluxHandler");
         this.mercuryFluxHandler.serialize(fluxOutput);
         if (fluxOutput.isEmpty()) {
-            output.discard("MercuryFluxHandler");
+            output.discard("mercuryFluxHandler");
         }
 
         ValueOutput sideModesOutput = output.child("sideModes");
@@ -280,10 +280,10 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
-        ValueOutput fluxOutput = output.child("MercuryFluxHandler");
+        ValueOutput fluxOutput = output.child("mercuryFluxHandler");
         this.mercuryFluxHandler.serialize(fluxOutput);
         if (fluxOutput.isEmpty()) {
-            output.discard("MercuryFluxHandler");
+            output.discard("mercuryFluxHandler");
         }
     }
 
@@ -291,7 +291,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
-        input.child("MercuryFluxHandler").ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
+        this.findMercuryFluxInput(input).ifPresent(value -> this.mercuryFluxHandler.deserialize(value));
 
         input.child("sideModes").ifPresent(child -> {
             for (var direction : Direction.values()) {
@@ -317,6 +317,12 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         super.collectImplicitComponents(pComponents);
 
         pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
+    }
+
+    private java.util.Optional<ValueInput> findMercuryFluxInput(ValueInput input) {
+        return input.child("mercuryFluxHandler")
+                .or(() -> input.child("MercuryFluxHandler"))
+                .or(() -> input.child("mercuryFluxStorage"));
     }
 
     public class MercuryCapacitorMercuryFluxHandler extends SimpleMercuryFluxHandler {

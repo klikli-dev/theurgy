@@ -22,16 +22,16 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeInput, ReformationRecipe, LevelAwareCachedCheck<ReformationArrayRecipeInput, ReformationRecipe>> {
 
-    protected final Supplier<MercuryFluxHandler> MercuryFluxHandlerSupplier;
+    protected final Supplier<MercuryFluxHandler> mercuryFluxHandlerSupplier;
 
-    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeInput> recipeWrapperSupplier, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<MercuryFluxHandler> MercuryFluxHandlerSupplier) {
+    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeInput> recipeWrapperSupplier, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<MercuryFluxHandler> mercuryFluxHandlerSupplier) {
         super(blockEntity,
                 recipeWrapperSupplier,
                 inputInventorySupplier,
                 outputInventorySupplier,
                 new LevelAwareCachedCheck<>(RecipeTypeRegistry.REFORMATION.get()));
 
-        this.MercuryFluxHandlerSupplier = MercuryFluxHandlerSupplier;
+        this.mercuryFluxHandlerSupplier = mercuryFluxHandlerSupplier;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
 
         //consume energy
         try (var tx = Transaction.openRoot()) {
-            this.MercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux(), tx);
+            this.mercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux(), tx);
             tx.commit();
         }
 

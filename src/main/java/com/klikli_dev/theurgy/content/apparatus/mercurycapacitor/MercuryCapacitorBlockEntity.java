@@ -343,27 +343,9 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         @Override
-        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
-            var received = super.insert(amount, transaction);
-
-            if (received > 0) {
-                MercuryCapacitorBlockEntity.this.setChanged();
-                this.trySendBlockUpdated();
-            }
-
-            return received;
-        }
-
-        @Override
-        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
-            var extracted = super.extract(amount, transaction);
-
-            if (extracted > 0) {
-                MercuryCapacitorBlockEntity.this.setChanged();
-                this.trySendBlockUpdated();
-            }
-
-            return extracted;
+        protected void onEnergyChanged(int previousAmount) {
+            MercuryCapacitorBlockEntity.this.setChanged();
+            this.trySendBlockUpdated();
         }
 
         public void trySendBlockUpdated() {

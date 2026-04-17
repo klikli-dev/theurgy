@@ -210,25 +210,8 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         }
 
         @Override
-        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
-            var received = super.insert(amount, transaction);
-
-            if (received > 0) {
-                MercuryFluxEmitterBlockEntity.this.setChanged();
-            }
-
-            return received;
-        }
-
-        @Override
-        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
-            var extracted = super.extract(amount, transaction);
-
-            if (extracted > 0) {
-                MercuryFluxEmitterBlockEntity.this.setChanged();
-            }
-
-            return extracted;
+        protected void onEnergyChanged(int previousAmount) {
+            MercuryFluxEmitterBlockEntity.this.setChanged();
         }
     }
 }

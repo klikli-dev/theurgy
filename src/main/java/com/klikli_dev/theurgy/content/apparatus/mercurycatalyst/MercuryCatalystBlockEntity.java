@@ -277,15 +277,9 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         }
 
         @Override
-        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
-            var extracted = super.extract(amount, transaction);
-
-            if (extracted > 0) {
-                MercuryCatalystBlockEntity.this.setChanged();
-                this.trySendBlockUpdated();
-            }
-
-            return extracted;
+        protected void onEnergyChanged(int previousAmount) {
+            MercuryCatalystBlockEntity.this.setChanged();
+            this.trySendBlockUpdated();
         }
 
         public void trySendBlockUpdated() {

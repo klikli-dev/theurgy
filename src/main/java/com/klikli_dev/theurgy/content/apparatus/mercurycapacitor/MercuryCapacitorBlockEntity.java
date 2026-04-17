@@ -107,22 +107,22 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         @Override
-        public int insert(int amount) {
+        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
             var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
             // Only allow receiving if side is INPUT or BOTH
             if (mode != SideMode.INPUT && mode != SideMode.BOTH) {
                 return 0;
             }
-            return this.delegate.insert(amount);
+            return this.delegate.insert(amount, transaction);
         }
 
         @Override
-        public int extract(int amount) {
+        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
             var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
             if (mode != SideMode.OUTPUT && mode != SideMode.BOTH) {
                 return 0;
             }
-            return this.delegate.extract(amount);
+            return this.delegate.extract(amount, transaction);
         }
 
         public int getEnergyStored() {
@@ -267,7 +267,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         // Calculate how much to push to each target (scale by number of targets to maintain throughput)
-        int totalToPush = this.mercuryFluxHandler.simulateExtract(PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size());
+        int totalToPush = Math.min(this.mercuryFluxHandler.getAmountAsInt(), PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size());
         if (totalToPush <= 0) {
             return;
         }
@@ -280,9 +280,12 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
 
-            var received = targets.get(i).insert(amount);
-            if (received > 0) {
-                this.mercuryFluxHandler.extract(received);
+            try (net.neoforged.neoforge.transfer.transaction.Transaction tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+                var received = targets.get(i).insert(amount, tx);
+                if (received > 0) {
+                    this.mercuryFluxHandler.extract(received, tx);
+                    tx.commit();
+                }
             }
         }
     }
@@ -340,8 +343,8 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         @Override
-        public int insert(int amount) {
-            var received = super.insert(amount);
+        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+            var received = super.insert(amount, transaction);
 
             if (received > 0) {
                 MercuryCapacitorBlockEntity.this.setChanged();
@@ -352,8 +355,8 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         }
 
         @Override
-        public int extract(int amount) {
-            var extracted = super.extract(amount);
+        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+            var extracted = super.extract(amount, transaction);
 
             if (extracted > 0) {
                 MercuryCapacitorBlockEntity.this.setChanged();

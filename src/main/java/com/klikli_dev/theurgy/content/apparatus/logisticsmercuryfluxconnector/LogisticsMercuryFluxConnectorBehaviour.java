@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 /**
  * A leaf node behaviour that acts as a mercury flux conduit in the logistics network.
@@ -166,7 +167,7 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
         if (sinks.isEmpty()) return;
 
         // Distribute buffer contents evenly among all sinks (same pattern as MercuryCapacitor)
-        int totalToPush = this.buffer.simulateExtract(DEFAULT_TRANSFER_RATE * sinks.size());
+        int totalToPush = Math.min(this.buffer.getAmountAsInt(), DEFAULT_TRANSFER_RATE * sinks.size());
         if (totalToPush <= 0) return;
 
         int perTarget = totalToPush / sinks.size();
@@ -176,8 +177,13 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
 
-            int received = sinks.get(i).insert(amount);
-            this.buffer.extract(received);
+            try (Transaction tx = Transaction.openRoot()) {
+                int received = sinks.get(i).insert(amount, tx);
+                if (received > 0) {
+                    this.buffer.extract(received, tx);
+                    tx.commit();
+                }
+            }
         }
     }
 

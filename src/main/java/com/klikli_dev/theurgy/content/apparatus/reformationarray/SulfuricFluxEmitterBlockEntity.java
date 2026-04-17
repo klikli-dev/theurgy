@@ -409,8 +409,8 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
 
         @Override
-        public int insert(int amount) {
-            var received = super.insert(amount);
+        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+            var received = super.insert(amount, transaction);
 
             if (received > 0) {
                 SulfuricFluxEmitterBlockEntity.this.setChanged();
@@ -420,8 +420,8 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
 
         @Override
-        public int extract(int amount) {
-            var extracted = super.extract(amount);
+        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+            var extracted = super.extract(amount, transaction);
 
             if (extracted > 0) {
                 SulfuricFluxEmitterBlockEntity.this.setChanged();

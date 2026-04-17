@@ -77,7 +77,10 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
             if (heatReceiver.getIsHotUntil() > this.getLevel().getGameTime() + TICK_INTERVAL)
                 return; //target block is still hot until next tick so do nothing
 
-            this.mercuryFluxHandler.extract(FLUX_PER_HEAT);
+            try (net.neoforged.neoforge.transfer.transaction.Transaction tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+                this.mercuryFluxHandler.extract(FLUX_PER_HEAT, tx);
+                tx.commit();
+            }
             heatReceiver.setHotUntil(this.getLevel().getGameTime() + HEAT_TARGET_FOR_TICKS);
 
             Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowCaloricFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(CaloricFluxEmitterBlock.FACING)));
@@ -148,8 +151,8 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         }
 
         @Override
-        public int insert(int amount) {
-            var received = super.insert(amount);
+        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+            var received = super.insert(amount, transaction);
 
             if (received > 0) {
                 CaloricFluxEmitterBlockEntity.this.setChanged();
@@ -159,8 +162,8 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         }
 
         @Override
-        public int extract(int amount) {
-            var extracted = super.extract(amount);
+        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+            var extracted = super.extract(amount, transaction);
 
             if (extracted > 0) {
                 CaloricFluxEmitterBlockEntity.this.setChanged();

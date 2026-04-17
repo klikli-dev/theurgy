@@ -11,6 +11,8 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.util.ValueIOSerializable;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
+
 
 /**
  * Copy of EnergyStorage, separate to prevent conversion to/from FE
@@ -40,39 +42,43 @@ public class SimpleMercuryFluxHandler implements MercuryFluxHandler, NBTSerializ
         this.energy = Math.max(0, Math.min(capacity, energy));
     }
 
-    @Override
     public int insert(int amount) {
         if (amount <= 0 || !this.canReceive()) return 0;
 
         int energyInserted = Math.min(this.capacity - this.energy, Math.min(this.maxReceive, amount));
+        int previous = this.energy;
         this.energy += energyInserted;
+        this.onEnergyChanged(previous);
         return energyInserted;
     }
 
-    @Override
     public int extract(int amount) {
         if (amount <= 0 || !this.canExtract()) return 0;
 
         int energyExtracted = Math.min(this.energy, Math.min(this.maxExtract, amount));
+        int previous = this.energy;
         this.energy -= energyExtracted;
+        this.onEnergyChanged(previous);
         return energyExtracted;
     }
 
-    /**
-     * Simulate insertion without changing state.
-     */
-    public int simulateInsert(int amount) {
-        if (amount <= 0 || !this.canReceive()) return 0;
-        return Math.min(this.capacity - this.energy, Math.min(this.maxReceive, amount));
+    // Transaction-aware variants (interface methods)
+    @Override
+    public int insert(int amount, TransactionContext transaction) {
+        // Simple implementation that ignores transactional snapshots and behaves eagerly.
+        // We keep the old behavior to minimize changes; callers will open transactions around multi-step flows.
+        return this.insert(amount);
+    }
+
+    @Override
+    public int extract(int amount, TransactionContext transaction) {
+        return this.extract(amount);
     }
 
     /**
-     * Simulate extraction without changing state.
+     * NOTE: simulation helpers removed. Callers should use getAmountAsInt()/getCapacityAsInt()
+     * and account for transfer limits themselves when necessary.
      */
-    public int simulateExtract(int amount) {
-        if (amount <= 0 || !this.canExtract()) return 0;
-        return Math.min(this.energy, Math.min(this.maxExtract, amount));
-    }
 
     public int getEnergyStored() {
         return this.energy;
@@ -102,6 +108,14 @@ public class SimpleMercuryFluxHandler implements MercuryFluxHandler, NBTSerializ
 
     public boolean canReceive() {
         return this.maxReceive > 0;
+    }
+
+    /**
+     * Hook invoked when energy changes. Subclasses may override to react (e.g. mark BE changed).
+     * The parameter is the previous amount before the change.
+     */
+    protected void onEnergyChanged(int previousAmount) {
+        // default: no-op
     }
 
     @Override

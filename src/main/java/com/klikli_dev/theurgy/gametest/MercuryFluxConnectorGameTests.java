@@ -103,8 +103,11 @@ public class MercuryFluxConnectorGameTests {
             helper.assertTrue(fluxStorage != null, "Connector should expose MERCURY_FLUX_HANDLER capability");
 
             // Push some flux into the buffer
-            int received = fluxStorage.insert(500);
-            helper.assertTrue(received == 500, "Should be able to push 500 flux into connector buffer, got " + received);
+            try (var tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+                int received = fluxStorage.insert(500, tx);
+                tx.commit();
+                helper.assertTrue(received == 500, "Should be able to push 500 flux into connector buffer, got " + received);
+            }
 
             var be = helper.getBlockEntity(CONNECTOR_A_POS, LogisticsMercuryFluxConnectorBlockEntity.class);
             helper.assertTrue(

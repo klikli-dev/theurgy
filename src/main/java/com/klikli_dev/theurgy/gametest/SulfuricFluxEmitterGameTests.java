@@ -88,7 +88,10 @@ public class SulfuricFluxEmitterGameTests {
         helper.runAtTickTime(2, () -> {
             var emitter = helper.getBlockEntity(EMITTER_POS, SulfuricFluxEmitterBlockEntity.class);
                 // Add initial energy
-                    emitter.mercuryFluxHandler.insert(500);
+                    try (var tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+                        emitter.mercuryFluxHandler.insert(500, tx);
+                        tx.commit();
+                    }
 
             var source = helper.getBlockEntity(SOURCE_PEDESTAL_POS, ReformationSourcePedestalBlockEntity.class);
             source.inputInventory.setStackInSlot(0, new ItemStack(NiterRegistry.MOBS_ABUNDANT.get(), 1));

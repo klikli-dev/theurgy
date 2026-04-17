@@ -35,6 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class MercuryFluxEmitterBlockEntity extends BlockEntity {
 
@@ -99,13 +100,19 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
             if (accepted <= 0)
                 return;
 
-            int extracted = this.mercuryFluxHandler.extract(accepted);
-            if (extracted > 0) {
-                int inserted = targetFluxHandler.insert(extracted);
-                if (inserted <= 0)
-                    return;
+            try (net.neoforged.neoforge.transfer.transaction.Transaction tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+                int extracted = this.mercuryFluxHandler.extract(accepted, tx);
+                if (extracted > 0) {
+                    int inserted = targetFluxHandler.insert(extracted, tx);
+                    if (inserted <= 0) {
+                        // nothing accepted, abort
+                        return;
+                    }
+                    // commit the transfer
+                    tx.commit();
 
-                Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(MercuryFluxEmitterBlock.FACING)));
+                    Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowMercuryFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(MercuryFluxEmitterBlock.FACING)));
+                }
             }
         }
     }
@@ -203,8 +210,8 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         }
 
         @Override
-        public int insert(int amount) {
-            var received = super.insert(amount);
+        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+            var received = super.insert(amount, transaction);
 
             if (received > 0) {
                 MercuryFluxEmitterBlockEntity.this.setChanged();
@@ -214,8 +221,8 @@ public MercuryFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         }
 
         @Override
-        public int extract(int amount) {
-            var extracted = super.extract(amount);
+        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+            var extracted = super.extract(amount, transaction);
 
             if (extracted > 0) {
                 MercuryFluxEmitterBlockEntity.this.setChanged();

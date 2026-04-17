@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeInput, ReformationRecipe, LevelAwareCachedCheck<ReformationArrayRecipeInput, ReformationRecipe>> {
 
@@ -44,7 +45,10 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
         //consume energy
-        this.MercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux());
+        try (var tx = Transaction.openRoot()) {
+            this.MercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux(), tx);
+            tx.commit();
+        }
 
         // Loop through required sources of recipe and through source inventories and extract
         Set<SettableItemStorage> usedInventories = new HashSet<>();

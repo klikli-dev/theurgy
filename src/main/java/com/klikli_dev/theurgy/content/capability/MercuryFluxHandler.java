@@ -5,12 +5,13 @@
 package com.klikli_dev.theurgy.content.capability;
 
 import com.google.common.primitives.Ints;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
 /**
  * Copy of EnergyHandler, separate to prevent conversion to/from FE.
- * 
+ *
  * Mirrors the NeoForge EnergyHandler interface with long-based amount/capacity
- * and direct insert/extract methods without simulate parameter.
+ * and transaction-based insert/extract methods.
  */
 public interface MercuryFluxHandler {
     /**
@@ -59,16 +60,22 @@ public interface MercuryFluxHandler {
     /**
      * Inserts up to the given amount of energy into the handler.
      *
-     * @param amount The maximum amount of energy to insert. <strong>Must be non-negative.</strong>
+     * <p>Changes to the handler are made in the context of a transaction.
+     *
+     * @param amount      The maximum amount of energy to insert. <strong>Must be non-negative.</strong>
+     * @param transaction The transaction that this operation is part of.
      * @return The amount that was inserted. Between {@code 0} (inclusive) and {@code amount} (inclusive).
      */
-    int insert(int amount);
+    int insert(int amount, TransactionContext transaction);
 
     /**
      * Extracts up to the given amount of energy from the handler.
      *
-     * @param amount The maximum amount of energy to extract. <strong>Must be non-negative.</strong>
+     * <p>Changes to the handler are made in the context of a transaction.
+     *
+     * @param amount      The maximum amount of energy to extract. <strong>Must be non-negative.</strong>
+     * @param transaction The transaction that this operation is part of.
      * @return The amount that was extracted. Between {@code 0} (inclusive) and {@code amount} (inclusive).
      */
-    int extract(int amount);
+    int extract(int amount, TransactionContext transaction);
 }

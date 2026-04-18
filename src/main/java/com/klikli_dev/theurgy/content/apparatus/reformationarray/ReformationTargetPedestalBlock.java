@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
@@ -39,10 +38,6 @@ public class ReformationTargetPedestalBlock extends Block implements EntityBlock
         //We do not check for client side because
         // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
         // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
-
-        if (pStack.is(ItemRegistry.SULFURIC_FLUX_EMITTER.get())) {
-            return InteractionResult.PASS;
-        }
 
         if (this.itemHandlerBehaviour.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;

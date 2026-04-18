@@ -8,11 +8,17 @@ import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResu
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class ReformationPedestalGameTests {
 
@@ -36,6 +42,21 @@ public class ReformationPedestalGameTests {
             var remainder = blockEntity.inputInventory.insertItem(0, new ItemStack(SulfurRegistry.BONE.get(), 1), false);
             helper.assertTrue(remainder.isEmpty(), "Sulfur should be accepted");
             helper.assertTrue(!blockEntity.inputInventory.getStackInSlot(0).isEmpty(), "Inventory should contain item");
+            helper.succeed();
+        });
+    }
+
+    public static void sourceRejectsInvalidHeldItem(GameTestHelper helper) {
+        helper.setBlock(SOURCE_POS, BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get());
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(SOURCE_POS, ReformationSourcePedestalBlockEntity.class);
+            var player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ItemRegistry.SULFURIC_FLUX_EMITTER.get(), 1));
+
+            helper.useBlock(SOURCE_POS, player, centeredHitResult(helper, SOURCE_POS));
+            helper.assertTrue(blockEntity.inputInventory.getStackInSlot(0).isEmpty(), "Source pedestal should reject invalid held items");
+            helper.assertTrue(!player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Rejected item should remain in hand");
             helper.succeed();
         });
     }
@@ -98,6 +119,10 @@ public class ReformationPedestalGameTests {
             helper.assertTrue(!extracted.isEmpty(), "Should extract from result pedestal");
             helper.succeed();
         });
+    }
+
+    private static BlockHitResult centeredHitResult(GameTestHelper helper, BlockPos pos) {
+        return new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(pos)), Direction.UP, helper.absolutePos(pos), false);
     }
 
 }

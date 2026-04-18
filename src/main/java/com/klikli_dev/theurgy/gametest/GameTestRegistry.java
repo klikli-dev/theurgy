@@ -401,6 +401,9 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_INSERT =
             TEST_FUNCTIONS.register("reformation_source_insert", () -> ReformationPedestalGameTests::sourceInsertItem);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_REJECTS_INVALID_HELD_ITEM =
+            TEST_FUNCTIONS.register("reformation_source_rejects_invalid_held_item", () -> ReformationPedestalGameTests::sourceRejectsInvalidHeldItem);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_EXTRACT =
             TEST_FUNCTIONS.register("reformation_source_extract", () -> ReformationPedestalGameTests::sourceExtractItem);
 
@@ -686,6 +689,7 @@ private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent even
 
         registerTest(event, RP_SOURCE_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, RP_SOURCE_INSERT, environment, structure, 40, 0);
+        registerTest(event, RP_SOURCE_REJECTS_INVALID_HELD_ITEM, environment, structure, 40, 0);
         registerTest(event, RP_SOURCE_EXTRACT, environment, structure, 40, 0);
         registerTest(event, RP_TARGET_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, RP_TARGET_INSERT, environment, structure, 40, 0);

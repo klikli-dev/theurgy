@@ -35,8 +35,13 @@ public interface SettableItemStorage extends ResourceHandler<ItemResource> {
         return ItemStorageHelper.getSlotLimit(this, slot);
     }
 
+    @Override
+    default boolean isValid(int slot, ItemResource resource) {
+        return resource.isEmpty() || this.isItemValid(slot, resource.toStack(1));
+    }
+
     default boolean isItemValid(int slot, ItemStack stack) {
-        return ItemStorageHelper.isItemValid(this, slot, stack);
+        return true;
     }
 }
 

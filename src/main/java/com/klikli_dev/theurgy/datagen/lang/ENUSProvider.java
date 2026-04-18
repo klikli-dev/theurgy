@@ -582,13 +582,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
         this.addBlock(BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR, "Mercurial Flux Connector");
         this.addTooltip(BlockRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get()::asItem,
-                "Transfers Mercury Flux or NeoForge Energy / RF between blocks via a Mercurial Logistics Network",
+                "Transfers Mercury Flux or NeoForge Energy / FE between blocks via a Mercurial Logistics Network",
                 null,
                 this.f(
                         """
                                 {0} the target block with the connector to place it.
                                 Then {0} the connector with a cable to connect it to the network.
-                                Connectors automatically balance flux between connected blocks. NeoForge Energy / RF is supported through a separate transfer channel and is not converted to Mercury Flux.
+                                Connectors automatically balance flux between connected blocks. NeoForge Energy / FE is supported through a separate transfer channel and is not converted to Mercury Flux.
                                 """,
                         this.green("Right-Click")
                 )

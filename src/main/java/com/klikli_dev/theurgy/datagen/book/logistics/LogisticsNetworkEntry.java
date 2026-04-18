@@ -77,7 +77,7 @@ public class LogisticsNetworkEntry extends EntryProvider {
                 More complex network behaviours can be achieved with the use of filters (see further entries to learn more). Additionally, in the future more advanced routing options will be available.
                 \\
                 \\
-                The Mercurial Flux Connector uses the same network structure to forward raw Mercury Flux or NeoForge Energy / RF between connected blocks, while keeping those two energy systems separate from one another.
+                The Mercurial Flux Connector uses the same network structure to forward raw Mercury Flux or NeoForge Energy / FE between connected blocks, while keeping those two energy systems separate from one another.
                 """
         );
     }

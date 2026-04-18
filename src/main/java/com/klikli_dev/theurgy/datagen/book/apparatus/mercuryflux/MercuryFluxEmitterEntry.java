@@ -29,7 +29,7 @@ public class MercuryFluxEmitterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText(
                 """
-                        The {0} transfers [#]($PURPLE)Mercury Flux[#]() from the block it is attached to into another linked block. It can additionally also emit NeoForge Energy / RF through a separate energy channel. This allows transporting raw energy to where it is needed.
+                        The {0} transfers [#]($PURPLE)Mercury Flux[#]() from the block it is attached to into another linked block. It can additionally also emit NeoForge Energy / FE through a separate energy channel. This allows transporting raw energy to where it is needed.
                         """,
                 this.itemLink(ItemRegistry.MERCURY_FLUX_EMITTER.get())
         );
@@ -43,7 +43,7 @@ public class MercuryFluxEmitterEntry extends EntryProvider {
                         Right-click the target block with the {0} until it is highlighted. Then place the Emitter onto a Mercury Flux source (**Shift-Right-Click**!), such as a {1}.\\
                         The maximum range is **8** blocks.\\
                         As long as the attached block can provide mercury flux and the target can receive it, the emitter will transfer mercury flux between them.\\
-                        If the attached block and target expose NeoForge Energy / RF instead, the emitter transfers that separately with the same timing and redstone rules, without converting it to Mercury Flux.
+                        If the attached block and target expose NeoForge Energy / FE instead, the emitter transfers that separately with the same timing and redstone rules, without converting it to Mercury Flux.
                         """,
                 this.itemLink(ItemRegistry.MERCURY_FLUX_EMITTER.get()),
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
@@ -73,7 +73,7 @@ public class MercuryFluxEmitterEntry extends EntryProvider {
                         You can disable it with an active redstone signal.
                         \\
                         \\
-                        When disabled, the emitter will not transfer mercury flux or NeoForge Energy / RF to the target block.
+                        When disabled, the emitter will not transfer mercury flux or NeoForge Energy / FE to the target block.
                         """
         );
     }

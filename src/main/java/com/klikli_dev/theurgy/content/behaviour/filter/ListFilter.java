@@ -7,10 +7,12 @@ package com.klikli_dev.theurgy.content.behaviour.filter;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 
 import java.util.ArrayList;
@@ -117,10 +119,8 @@ public class ListFilter extends Filter {
 
         var items = filter.get(DataComponentRegistry.FILTER_ITEMS);
 
-        for (int i = 0; i < items.getSlots(); i++) {
-            ItemStack stackInSlot = items.getStackInSlot(i);
-            if (!stackInSlot.isEmpty())
-                result.add(stackInSlot);
+        for (ItemStackTemplate stackInSlot : items.nonEmptyItems()) {
+            result.add(stackInSlot.create());
         }
 
         return result;

@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.storage;
 
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.CombinedResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 
@@ -14,7 +13,7 @@ public class CombinedItemStorage extends CombinedResourceHandler<ItemResource> i
     }
 
     @Override
-    public void setStackInSlot(int slot, ItemStack stack) {
+    public void set(int slot, ItemResource resource, int amount) {
         throw new UnsupportedOperationException("Combined item storage does not support direct slot replacement");
     }
 }

@@ -19,6 +19,9 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class LiquefactionCauldronGameTests {
 
@@ -48,7 +51,7 @@ public class LiquefactionCauldronGameTests {
         helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
         helper.runAfterDelay(1, () -> {
             var brazier = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            brazier.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 64));
+            brazier.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 64)), new ItemStack(Items.COAL, 64).getCount());
         });
     }
 
@@ -62,7 +65,7 @@ public class LiquefactionCauldronGameTests {
         helper.runAfterDelay(2, () -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
             // Insert input item (bone)
-            cauldron.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.BONE, 1));
+            cauldron.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.BONE, 1)), new ItemStack(Items.BONE, 1).getCount());
             // Insert solvent fluid (sal ammoniac, plenty for the recipe)
             cauldron.storageBehaviour.solventTank.fill(
                     new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
@@ -151,7 +154,7 @@ public class LiquefactionCauldronGameTests {
 
         helper.runAfterDelay(1, () -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
-            cauldron.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.BONE, 3));
+            cauldron.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.BONE, 3)), new ItemStack(Items.BONE, 3).getCount());
         });
 
         helper.runAfterDelay(2, () -> {
@@ -173,14 +176,14 @@ public class LiquefactionCauldronGameTests {
 
         helper.runAfterDelay(1, () -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
-            cauldron.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.BONE, 1));
+            cauldron.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.BONE, 1)), new ItemStack(Items.BONE, 1).getCount());
 
             helper.assertTrue(
-                    !cauldron.storageBehaviour.inputInventory.getStackInSlot(0).isEmpty(),
+                    !ItemUtil.getStack(cauldron.storageBehaviour.inputInventory, 0).isEmpty(),
                     "Input inventory should contain the inserted bone"
             );
             helper.assertTrue(
-                    cauldron.storageBehaviour.inputInventory.getStackInSlot(0).is(Items.BONE),
+                    ItemUtil.getStack(cauldron.storageBehaviour.inputInventory, 0).is(Items.BONE),
                     "Input inventory should contain a bone item"
             );
             helper.succeed();
@@ -254,15 +257,20 @@ public class LiquefactionCauldronGameTests {
         helper.runAfterDelay(1, () -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
             // Manually place a result in the output for extraction testing
-            cauldron.storageBehaviour.outputInventory.setStackInSlot(0, new ItemStack(SulfurRegistry.BONE.get(), 1));
+            cauldron.storageBehaviour.outputInventory.set(0, ItemResource.of(new ItemStack(SulfurRegistry.BONE.get(), 1)), new ItemStack(SulfurRegistry.BONE.get(), 1).getCount());
 
-            var extracted = cauldron.storageBehaviour.outputInventory.extractItem(0, 1, false);
+            ItemStack extracted;
+            try (var tx = Transaction.openRoot()) {
+                var resource = cauldron.storageBehaviour.outputInventory.getResource(0);
+                extracted = resource.toStack(cauldron.storageBehaviour.outputInventory.extract(0, resource, 1, tx));
+                tx.commit();
+            }
             helper.assertTrue(
                     !extracted.isEmpty(),
                     "Should be able to extract from output inventory"
             );
             helper.assertTrue(
-                    cauldron.storageBehaviour.outputInventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(cauldron.storageBehaviour.outputInventory, 0).isEmpty(),
                     "Output inventory should be empty after extraction"
             );
             helper.succeed();
@@ -310,7 +318,7 @@ public class LiquefactionCauldronGameTests {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
 
             // Check output was produced
-            var output = cauldron.storageBehaviour.outputInventory.getStackInSlot(0);
+            var output = ItemUtil.getStack(cauldron.storageBehaviour.outputInventory, 0);
             helper.assertTrue(
                     !output.isEmpty(),
                     "Output inventory should contain the crafted alchemical sulfur"
@@ -318,7 +326,7 @@ public class LiquefactionCauldronGameTests {
 
             // Check input was consumed
             helper.assertTrue(
-                    cauldron.storageBehaviour.inputInventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(cauldron.storageBehaviour.inputInventory, 0).isEmpty(),
                     "Input item (bone) should be consumed"
             );
 
@@ -399,7 +407,7 @@ public class LiquefactionCauldronGameTests {
         // Add only input item, no solvent
         helper.runAfterDelay(2, () -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
-            cauldron.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.BONE, 1));
+            cauldron.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.BONE, 1)), new ItemStack(Items.BONE, 1).getCount());
         });
 
         // Wait long enough for heat detection and potential processing start

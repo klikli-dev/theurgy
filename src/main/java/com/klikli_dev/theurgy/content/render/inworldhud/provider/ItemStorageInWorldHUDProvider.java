@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.render.inworldhud.provider;
 
 import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDBuilder;
 import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDProvider;
-import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -38,7 +38,7 @@ public class ItemStorageInWorldHUDProvider implements InWorldHUDProvider {
         }
 
         for (int slot = 0; slot < itemHandler.size(); slot++) {
-            builder.addItem(ItemStorageHelper.getStackInSlot(itemHandler, slot));
+            builder.addItem(ItemUtil.getStack(itemHandler, slot));
         }
     }
 }

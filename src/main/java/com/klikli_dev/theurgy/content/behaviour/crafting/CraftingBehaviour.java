@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -179,7 +181,8 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
      * This allows us to early out of canProcess.
      */
     protected boolean alreadyHasInput(ItemStack stack) {
-        return IntStream.range(0, this.inputInventorySupplier.get().getSlots()).anyMatch(i -> ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(i)));
+        var inputInventory = this.inputInventorySupplier.get();
+        return IntStream.range(0, inputInventory.size()).anyMatch(i -> ItemStack.isSameItemSameComponents(stack, ItemUtil.getStack(inputInventory, i)));
     }
 
     /**
@@ -227,19 +230,26 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         if (assembledStack.isEmpty()) {
             return false;
         } else {
-            var remainingStack = this.outputInventorySupplier.get().insertItemStacked(assembledStack, true);
-            return remainingStack.isEmpty(); //only allow crafting if we have room for the full output
+            try (var tx = Transaction.openRoot()) {
+                var remainingStack = ItemUtil.insertItemReturnRemaining(this.outputInventorySupplier.get(), assembledStack, false, tx);
+                return remainingStack.isEmpty();
+            }
         }
     }
 
     protected boolean craft(RecipeHolder<R> pRecipe) {
         var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
-
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
-        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
-
-        //consume the input stack
-        this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
+        try (var tx = Transaction.openRoot()) {
+            if (ItemUtil.insertItemReturnRemaining(this.outputInventorySupplier.get(), assembledStack, false, tx).getCount() > 0) {
+                return false;
+            }
+            var input = this.inputInventorySupplier.get();
+            var resource = input.getResource(0);
+            if (input.extract(0, resource, this.getIngredientCount(pRecipe), tx) < this.getIngredientCount(pRecipe)) {
+                return false;
+            }
+            tx.commit();
+        }
 
         return true;
     }

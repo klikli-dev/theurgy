@@ -8,13 +8,17 @@ import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class DigestionVatGameTests {
 
@@ -46,9 +50,14 @@ public class DigestionVatGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
-            var remainder = blockEntity.storageBehaviour.inputInventory.insertItem(0, new ItemStack(Items.COBBLESTONE, 1), false);
+            ItemStack remainder;
+            var input = new ItemStack(ItemRegistry.PURIFIED_GOLD.get(), 1);
+            try (var tx = Transaction.openRoot()) {
+                remainder = ItemUtil.insertItemReturnRemaining(blockEntity.storageBehaviour.inputInventory, 0, input, false, tx);
+                tx.commit();
+            }
             helper.assertTrue(remainder.isEmpty(), "Item should be accepted as input");
-            helper.assertTrue(!blockEntity.storageBehaviour.inputInventory.getStackInSlot(0).isEmpty(), "Input should contain item");
+            helper.assertTrue(!ItemUtil.getStack(blockEntity.storageBehaviour.inputInventory, 0).isEmpty(), "Input should contain item");
             helper.succeed();
         });
     }
@@ -72,14 +81,38 @@ public class DigestionVatGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
-            blockEntity.storageBehaviour.outputInventory.setStackInSlot(0, new ItemStack(Items.COBBLESTONE, 1));
+            blockEntity.storageBehaviour.outputInventory.set(0, ItemResource.of(new ItemStack(Items.COBBLESTONE, 1)), new ItemStack(Items.COBBLESTONE, 1).getCount());
         });
 
         helper.runAfterDelay(2, () -> {
             var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
-            var extracted = blockEntity.storageBehaviour.outputInventory.extractItem(0, 1, false);
+            ItemStack extracted;
+            try (var tx = Transaction.openRoot()) {
+                var resource = blockEntity.storageBehaviour.outputInventory.getResource(0);
+                extracted = resource.toStack(blockEntity.storageBehaviour.outputInventory.extract(0, resource, 1, tx));
+                tx.commit();
+            }
             helper.assertTrue(!extracted.isEmpty(), "Should extract from output");
-            helper.assertTrue(blockEntity.storageBehaviour.outputInventory.getStackInSlot(0).isEmpty(), "Output should be empty");
+            helper.assertTrue(ItemUtil.getStack(blockEntity.storageBehaviour.outputInventory, 0).isEmpty(), "Output should be empty");
+            helper.succeed();
+        });
+    }
+
+    public static void blockedOutputDoesNotConsumeInputsOrFluid(GameTestHelper helper) {
+        helper.setBlock(VAT_POS, BlockRegistry.DIGESTION_VAT.get());
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.PURIFIED_GOLD.get(), 1)), 1);
+            blockEntity.storageBehaviour.fluidTank.fill(new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false);
+            blockEntity.storageBehaviour.outputInventory.set(0, ItemResource.of(new ItemStack(Items.COBBLESTONE, 1)), 1);
+        });
+
+        helper.runAfterDelay(2, () -> {
+            var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
+            helper.assertTrue(ItemUtil.getStack(blockEntity.storageBehaviour.inputInventory, 0).getCount() == 1, "Input should remain when output is blocked");
+            helper.assertTrue(blockEntity.storageBehaviour.fluidTank.getFluidAmount() == 1000, "Fluid should remain when output is blocked");
+            helper.assertTrue(ItemUtil.getStack(blockEntity.storageBehaviour.outputInventory, 0).getCount() == 1, "Blocked output should remain unchanged");
             helper.succeed();
         });
     }
@@ -105,7 +138,7 @@ public class DigestionVatGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
-            blockEntity.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.COBBLESTONE, 3));
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.COBBLESTONE, 3)), new ItemStack(Items.COBBLESTONE, 3).getCount());
         });
 
         helper.runAfterDelay(2, () -> {

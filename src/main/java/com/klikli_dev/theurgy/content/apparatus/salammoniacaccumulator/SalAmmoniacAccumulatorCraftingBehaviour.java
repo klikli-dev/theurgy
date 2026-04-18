@@ -17,6 +17,7 @@ import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -107,7 +108,12 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
         //only consume the solid solute, if the recipe requires it.
         //this avoids accidentally consuming a solute when a "water only" recipe is running while the solute is added.
         if (pRecipe.value().hasSolute()) {
-            this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
+            try (var tx = Transaction.openRoot()) {
+                var input = this.inputInventorySupplier.get();
+                var resource = input.getResource(0);
+                input.extract(0, resource, this.getIngredientCount(pRecipe), tx);
+                tx.commit();
+            }
         }
 
         if (pRecipe.value().hasEvaporant()) {

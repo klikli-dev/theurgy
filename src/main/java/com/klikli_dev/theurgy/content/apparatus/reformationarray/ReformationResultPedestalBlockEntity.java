@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
@@ -116,7 +117,7 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
     }
 
     public void writeNetwork(ValueOutput output) {
-        this.showParticles = !this.outputInventory.getStackInSlot(0).isEmpty();
+        this.showParticles = !ItemUtil.getStack(this.outputInventory, 0).isEmpty();
         output.putBoolean("showParticles", this.showParticles);
 
         ValueOutput outputInventoryOutput = output.child("outputInventory");
@@ -131,8 +132,8 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
         super.preRemoveSideEffects(pPos, pState);
 
         if (this.level != null) {
-            for (int i = 0; i < this.outputInventory.getSlots(); i++) {
-                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.outputInventory.getStackInSlot(i));
+            for (int i = 0; i < this.outputInventory.size(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.outputInventory, i));
             }
         }
     }

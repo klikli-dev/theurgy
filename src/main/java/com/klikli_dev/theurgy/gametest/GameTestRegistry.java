@@ -139,6 +139,9 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_INPUT_CONSUMED_OUTPUT_PRODUCED =
             TEST_FUNCTIONS.register("calcination_oven_input_consumed_output_produced", () -> CalcinationOvenGameTests::inputConsumedAndOutputProduced);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_BLOCKED_OUTPUT_DOES_NOT_CONSUME_INPUT =
+            TEST_FUNCTIONS.register("calcination_oven_blocked_output_does_not_consume_input", () -> CalcinationOvenGameTests::blockedOutputDoesNotConsumeInput);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_STOPS_WITHOUT_HEAT =
             TEST_FUNCTIONS.register("calcination_oven_stops_without_heat", () -> CalcinationOvenGameTests::processingStopsWhenHeatRemoved);
 
@@ -268,6 +271,9 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_INPUTS_CONSUMED_OUTPUT_PRODUCED =
             TEST_FUNCTIONS.register("incubator_inputs_consumed_output_produced", () -> IncubatorGameTests::inputsConsumedAndOutputProduced);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_BLOCKED_OUTPUT_DOES_NOT_CONSUME_VESSEL_INPUTS =
+            TEST_FUNCTIONS.register("incubator_blocked_output_does_not_consume_vessel_inputs", () -> IncubatorGameTests::blockedOutputDoesNotConsumeVesselInputs);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_EXTRACT_OUTPUT =
             TEST_FUNCTIONS.register("incubator_extract_output", () -> IncubatorGameTests::extractOutputFromIncubator);
 
@@ -300,6 +306,9 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_HAS_OUTPUT_FALSE =
             TEST_FUNCTIONS.register("fermentation_vat_has_output_false", () -> FermentationVatGameTests::hasOutputBecomesFalseWhenExtracted);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_BLOCKED_OUTPUT_DOES_NOT_CONSUME_INPUTS =
+            TEST_FUNCTIONS.register("fermentation_vat_blocked_output_does_not_consume_inputs", () -> FermentationVatGameTests::blockedOutputDoesNotConsumeInputsOrFluid);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_DROPS_ITEMS =
             TEST_FUNCTIONS.register("fermentation_vat_drops_items", () -> FermentationVatGameTests::dropsItemsWhenBroken);
 
@@ -325,6 +334,9 @@ public class GameTestRegistry {
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_DROPS_ITEMS =
             TEST_FUNCTIONS.register("digestion_vat_drops_items", () -> DigestionVatGameTests::dropsItemsWhenBroken);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_BLOCKED_OUTPUT_DOES_NOT_CONSUME_INPUTS =
+            TEST_FUNCTIONS.register("digestion_vat_blocked_output_does_not_consume_inputs", () -> DigestionVatGameTests::blockedOutputDoesNotConsumeInputsOrFluid);
 
     // --- Sal Ammoniac Accumulator ---
 
@@ -379,6 +391,9 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_PROCESSING =
             TEST_FUNCTIONS.register("sulfuric_flux_emitter_processing", () -> SulfuricFluxEmitterGameTests::reformationProcessing);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_INSUFFICIENT_MERCURY_FLUX =
+            TEST_FUNCTIONS.register("sulfuric_flux_emitter_insufficient_mercury_flux", () -> SulfuricFluxEmitterGameTests::insufficientMercuryFluxDoesNotConsumeInputsOrProduceOutput);
+
     // --- Mercury Flux Emitter ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MFE_PLACEMENT =
@@ -400,6 +415,9 @@ public class GameTestRegistry {
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_INSERT =
             TEST_FUNCTIONS.register("reformation_source_insert", () -> ReformationPedestalGameTests::sourceInsertItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_REJECTS_INVALID_HELD_ITEM =
+            TEST_FUNCTIONS.register("reformation_source_rejects_invalid_held_item", () -> ReformationPedestalGameTests::sourceRejectsInvalidHeldItem);
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_EXTRACT =
             TEST_FUNCTIONS.register("reformation_source_extract", () -> ReformationPedestalGameTests::sourceExtractItem);
@@ -540,6 +558,7 @@ public class GameTestRegistry {
         registerTest(event, OVEN_PROCESSING_STARTS, environment, structure, 200, 0);
         registerTest(event, OVEN_LIT_DURING_PROCESSING, environment, structure, 200, 0);
         registerTest(event, OVEN_INPUT_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
+        registerTest(event, OVEN_BLOCKED_OUTPUT_DOES_NOT_CONSUME_INPUT, environment, structure, 100, 0);
         registerTest(event, OVEN_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
         registerTest(event, OVEN_STOPS_WITHOUT_INPUT, environment, structure, 300, 0);
         registerTest(event, OVEN_DROPS_ITEMS_WHEN_BROKEN, environment, structure, 40, 0);
@@ -599,6 +618,7 @@ public class GameTestRegistry {
         registerTest(event, INCUBATOR_EXTRACT_ITEMS, environment, structure, 40, 0);
         registerTest(event, INCUBATOR_PROCESSING_STARTS, environment, structure, 200, 0);
         registerTest(event, INCUBATOR_INPUTS_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
+        registerTest(event, INCUBATOR_BLOCKED_OUTPUT_DOES_NOT_CONSUME_VESSEL_INPUTS, environment, structure, 100, 0);
         registerTest(event, INCUBATOR_EXTRACT_OUTPUT, environment, structure, 40, 0);
         registerTest(event, INCUBATOR_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
     }
@@ -615,6 +635,7 @@ public class GameTestRegistry {
         registerTest(event, FV_LID_CLOSES, environment, structure, 40, 0);
         registerTest(event, FV_HAS_OUTPUT_TRUE, environment, structure, 40, 0);
         registerTest(event, FV_HAS_OUTPUT_FALSE, environment, structure, 40, 0);
+        registerTest(event, FV_BLOCKED_OUTPUT_DOES_NOT_CONSUME_INPUTS, environment, structure, 100, 0);
         registerTest(event, FV_DROPS_ITEMS, environment, structure, 40, 0);
     }
 
@@ -629,6 +650,7 @@ public class GameTestRegistry {
         registerTest(event, DV_EXTRACT_OUTPUT, environment, structure, 40, 0);
         registerTest(event, DV_LID_CLOSES, environment, structure, 40, 0);
         registerTest(event, DV_DROPS_ITEMS, environment, structure, 40, 0);
+        registerTest(event, DV_BLOCKED_OUTPUT_DOES_NOT_CONSUME_INPUTS, environment, structure, 100, 0);
     }
 
     private static void registerSalAmmoniacAccumulatorTests(RegisterGameTestsEvent event) {
@@ -668,6 +690,7 @@ private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent even
         registerTest(event, SFE_ENERGY, environment, structure, 40, 0);
         registerTest(event, SFE_LINKING, environment, structure, 40, 0);
         registerTest(event, SFE_PROCESSING, environment, structure, 200, 0);
+        registerTest(event, SFE_INSUFFICIENT_MERCURY_FLUX, environment, structure, 200, 0);
     }
 
     private static void registerMercuryFluxEmitterTests(RegisterGameTestsEvent event) {
@@ -686,6 +709,7 @@ private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent even
 
         registerTest(event, RP_SOURCE_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, RP_SOURCE_INSERT, environment, structure, 40, 0);
+        registerTest(event, RP_SOURCE_REJECTS_INVALID_HELD_ITEM, environment, structure, 40, 0);
         registerTest(event, RP_SOURCE_EXTRACT, environment, structure, 40, 0);
         registerTest(event, RP_TARGET_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, RP_TARGET_INSERT, environment, structure, 40, 0);

@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -94,7 +95,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements HasC
 
     public void tickServer() {
         boolean isHeated = this.heatConsumerBehaviour.isHeated();
-        boolean hasInput = !this.storageBehaviour.inputInventory.getStackInSlot(0).isEmpty();
+        boolean hasInput = !ItemUtil.getStack(this.storageBehaviour.inputInventory, 0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
     }
@@ -121,8 +122,8 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements HasC
         super.preRemoveSideEffects(pPos, pState);
 
         if (this.level != null) {
-            for (int i = 0; i < this.storageBehaviour.inventory.getSlots(); i++) {
-                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.storageBehaviour.inventory.getStackInSlot(i));
+            for (int i = 0; i < this.storageBehaviour.inventory.size(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.storageBehaviour.inventory, i));
             }
         }
     }

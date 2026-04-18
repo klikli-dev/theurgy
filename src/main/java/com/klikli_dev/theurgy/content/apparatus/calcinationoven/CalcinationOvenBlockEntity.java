@@ -15,7 +15,6 @@ import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
-import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.util.NetworkTagHelper;
@@ -27,6 +26,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
@@ -93,7 +93,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
     public void tickServer() {
         boolean isHeated = this.heatConsumerBehaviour.isHeated();
-        boolean hasInput = !this.storageBehaviour.inputInventory.getStackInSlot(0).isEmpty();
+        boolean hasInput = !ItemUtil.getStack(this.storageBehaviour.inputInventory, 0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
     }
@@ -102,8 +102,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
         super.preRemoveSideEffects(pPos, pState);
 
-        for (int i = 0; i < ItemStorageHelper.getSlots(this.storageBehaviour.inventory); i++) {
-            Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemStorageHelper.getStackInSlot(this.storageBehaviour.inventory, i));
+        for (int i = 0; i < this.storageBehaviour.inventory.size(); i++) {
+            Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.storageBehaviour.inventory, i));
         }
     }
 

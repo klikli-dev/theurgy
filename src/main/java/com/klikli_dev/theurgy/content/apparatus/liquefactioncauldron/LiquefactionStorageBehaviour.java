@@ -122,11 +122,6 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
         }
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return LiquefactionStorageBehaviour.this.craftingBehaviour.get().canProcess(stack);
-        }
-
-        @Override
         protected void onContentsChanged(int slot) {
             LiquefactionStorageBehaviour.this.setChanged();
         }

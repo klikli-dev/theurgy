@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.storage;
 
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.NotNull;
@@ -20,41 +19,8 @@ public class PreventInsertWrapper implements SettableItemStorage {
     }
 
     @Override
-    public int getSlots() {
-        return SettableItemStorage.super.getSlots();
-    }
-
-    @Override
-    @NotNull
-    public ItemStack getStackInSlot(int slot) {
-        return SettableItemStorage.super.getStackInSlot(slot);
-    }
-
-    @Override
-    @NotNull
-    public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        return stack;
-    }
-
-    @Override
-    @NotNull
-    public ItemStack extractItem(int slot, int amount, boolean simulate) {
-        return SettableItemStorage.super.extractItem(slot, amount, simulate);
-    }
-
-    @Override
-    public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-        this.compose.setStackInSlot(slot, stack);
-    }
-
-    @Override
-    public int getSlotLimit(int slot) {
-        return SettableItemStorage.super.getSlotLimit(slot);
-    }
-
-    @Override
-    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-        return false;
+    public void set(int slot, ItemResource resource, int amount) {
+        this.compose.set(slot, resource, amount);
     }
 
     @Override

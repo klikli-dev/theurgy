@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
-import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 
 public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
@@ -37,26 +39,34 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
         ItemStack stackInHand = pPlayer.getItemInHand(pHand);
 
         if (stackInHand.isEmpty()) {
-            //with empty hand first try take output
-            var extracted = ItemStorageHelper.extractItem(blockItemHandler, OUTPUT_SLOT, ItemStorageHelper.getSlotLimit(blockItemHandler, OUTPUT_SLOT), false);
-            if (!extracted.isEmpty()) {
-                pPlayer.getInventory().placeItemBackInInventory(extracted);
-                return InteractionResult.SUCCESS;
-            }
-
-            //if no output, try take input
-            extracted = ItemStorageHelper.extractItem(blockItemHandler, INPUT_SLOT, ItemStorageHelper.getSlotLimit(blockItemHandler, INPUT_SLOT), false);
-            if (!extracted.isEmpty()) {
-                pPlayer.getInventory().placeItemBackInInventory(extracted);
-                return InteractionResult.SUCCESS;
+            try (var tx = Transaction.openRoot()) {
+                var extracted = ItemStack.EMPTY;
+                var outputStack = ItemUtil.getStack(blockItemHandler, OUTPUT_SLOT);
+                if (!outputStack.isEmpty()) {
+                    var outputResource = ItemResource.of(outputStack);
+                    extracted = outputResource.toStack(blockItemHandler.extract(OUTPUT_SLOT, outputResource, outputStack.getCount(), tx));
+                }
+                if (extracted.isEmpty()) {
+                    var inputStack = ItemUtil.getStack(blockItemHandler, INPUT_SLOT);
+                    if (!inputStack.isEmpty()) {
+                        var inputResource = ItemResource.of(inputStack);
+                        extracted = inputResource.toStack(blockItemHandler.extract(INPUT_SLOT, inputResource, inputStack.getCount(), tx));
+                    }
+                }
+                if (!extracted.isEmpty()) {
+                    tx.commit();
+                    pPlayer.getInventory().placeItemBackInInventory(extracted);
+                    return InteractionResult.SUCCESS;
+                }
             }
         } else {
-            //if we have an item in hand, try to insert
-            int countBefore = stackInHand.getCount();
-            var remainder = ItemStorageHelper.insertItem(blockItemHandler, INPUT_SLOT, stackInHand, false);
-            if (remainder.getCount() != countBefore) {
-                pPlayer.setItemInHand(pHand, remainder);
-                return InteractionResult.SUCCESS;
+            try (var tx = Transaction.openRoot()) {
+                var remainder = ItemUtil.insertItemReturnRemaining(blockItemHandler, INPUT_SLOT, stackInHand, false, tx);
+                if (remainder.getCount() != stackInHand.getCount()) {
+                    tx.commit();
+                    pPlayer.setItemInHand(pHand, remainder);
+                    return InteractionResult.SUCCESS;
+                }
             }
         }
 

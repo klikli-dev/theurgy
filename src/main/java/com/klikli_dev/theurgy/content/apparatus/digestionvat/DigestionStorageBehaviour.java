@@ -17,6 +17,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
@@ -131,7 +132,7 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
 
     @Override
     public boolean hasOutput() {
-        return !this.outputInventory.getStackInSlot(0).isEmpty();
+        return !ItemUtil.getStack(this.outputInventory, 0).isEmpty();
     }
 
     @Override
@@ -173,15 +174,15 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+        public boolean isValid(int slot, ItemResource resource) {
             //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
-            for (int i = 0; i < this.getSlots(); i++) {
-                if (i != slot && ItemStack.isSameItemSameComponents(stack, this.getStackInSlot(i))) {
+            for (int i = 0; i < this.size(); i++) {
+                if (i != slot && ItemStack.isSameItemSameComponents(resource.toStack(1), ItemUtil.getStack(this, i))) {
                     return false;
                 }
             }
 
-            return DigestionStorageBehaviour.this.craftingBehaviour.get().canProcess(stack) && super.isItemValid(slot, stack);
+            return DigestionStorageBehaviour.this.craftingBehaviour.get().canProcess(resource.toStack(1));
         }
 
         @Override

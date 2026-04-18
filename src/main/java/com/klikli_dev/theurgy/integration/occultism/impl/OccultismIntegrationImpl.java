@@ -4,17 +4,18 @@
 
 package com.klikli_dev.theurgy.integration.occultism.impl;
 
-import com.klikli_dev.occultism.common.misc.ItemStackKey;
 import com.klikli_dev.occultism.common.misc.MapItemResourceHandler;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.filter.ListFilter;
-import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.integration.occultism.OccultismIntegration;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class OccultismIntegrationImpl implements OccultismIntegration {
     public boolean isLoaded() {
@@ -46,24 +47,48 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
             var filterItems = extractFilter.filterItems();
 
             for (var filterItem : filterItems) {
-                var key = ItemStackKey.of(filterItem);
-                var extractStack =
-                        extractFilter.shouldRespectDataComponents() ?
-                                extractCap.extractItem(key, extractionAmount, true)
-                                //if we ignore data components, we let the storage system find the first matching stack for us
-                                : extractCap.extractItemIgnoreComponents(key.stack(), extractionAmount, true);
+                var predicate = (java.util.function.Predicate<ItemResource>) resource -> {
+                    var resourceStack = resource.toStack(1);
+                    return extractFilter.shouldRespectDataComponents()
+                            ? ItemStack.isSameItemSameComponents(resourceStack, filterItem)
+                            : ItemStack.isSameItem(resourceStack, filterItem);
+                };
 
-                if (!extractStack.isEmpty() && insertFilter.test(level, extractStack)) {
-                    var inserted = ItemStorageHelper.insertItemStacked(insertCap, extractStack, true);
+                try (var tx = Transaction.openRoot()) {
+                    int insertedAmount;
 
-                    if (inserted.getCount() != extractStack.getCount()) {
-                        ItemStack remaining = ItemStorageHelper.insertItemStacked(insertCap, extractStack, false);
-                        extractCap.extractItem(
-                                //if we ignore data components, we build a new key from the actual extracted stack
-                                extractFilter.shouldRespectDataComponents() ? key : ItemStackKey.of(extractStack),
-                                extractStack.getCount() - remaining.getCount(), false);
-                        return true;
+                    try (var simulateTx = Transaction.open(tx)) {
+                        var extracted = ResourceHandlerUtil.extractFirst(extractCap, predicate, extractionAmount, simulateTx);
+
+                        if (extracted == null || extracted.amount() <= 0) {
+                            continue;
+                        }
+
+                        var extractStack = extracted.resource().toStack(extracted.amount());
+                        if (!insertFilter.test(level, extractStack)) {
+                            continue;
+                        }
+
+                        var remaining = ItemUtil.insertItemReturnRemaining(insertCap, extractStack, false, simulateTx);
+                        insertedAmount = extractStack.getCount() - remaining.getCount();
                     }
+
+                    if (insertedAmount == 0) {
+                        continue;
+                    }
+
+                    var transferred = ResourceHandlerUtil.extractFirst(extractCap, predicate, insertedAmount, tx);
+                    if (transferred == null || transferred.amount() <= 0) {
+                        continue;
+                    }
+
+                    var remaining = ItemUtil.insertItemReturnRemaining(insertCap, transferred.resource().toStack(transferred.amount()), false, tx);
+                    if (!remaining.isEmpty()) {
+                        continue;
+                    }
+
+                    tx.commit();
+                    return true;
                 }
             }
 

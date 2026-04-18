@@ -14,11 +14,13 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeInput, ReformationRecipe, LevelAwareCachedCheck<ReformationArrayRecipeInput, ReformationRecipe>> {
 
@@ -44,37 +46,40 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         var ItemHandlerRecipeInput = this.recipeInputSupplier.get();
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
-        //consume energy
         try (var tx = Transaction.openRoot()) {
-            this.mercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux(), tx);
-            tx.commit();
-        }
+            if (this.mercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux(), tx) < pRecipe.value().getMercuryFlux()) {
+                return false;
+            }
 
-        // Loop through required sources of recipe and through source inventories and extract
-        Set<SettableItemStorage> usedInventories = new HashSet<>();
-        for (var source : pRecipe.value().getSources()) {
-            for (var sourceInventory : ItemHandlerRecipeInput.getSourcePedestalInvs()) {
-                // Skip this source inventory if it has already been used
-                if (usedInventories.contains(sourceInventory)) {
-                    continue;
+            Set<SettableItemStorage> usedInventories = new HashSet<>();
+            for (var source : pRecipe.value().getSources()) {
+                boolean extracted = false;
+                for (var sourceInventory : ItemHandlerRecipeInput.getSourcePedestalInvs()) {
+                    if (usedInventories.contains(sourceInventory)) {
+                        continue;
+                    }
+
+                    var sourceStack = ItemUtil.getStack(sourceInventory, 0);
+                    if (source.test(sourceStack)) {
+                        if (sourceInventory.extract(ItemResource.of(sourceStack), source.count(), tx) < source.count()) {
+                            return false;
+                        }
+                        usedInventories.add(sourceInventory);
+                        extracted = true;
+                        break;
+                    }
                 }
-
-                var sourceStack = sourceInventory.getStackInSlot(0);
-                if (source.test(sourceStack)) {
-                    // Add this source inventory to the set of used inventories
-                    usedInventories.add(sourceInventory);
-
-                    sourceInventory.extractItem(0, source.count(), false);
-                    break;
+                if (!extracted) {
+                    return false;
                 }
             }
+
+            if (this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx) < assembledStack.getCount()) {
+                return false;
+            }
+
+            tx.commit();
         }
-
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
-        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
-
-        // Consume the target item
-        ItemHandlerRecipeInput.getTargetPedestalInv().extractItem(0, 1, false);
 
         return true;
     }

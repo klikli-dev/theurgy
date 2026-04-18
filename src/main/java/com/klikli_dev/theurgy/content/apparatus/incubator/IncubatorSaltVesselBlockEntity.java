@@ -28,6 +28,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -90,8 +92,8 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
         super.preRemoveSideEffects(pPos, pState);
 
         if (this.level != null) {
-            for (int i = 0; i < this.inputInventory.getSlots(); i++) {
-                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.inputInventory.getStackInSlot(i));
+            for (int i = 0; i < this.inputInventory.size(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.inputInventory, i));
             }
         }
     }
@@ -139,8 +141,8 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
         }
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.is(ItemTagRegistry.ALCHEMICAL_SALTS) && super.isItemValid(slot, stack);
+        public boolean isValid(int slot, ItemResource resource) {
+            return resource.isEmpty() || resource.toStack(1).is(ItemTagRegistry.ALCHEMICAL_SALTS);
         }
 
         @Override

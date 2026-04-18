@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -90,8 +91,8 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldSta
         super.preRemoveSideEffects(pPos, pState);
 
         if (this.level != null) {
-            for (int i = 0; i < this.inventory.getSlots(); i++) {
-                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.inventory.getStackInSlot(i));
+            for (int i = 0; i < this.inventory.size(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.inventory, i));
             }
         }
     }
@@ -124,7 +125,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldSta
             --this.remainingLitTime;
         }
 
-        var fuelStack = this.inventory.getStackInSlot(0);
+        var fuelStack = ItemUtil.getStack(this.inventory, 0);
         boolean hasFuel = !fuelStack.isEmpty();
 
         //light the block / turn it on if we have fuel
@@ -135,12 +136,12 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldSta
                 wasTurnedOnDuringThisTick = true;
                 //handle lava bucket
                 if (fuelStack.getCraftingRemainder() != null)
-                    this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder().create());
+                    this.inventory.set(0, ItemResource.of(fuelStack.getCraftingRemainder().create()), 1);
                     //handle all other fuel items
                 else if (hasFuel) {
                     fuelStack.shrink(1);
                     if (fuelStack.isEmpty()) {
-                        this.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                        this.inventory.set(0, ItemResource.of(ItemStack.EMPTY), 0);
                     }
                 }
             }
@@ -180,11 +181,6 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldSta
         @Override
         public boolean isValid(int index, ItemResource resource) {
             return PyromanticBrazierBlockEntity.this.getBurnDuration(resource.toStack(1)) > 0;
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return PyromanticBrazierBlockEntity.this.getBurnDuration(stack) > 0;
         }
 
         @Override

@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
     }
 
     public void tickServer() {
-        boolean hasInput = !this.inventory.getStackInSlot(0).isEmpty();
+        boolean hasInput = !ItemUtil.getStack(this.inventory, 0).isEmpty();
 
         this.craftingBehaviour.tickServer(true, hasInput);
 
@@ -189,7 +190,8 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             //noinspection DataFlowIssue
             this.mercuryFluxHandler.set(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
 
-        this.inventory.setStackInSlot(0, pComponentInput.getOrDefault(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get(), ItemContainerContents.EMPTY).copyOne());
+        var storedStack = pComponentInput.getOrDefault(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get(), ItemContainerContents.EMPTY).copyOne();
+        this.inventory.set(0, ItemResource.of(storedStack), storedStack.getCount());
 
         this.craftingBehaviour.applyImplicitComponents(pComponentInput);
     }
@@ -200,7 +202,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
 
         pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
 
-        var inventoryContents = ItemContainerContents.fromItems(List.of(this.inventory.getStackInSlot(0)));
+        var inventoryContents = ItemContainerContents.fromItems(List.of(ItemUtil.getStack(this.inventory, 0)));
         if (!inventoryContents.equals(ItemContainerContents.EMPTY)) {
             pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, inventoryContents);
         }
@@ -218,11 +220,6 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             MercuryCatalystBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
             //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
             MercuryCatalystBlockEntity.this.sendBlockUpdated();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return MercuryCatalystBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
         }
 
         @Override

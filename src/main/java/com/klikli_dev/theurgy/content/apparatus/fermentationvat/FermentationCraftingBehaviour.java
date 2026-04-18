@@ -16,7 +16,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
@@ -48,7 +51,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
         }
 
         var ingredientsList = Stream.concat(
-                IntStream.range(0, this.inputInventorySupplier.get().getSlots()).filter(i -> !this.inputInventorySupplier.get().getStackInSlot(i).isEmpty()).mapToObj(i -> this.inputInventorySupplier.get().getStackInSlot(i)),
+                IntStream.range(0, this.inputInventorySupplier.get().size()).filter(i -> !ItemUtil.getStack(this.inputInventorySupplier.get(), i).isEmpty()).mapToObj(i -> ItemUtil.getStack(this.inputInventorySupplier.get(), i)),
                 Stream.of(stack)
         ).toList();
 
@@ -103,23 +106,34 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
     protected boolean craft(RecipeHolder<FermentationRecipe> pRecipe) {
         var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
 
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
-        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
+        try (var tx = Transaction.openRoot()) {
+            if (this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx) < assembledStack.getCount()) {
+                return false;
+            }
 
-        //consume the input stacks
-        //the double loop may not be necessary, it may be OK to just take one from each slot (because recipe matches only if exact items match, not if more items are present)
-        //however this costs almost nothing extra and is safer so we do it.
-        for (var ingredient : pRecipe.value().getIngredients()) {
-            for (int i = 0; i < this.inputInventorySupplier.get().getSlots(); i++) {
-                if (ingredient.test(this.inputInventorySupplier.get().getStackInSlot(i))) {
-                    this.inputInventorySupplier.get().extractItem(i, this.getIngredientCount(pRecipe), false);
-                    break;
+            for (var ingredient : pRecipe.value().getIngredients()) {
+                boolean extracted = false;
+                for (int i = 0; i < this.inputInventorySupplier.get().size(); i++) {
+                    var stack = ItemUtil.getStack(this.inputInventorySupplier.get(), i);
+                    if (ingredient.test(stack)) {
+                        if (this.inputInventorySupplier.get().extract(ItemResource.of(stack), this.getIngredientCount(pRecipe), tx) < this.getIngredientCount(pRecipe)) {
+                            return false;
+                        }
+                        extracted = true;
+                        break;
+                    }
+                }
+                if (!extracted) {
+                    return false;
                 }
             }
-        }
 
-        //then drain the fluid
-        FluidStorageHelper.drain(this.fluidTankSupplier.get(), pRecipe.value().getFluidAmount(), false);
+            if (FluidStorageHelper.drain(this.fluidTankSupplier.get(), pRecipe.value().getFluidAmount(), tx) < pRecipe.value().getFluidAmount()) {
+                return false;
+            }
+
+            tx.commit();
+        }
 
         return true;
     }

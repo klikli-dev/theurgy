@@ -13,6 +13,9 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.function.Supplier;
 
@@ -40,12 +43,18 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
         var ItemHandlerRecipeInput = this.recipeInputSupplier.get();
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
-        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
+        try (var tx = Transaction.openRoot()) {
+            if (this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx) < assembledStack.getCount()) {
+                return false;
+            }
 
-        ItemHandlerRecipeInput.getMercuryVesselInv().extractItem(0, 1, false);
-        ItemHandlerRecipeInput.getSaltVesselInv().extractItem(0, 1, false);
-        ItemHandlerRecipeInput.getSulfurVesselInv().extractItem(0, 1, false);
+            if (ItemHandlerRecipeInput.getMercuryVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getMercuryVesselInv(), 0)), 1, tx) < 1
+                    || ItemHandlerRecipeInput.getSaltVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getSaltVesselInv(), 0)), 1, tx) < 1
+                    || ItemHandlerRecipeInput.getSulfurVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getSulfurVesselInv(), 0)), 1, tx) < 1) {
+                return false;
+            }
+            tx.commit();
+        }
 
         return true;
     }

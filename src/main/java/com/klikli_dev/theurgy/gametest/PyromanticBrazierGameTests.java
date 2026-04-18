@@ -19,6 +19,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class PyromanticBrazierGameTests {
 
@@ -48,7 +51,7 @@ public class PyromanticBrazierGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 1));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 1)), new ItemStack(Items.COAL, 1).getCount());
         });
 
         helper.succeedWhen(() -> {
@@ -66,13 +69,14 @@ public class PyromanticBrazierGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            var remainder = blockEntity.inventory.insertItem(0, new ItemStack(Items.COAL, 1), false);
+            ItemStack remainder;
+            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, new ItemStack(Items.COAL, 1), false, tx); tx.commit(); }
             helper.assertTrue(
                     remainder.isEmpty(),
                     "Coal should be accepted as fuel, remainder should be empty"
             );
             helper.assertTrue(
-                    !blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    !ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(),
                     "Brazier inventory should contain the inserted coal"
             );
             helper.succeed();
@@ -87,13 +91,14 @@ public class PyromanticBrazierGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            var remainder = blockEntity.inventory.insertItem(0, new ItemStack(Items.DIAMOND, 1), false);
+            ItemStack remainder;
+            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, new ItemStack(Items.DIAMOND, 1), false, tx); tx.commit(); }
             helper.assertTrue(
                     remainder.getCount() == 1,
                     "Diamond should be rejected as non-fuel, remainder should be 1"
             );
             helper.assertTrue(
-                    blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(),
                     "Brazier inventory should still be empty after rejecting non-fuel"
             );
             helper.succeed();
@@ -109,13 +114,13 @@ public class PyromanticBrazierGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             // Insert exactly 1 coal - it should be consumed when lit
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 1));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 1)), new ItemStack(Items.COAL, 1).getCount());
         });
 
         helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             helper.assertTrue(
-                    blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(),
                     "Coal should be consumed after burning"
             );
         });
@@ -130,9 +135,9 @@ public class PyromanticBrazierGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 1));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 1)), new ItemStack(Items.COAL, 1).getCount());
             helper.assertTrue(
-                    !blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    !ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(),
                     "Brazier should contain coal before removal"
             );
         });
@@ -145,7 +150,7 @@ public class PyromanticBrazierGameTests {
         helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             helper.assertTrue(
-                    blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(),
                     "Brazier inventory should be empty after removing fuel with empty hand"
             );
         });
@@ -162,7 +167,7 @@ public class PyromanticBrazierGameTests {
             helper.useBlock(BRAZIER_POS, player, centeredHitResult(helper, BRAZIER_POS));
             helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Placed block should be consumed on first click");
             helper.assertBlockPresent(Blocks.DIRT, ABOVE_BRAZIER_POS);
-            helper.assertTrue(blockEntity.inventory.getStackInSlot(0).isEmpty(), "Brazier should not accept rejected blocks as fuel");
+            helper.assertTrue(ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(), "Brazier should not accept rejected blocks as fuel");
 
             helper.useBlock(BRAZIER_POS, player, centeredHitResult(helper, BRAZIER_POS));
             helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Second click should not recreate the consumed block");
@@ -179,7 +184,7 @@ public class PyromanticBrazierGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 3));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 3)), new ItemStack(Items.COAL, 3).getCount());
         });
 
         helper.runAfterDelay(2, () -> {
@@ -207,7 +212,7 @@ public class PyromanticBrazierGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 64));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 64)), new ItemStack(Items.COAL, 64).getCount());
         });
 
         helper.succeedWhen(() -> {
@@ -254,7 +259,7 @@ public class PyromanticBrazierGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             // Insert a single stick (100 ticks burn time) - short burn time for faster test
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.STICK, 1));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(Items.STICK, 1)), new ItemStack(Items.STICK, 1).getCount());
         });
 
         // Wait for fuel to run out, then verify no heat
@@ -262,7 +267,7 @@ public class PyromanticBrazierGameTests {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             // First ensure fuel has been consumed
             helper.assertTrue(
-                    blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(),
                     "Fuel should have been consumed"
             );
             // Then verify the brazier is no longer lit

@@ -79,6 +79,45 @@ public class LogisticsGameTests {
         assertItemExtractorFindsInserterTarget(helper, false);
     }
 
+    public static void itemExtractorTransfersItemsFromSourceChestToTargetChest(GameTestHelper helper) {
+        helper.setBlock(ITEM_INSERTER_TARGET_POS, Blocks.CHEST);
+        helper.setBlock(ITEM_INSERTER_POS, BlockRegistry.LOGISTICS_ITEM_INSERTER.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST));
+        helper.setBlock(ITEM_EXTRACTOR_POS, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
+        helper.setBlock(ITEM_EXTRACTOR_TARGET_POS, Blocks.CHEST);
+
+        helper.runAfterDelay(1, () -> {
+            var level = helper.getLevel();
+            var sourceChest = helper.getBlockEntity(ITEM_INSERTER_TARGET_POS, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+            var targetChest = helper.getBlockEntity(ITEM_EXTRACTOR_TARGET_POS, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+            var inserter = helper.getBlockEntity(ITEM_INSERTER_POS, LogisticsItemInserterBlockEntity.class);
+            var extractor = helper.getBlockEntity(ITEM_EXTRACTOR_POS, LogisticsItemExtractorBlockEntity.class);
+
+            sourceChest.setItem(0, new ItemStack(ItemRegistry.PURIFIED_GOLD.get(), 1));
+
+            Logistics.get().remove(inserter.leafNode(), false);
+            Logistics.get().remove(extractor.leafNode(), false);
+            inserter.leafNode().targets().clear();
+            inserter.leafNode().targets().add(helper.absolutePos(ITEM_INSERTER_TARGET_POS));
+            inserter.leafNode().directionOverride(Direction.EAST);
+            extractor.leafNode().targets().clear();
+            extractor.leafNode().targets().add(helper.absolutePos(ITEM_EXTRACTOR_TARGET_POS));
+            extractor.leafNode().directionOverride(Direction.WEST);
+            Logistics.get().add(GlobalPos.of(level.dimension(), helper.absolutePos(ITEM_INSERTER_POS)), GlobalPos.of(level.dimension(), helper.absolutePos(ITEM_EXTRACTOR_POS)));
+            Logistics.get().add(inserter.leafNode());
+            Logistics.get().add(extractor.leafNode());
+
+            helper.assertTrue(!sourceChest.getItem(0).isEmpty(), "Source chest should start with an item");
+            helper.assertTrue(targetChest.getItem(0).isEmpty(), "Target chest should start empty");
+        });
+
+        helper.succeedWhen(() -> {
+            var sourceChest = helper.getBlockEntity(ITEM_INSERTER_TARGET_POS, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+            var targetChest = helper.getBlockEntity(ITEM_EXTRACTOR_TARGET_POS, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+            helper.assertTrue(sourceChest.getItem(0).isEmpty(), "Source chest item should be extracted");
+            helper.assertTrue(!targetChest.getItem(0).isEmpty(), "Target chest should receive the transferred item");
+        });
+    }
+
     public static void fluidExtractorPullsFromWorldSource(GameTestHelper helper) {
         helper.setBlock(FLUID_SOURCE_POS.west(), Blocks.STONE);
         helper.setBlock(FLUID_SOURCE_POS.north(), Blocks.STONE);

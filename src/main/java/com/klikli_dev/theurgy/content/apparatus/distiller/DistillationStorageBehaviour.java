@@ -89,8 +89,8 @@ public class DistillationStorageBehaviour extends StorageBehaviour<DistillationS
 
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return DistillationStorageBehaviour.this.craftingBehaviour.get().canProcess(stack) && super.isItemValid(slot, stack);
+        public boolean isValid(int slot, ItemResource resource) {
+            return DistillationStorageBehaviour.this.craftingBehaviour.get().canProcess(resource.toStack(1));
         }
 
         @Override

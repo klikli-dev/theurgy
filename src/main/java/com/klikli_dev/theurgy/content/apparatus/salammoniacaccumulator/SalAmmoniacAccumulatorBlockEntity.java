@@ -36,6 +36,8 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -120,7 +122,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
             return;
         }
 
-        boolean hasInput = !this.waterTank.isEmpty() || !this.inventory.getStackInSlot(0).isEmpty();
+        boolean hasInput = !this.waterTank.isEmpty() || !ItemUtil.getStack(this.inventory, 0).isEmpty();
 
         this.craftingBehaviour.tickServer(true, hasInput); //does not need heat
     }
@@ -133,7 +135,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
                 var fluidStack = this.waterTank.getFluid();
                 int waterColor = 0xFFFFFFFF; // SAL_AMMONIAC uses water base, default no-tint (IClientFluidTypeExtensions.getTintColor removed)
 
-                var particleColor = this.inventory.getStackInSlot(0).is(ItemTagRegistry.GEMS_SAL_AMMONIAC) ?
+                var particleColor = ItemUtil.getStack(this.inventory, 0).is(ItemTagRegistry.GEMS_SAL_AMMONIAC) ?
                         new ParticleColor(255, 192, 128) : ParticleColor.fromInt(waterColor);
 
                 var fluidHeight = fluidStack.getAmount() / (float) this.waterTank.getCapacity();
@@ -179,8 +181,8 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         super.preRemoveSideEffects(pPos, pState);
 
         if (this.level != null) {
-            for (int i = 0; i < this.inventory.getSlots(); i++) {
-                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.inventory.getStackInSlot(i));
+            for (int i = 0; i < this.inventory.size(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.inventory, i));
             }
         }
     }
@@ -236,8 +238,8 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
+        public boolean isValid(int slot, ItemResource resource) {
+            return resource.isEmpty() || SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.canProcess(resource.toStack(1));
         }
 
         @Override

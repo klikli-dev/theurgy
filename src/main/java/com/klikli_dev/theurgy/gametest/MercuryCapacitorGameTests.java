@@ -14,6 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class MercuryCapacitorGameTests {
 
@@ -62,7 +63,7 @@ public class MercuryCapacitorGameTests {
         // Insert mercury shard into catalyst to generate flux
         helper.runAfterDelay(1, () -> {
             var catalystBE = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
-            catalystBE.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            catalystBE.inventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
         });
 
         // Wait for catalyst to generate flux and push to capacitor
@@ -104,7 +105,7 @@ public class MercuryCapacitorGameTests {
         // Insert mercury shard into catalyst
         helper.runAfterDelay(1, () -> {
             var catalystBE = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
-            catalystBE.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            catalystBE.inventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
         });
 
         // Wait for flux to be generated and check that disabled capacitor didn't receive it

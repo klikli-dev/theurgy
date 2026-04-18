@@ -78,5 +78,22 @@ public final class FluidStorageHelper {
             return extracted.resource().toStack(extracted.amount());
         }
     }
+
+    public static int drain(@Nullable ResourceHandler<FluidResource> handler, FluidStack stack, Transaction transaction) {
+        if (handler == null || stack.isEmpty()) {
+            return 0;
+        }
+
+        return handler.extract(FluidResource.of(stack), stack.getAmount(), transaction);
+    }
+
+    public static int drain(@Nullable ResourceHandler<FluidResource> handler, int maxDrain, Transaction transaction) {
+        if (handler == null || maxDrain <= 0) {
+            return 0;
+        }
+
+        var extracted = ResourceHandlerUtil.extractFirst(handler, resource -> true, maxDrain, transaction);
+        return extracted == null ? 0 : extracted.amount();
+    }
 }
 

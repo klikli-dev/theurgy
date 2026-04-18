@@ -12,9 +12,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class DistillerGameTests {
 
@@ -115,7 +118,7 @@ public class DistillerGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
-            blockEntity.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.OAK_LOG, 3));
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.OAK_LOG, 3)), new ItemStack(Items.OAK_LOG, 3).getCount());
         });
 
         helper.runAfterDelay(2, () -> {
@@ -137,13 +140,17 @@ public class DistillerGameTests {
 
         helper.runAfterDelay(2, () -> {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
-            var remainder = blockEntity.storageBehaviour.inputInventory.insertItem(0, new ItemStack(Items.OAK_LOG, 1), false);
+            ItemStack remainder;
+            try (var tx = Transaction.openRoot()) {
+                remainder = ItemUtil.insertItemReturnRemaining(blockEntity.storageBehaviour.inputInventory, 0, new ItemStack(Items.OAK_LOG, 1), false, tx);
+                tx.commit();
+            }
             helper.assertTrue(
                     remainder.isEmpty(),
                     "Oak log should be accepted as a valid distillation input"
             );
             helper.assertTrue(
-                    !blockEntity.storageBehaviour.inputInventory.getStackInSlot(0).isEmpty(),
+                    !ItemUtil.getStack(blockEntity.storageBehaviour.inputInventory, 0).isEmpty(),
                     "Input inventory should contain the inserted oak log"
             );
             helper.succeed();
@@ -159,18 +166,23 @@ public class DistillerGameTests {
         helper.runAfterDelay(2, () -> {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
             // Directly place an item in the output slot
-            blockEntity.storageBehaviour.outputInventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            blockEntity.storageBehaviour.outputInventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
         });
 
         helper.runAfterDelay(4, () -> {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
-            var extracted = blockEntity.storageBehaviour.outputInventory.extractItem(0, 64, false);
+            ItemStack extracted;
+            try (var tx = Transaction.openRoot()) {
+                var resource = blockEntity.storageBehaviour.outputInventory.getResource(0);
+                extracted = resource.toStack(blockEntity.storageBehaviour.outputInventory.extract(0, resource, 64, tx));
+                tx.commit();
+            }
             helper.assertTrue(
                     !extracted.isEmpty(),
                     "Should be able to extract from output slot"
             );
             helper.assertTrue(
-                    blockEntity.storageBehaviour.outputInventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(blockEntity.storageBehaviour.outputInventory, 0).isEmpty(),
                     "Output slot should be empty after extraction"
             );
             helper.succeed();
@@ -189,7 +201,7 @@ public class DistillerGameTests {
         helper.runAfterDelay(2, () -> {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
             // Logs recipe requires 2 items
-            blockEntity.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.OAK_LOG, 2));
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.OAK_LOG, 2)), new ItemStack(Items.OAK_LOG, 2).getCount());
         });
 
         // Wait for heat check interval (20 ticks) + processing to start
@@ -210,7 +222,7 @@ public class DistillerGameTests {
 
         helper.runAfterDelay(2, () -> {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
-            blockEntity.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.OAK_LOG, 2));
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.OAK_LOG, 2)), new ItemStack(Items.OAK_LOG, 2).getCount());
         });
 
         helper.succeedWhen(() -> {
@@ -227,7 +239,7 @@ public class DistillerGameTests {
 
         helper.runAfterDelay(2, () -> {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
-            blockEntity.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.OAK_LOG, 2));
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.OAK_LOG, 2)), new ItemStack(Items.OAK_LOG, 2).getCount());
         });
 
         // Default distillation time is 100 ticks; wait for completion
@@ -235,11 +247,11 @@ public class DistillerGameTests {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
             // Input should be consumed
             helper.assertTrue(
-                    blockEntity.storageBehaviour.inputInventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(blockEntity.storageBehaviour.inputInventory, 0).isEmpty(),
                     "Oak log input should be consumed after processing"
             );
             // Output should be produced
-            var output = blockEntity.storageBehaviour.outputInventory.getStackInSlot(0);
+            var output = ItemUtil.getStack(blockEntity.storageBehaviour.outputInventory, 0);
             helper.assertTrue(
                     !output.isEmpty(),
                     "Output slot should contain mercury shard after processing"
@@ -257,14 +269,14 @@ public class DistillerGameTests {
         helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
         helper.runAfterDelay(1, () -> {
             var brazier = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            brazier.inventory.setStackInSlot(0, new ItemStack(Items.STICK, 1));
+            brazier.inventory.set(0, ItemResource.of(new ItemStack(Items.STICK, 1)), new ItemStack(Items.STICK, 1).getCount());
         });
 
         // Insert input after brazier is lit
         helper.runAfterDelay(5, () -> {
             var blockEntity = helper.getBlockEntity(DISTILLER_LOWER_POS, DistillerBlockEntity.class);
             // Use a stack to ensure there's always input available
-            blockEntity.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.OAK_LOG, 64));
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.OAK_LOG, 64)), new ItemStack(Items.OAK_LOG, 64).getCount());
         });
 
         // Wait for fuel to run out, then verify processing has stopped
@@ -272,7 +284,7 @@ public class DistillerGameTests {
             var brazier = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             // Ensure fuel ran out
             helper.assertTrue(
-                    brazier.inventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(brazier.inventory, 0).isEmpty(),
                     "Brazier fuel should have run out"
             );
             helper.assertBlockProperty(BRAZIER_POS, BlockStateProperties.LIT, false);
@@ -310,7 +322,7 @@ public class DistillerGameTests {
         // Insert fuel into brazier after 1 tick (needs level to be set)
         helper.runAfterDelay(1, () -> {
             var brazier = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            brazier.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 64));
+            brazier.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 64)), new ItemStack(Items.COAL, 64).getCount());
         });
     }
 }

@@ -240,10 +240,14 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     protected boolean craft(RecipeHolder<R> pRecipe) {
         var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
         try (var tx = Transaction.openRoot()) {
-            ItemUtil.insertItemReturnRemaining(this.outputInventorySupplier.get(), assembledStack, false, tx);
+            if (ItemUtil.insertItemReturnRemaining(this.outputInventorySupplier.get(), assembledStack, false, tx).getCount() > 0) {
+                return false;
+            }
             var input = this.inputInventorySupplier.get();
             var resource = input.getResource(0);
-            input.extract(0, resource, this.getIngredientCount(pRecipe), tx);
+            if (input.extract(0, resource, this.getIngredientCount(pRecipe), tx) < this.getIngredientCount(pRecipe)) {
+                return false;
+            }
             tx.commit();
         }
 

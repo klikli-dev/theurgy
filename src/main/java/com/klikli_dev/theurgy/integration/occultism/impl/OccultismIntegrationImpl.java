@@ -54,34 +54,41 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
                             : ItemStack.isSameItem(resourceStack, filterItem);
                 };
 
-                try (var simulateTx = Transaction.openRoot()) {
-                    var extracted = ResourceHandlerUtil.extractFirst(extractCap, predicate, extractionAmount, simulateTx);
+                try (var tx = Transaction.openRoot()) {
+                    int insertedAmount;
 
-                    if (extracted == null || extracted.amount() <= 0) {
-                        continue;
+                    try (var simulateTx = Transaction.open(tx)) {
+                        var extracted = ResourceHandlerUtil.extractFirst(extractCap, predicate, extractionAmount, simulateTx);
+
+                        if (extracted == null || extracted.amount() <= 0) {
+                            continue;
+                        }
+
+                        var extractStack = extracted.resource().toStack(extracted.amount());
+                        if (!insertFilter.test(level, extractStack)) {
+                            continue;
+                        }
+
+                        var remaining = ItemUtil.insertItemReturnRemaining(insertCap, extractStack, false, simulateTx);
+                        insertedAmount = extractStack.getCount() - remaining.getCount();
                     }
 
-                    var extractStack = extracted.resource().toStack(extracted.amount());
-                    if (!insertFilter.test(level, extractStack)) {
-                        continue;
-                    }
-
-                    var remaining = ItemUtil.insertItemReturnRemaining(insertCap, extractStack, false, simulateTx);
-                    int insertedAmount = extractStack.getCount() - remaining.getCount();
                     if (insertedAmount == 0) {
                         continue;
                     }
 
-                    try (var tx = Transaction.openRoot()) {
-                        var transferred = ResourceHandlerUtil.extractFirst(extractCap, predicate, insertedAmount, tx);
-                        if (transferred == null || transferred.amount() <= 0) {
-                            continue;
-                        }
-
-                        ItemUtil.insertItemReturnRemaining(insertCap, transferred.resource().toStack(transferred.amount()), false, tx);
-                        tx.commit();
-                        return true;
+                    var transferred = ResourceHandlerUtil.extractFirst(extractCap, predicate, insertedAmount, tx);
+                    if (transferred == null || transferred.amount() <= 0) {
+                        continue;
                     }
+
+                    var remaining = ItemUtil.insertItemReturnRemaining(insertCap, transferred.resource().toStack(transferred.amount()), false, tx);
+                    if (!remaining.isEmpty()) {
+                        continue;
+                    }
+
+                    tx.commit();
+                    return true;
                 }
             }
 

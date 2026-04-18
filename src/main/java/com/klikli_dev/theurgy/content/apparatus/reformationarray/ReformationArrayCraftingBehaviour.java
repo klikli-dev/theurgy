@@ -46,38 +46,38 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         var ItemHandlerRecipeInput = this.recipeInputSupplier.get();
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
-        //consume energy
         try (var tx = Transaction.openRoot()) {
-            this.mercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux(), tx);
-            tx.commit();
-        }
+            if (this.mercuryFluxHandlerSupplier.get().extract(pRecipe.value().getMercuryFlux(), tx) < pRecipe.value().getMercuryFlux()) {
+                return false;
+            }
 
-        // Loop through required sources of recipe and through source inventories and extract
-        Set<SettableItemStorage> usedInventories = new HashSet<>();
-        for (var source : pRecipe.value().getSources()) {
-            for (var sourceInventory : ItemHandlerRecipeInput.getSourcePedestalInvs()) {
-                // Skip this source inventory if it has already been used
-                if (usedInventories.contains(sourceInventory)) {
-                    continue;
-                }
-
-                var sourceStack = ItemUtil.getStack(sourceInventory, 0);
-                if (source.test(sourceStack)) {
-                    // Add this source inventory to the set of used inventories
-                    usedInventories.add(sourceInventory);
-
-                    try (var tx = Transaction.openRoot()) {
-                        sourceInventory.extract(ItemResource.of(sourceStack), source.count(), tx);
-                        tx.commit();
+            Set<SettableItemStorage> usedInventories = new HashSet<>();
+            for (var source : pRecipe.value().getSources()) {
+                boolean extracted = false;
+                for (var sourceInventory : ItemHandlerRecipeInput.getSourcePedestalInvs()) {
+                    if (usedInventories.contains(sourceInventory)) {
+                        continue;
                     }
-                    break;
+
+                    var sourceStack = ItemUtil.getStack(sourceInventory, 0);
+                    if (source.test(sourceStack)) {
+                        if (sourceInventory.extract(ItemResource.of(sourceStack), source.count(), tx) < source.count()) {
+                            return false;
+                        }
+                        usedInventories.add(sourceInventory);
+                        extracted = true;
+                        break;
+                    }
+                }
+                if (!extracted) {
+                    return false;
                 }
             }
-        }
 
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
-        try (var tx = Transaction.openRoot()) {
-            this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx);
+            if (this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx) < assembledStack.getCount()) {
+                return false;
+            }
+
             tx.commit();
         }
 

@@ -106,29 +106,34 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
     protected boolean craft(RecipeHolder<DigestionRecipe> pRecipe) {
         var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
 
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
         try (var tx = Transaction.openRoot()) {
-            this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx);
-            tx.commit();
-        }
+            if (this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx) < assembledStack.getCount()) {
+                return false;
+            }
 
-        //consume the input stacks
-        //the double loop may not be necessary, it may be OK to just take one from each slot (because recipe matches only if exact items match, not if more items are present)
-        //however this costs almost nothing extra and is safer so we do it.
-        for (var ingredient : pRecipe.value().getSizedIngredients()) {
-            for (int i = 0; i < this.inputInventorySupplier.get().size(); i++) {
-                if (ingredient.ingredient().test(ItemUtil.getStack(this.inputInventorySupplier.get(), i))) {
-                    try (var tx = Transaction.openRoot()) {
-                        this.inputInventorySupplier.get().extract(ItemResource.of(ItemUtil.getStack(this.inputInventorySupplier.get(), i)), ingredient.count(), tx);
-                        tx.commit();
+            for (var ingredient : pRecipe.value().getSizedIngredients()) {
+                boolean extracted = false;
+                for (int i = 0; i < this.inputInventorySupplier.get().size(); i++) {
+                    var stack = ItemUtil.getStack(this.inputInventorySupplier.get(), i);
+                    if (ingredient.ingredient().test(stack)) {
+                        if (this.inputInventorySupplier.get().extract(ItemResource.of(stack), ingredient.count(), tx) < ingredient.count()) {
+                            return false;
+                        }
+                        extracted = true;
+                        break;
                     }
-                    break;
+                }
+                if (!extracted) {
+                    return false;
                 }
             }
-        }
 
-        //then drain the fluid
-        FluidStorageHelper.drain(this.fluidTankSupplier.get(), pRecipe.value().getFluidAmount(), false);
+            if (FluidStorageHelper.drain(this.fluidTankSupplier.get(), pRecipe.value().getFluidAmount(), tx) < pRecipe.value().getFluidAmount()) {
+                return false;
+            }
+
+            tx.commit();
+        }
 
         return true;
     }

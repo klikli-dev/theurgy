@@ -43,16 +43,16 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
         var ItemHandlerRecipeInput = this.recipeInputSupplier.get();
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
         try (var tx = Transaction.openRoot()) {
-            this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx);
-            tx.commit();
-        }
+            if (this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx) < assembledStack.getCount()) {
+                return false;
+            }
 
-        try (var tx = Transaction.openRoot()) {
-            ItemHandlerRecipeInput.getMercuryVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getMercuryVesselInv(), 0)), 1, tx);
-            ItemHandlerRecipeInput.getSaltVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getSaltVesselInv(), 0)), 1, tx);
-            ItemHandlerRecipeInput.getSulfurVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getSulfurVesselInv(), 0)), 1, tx);
+            if (ItemHandlerRecipeInput.getMercuryVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getMercuryVesselInv(), 0)), 1, tx) < 1
+                    || ItemHandlerRecipeInput.getSaltVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getSaltVesselInv(), 0)), 1, tx) < 1
+                    || ItemHandlerRecipeInput.getSulfurVesselInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getSulfurVesselInv(), 0)), 1, tx) < 1) {
+                return false;
+            }
             tx.commit();
         }
 

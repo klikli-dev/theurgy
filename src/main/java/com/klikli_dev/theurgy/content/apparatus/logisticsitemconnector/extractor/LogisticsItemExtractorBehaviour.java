@@ -18,7 +18,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
@@ -139,23 +138,29 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<Reso
             var stack = ItemUtil.getStack(extractCap, extractSlot);
             if (!stack.isEmpty() && extractFilter.test(level, stack) && insertFilter.test(level, stack)) {
 
-                try (var simulateTx = Transaction.openRoot()) {
+                try (var tx = Transaction.openRoot()) {
                     var resource = extractCap.getResource(extractSlot);
-                    var extractStack = resource.toStack(extractCap.extract(extractSlot, resource, this.extractionAmount, simulateTx));
-                    if (extractStack.isEmpty()) //that should never be true, as we already checked emptiness above.
-                        continue;
+                    int insertedAmount;
 
-                    ItemStack remaining = ItemUtil.insertItemReturnRemaining(insertCap, extractStack, false, simulateTx);
-                    int insertedAmount = extractStack.getCount() - remaining.getCount();
+                    try (var simulateTx = Transaction.open(tx)) {
+                        var extractStack = resource.toStack(extractCap.extract(extractSlot, resource, this.extractionAmount, simulateTx));
+                        if (extractStack.isEmpty()) //that should never be true, as we already checked emptiness above.
+                            continue;
+
+                        ItemStack remaining = ItemUtil.insertItemReturnRemaining(insertCap, extractStack, false, simulateTx);
+                        insertedAmount = extractStack.getCount() - remaining.getCount();
+                    }
+
                     if (insertedAmount == 0)
                         continue;
 
-                    try (var tx = Transaction.openRoot()) {
-                        var transferredStack = resource.toStack(extractCap.extract(extractSlot, resource, insertedAmount, tx));
-                        ItemUtil.insertItemReturnRemaining(insertCap, transferredStack, false, tx);
-                        tx.commit();
-                        break; //we transfer maximum one stack per iteration
-                    }
+                    var transferredStack = resource.toStack(extractCap.extract(extractSlot, resource, insertedAmount, tx));
+                    ItemStack remaining = ItemUtil.insertItemReturnRemaining(insertCap, transferredStack, false, tx);
+                    if (!remaining.isEmpty())
+                        continue;
+
+                    tx.commit();
+                    break; //we transfer maximum one stack per iteration
                 }
             }
         }

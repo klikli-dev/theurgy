@@ -20,16 +20,16 @@ public class ComponentItemStorage extends ItemAccessItemHandler implements Setta
     }
 
     @Override
-    public void setStackInSlot(int slot, ItemStack stack) {
+    public void set(int slot, ItemResource resource, int amount) {
         Objects.checkIndex(slot, this.size());
-        if (!stack.isEmpty() && !this.isItemValid(slot, stack)) {
-            throw new RuntimeException("Invalid stack " + stack + " for slot " + slot + ")");
+        if (!resource.isEmpty() && !this.isValid(slot, resource)) {
+            throw new RuntimeException("Invalid stack " + resource + " for slot " + slot + ")");
         }
 
         var accessResource = this.itemAccess.getResource();
-        var updatedResource = this.update(accessResource, slot, ItemResource.of(stack), stack.getCount());
+        var updatedResource = this.update(accessResource, slot, resource, amount);
         if (updatedResource.isEmpty()) {
-            throw new RuntimeException("Unable to update stack " + stack + " for slot " + slot + ")");
+            throw new RuntimeException("Unable to update stack " + resource + " for slot " + slot + ")");
         }
 
         try (var tx = Transaction.openRoot()) {

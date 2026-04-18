@@ -15,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class MercuryFluxEmitterGameTests {
         // Insert mercury shard into catalyst to generate flux
         helper.runAtTickTime(2, () -> {
             var catalyst = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
-            catalyst.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            catalyst.inventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
         });
 
         // Wait for flux to be transferred from catalyst -> emitter -> capacitor

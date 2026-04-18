@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -54,7 +56,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             return false;
         }
 
-        this.ingredientCheckInventory.setStackInSlot(0, stack.copyWithCount(1));
+        this.ingredientCheckInventory.set(0, ItemResource.of(stack.copyWithCount(1)), stack.copyWithCount(1).getCount());
 
         return this.recipeCachedCheck.getRecipeFor(this.ingredientCheckInput, level).isPresent();
     }
@@ -154,7 +156,12 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         this.totalMercuryFluxToConvert = this.mercuryFluxToConvert; // Track total for progress calculation
         this.currentMercuryFluxPerTick = pRecipe.value().mercuryFluxPerTick();
 
-        this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
+        try (var tx = Transaction.openRoot()) {
+            var input = this.inputInventorySupplier.get();
+            var resource = input.getResource(0);
+            input.extract(0, resource, this.getIngredientCount(pRecipe), tx);
+            tx.commit();
+        }
 
         return true;
     }

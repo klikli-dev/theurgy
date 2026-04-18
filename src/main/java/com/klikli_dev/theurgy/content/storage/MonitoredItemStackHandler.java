@@ -7,10 +7,10 @@ package com.klikli_dev.theurgy.content.storage;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,16 +66,21 @@ public abstract class MonitoredItemStackHandler extends ItemStacksResourceHandle
 
     @Override
     public boolean isValid(int slot, ItemResource resource) {
-        return resource.isEmpty() || this.isItemValid(slot, resource.toStack(1));
+        return resource.isEmpty() || this.isValid(slot, resource.toStack(1));
+    }
+
+    protected boolean isValid(int slot, ItemStack stack) {
+        return true;
     }
 
     @Override
-    public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
-        var oldStack = this.getStackInSlot(slot).copy();
+    public void set(int slot, ItemResource resource, int amount) {
+        var oldStack = ItemUtil.getStack(this, slot).copy();
+        var newStack = resource.toStack(amount);
 
         boolean sameItem = ItemStack.isSameItemSameComponents(newStack, oldStack);
 
-        this.set(slot, ItemResource.of(newStack), newStack.getCount());
+        super.set(slot, resource, amount);
 
         this.onSetStackInSlot(slot, oldStack, newStack, sameItem);
         if (!sameItem) {
@@ -86,12 +91,12 @@ public abstract class MonitoredItemStackHandler extends ItemStacksResourceHandle
 
     @Override
     public int insert(int slot, ItemResource resource, int amount, TransactionContext transaction) {
-        var oldStack = this.getStackInSlot(slot).copy();
+        var oldStack = ItemUtil.getStack(this, slot).copy();
         int inserted = super.insert(slot, resource, amount, transaction);
         if (inserted > 0) {
             var insertedStack = resource.toStack(inserted);
             var remaining = resource.toStack(amount - inserted);
-            var newStack = this.getStackInSlot(slot).copy();
+            var newStack = ItemUtil.getStack(this, slot).copy();
             this.itemChangeJournal.updateSnapshots(transaction);
             this.itemChangeJournal.recordInsert(slot, oldStack, newStack, insertedStack, remaining);
         }
@@ -100,10 +105,10 @@ public abstract class MonitoredItemStackHandler extends ItemStacksResourceHandle
 
     @Override
     public int extract(int slot, ItemResource resource, int amount, TransactionContext transaction) {
-        var oldStack = this.getStackInSlot(slot).copy();
+        var oldStack = ItemUtil.getStack(this, slot).copy();
         int extractedAmount = super.extract(slot, resource, amount, transaction);
         if (extractedAmount > 0) {
-            var newStack = this.getStackInSlot(slot).copy();
+            var newStack = ItemUtil.getStack(this, slot).copy();
             this.itemChangeJournal.updateSnapshots(transaction);
             this.itemChangeJournal.recordExtract(slot, oldStack, newStack, resource.toStack(extractedAmount));
         }

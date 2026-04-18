@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -117,9 +118,9 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
         boolean isHeated = this.heatConsumerBehaviour.isHeated();
 
         boolean hasInput = this.isValidMultiblock()
-                && !this.mercuryVessel.inputInventory.getStackInSlot(0).isEmpty()
-                && !this.saltVessel.inputInventory.getStackInSlot(0).isEmpty()
-                && !this.sulfurVessel.inputInventory.getStackInSlot(0).isEmpty();
+                && !ItemUtil.getStack(this.mercuryVessel.inputInventory, 0).isEmpty()
+                && !ItemUtil.getStack(this.saltVessel.inputInventory, 0).isEmpty()
+                && !ItemUtil.getStack(this.sulfurVessel.inputInventory, 0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
     }
@@ -146,8 +147,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
         super.preRemoveSideEffects(pPos, pState);
 
         if (this.level != null) {
-            for (int i = 0; i < this.outputInventory.getSlots(); i++) {
-                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.outputInventory.getStackInSlot(i));
+            for (int i = 0; i < this.outputInventory.size(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.outputInventory, i));
             }
         }
     }

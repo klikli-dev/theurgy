@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extracto
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
-import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.integration.occultism.OccultismIntegration;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
@@ -19,7 +18,10 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> {
@@ -131,28 +133,29 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<Reso
         var level = this.level();
 
         //iterate over all slots in the extract inventory, but only extract from the first matching slot.
-        for (int extractSlot = 0; extractSlot < ItemStorageHelper.getSlots(extractCap); extractSlot++) {
+        for (int extractSlot = 0; extractSlot < extractCap.size(); extractSlot++) {
 
             //the extract slot must match the filters both on the extractor and inserter.
-            var stack = ItemStorageHelper.getStackInSlot(extractCap, extractSlot);
+            var stack = ItemUtil.getStack(extractCap, extractSlot);
             if (!stack.isEmpty() && extractFilter.test(level, stack) && insertFilter.test(level, stack)) {
 
-                //first simulate extraction, this tells us how much we can extract
-                var extractStack = ItemStorageHelper.extractItem(extractCap, extractSlot, this.extractionAmount, true);
-                if (extractStack.isEmpty()) //that should never be true, as we already checked emptiness above.
-                    continue;
+                try (var simulateTx = Transaction.openRoot()) {
+                    var resource = extractCap.getResource(extractSlot);
+                    var extractStack = resource.toStack(extractCap.extract(extractSlot, resource, this.extractionAmount, simulateTx));
+                    if (extractStack.isEmpty()) //that should never be true, as we already checked emptiness above.
+                        continue;
 
-                //and insertion
-                ItemStack inserted = ItemStorageHelper.insertItemStacked(insertCap, extractStack, true);
-                //TODO(optimization): does it make sense to cache "failed to insert" stacks?
-                //      1) use a custom insert path instead of ItemStorageHelper.insertItemStacked that tries the first sequence of full slots?
-                //      2) store itemstack + component (but not count) that failed to insert at all (not even 1 inserted in entire target container)
+                    ItemStack remaining = ItemUtil.insertItemReturnRemaining(insertCap, extractStack, false, simulateTx);
+                    int insertedAmount = extractStack.getCount() - remaining.getCount();
+                    if (insertedAmount == 0)
+                        continue;
 
-                //then if anything was inserted during the simulation, perform the real extraction and insertion
-                if (inserted.getCount() != extractStack.getCount()) {
-                    ItemStack remaining = ItemStorageHelper.insertItemStacked(insertCap, extractStack, false);
-                    ItemStorageHelper.extractItem(extractCap, extractSlot, extractStack.getCount() - remaining.getCount(), false);
-                    break; //we transfer maximum one stack per iteration
+                    try (var tx = Transaction.openRoot()) {
+                        var transferredStack = resource.toStack(extractCap.extract(extractSlot, resource, insertedAmount, tx));
+                        ItemUtil.insertItemReturnRemaining(insertCap, transferredStack, false, tx);
+                        tx.commit();
+                        break; //we transfer maximum one stack per iteration
+                    }
                 }
             }
         }

@@ -24,6 +24,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -100,18 +101,17 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             return false;
 
         //if the target does not match we can exit early.
-        if (!this.target.test(pContainer.getTargetPedestalInv().getStackInSlot(0)))
+        if (!this.target.test(ItemUtil.getStack(pContainer.getTargetPedestalInv(), 0)))
             return false;
 
         //For the sources the tricky part is that the amount of source pedestals does not need to match the amount of sources in the recipe.
         //Specifically, one recipe source with a count > 1 can be satisfied by the combination of multiple source pedestals.
         //So we have to check for each source if it can be satisfied by the pedestals, while ensuring that pedestals contents are not double counted.
 
-        var remainingSources = new ArrayList<>(this.sources);
-        var pedestalsToCheck = pContainer.getSourcePedestalInvs().stream().map(p -> p.getStackInSlot(0).copy()).toList();
+        var pedestalsToCheck = pContainer.getSourcePedestalInvs().stream().map(p -> ItemUtil.getStack(p, 0).copy()).toList();
 
         //go through all sources to check if they are matched
-        for (var source : remainingSources) {
+        for (var source : this.sources) {
             var found = false;
             //it is a n (pedestals) to n (required sources) problem, so we need to check all pedestals for each source
             for (var sourceInputStack : pedestalsToCheck) {
@@ -134,7 +134,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
     public ItemStack assemble(ReformationArrayRecipeInput pCraftingContainer) {
         var result = this.result.create();
         //TODO: the tag copy should be an option in the recipe json
-        var targetItem = pCraftingContainer.getTargetPedestalInv().getStackInSlot(0);
+        var targetItem = ItemUtil.getStack(pCraftingContainer.getTargetPedestalInv(), 0);
 
         if (!targetItem.getComponents().isEmpty())
             result.applyComponents(targetItem.getComponents());

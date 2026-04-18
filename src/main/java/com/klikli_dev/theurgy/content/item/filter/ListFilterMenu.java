@@ -11,6 +11,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class ListFilterMenu extends AbstractFilterMenu {
@@ -56,7 +57,7 @@ public class ListFilterMenu extends AbstractFilterMenu {
         int y = 22;
         for (int row = 0; row < 2; ++row)
             for (int col = 0; col < 9; ++col)
-                this.addSlot(new ResourceHandlerSlot(this.ghostInventory, (slot, resource, amount) -> this.ghostInventory.setStackInSlot(slot, resource.toStack(amount)), col + row * 9, x + col * 18, y + row * 18));
+                this.addSlot(new ResourceHandlerSlot(this.ghostInventory, (slot, resource, amount) -> this.ghostInventory.set(slot, ItemResource.of(resource.toStack(amount)), amount), col + row * 9, x + col * 18, y + row * 18));
     }
 
     @Override

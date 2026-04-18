@@ -28,6 +28,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -47,7 +50,7 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
         // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
 
         if (pLevel.getBlockEntity(pPos) instanceof PyromanticBrazierBlockEntity blockEntity) {
-            var inputStack = blockEntity.inventory.getStackInSlot(0);
+            var inputStack = ItemUtil.getStack(blockEntity.inventory, 0);
             var stackInHand = pPlayer.getItemInHand(pHand);
             var brazierHasNonFuel = !inputStack.isEmpty() && blockEntity.getBurnDuration(inputStack) == 0;
 
@@ -56,15 +59,17 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
                 //Click with any hand but non fuel item in block entity, remove it -> clean out empty buckets etc
                 if (!inputStack.isEmpty()) {
                     pPlayer.getInventory().placeItemBackInInventory(inputStack);
-                    blockEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                    blockEntity.inventory.set(0, ItemResource.of(ItemStack.EMPTY), ItemStack.EMPTY.getCount());
                     return InteractionResult.SUCCESS;
                 }
             } else {
-                int countBefore = stackInHand.getCount();
-                var remainder = blockEntity.inventory.insertItem(0, stackInHand, false);
-                if (remainder.getCount() != countBefore) {
-                    pPlayer.setItemInHand(pHand, remainder);
-                    return InteractionResult.SUCCESS;
+                try (var tx = Transaction.openRoot()) {
+                    var remainder = net.neoforged.neoforge.transfer.item.ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, stackInHand, false, tx);
+                    if (remainder.getCount() != stackInHand.getCount()) {
+                        tx.commit();
+                        pPlayer.setItemInHand(pHand, remainder);
+                        return InteractionResult.SUCCESS;
+                    }
                 }
                 return InteractionResult.PASS;
             }

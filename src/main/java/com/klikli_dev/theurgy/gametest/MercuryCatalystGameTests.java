@@ -18,6 +18,8 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 
 public class MercuryCatalystGameTests {
 
@@ -43,7 +45,7 @@ public class MercuryCatalystGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
         });
 
         helper.succeedWhen(() -> {
@@ -63,13 +65,13 @@ public class MercuryCatalystGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
         });
 
         helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
             helper.assertTrue(
-                    blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(),
                     "Mercury shard should be consumed during catalysation"
             );
         });
@@ -86,7 +88,7 @@ public class MercuryCatalystGameTests {
             helper.useBlock(CATALYST_POS, player, centeredHitResult(helper, CATALYST_POS));
             helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Placed block should be consumed on first click");
             helper.assertBlockPresent(Blocks.DIRT, ABOVE_CATALYST_POS);
-            helper.assertTrue(blockEntity.inventory.getStackInSlot(0).isEmpty(), "Catalyst should not store rejected placeable blocks");
+            helper.assertTrue(ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(), "Catalyst should not store rejected placeable blocks");
 
             helper.useBlock(CATALYST_POS, player, centeredHitResult(helper, CATALYST_POS));
             helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Second click should not recreate the consumed block");
@@ -105,7 +107,7 @@ public class MercuryCatalystGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
         });
 
         // Wait some ticks then verify flux was still generated (crafting still works when disabled,

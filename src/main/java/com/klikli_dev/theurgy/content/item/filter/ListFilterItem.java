@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,14 +41,14 @@ public class ListFilterItem extends FilterItem {
                 : Component.translatable(TheurgyConstants.I18n.Gui.LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP)).withStyle(ChatFormatting.GOLD));
 
         int count = 0;
-        for (int i = 0; i < filterItems.getSlots(); i++) {
+        for (ItemStackTemplate filterStackTemplate : filterItems.nonEmptyItems()) {
             if (count > 3) {
                 list.add(Component.literal("- ...")
                         .withStyle(ChatFormatting.DARK_GRAY));
                 break;
             }
 
-            ItemStack filterStack = filterItems.getStackInSlot(i);
+            ItemStack filterStack = filterStackTemplate.create();
             if (filterStack.isEmpty())
                 continue;
             list.add(Component.literal("- ")

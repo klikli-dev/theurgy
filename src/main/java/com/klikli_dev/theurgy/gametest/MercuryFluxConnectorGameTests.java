@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 /**
  * Game tests for the Mercury Flux Logistics Connector.
@@ -137,7 +138,7 @@ public class MercuryFluxConnectorGameTests {
         helper.runAfterDelay(1, () -> {
             // Insert mercury shard into catalyst to generate flux
             var catalystBE = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
-            catalystBE.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            catalystBE.inventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
 
             connectWithWire(helper, CONNECTOR_A_POS, CONNECTOR_B_POS);
         });
@@ -173,7 +174,7 @@ public class MercuryFluxConnectorGameTests {
         helper.runAfterDelay(1, () -> {
             // Insert mercury shard into catalyst
             var catalystBE = helper.getBlockEntity(CATALYST_POS, MercuryCatalystBlockEntity.class);
-            catalystBE.inventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            catalystBE.inventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
 
             connectWithWire(helper, CONNECTOR_A_POS, CONNECTOR_B_POS);
             connectWithWire(helper, CONNECTOR_A_POS, CONNECTOR_C_POS);

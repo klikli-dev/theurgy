@@ -14,11 +14,13 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeInput, ReformationRecipe, LevelAwareCachedCheck<ReformationArrayRecipeInput, ReformationRecipe>> {
 
@@ -59,22 +61,31 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
                     continue;
                 }
 
-                var sourceStack = sourceInventory.getStackInSlot(0);
+                var sourceStack = ItemUtil.getStack(sourceInventory, 0);
                 if (source.test(sourceStack)) {
                     // Add this source inventory to the set of used inventories
                     usedInventories.add(sourceInventory);
 
-                    sourceInventory.extractItem(0, source.count(), false);
+                    try (var tx = Transaction.openRoot()) {
+                        sourceInventory.extract(ItemResource.of(sourceStack), source.count(), tx);
+                        tx.commit();
+                    }
                     break;
                 }
             }
         }
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
-        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
+        try (var tx = Transaction.openRoot()) {
+            this.outputInventorySupplier.get().insert(ItemResource.of(assembledStack), assembledStack.getCount(), tx);
+            tx.commit();
+        }
 
         // Consume the target item
-        ItemHandlerRecipeInput.getTargetPedestalInv().extractItem(0, 1, false);
+        try (var tx = Transaction.openRoot()) {
+            ItemHandlerRecipeInput.getTargetPedestalInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getTargetPedestalInv(), 0)), 1, tx);
+            tx.commit();
+        }
 
         return true;
     }

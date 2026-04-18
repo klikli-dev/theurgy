@@ -23,8 +23,8 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
 
@@ -67,9 +67,9 @@ public record IncubationRecipe(Ingredient mercury, Ingredient salt, Ingredient s
 
     @Override
     public boolean matches(@NotNull IncubatorRecipeInput pContainer, @NotNull Level pLevel) {
-        return this.mercury.test(pContainer.getMercuryVesselInv().getStackInSlot(0)) &&
-                this.salt.test(pContainer.getSaltVesselInv().getStackInSlot(0)) &&
-                this.sulfur.test(pContainer.getSulfurVesselInv().getStackInSlot(0));
+        return this.mercury.test(ItemUtil.getStack(pContainer.getMercuryVesselInv(), 0)) &&
+                this.salt.test(ItemUtil.getStack(pContainer.getSaltVesselInv(), 0)) &&
+                this.sulfur.test(ItemUtil.getStack(pContainer.getSulfurVesselInv(), 0));
     }
 
     @Override

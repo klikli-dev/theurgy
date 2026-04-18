@@ -21,6 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class IncubatorGameTests {
 
@@ -190,13 +193,14 @@ public class IncubatorGameTests {
 
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(MERCURY_VESSEL_POS, IncubatorMercuryVesselBlockEntity.class);
-            var remainder = vessel.inputInventory.insertItem(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1), false);
+            ItemStack remainder;
+            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1), false, tx); tx.commit(); }
             helper.assertTrue(
                     remainder.isEmpty(),
                     "Mercury shard should be accepted by mercury vessel"
             );
             helper.assertTrue(
-                    !vessel.inputInventory.getStackInSlot(0).isEmpty(),
+                    !ItemUtil.getStack(vessel.inputInventory, 0).isEmpty(),
                     "Mercury vessel should contain the inserted item"
             );
             helper.succeed();
@@ -211,13 +215,13 @@ public class IncubatorGameTests {
 
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class);
-            vessel.inputInventory.insertItem(0, new ItemStack(SaltRegistry.CREATURE.get(), 1), false);
+            try (var tx = Transaction.openRoot()) { ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(SaltRegistry.CREATURE.get(), 1), false, tx); tx.commit(); }
         });
 
         helper.succeedWhen(() -> {
             var vessel = helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class);
             var expectedStack = new ItemStack(SaltRegistry.CREATURE.get(), 1);
-            var actualStack = vessel.inputInventory.getStackInSlot(0);
+            var actualStack = ItemUtil.getStack(vessel.inputInventory, 0);
             helper.assertTrue(
                     ItemStack.matches(expectedStack, actualStack),
                     "Salt vessel should contain the inserted alchemical salt"
@@ -233,13 +237,14 @@ public class IncubatorGameTests {
 
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(SULFUR_VESSEL_POS, IncubatorSulfurVesselBlockEntity.class);
-            var remainder = vessel.inputInventory.insertItem(0, new ItemStack(SulfurRegistry.BONE.get(), 1), false);
+            ItemStack remainder;
+            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(SulfurRegistry.BONE.get(), 1), false, tx); tx.commit(); }
             helper.assertTrue(
                     remainder.isEmpty(),
                     "Alchemical sulfur should be accepted by sulfur vessel"
             );
             helper.assertTrue(
-                    !vessel.inputInventory.getStackInSlot(0).isEmpty(),
+                    !ItemUtil.getStack(vessel.inputInventory, 0).isEmpty(),
                     "Sulfur vessel should contain the inserted item"
             );
             helper.succeed();
@@ -254,18 +259,23 @@ public class IncubatorGameTests {
 
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(MERCURY_VESSEL_POS, IncubatorMercuryVesselBlockEntity.class);
-            vessel.inputInventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
+            vessel.inputInventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
         });
 
         helper.runAfterDelay(4, () -> {
             var vessel = helper.getBlockEntity(MERCURY_VESSEL_POS, IncubatorMercuryVesselBlockEntity.class);
-            var extracted = vessel.inputInventory.extractItem(0, 1, false);
+            ItemStack extracted;
+            try (var tx = Transaction.openRoot()) {
+                var resource = vessel.inputInventory.getResource(0);
+                extracted = resource.toStack(vessel.inputInventory.extract(0, resource, 1, tx));
+                tx.commit();
+            }
             helper.assertTrue(
                     !extracted.isEmpty(),
                     "Should be able to extract from mercury vessel"
             );
             helper.assertTrue(
-                    vessel.inputInventory.getStackInSlot(0).isEmpty(),
+                    ItemUtil.getStack(vessel.inputInventory, 0).isEmpty(),
                     "Mercury vessel should be empty after extraction"
             );
             helper.succeed();
@@ -298,7 +308,7 @@ public class IncubatorGameTests {
         helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(INCUBATOR_LOWER_POS, IncubatorBlockEntity.class);
             // Output should be produced
-            var output = blockEntity.outputInventory.getStackInSlot(0);
+            var output = ItemUtil.getStack(blockEntity.outputInventory, 0);
             helper.assertTrue(
                     !output.isEmpty(),
                     "Output inventory should contain the incubation result"
@@ -314,12 +324,17 @@ public class IncubatorGameTests {
 
         helper.runAfterDelay(2, () -> {
             var blockEntity = helper.getBlockEntity(INCUBATOR_LOWER_POS, IncubatorBlockEntity.class);
-            blockEntity.outputInventory.setStackInSlot(0, new ItemStack(Items.COBBLESTONE, 1));
+            blockEntity.outputInventory.set(0, ItemResource.of(new ItemStack(Items.COBBLESTONE, 1)), new ItemStack(Items.COBBLESTONE, 1).getCount());
         });
 
         helper.runAfterDelay(4, () -> {
             var blockEntity = helper.getBlockEntity(INCUBATOR_LOWER_POS, IncubatorBlockEntity.class);
-            var extracted = blockEntity.outputInventory.extractItem(0, 1, false);
+            ItemStack extracted;
+            try (var tx = Transaction.openRoot()) {
+                var resource = blockEntity.outputInventory.getResource(0);
+                extracted = resource.toStack(blockEntity.outputInventory.extract(0, resource, 1, tx));
+                tx.commit();
+            }
             helper.assertTrue(
                     !extracted.isEmpty(),
                     "Should be able to extract from incubator output"
@@ -379,7 +394,7 @@ public class IncubatorGameTests {
         helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
         helper.runAfterDelay(1, () -> {
             var brazier = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            brazier.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 64));
+            brazier.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 64)), new ItemStack(Items.COAL, 64).getCount());
         });
     }
 
@@ -393,9 +408,9 @@ public class IncubatorGameTests {
             var saltVessel = helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class);
             var sulfurVessel = helper.getBlockEntity(SULFUR_VESSEL_POS, IncubatorSulfurVesselBlockEntity.class);
 
-            mercuryVessel.inputInventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
-            saltVessel.inputInventory.setStackInSlot(0, new ItemStack(SaltRegistry.CREATURE.get(), 1));
-            sulfurVessel.inputInventory.setStackInSlot(0, new ItemStack(SulfurRegistry.BONE.get(), 1));
+            mercuryVessel.inputInventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1).getCount());
+            saltVessel.inputInventory.set(0, ItemResource.of(new ItemStack(SaltRegistry.CREATURE.get(), 1)), new ItemStack(SaltRegistry.CREATURE.get(), 1).getCount());
+            sulfurVessel.inputInventory.set(0, ItemResource.of(new ItemStack(SulfurRegistry.BONE.get(), 1)), new ItemStack(SulfurRegistry.BONE.get(), 1).getCount());
         });
     }
 }

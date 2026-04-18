@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -335,7 +336,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity pedestal) {
-        this.hasTargetItem = !pedestal.inputInventory.getStackInSlot(0).isEmpty();
+        this.hasTargetItem = !ItemUtil.getStack(pedestal.inputInventory, 0).isEmpty();
     }
 
     public void onSourcePedestalContentChange(ReformationSourcePedestalBlockEntity pedestal) {
@@ -343,7 +344,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.hasSourceItems = this.sourcePedestals.stream().map(p -> new Pair<>(p, this.level.getBlockEntity(p.getBlockPos())))
                 .filter(p -> p.getSecond() instanceof ReformationSourcePedestalBlockEntity)
                 .map(p -> new Pair<>(p.getFirst(), (ReformationSourcePedestalBlockEntity) p.getSecond()))
-                .filter(p -> !p.getSecond().inputInventory.getStackInSlot(0).isEmpty())
+                .filter(p -> !ItemUtil.getStack(p.getSecond().inputInventory, 0).isEmpty())
                 .peek(p -> this.sourcePedestalsWithContents.add(p.getFirst()))
                 .count() > 0; //need to count to force the stream to run on all elements. findAny() would only run on one.
         this.setChanged();

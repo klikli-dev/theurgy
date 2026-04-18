@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.List;
 import java.lang.Runnable;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 
 public class SulfuricFluxEmitterGameTests {
 
@@ -94,24 +96,24 @@ public class SulfuricFluxEmitterGameTests {
                     }
 
             var source = helper.getBlockEntity(SOURCE_PEDESTAL_POS, ReformationSourcePedestalBlockEntity.class);
-            source.inputInventory.setStackInSlot(0, new ItemStack(NiterRegistry.MOBS_ABUNDANT.get(), 1));
+            source.inputInventory.set(0, ItemResource.of(new ItemStack(NiterRegistry.MOBS_ABUNDANT.get(), 1)), new ItemStack(NiterRegistry.MOBS_ABUNDANT.get(), 1).getCount());
 
             var target = helper.getBlockEntity(TARGET_PEDESTAL_POS, ReformationTargetPedestalBlockEntity.class);
-            target.inputInventory.setStackInSlot(0, new ItemStack(SulfurRegistry.BONE.get(), 1));
+            target.inputInventory.set(0, ItemResource.of(new ItemStack(SulfurRegistry.BONE.get(), 1)), new ItemStack(SulfurRegistry.BONE.get(), 1).getCount());
         });
 
         // Wait for processing to start and complete. Recipe takes 100 ticks.
         helper.succeedWhen(() -> {
             var result = helper.getBlockEntity(RESULT_PEDESTAL_POS, ReformationResultPedestalBlockEntity.class);
-            var resultStack = result.outputInventory.getStackInSlot(0);
+            var resultStack = ItemUtil.getStack(result.outputInventory, 0);
 
             helper.assertTrue(ItemStack.matches(resultStack, new ItemStack(SulfurRegistry.BONE.get())), "Result pedestal should contain one bone sulfur");
 
             var source = helper.getBlockEntity(SOURCE_PEDESTAL_POS, ReformationSourcePedestalBlockEntity.class);
-            helper.assertTrue(source.inputInventory.getStackInSlot(0).isEmpty(), "Source item should be consumed");
+            helper.assertTrue(ItemUtil.getStack(source.inputInventory, 0).isEmpty(), "Source item should be consumed");
 
             var target = helper.getBlockEntity(TARGET_PEDESTAL_POS, ReformationTargetPedestalBlockEntity.class);
-            helper.assertTrue(target.inputInventory.getStackInSlot(0).isEmpty(), "Target item should be consumed");
+            helper.assertTrue(ItemUtil.getStack(target.inputInventory, 0).isEmpty(), "Target item should be consumed");
         });
     }
 }

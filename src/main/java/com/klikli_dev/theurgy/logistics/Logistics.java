@@ -32,6 +32,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -49,7 +50,7 @@ public class Logistics extends SavedData {
     private final MutableGraph<GlobalPos> graph;
     private final Set<GlobalPos> graphNodes = new ObjectOpenHashSet<>();
     private final Map<GlobalPos, LogisticsNetwork> blockPosToNetwork = new Object2ObjectOpenHashMap<>();
-    private final Map<GlobalPos, WeakReference<LeafNodeBehaviour<?, ?>>> cachedLeafNodes = new Object2ObjectOpenHashMap<>();
+    private final Map<CachedLeafNodeKey, WeakReference<LeafNodeBehaviour<?, ?>>> cachedLeafNodes = new Object2ObjectOpenHashMap<>();
     /**
      * If true, leaf node lookups will be cached. This is useful if you access a lot of nodes in a short period of time.
      */
@@ -162,8 +163,9 @@ public class Logistics extends SavedData {
     public <T, C> LeafNodeBehaviour<T, C> getLeafNode(GlobalPos pos, BlockCapability<T, C> capability) {
         //first check leaf node cache
         LeafNodeBehaviour<T, C> result = null;
+        var cacheKey = new CachedLeafNodeKey(pos, capability);
         if (this.useLeafNodeCache) {
-            var weakRef = this.cachedLeafNodes.get(pos);
+            var weakRef = this.cachedLeafNodes.get(cacheKey);
             if (weakRef != null) {
                 var temp = weakRef.get();
                 if (temp != null && (capability == null || temp.capabilityType().equals(capability))) {
@@ -171,7 +173,7 @@ public class Logistics extends SavedData {
                     result = (LeafNodeBehaviour<T, C>) temp;
                 }
                 if (result == null) { //clean up cache if needed.
-                    this.cachedLeafNodes.remove(pos);
+                    this.cachedLeafNodes.remove(cacheKey);
                 }
             }
         }
@@ -187,13 +189,15 @@ public class Logistics extends SavedData {
                 return null;
 
             var blockEntity = level.getBlockEntity(pos.pos());
-            if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode && (capability == null || hasLeafNode.leafNode().capabilityType().equals(capability))) {
-                //noinspection unchecked -> we know it is the right type because we check!
-                result = (LeafNodeBehaviour<T, C>) hasLeafNode.leafNode();
+            if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode) {
+                result = (LeafNodeBehaviour<T, C>) hasLeafNode.leafNodes().stream()
+                        .filter(node -> capability == null || node.capabilityType().equals(capability))
+                        .findFirst()
+                        .orElse(null);
             }
 
             if (result != null && this.useLeafNodeCache) {
-                this.cachedLeafNodes.put(pos, new WeakReference<>(result));
+                this.cachedLeafNodes.put(cacheKey, new WeakReference<>(result));
             }
         }
 
@@ -496,9 +500,33 @@ public class Logistics extends SavedData {
             return;
         }
 
-        var leafNode = this.getLeafNode(node);
-        if (leafNode != null) {
-            network.trackLeafNode(leafNode);
+        var server = server();
+        var level = server.getLevel(node.dimension());
+        if (level == null) {
+            return;
+        }
+
+        var blockEntity = level.getBlockEntity(node.pos());
+        if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode) {
+            hasLeafNode.leafNodes().forEach(network::trackLeafNode);
+        }
+    }
+
+    private record CachedLeafNodeKey(GlobalPos pos, BlockCapability<?, ?> capability) {
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof CachedLeafNodeKey other)) {
+                return false;
+            }
+            return this.pos.equals(other.pos) && Objects.equals(this.capability, other.capability);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.pos, this.capability);
         }
     }
 

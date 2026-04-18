@@ -2,12 +2,12 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "logistics",
-  "description": "book.theurgy.the_hermetica.logistics.fluid_extractor.description",
+  "description": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.description",
   "hide_while_locked": false,
   "icon": {
-    "id": "theurgy:logistics_fluid_extractor"
+    "id": "theurgy:logistics_mercury_flux_connector"
   },
-  "name": "book.theurgy.the_hermetica.logistics.fluid_extractor.name",
+  "name": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -15,8 +15,8 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": "theurgy:logistics_fluid_extractor",
-      "text": "book.theurgy.the_hermetica.logistics.fluid_extractor.extractor.text",
+      "item": "theurgy:logistics_mercury_flux_connector",
+      "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.connector.text",
       "title": ""
     },
     {
@@ -25,7 +25,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_fluid_extractor",
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_mercury_flux_connector",
       "text": "",
       "title1": "",
       "title2": ""
@@ -37,8 +37,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.fluid_extractor.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.usage.title",
+      "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.usage.text",
+      "title": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.usage.title",
       "use_markdown_in_title": false
     },
     {
@@ -48,8 +48,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.fluid_extractor.identification.text",
-      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.identification.title",
+      "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.transfer.text",
+      "title": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.transfer.title",
       "use_markdown_in_title": false
     },
     {
@@ -59,8 +59,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.fluid_extractor.direction.text",
-      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.direction.title",
+      "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.direction.text",
+      "title": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.direction.title",
       "use_markdown_in_title": false
     }
   ],
@@ -73,7 +73,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 14,
-  "x": 13,
-  "y": -2
+  "sort_number": 9,
+  "x": 11,
+  "y": 2
 }

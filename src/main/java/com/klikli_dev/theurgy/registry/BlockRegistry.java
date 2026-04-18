@@ -29,7 +29,7 @@ import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBraz
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlock;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmitterBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlock;

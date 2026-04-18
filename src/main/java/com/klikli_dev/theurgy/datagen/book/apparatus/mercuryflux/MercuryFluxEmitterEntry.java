@@ -29,7 +29,9 @@ public class MercuryFluxEmitterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText(
                 """
-                        The {0} transfers [#]($PURPLE)Mercury Flux[#]() from the block it is attached to into another linked block. This allows transporting raw energy to where it is needed.
+                        The {0} transfers [#]($PURPLE)Mercury Flux[#]() from the block it is attached to into another linked block.
+                        \\
+                        It can also transfer NeoForge Energy / FE, but won't convert between the two.
                         """,
                 this.itemLink(ItemRegistry.MERCURY_FLUX_EMITTER.get())
         );
@@ -72,7 +74,7 @@ public class MercuryFluxEmitterEntry extends EntryProvider {
                         You can disable it with an active redstone signal.
                         \\
                         \\
-                        When disabled, the emitter will not transfer mercury flux to the target block.
+                        When disabled, the emitter will not transfer mercury flux or NeoForge Energy / FE to the target block.
                         """
         );
     }

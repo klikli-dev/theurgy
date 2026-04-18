@@ -44,7 +44,7 @@ public class LogisticsMercuryFluxConnectorBlock extends LogisticsItemConnectorBl
         }
         return (lvl, pos, blockState, t) -> {
             if (t instanceof LogisticsMercuryFluxConnectorBlockEntity blockEntity) {
-                blockEntity.leafNode().tickServer();
+                blockEntity.tickServer();
             }
         };
     }

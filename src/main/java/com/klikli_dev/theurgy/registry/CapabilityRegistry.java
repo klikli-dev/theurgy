@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenB
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector.LogisticsMercuryFluxConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
@@ -256,6 +257,11 @@ public class CapabilityRegistry {
                 // Expose the connector's own buffer so source blocks can push into it.
                 // The connector then forwards buffer contents through the logistics network.
                 (blockEntity, side) -> blockEntity.leafNode().buffer());
+
+        event.registerBlockEntity(
+                Capabilities.Energy.BLOCK,
+                BlockEntityRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get(),
+                (blockEntity, side) -> blockEntity.energyLeafNode().buffer());
     }
 
 
@@ -299,12 +305,27 @@ public class CapabilityRegistry {
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.MERCURY_FLUX_EMITTER.get(),
                 (blockEntity, side) -> {
+                    MercuryFluxEmitterBlockEntity emitter = blockEntity;
                     // Only expose capability on the side the emitter is attached to (opposite to FACING)
-                    var blockState = blockEntity.getBlockState();
+                    var blockState = emitter.getBlockState();
                     var facing = blockState.getValue(BlockStateProperties.FACING);
                     var attachedSide = facing.getOpposite();
                     if (side == null || side == attachedSide) {
-                        return blockEntity.mercuryFluxHandler;
+                        return emitter.mercuryFluxHandler;
+                    }
+                    return null;
+                });
+
+        event.registerBlockEntity(
+                Capabilities.Energy.BLOCK,
+                BlockEntityRegistry.MERCURY_FLUX_EMITTER.get(),
+                (blockEntity, side) -> {
+                    MercuryFluxEmitterBlockEntity emitter = blockEntity;
+                    var blockState = emitter.getBlockState();
+                    var facing = blockState.getValue(BlockStateProperties.FACING);
+                    var attachedSide = facing.getOpposite();
+                    if (side == null || side == attachedSide) {
+                        return emitter.energyStorage;
                     }
                     return null;
                 });

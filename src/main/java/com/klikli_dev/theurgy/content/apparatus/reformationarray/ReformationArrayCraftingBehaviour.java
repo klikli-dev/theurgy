@@ -81,12 +81,6 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
             tx.commit();
         }
 
-        // Consume the target item
-        try (var tx = Transaction.openRoot()) {
-            ItemHandlerRecipeInput.getTargetPedestalInv().extract(ItemResource.of(ItemUtil.getStack(ItemHandlerRecipeInput.getTargetPedestalInv(), 0)), 1, tx);
-            tx.commit();
-        }
-
         return true;
     }
 

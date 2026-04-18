@@ -113,7 +113,7 @@ public class SulfuricFluxEmitterGameTests {
             helper.assertTrue(ItemUtil.getStack(source.inputInventory, 0).isEmpty(), "Source item should be consumed");
 
             var target = helper.getBlockEntity(TARGET_PEDESTAL_POS, ReformationTargetPedestalBlockEntity.class);
-            helper.assertTrue(ItemUtil.getStack(target.inputInventory, 0).isEmpty(), "Target item should be consumed");
+            helper.assertTrue(ItemStack.matches(ItemUtil.getStack(target.inputInventory, 0), new ItemStack(SulfurRegistry.BONE.get())), "Target item should remain in place");
         });
     }
 }

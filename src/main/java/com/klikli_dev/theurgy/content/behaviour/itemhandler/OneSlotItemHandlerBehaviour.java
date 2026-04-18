@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
@@ -38,8 +39,12 @@ public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
 
         if (stackInHand.isEmpty()) {
             try (var tx = Transaction.openRoot()) {
-                var resource = blockItemHandler.getResource(SLOT);
-                var extracted = resource.toStack(blockItemHandler.extract(SLOT, resource, blockItemHandler.getCapacityAsInt(SLOT, null), tx));
+                var stackInSlot = ItemUtil.getStack(blockItemHandler, SLOT);
+                var extracted = ItemStack.EMPTY;
+                if (!stackInSlot.isEmpty()) {
+                    var resource = ItemResource.of(stackInSlot);
+                    extracted = resource.toStack(blockItemHandler.extract(SLOT, resource, blockItemHandler.getCapacityAsInt(SLOT, null), tx));
+                }
                 if (!extracted.isEmpty()) {
                     tx.commit();
                     pPlayer.getInventory().placeItemBackInInventory(extracted);

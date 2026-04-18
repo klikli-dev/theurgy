@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
@@ -39,11 +40,18 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
 
         if (stackInHand.isEmpty()) {
             try (var tx = Transaction.openRoot()) {
-                var outputResource = blockItemHandler.getResource(OUTPUT_SLOT);
-                var extracted = outputResource.toStack(blockItemHandler.extract(OUTPUT_SLOT, outputResource, blockItemHandler.getCapacityAsInt(OUTPUT_SLOT, null), tx));
+                var extracted = ItemStack.EMPTY;
+                var outputStack = ItemUtil.getStack(blockItemHandler, OUTPUT_SLOT);
+                if (!outputStack.isEmpty()) {
+                    var outputResource = ItemResource.of(outputStack);
+                    extracted = outputResource.toStack(blockItemHandler.extract(OUTPUT_SLOT, outputResource, blockItemHandler.getCapacityAsInt(OUTPUT_SLOT, null), tx));
+                }
                 if (extracted.isEmpty()) {
-                    var inputResource = blockItemHandler.getResource(INPUT_SLOT);
-                    extracted = inputResource.toStack(blockItemHandler.extract(INPUT_SLOT, inputResource, blockItemHandler.getCapacityAsInt(INPUT_SLOT, null), tx));
+                    var inputStack = ItemUtil.getStack(blockItemHandler, INPUT_SLOT);
+                    if (!inputStack.isEmpty()) {
+                        var inputResource = ItemResource.of(inputStack);
+                        extracted = inputResource.toStack(blockItemHandler.extract(INPUT_SLOT, inputResource, blockItemHandler.getCapacityAsInt(INPUT_SLOT, null), tx));
+                    }
                 }
                 if (!extracted.isEmpty()) {
                     tx.commit();

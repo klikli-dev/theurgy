@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -50,8 +51,9 @@ public class DigestionVatGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
             ItemStack remainder;
+            var input = new ItemStack(ItemRegistry.PURIFIED_GOLD.get(), 1);
             try (var tx = Transaction.openRoot()) {
-                remainder = ItemUtil.insertItemReturnRemaining(blockEntity.storageBehaviour.inputInventory, 0, new ItemStack(Items.COBBLESTONE, 1), false, tx);
+                remainder = ItemUtil.insertItemReturnRemaining(blockEntity.storageBehaviour.inputInventory, 0, input, false, tx);
                 tx.commit();
             }
             helper.assertTrue(remainder.isEmpty(), "Item should be accepted as input");

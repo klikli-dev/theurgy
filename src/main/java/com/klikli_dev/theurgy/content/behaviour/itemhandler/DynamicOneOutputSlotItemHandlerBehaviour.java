@@ -49,11 +49,20 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
 
         if (stackInHand.isEmpty()) {
             try (var tx = Transaction.openRoot()) {
-                var outputResource = blockItemHandler.getResource(outputSlot);
-                var extracted = outputResource.toStack(blockItemHandler.extract(outputSlot, outputResource, blockItemHandler.getCapacityAsInt(outputSlot, null), tx));
+                var extracted = ItemStack.EMPTY;
+                var outputStack = ItemUtil.getStack(blockItemHandler, outputSlot);
+                if (!outputStack.isEmpty()) {
+                    var outputResource = ItemResource.of(outputStack);
+                    extracted = outputResource.toStack(blockItemHandler.extract(outputSlot, outputResource, blockItemHandler.getCapacityAsInt(outputSlot, null), tx));
+                }
                 if (extracted.isEmpty()) {
                     for (int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++) {
-                        var resource = blockItemHandler.getResource(inputSlot);
+                        var inputStack = ItemUtil.getStack(blockItemHandler, inputSlot);
+                        if (inputStack.isEmpty()) {
+                            continue;
+                        }
+
+                        var resource = ItemResource.of(inputStack);
                         extracted = resource.toStack(blockItemHandler.extract(inputSlot, resource, blockItemHandler.getCapacityAsInt(inputSlot, null), tx));
                         if (!extracted.isEmpty()) break;
                     }

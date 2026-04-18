@@ -343,6 +343,27 @@ public class IncubatorGameTests {
         });
     }
 
+    public static void blockedOutputDoesNotConsumeVesselInputs(GameTestHelper helper) {
+        placeAllVessels(helper);
+
+        helper.runAfterDelay(2, () -> {
+            var blockEntity = helper.getBlockEntity(INCUBATOR_LOWER_POS, IncubatorBlockEntity.class);
+            blockEntity.outputInventory.set(0, ItemResource.of(new ItemStack(Items.COBBLESTONE, 1)), 1);
+            helper.getBlockEntity(MERCURY_VESSEL_POS, IncubatorMercuryVesselBlockEntity.class).inputInventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1)), 1);
+            helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class).inputInventory.set(0, ItemResource.of(new ItemStack(SaltRegistry.CREATURE.get(), 1)), 1);
+            helper.getBlockEntity(SULFUR_VESSEL_POS, IncubatorSulfurVesselBlockEntity.class).inputInventory.set(0, ItemResource.of(new ItemStack(SulfurRegistry.BONE.get(), 1)), 1);
+        });
+
+        helper.runAfterDelay(3, () -> {
+            var blockEntity = helper.getBlockEntity(INCUBATOR_LOWER_POS, IncubatorBlockEntity.class);
+            helper.assertTrue(ItemUtil.getStack(blockEntity.outputInventory, 0).getCount() == 1, "Blocked output should remain unchanged");
+            helper.assertTrue(ItemUtil.getStack(helper.getBlockEntity(MERCURY_VESSEL_POS, IncubatorMercuryVesselBlockEntity.class).inputInventory, 0).getCount() == 1, "Mercury vessel input should remain");
+            helper.assertTrue(ItemUtil.getStack(helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class).inputInventory, 0).getCount() == 1, "Salt vessel input should remain");
+            helper.assertTrue(ItemUtil.getStack(helper.getBlockEntity(SULFUR_VESSEL_POS, IncubatorSulfurVesselBlockEntity.class).inputInventory, 0).getCount() == 1, "Sulfur vessel input should remain");
+            helper.succeed();
+        });
+    }
+
     /**
      * Tests that processing stops when heat is removed.
      */

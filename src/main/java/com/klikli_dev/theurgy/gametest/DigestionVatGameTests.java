@@ -98,6 +98,25 @@ public class DigestionVatGameTests {
         });
     }
 
+    public static void blockedOutputDoesNotConsumeInputsOrFluid(GameTestHelper helper) {
+        helper.setBlock(VAT_POS, BlockRegistry.DIGESTION_VAT.get());
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(ItemRegistry.PURIFIED_GOLD.get(), 1)), 1);
+            blockEntity.storageBehaviour.fluidTank.fill(new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false);
+            blockEntity.storageBehaviour.outputInventory.set(0, ItemResource.of(new ItemStack(Items.COBBLESTONE, 1)), 1);
+        });
+
+        helper.runAfterDelay(2, () -> {
+            var blockEntity = helper.getBlockEntity(VAT_POS, DigestionVatBlockEntity.class);
+            helper.assertTrue(ItemUtil.getStack(blockEntity.storageBehaviour.inputInventory, 0).getCount() == 1, "Input should remain when output is blocked");
+            helper.assertTrue(blockEntity.storageBehaviour.fluidTank.getFluidAmount() == 1000, "Fluid should remain when output is blocked");
+            helper.assertTrue(ItemUtil.getStack(blockEntity.storageBehaviour.outputInventory, 0).getCount() == 1, "Blocked output should remain unchanged");
+            helper.succeed();
+        });
+    }
+
     // --- Processing ---
 
     public static void vatCanBeClosed(GameTestHelper helper) {

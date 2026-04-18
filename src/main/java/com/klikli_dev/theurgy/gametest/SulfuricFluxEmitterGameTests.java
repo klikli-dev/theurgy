@@ -116,6 +116,28 @@ public class SulfuricFluxEmitterGameTests {
             helper.assertTrue(ItemStack.matches(ItemUtil.getStack(target.inputInventory, 0), new ItemStack(SulfurRegistry.BONE.get())), "Target item should remain in place");
         });
     }
+
+    public static void insufficientMercuryFluxDoesNotConsumeInputsOrProduceOutput(GameTestHelper helper) {
+        setupArray(helper);
+
+        helper.runAtTickTime(2, () -> {
+            var source = helper.getBlockEntity(SOURCE_PEDESTAL_POS, ReformationSourcePedestalBlockEntity.class);
+            source.inputInventory.set(0, ItemResource.of(new ItemStack(NiterRegistry.MOBS_ABUNDANT.get(), 1)), 1);
+
+            var target = helper.getBlockEntity(TARGET_PEDESTAL_POS, ReformationTargetPedestalBlockEntity.class);
+            target.inputInventory.set(0, ItemResource.of(new ItemStack(SulfurRegistry.BONE.get(), 1)), 1);
+        });
+
+        helper.succeedWhen(() -> {
+            var source = helper.getBlockEntity(SOURCE_PEDESTAL_POS, ReformationSourcePedestalBlockEntity.class);
+            var target = helper.getBlockEntity(TARGET_PEDESTAL_POS, ReformationTargetPedestalBlockEntity.class);
+            var result = helper.getBlockEntity(RESULT_PEDESTAL_POS, ReformationResultPedestalBlockEntity.class);
+
+            helper.assertTrue(ItemStack.matches(ItemUtil.getStack(source.inputInventory, 0), new ItemStack(NiterRegistry.MOBS_ABUNDANT.get())), "Source should remain when mercury flux is insufficient");
+            helper.assertTrue(ItemStack.matches(ItemUtil.getStack(target.inputInventory, 0), new ItemStack(SulfurRegistry.BONE.get())), "Target should remain when mercury flux is insufficient");
+            helper.assertTrue(ItemUtil.getStack(result.outputInventory, 0).isEmpty(), "Result should remain empty when mercury flux is insufficient");
+        });
+    }
 }
 
 

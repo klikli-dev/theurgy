@@ -258,6 +258,23 @@ public class CalcinationOvenGameTests {
         });
     }
 
+    public static void blockedOutputDoesNotConsumeInput(GameTestHelper helper) {
+        placeOvenWithHeat(helper);
+
+        helper.runAfterDelay(2, () -> {
+            var blockEntity = helper.getBlockEntity(OVEN_LOWER_POS, CalcinationOvenBlockEntity.class);
+            blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.COBBLESTONE, 1)), 1);
+            blockEntity.storageBehaviour.outputInventory.set(0, ItemResource.of(new ItemStack(SaltRegistry.STRATA.get(), 1)), 1);
+        });
+
+        helper.runAfterDelay(3, () -> {
+            var blockEntity = helper.getBlockEntity(OVEN_LOWER_POS, CalcinationOvenBlockEntity.class);
+            helper.assertTrue(ItemUtil.getStack(blockEntity.storageBehaviour.inputInventory, 0).getCount() == 1, "Input should remain when output is blocked");
+            helper.assertTrue(ItemUtil.getStack(blockEntity.storageBehaviour.outputInventory, 0).getCount() == 1, "Blocked output should remain unchanged");
+            helper.succeed();
+        });
+    }
+
     /**
      * Tests that processing stops when heat is removed (brazier runs out of fuel).
      */

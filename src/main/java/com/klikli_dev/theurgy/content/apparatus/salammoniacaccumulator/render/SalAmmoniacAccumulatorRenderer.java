@@ -6,9 +6,11 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render;
 
 import com.geckolib.renderer.GeoBlockRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
+import com.klikli_dev.theurgy.content.render.FluidRenderer;
 import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
@@ -27,6 +29,52 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
 
     public SalAmmoniacAccumulatorRenderer(BlockEntityRendererProvider.Context pContext) {
         super(pContext, new SalAmmoniacAccumulatorModel());
+    }
+
+    private static void putSideFace(
+            VertexConsumer builder,
+            PoseStack.Pose pose,
+            Direction face,
+            float horizontalMin,
+            float horizontalMax,
+            float yMin,
+            float yMax,
+            float depth,
+            int color,
+            float u0,
+            float u1,
+            float vTop,
+            float vBottom,
+            int light
+    ) {
+        switch (face) {
+            case NORTH -> {
+                putVertex(builder, pose, horizontalMin, yMin, depth, color, u0, vBottom, face, light);
+                putVertex(builder, pose, horizontalMin, yMax, depth, color, u0, vTop, face, light);
+                putVertex(builder, pose, horizontalMax, yMax, depth, color, u1, vTop, face, light);
+                putVertex(builder, pose, horizontalMax, yMin, depth, color, u1, vBottom, face, light);
+            }
+            case SOUTH -> {
+                putVertex(builder, pose, horizontalMax, yMin, depth, color, u0, vBottom, face, light);
+                putVertex(builder, pose, horizontalMax, yMax, depth, color, u0, vTop, face, light);
+                putVertex(builder, pose, horizontalMin, yMax, depth, color, u1, vTop, face, light);
+                putVertex(builder, pose, horizontalMin, yMin, depth, color, u1, vBottom, face, light);
+            }
+            case WEST -> {
+                putVertex(builder, pose, depth, yMin, horizontalMax, color, u0, vBottom, face, light);
+                putVertex(builder, pose, depth, yMax, horizontalMax, color, u0, vTop, face, light);
+                putVertex(builder, pose, depth, yMax, horizontalMin, color, u1, vTop, face, light);
+                putVertex(builder, pose, depth, yMin, horizontalMin, color, u1, vBottom, face, light);
+            }
+            case EAST -> {
+                putVertex(builder, pose, depth, yMin, horizontalMin, color, u0, vBottom, face, light);
+                putVertex(builder, pose, depth, yMax, horizontalMin, color, u0, vTop, face, light);
+                putVertex(builder, pose, depth, yMax, horizontalMax, color, u1, vTop, face, light);
+                putVertex(builder, pose, depth, yMin, horizontalMax, color, u1, vBottom, face, light);
+            }
+            default -> {
+            }
+        }
     }
 
     private static void putVertex(VertexConsumer builder, PoseStack.Pose pose, float x, float y, float z, int color, float u, float v, Direction face, int light) {
@@ -74,6 +122,7 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
         var fluid = fluidStack.getFluid();
         var fluidType = fluid.getFluidType();
         var fluidHeight = fluidStack.getAmount() / (float) blockEntity.waterTank.getCapacity();
+        var sprite = FluidRenderer.getFluidTexture(fluidStack, FluidRenderer.FluidTextureType.STILL);
 
         float blockHeight = 12 / 16f - 2 / 128f;
         float capHeight = 0 / 4f;
@@ -83,9 +132,17 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
         int blockLightIn = (state.lightCoords >> 4) & 0xF;
         int luminosity = Math.max(blockLightIn, fluidType.getLightLevel(fluidStack));
 
-        state.color = 0xFFFFFFFF; // SAL_AMMONIAC uses water base, default no-tint (IClientFluidTypeExtensions.getTintColor removed)
+        state.color = blockEntity.getLevel() instanceof ClientLevel clientLevel
+                ? FluidRenderer.getFluidColor(fluidStack, clientLevel, blockEntity.getBlockPos())
+                : FluidRenderer.getFluidColor(fluidStack);
         state.fluidLight = (state.lightCoords & 0xF00000) | luminosity << 4;
+        state.bottomY = capHeight;
         state.surfaceY = capHeight + minPuddleHeight + clampedLevel;
+        state.u0 = sprite.getU0();
+        state.u1 = sprite.getU1();
+        state.v0 = sprite.getV0();
+        state.v1 = sprite.getV1();
+        state.sideV0 = Mth.lerp(1 - fluidHeight, state.v0, state.v1);
     }
 
     @Override
@@ -102,15 +159,20 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
         float xMax = xMin + blockWidth - 2 * tankHullWidth;
         float zMin = tankHullWidth;
         float zMax = zMin + blockWidth - 2 * tankHullWidth;
+        float yMin = state.bottomY;
 
         poseStack.pushPose();
-        poseStack.translate(-0.5f, 0, -0.5f);
 
         submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.fluid(), (pose, builder) -> {
-            putVertex(builder, pose, xMin, state.surfaceY, zMin, state.color, 0.0f, 0.0f, Direction.UP, state.fluidLight);
-            putVertex(builder, pose, xMin, state.surfaceY, zMax, state.color, 0.0f, 1.0f, Direction.UP, state.fluidLight);
-            putVertex(builder, pose, xMax, state.surfaceY, zMax, state.color, 1.0f, 1.0f, Direction.UP, state.fluidLight);
-            putVertex(builder, pose, xMax, state.surfaceY, zMin, state.color, 1.0f, 0.0f, Direction.UP, state.fluidLight);
+            putVertex(builder, pose, xMin, state.surfaceY, zMin, state.color, state.u0, state.v0, Direction.UP, state.fluidLight);
+            putVertex(builder, pose, xMin, state.surfaceY, zMax, state.color, state.u0, state.v1, Direction.UP, state.fluidLight);
+            putVertex(builder, pose, xMax, state.surfaceY, zMax, state.color, state.u1, state.v1, Direction.UP, state.fluidLight);
+            putVertex(builder, pose, xMax, state.surfaceY, zMin, state.color, state.u1, state.v0, Direction.UP, state.fluidLight);
+
+            putSideFace(builder, pose, Direction.NORTH, xMin, xMax, yMin, state.surfaceY, zMin, state.color, state.u0, state.u1, state.sideV0, state.v1, state.fluidLight);
+            putSideFace(builder, pose, Direction.SOUTH, xMin, xMax, yMin, state.surfaceY, zMax, state.color, state.u0, state.u1, state.sideV0, state.v1, state.fluidLight);
+            putSideFace(builder, pose, Direction.WEST, zMin, zMax, yMin, state.surfaceY, xMin, state.color, state.u0, state.u1, state.sideV0, state.v1, state.fluidLight);
+            putSideFace(builder, pose, Direction.EAST, zMin, zMax, yMin, state.surfaceY, xMax, state.color, state.u0, state.u1, state.sideV0, state.v1, state.fluidLight);
         });
 
         poseStack.popPose();
@@ -120,6 +182,12 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
         public boolean empty = true;
         public int color;
         public int fluidLight;
+        public float bottomY;
         public float surfaceY;
+        public float u0;
+        public float u1;
+        public float v0;
+        public float v1;
+        public float sideV0;
     }
 }

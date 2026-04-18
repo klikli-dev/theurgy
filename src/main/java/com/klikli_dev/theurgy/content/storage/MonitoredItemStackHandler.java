@@ -65,15 +65,6 @@ public abstract class MonitoredItemStackHandler extends ItemStacksResourceHandle
     }
 
     @Override
-    public boolean isValid(int slot, ItemResource resource) {
-        return resource.isEmpty() || this.isValid(slot, resource.toStack(1));
-    }
-
-    protected boolean isValid(int slot, ItemStack stack) {
-        return true;
-    }
-
-    @Override
     public void set(int slot, ItemResource resource, int amount) {
         var oldStack = ItemUtil.getStack(this, slot).copy();
         var newStack = resource.toStack(amount);

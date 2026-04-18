@@ -43,7 +43,7 @@ public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
                 var extracted = ItemStack.EMPTY;
                 if (!stackInSlot.isEmpty()) {
                     var resource = ItemResource.of(stackInSlot);
-                    extracted = resource.toStack(blockItemHandler.extract(SLOT, resource, blockItemHandler.getCapacityAsInt(SLOT, null), tx));
+                    extracted = resource.toStack(blockItemHandler.extract(SLOT, resource, stackInSlot.getCount(), tx));
                 }
                 if (!extracted.isEmpty()) {
                     tx.commit();

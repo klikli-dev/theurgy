@@ -190,7 +190,8 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
             //noinspection DataFlowIssue
             this.mercuryFluxHandler.set(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
 
-        this.inventory.set(0, ItemResource.of(pComponentInput.getOrDefault(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get(), ItemContainerContents.EMPTY).copyOne()), 1);
+        var storedStack = pComponentInput.getOrDefault(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get(), ItemContainerContents.EMPTY).copyOne();
+        this.inventory.set(0, ItemResource.of(storedStack), storedStack.getCount());
 
         this.craftingBehaviour.applyImplicitComponents(pComponentInput);
     }

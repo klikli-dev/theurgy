@@ -44,13 +44,13 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
                 var outputStack = ItemUtil.getStack(blockItemHandler, OUTPUT_SLOT);
                 if (!outputStack.isEmpty()) {
                     var outputResource = ItemResource.of(outputStack);
-                    extracted = outputResource.toStack(blockItemHandler.extract(OUTPUT_SLOT, outputResource, blockItemHandler.getCapacityAsInt(OUTPUT_SLOT, null), tx));
+                    extracted = outputResource.toStack(blockItemHandler.extract(OUTPUT_SLOT, outputResource, outputStack.getCount(), tx));
                 }
                 if (extracted.isEmpty()) {
                     var inputStack = ItemUtil.getStack(blockItemHandler, INPUT_SLOT);
                     if (!inputStack.isEmpty()) {
                         var inputResource = ItemResource.of(inputStack);
-                        extracted = inputResource.toStack(blockItemHandler.extract(INPUT_SLOT, inputResource, blockItemHandler.getCapacityAsInt(INPUT_SLOT, null), tx));
+                        extracted = inputResource.toStack(blockItemHandler.extract(INPUT_SLOT, inputResource, inputStack.getCount(), tx));
                     }
                 }
                 if (!extracted.isEmpty()) {

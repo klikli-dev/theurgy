@@ -6,8 +6,8 @@ package com.klikli_dev.theurgy.gametest;
 
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmitterBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmitterSelectedPoint;
+import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;

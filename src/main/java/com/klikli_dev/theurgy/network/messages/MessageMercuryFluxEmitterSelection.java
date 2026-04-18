@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.network.messages;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmitterBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.MercuryFluxEmitterSelectedPoint;
+import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.network.Message;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;

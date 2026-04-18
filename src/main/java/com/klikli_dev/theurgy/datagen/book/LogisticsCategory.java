@@ -31,7 +31,7 @@ public class LogisticsCategory extends CategoryProvider {
                 "__________________________________",
                 "________________i_____ŵ_n_ň_______",
                 "__________________________________",
-                "________________w___e_____f___p___",
+                "________________w___e_____f_m_p___",
                 "__________________________________",
                 "__________________________a___x___",
                 "__________________________________"
@@ -67,14 +67,17 @@ public class LogisticsCategory extends CategoryProvider {
         var nodeEntry = new ConnectionNodeEntry(this).generate('ň');
         nodeEntry.withParent(networkEntry);
 
+        var listFilterEntry = new ListFilterEntry(this).generate('f');
+        listFilterEntry.withParent(nodeEntry);
+
+        var mercuryFluxConnectorEntry = new MercuryFluxConnectorEntry(this).generate('m');
+        mercuryFluxConnectorEntry.withParent(nodeEntry);
+
         var capabilityProbeEntry = new CapabilityProbeEntry(this).generate('p');
         capabilityProbeEntry.withParent(nodeEntry);
 
         var capabilityProxyEntry = new CapabilityProxyEntry(this).generate('x');
         capabilityProxyEntry.withParent(capabilityProbeEntry);
-
-        var listFilterEntry = new ListFilterEntry(this).generate('f');
-        listFilterEntry.withParent(nodeEntry);
 
         var attributeFilterEntry = new AttributeFilterEntry(this).generate('a');
         attributeFilterEntry.withParent(listFilterEntry);

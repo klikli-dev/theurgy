@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.87.0] - 2026-04-18
+### :sparkles: New Features
+- [`de01c40`](https://github.com/klikli-dev/theurgy/commit/de01c405ded2a5bfb95a7e2297472d547aa53725) - add FE support to mercury flux transport *(PR [#348](https://github.com/klikli-dev/theurgy/pull/348) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`cbcca17`](https://github.com/klikli-dev/theurgy/commit/cbcca175029a2e51ac674e6c92bea771e034a44f) - omnibus fixes & refactors *(PR [#349](https://github.com/klikli-dev/theurgy/pull/349) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#6](https://github.com/AllTheMods/ATM-11/issues/6) opened by [@jonas3483](https://github.com/jonas3483)*
+  - :arrow_lower_right: *addresses issue [#21](https://github.com/AllTheMods/ATM-11/issues/21) opened by [@LeviCodesCraft](https://github.com/LeviCodesCraft)*
+
+### :recycle: Refactors
+- [`dd889ef`](https://github.com/klikli-dev/theurgy/commit/dd889ef06cdee7e5b09e41c983723f7098d8f0f5) - use native block entity update serialization *(PR [#347](https://github.com/klikli-dev/theurgy/pull/347) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.86.0] - 2026-04-17
 ### :sparkles: New Features
 - [`1dd3254`](https://github.com/klikli-dev/theurgy/commit/1dd3254bc4cd59fea473707c30fdcb348edaccd5) - add Mercury Flux Logistics Connector *(PR [#343](https://github.com/klikli-dev/theurgy/pull/343) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1478,3 +1489,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.84.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.83.0...release/v26.1.2-1.84.0
 [release/v26.1.2-1.85.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.84.0...release/v26.1.2-1.85.0
 [release/v26.1.2-1.86.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.85.0...release/v26.1.2-1.86.0
+[release/v26.1.2-1.87.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.86.0...release/v26.1.2-1.87.0

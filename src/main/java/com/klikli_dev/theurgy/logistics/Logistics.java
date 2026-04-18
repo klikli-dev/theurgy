@@ -500,7 +500,13 @@ public class Logistics extends SavedData {
             return;
         }
 
-        var blockEntity = server().getLevel(node.dimension()).getBlockEntity(node.pos());
+        var server = server();
+        var level = server.getLevel(node.dimension());
+        if (level == null) {
+            return;
+        }
+
+        var blockEntity = level.getBlockEntity(node.pos());
         if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode) {
             hasLeafNode.leafNodes().forEach(network::trackLeafNode);
         }

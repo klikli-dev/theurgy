@@ -99,7 +99,6 @@ public class LogisticsMercuryFluxConnectorBlockEntity extends BlockEntity implem
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.leafNode().loadAdditional(input);
-        this.energyLeafNode().readNetwork(input);
         input.child("energyLeafNode").ifPresent(this.energyLeafNode()::loadAdditional);
     }
 

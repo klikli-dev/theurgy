@@ -137,18 +137,22 @@ public class LogisticsMercuryFluxConnectorEnergyBehaviour extends InserterNodeBe
 
         int totalToPush = Math.min(this.buffer.getAmountAsInt(), DEFAULT_TRANSFER_RATE * sinks.size());
         int perTarget = totalToPush / sinks.size();
-        int remainder = totalToPush % sinks.size();
+        int distributedRemainder = totalToPush % sinks.size();
 
         for (int i = 0; i < sinks.size(); i++) {
-            int amount = perTarget + (i < remainder ? 1 : 0);
+            int amount = perTarget + (i < distributedRemainder ? 1 : 0);
             if (amount <= 0) {
                 continue;
             }
 
             try (Transaction tx = Transaction.openRoot()) {
-                int received = sinks.get(i).insert(amount, tx);
-                if (received > 0) {
-                    this.buffer.extract(received, tx);
+                int extracted = this.buffer.extract(amount, tx);
+                if (extracted > 0) {
+                    int inserted = sinks.get(i).insert(extracted, tx);
+                    int returnedAmount = extracted - inserted;
+                    if (returnedAmount > 0) {
+                        this.buffer.insert(returnedAmount, tx);
+                    }
                     tx.commit();
                 }
             }

@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsnexus.render;
 
 import com.geckolib.constant.dataticket.DataTicket;
+import com.geckolib.constant.DataTickets;
 import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.base.BoneSnapshots;
 import com.geckolib.renderer.base.RenderPassInfo;
@@ -47,35 +48,49 @@ public class LogisticsNexusRenderer extends GeoBlockRenderer<LogisticsNexusBlock
             ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress
     ) {
         BlockEntityRenderState.extractBase(blockEntity, renderState, breakProgress);
+        long instanceId = this.getInstanceId(blockEntity, null);
+        renderState.addGeckolibData(DataTickets.ANIMATABLE_INSTANCE_ID, instanceId);
+        renderState.addGeckolibData(DataTickets.ANIMATABLE_MANAGER, blockEntity.getAnimatableInstanceCache().getManagerForId(instanceId));
         this.fillRenderState(blockEntity, null, renderState, partialTick);
 
         var blockState = blockEntity.getBlockState();
-        renderState.addGeckolibData(CONNECTOR_UP, blockState.getValue(LogisticsNexusBlock.UP));
-        renderState.addGeckolibData(CONNECTOR_DOWN, blockState.getValue(LogisticsNexusBlock.DOWN));
-        renderState.addGeckolibData(CONNECTOR_NORTH, blockState.getValue(LogisticsNexusBlock.NORTH));
-        renderState.addGeckolibData(CONNECTOR_SOUTH, blockState.getValue(LogisticsNexusBlock.SOUTH));
-        renderState.addGeckolibData(CONNECTOR_EAST, blockState.getValue(LogisticsNexusBlock.EAST));
-        renderState.addGeckolibData(CONNECTOR_WEST, blockState.getValue(LogisticsNexusBlock.WEST));
+        renderState.up = blockState.getValue(LogisticsNexusBlock.UP);
+        renderState.down = blockState.getValue(LogisticsNexusBlock.DOWN);
+        renderState.north = blockState.getValue(LogisticsNexusBlock.NORTH);
+        renderState.south = blockState.getValue(LogisticsNexusBlock.SOUTH);
+        renderState.east = blockState.getValue(LogisticsNexusBlock.EAST);
+        renderState.west = blockState.getValue(LogisticsNexusBlock.WEST);
     }
 
     @Override
     public void adjustModelBonesForRender(RenderPassInfo<RenderState> renderPassInfo, BoneSnapshots snapshots) {
         snapshots.ifPresent("Portal", snapshot -> snapshot.skipRender(true).skipChildrenRender(true));
-        snapshots.ifPresent("Top", snapshot -> hideBone(snapshot, renderPassInfo, CONNECTOR_UP));
-        snapshots.ifPresent("Bottom", snapshot -> hideBone(snapshot, renderPassInfo, CONNECTOR_DOWN));
-        snapshots.ifPresent("North", snapshot -> hideBone(snapshot, renderPassInfo, CONNECTOR_NORTH));
-        snapshots.ifPresent("South", snapshot -> hideBone(snapshot, renderPassInfo, CONNECTOR_SOUTH));
-        snapshots.ifPresent("East", snapshot -> hideBone(snapshot, renderPassInfo, CONNECTOR_EAST));
-        snapshots.ifPresent("West", snapshot -> hideBone(snapshot, renderPassInfo, CONNECTOR_WEST));
-    }
-
-    private static void hideBone(com.geckolib.animation.state.BoneSnapshot snapshot, RenderPassInfo<RenderState> renderPassInfo, DataTicket<Boolean> ticket) {
-        boolean visible = renderPassInfo.getOrDefaultGeckolibData(ticket, false);
-        snapshot.skipRender(!visible).skipChildrenRender(!visible);
+        snapshots.ifPresent("Top", snapshot -> snapshot.skipRender(!renderPassInfo.renderState().up).skipChildrenRender(!renderPassInfo.renderState().up));
+        snapshots.ifPresent("Bottom", snapshot -> snapshot.skipRender(!renderPassInfo.renderState().down).skipChildrenRender(!renderPassInfo.renderState().down));
+        snapshots.ifPresent("North", snapshot -> snapshot.skipRender(!renderPassInfo.renderState().north).skipChildrenRender(!renderPassInfo.renderState().north));
+        snapshots.ifPresent("South", snapshot -> snapshot.skipRender(!renderPassInfo.renderState().south).skipChildrenRender(!renderPassInfo.renderState().south));
+        snapshots.ifPresent("East", snapshot -> snapshot.skipRender(!renderPassInfo.renderState().east).skipChildrenRender(!renderPassInfo.renderState().east));
+        snapshots.ifPresent("West", snapshot -> snapshot.skipRender(!renderPassInfo.renderState().west).skipChildrenRender(!renderPassInfo.renderState().west));
     }
 
     public static class RenderState extends BlockEntityRenderState implements GeoRenderState {
         private final Map<DataTicket<?>, Object> dataMap = new HashMap<>();
+        boolean up;
+        boolean down;
+        boolean north;
+        boolean south;
+        boolean east;
+        boolean west;
+
+        @Override
+        public <D> void addGeckolibData(DataTicket<D> dataTicket, D data) {
+            this.dataMap.put(dataTicket, data);
+        }
+
+        @Override
+        public boolean hasGeckolibData(DataTicket<?> dataTicket) {
+            return this.dataMap.containsKey(dataTicket);
+        }
 
         @Override
         public Map<DataTicket<?>, Object> getDataMap() {

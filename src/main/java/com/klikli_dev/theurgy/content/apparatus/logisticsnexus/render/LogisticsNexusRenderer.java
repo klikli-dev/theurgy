@@ -46,7 +46,8 @@ public class LogisticsNexusRenderer extends GeoBlockRenderer<LogisticsNexusBlock
             Vec3 cameraPosition,
             ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress
     ) {
-        super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
+        BlockEntityRenderState.extractBase(blockEntity, renderState, breakProgress);
+        this.fillRenderState(blockEntity, null, renderState, partialTick);
 
         var blockState = blockEntity.getBlockState();
         renderState.addGeckolibData(CONNECTOR_UP, blockState.getValue(LogisticsNexusBlock.UP));

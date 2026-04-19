@@ -10,6 +10,7 @@ import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.base.RenderPassInfo;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockItem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.AbstractEndPortalRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -22,8 +23,15 @@ import com.geckolib.renderer.base.PerBoneRender;
 public class LogisticsNexusItemRenderer extends GeoItemRenderer<LogisticsNexusBlockItem> {
     public LogisticsNexusItemRenderer() {
         super(new LogisticsNexusModel<>());
-        this.withScale(0.5f);
         this.withRenderLayer(new PortalLayer(this));
+    }
+
+    @Override
+    public void adjustRenderPose(RenderPassInfo<GeoRenderState> renderPassInfo) {
+        super.adjustRenderPose(renderPassInfo);
+        PoseStack poseStack = renderPassInfo.poseStack();
+
+        poseStack.translate(0, -0.1f, 0);
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercur
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.render.LogisticsNexusRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.render.MercuryCapacitorRenderer;
@@ -278,6 +279,7 @@ public class Theurgy {
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(), IncubatorSulfurVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(), IncubatorSaltVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), SalAmmoniacTankRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.LOGISTICS_NEXUS.get(), LogisticsNexusRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.DIGESTION_VAT.get(), DigestionVatRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.MERCURY_CAPACITOR.get(), MercuryCapacitorRenderer::new);
         }

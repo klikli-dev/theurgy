@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlo
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
@@ -193,6 +194,8 @@ public class ItemRegistry {
             ITEMS.registerItem("sal_ammoniac_accumulator", p -> new SalAmmoniacAccumulatorBlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> SAL_AMMONIAC_TANK =
             ITEMS.registerItem("sal_ammoniac_tank", p -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), p.useBlockDescriptionPrefix()));
+    public static final DeferredItem<BlockItem> LOGISTICS_NEXUS =
+            ITEMS.registerItem("logistics_nexus", p -> new LogisticsNexusBlockItem(BlockRegistry.LOGISTICS_NEXUS.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<MercuryCatalystBlockItem> MERCURY_CATALYST =
             ITEMS.registerItem("mercury_catalyst", p -> new MercuryCatalystBlockItem(BlockRegistry.MERCURY_CATALYST.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<MercuryCapacitorBlockItem> MERCURY_CAPACITOR =

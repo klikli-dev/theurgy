@@ -85,6 +85,7 @@ public class TheurgyBlockTagsProvider extends BlockTagsProvider {
                 .add(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get())
                 .add(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get())
                 .add(BlockRegistry.SAL_AMMONIAC_TANK.get())
+                .add(BlockRegistry.LOGISTICS_NEXUS.get())
                 .add(BlockRegistry.MERCURY_CATALYST.get())
                 .add(BlockRegistry.CALORIC_FLUX_EMITTER.get())
                 .add(BlockRegistry.SULFURIC_FLUX_EMITTER.get())

@@ -28,6 +28,7 @@ import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBraz
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.*;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -77,6 +78,10 @@ public class BlockEntityRegistry {
     public static final Supplier<BlockEntityType<SalAmmoniacAccumulatorBlockEntity>> SAL_AMMONIAC_ACCUMULATOR =
             BLOCKS.register("sal_ammoniac_accumulator", () ->
                     new BlockEntityType<>(SalAmmoniacAccumulatorBlockEntity::new, Set.of(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get())));
+
+    public static final Supplier<BlockEntityType<LogisticsNexusBlockEntity>> LOGISTICS_NEXUS =
+            BLOCKS.register("logistics_nexus", () ->
+                    new BlockEntityType<>(LogisticsNexusBlockEntity::new, Set.of(BlockRegistry.LOGISTICS_NEXUS.get())));
 
     public static final Supplier<BlockEntityType<MercuryCatalystBlockEntity>> MERCURY_CATALYST =
             BLOCKS.register("mercury_catalyst", () ->

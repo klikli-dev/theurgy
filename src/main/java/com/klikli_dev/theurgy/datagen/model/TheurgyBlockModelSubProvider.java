@@ -52,6 +52,7 @@ public class TheurgyBlockModelSubProvider {
         this.registerIncubatorVessels(blockModels, itemModels);
         this.registerSalAmmoniacAccumulator(blockModels, itemModels);
         this.registerSalAmmoniacTank(blockModels, itemModels);
+        this.registerLogisticsNexus(blockModels, itemModels);
         this.registerMercuryCatalyst(blockModels, itemModels);
         this.registerMercuryCapacitor(blockModels, itemModels);
         this.registerCaloricFluxEmitter(blockModels, itemModels);
@@ -227,6 +228,12 @@ public class TheurgyBlockModelSubProvider {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.SAL_AMMONIAC_TANK.get(), this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()));
         this.registerGeckolibItem(itemModels, BlockRegistry.SAL_AMMONIAC_TANK.get(), Identifier.withDefaultNamespace("block/copper_block"));
+    }
+
+    private void registerLogisticsNexus(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.LOGISTICS_NEXUS.get()), Identifier.withDefaultNamespace("block/copper_block"));
+        this.registerSingleStateBlock(blockModels, BlockRegistry.LOGISTICS_NEXUS.get(), this.blockModel(BlockRegistry.LOGISTICS_NEXUS.get()));
+        this.registerGeckolibItem(itemModels, BlockRegistry.LOGISTICS_NEXUS.get(), Identifier.withDefaultNamespace("block/copper_block"));
     }
 
     private void registerMercuryCatalyst(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {

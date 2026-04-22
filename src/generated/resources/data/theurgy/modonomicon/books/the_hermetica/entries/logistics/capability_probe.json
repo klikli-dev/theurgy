@@ -67,13 +67,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "logistics/connection_node",
+      "entry": "logistics/frequency",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 10,
+  "sort_number": 16,
   "x": 13,
-  "y": 2
+  "y": 1
 }

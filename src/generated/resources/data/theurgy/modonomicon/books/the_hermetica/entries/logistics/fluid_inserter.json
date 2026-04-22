@@ -67,13 +67,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "logistics/fluid_extractor",
+      "entry": "logistics/item_inserter",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 15,
-  "x": 13,
-  "y": -4
+  "sort_number": 7,
+  "x": 3,
+  "y": -5
 }

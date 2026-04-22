@@ -2,12 +2,12 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "logistics",
-  "description": "book.theurgy.the_hermetica.logistics.fluid_list_filter.description",
+  "description": "book.theurgy.the_hermetica.logistics.logistics_nexus.description",
   "hide_while_locked": false,
   "icon": {
-    "id": "theurgy:list_filter"
+    "id": "theurgy:logistics_nexus"
   },
-  "name": "book.theurgy.the_hermetica.logistics.fluid_list_filter.name",
+  "name": "book.theurgy.the_hermetica.logistics.logistics_nexus.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -15,8 +15,8 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": "theurgy:list_filter",
-      "text": "book.theurgy.the_hermetica.logistics.fluid_list_filter.filter.text",
+      "item": "theurgy:logistics_nexus",
+      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.nexus.text",
       "title": ""
     },
     {
@@ -25,7 +25,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/list_filter",
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_nexus",
       "text": "",
       "title1": "",
       "title2": ""
@@ -37,8 +37,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.fluid_list_filter.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.fluid_list_filter.usage.title",
+      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.pairing.text",
+      "title": "book.theurgy.the_hermetica.logistics.logistics_nexus.pairing.title",
       "use_markdown_in_title": false
     },
     {
@@ -48,21 +48,21 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.fluid_list_filter.removal.text",
-      "title": "book.theurgy.the_hermetica.logistics.fluid_list_filter.removal.title",
+      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.usage.text",
+      "title": "book.theurgy.the_hermetica.logistics.logistics_nexus.usage.title",
       "use_markdown_in_title": false
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "logistics/attribute_filter",
+      "entry": "logistics/connection_node",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 13,
+  "sort_number": 10,
   "x": 9,
-  "y": 5
+  "y": -5
 }

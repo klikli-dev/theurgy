@@ -86,6 +86,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
         super.onLoad();
 
         if (!this.level.isClientSide()) {
+            this.ensureAttachedTarget();
             this.leafNode().onLoad();
 
             this.updateBlockStateToMatchFilter();
@@ -105,6 +106,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     public void loadAdditional(@NotNull ValueInput input) {
         super.loadAdditional(input);
         this.leafNode().loadAdditional(input);
+        this.ensureAttachedTarget();
         this.filter().loadAdditional(input);
     }
 
@@ -126,6 +128,16 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
             var newState = this.getBlockState().setValue(LogisticsItemConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());
             this.level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
         }
+    }
+
+    protected void ensureAttachedTarget() {
+        if (!this.leafNode().targets().isEmpty()) {
+            return;
+        }
+
+        var attachedPos = this.getBlockPos().relative(this.getBlockState().getValue(LogisticsItemConnectorBlock.FACING).getOpposite());
+        this.leafNode().targets().add(attachedPos);
+        this.setChanged();
     }
 
     @Override

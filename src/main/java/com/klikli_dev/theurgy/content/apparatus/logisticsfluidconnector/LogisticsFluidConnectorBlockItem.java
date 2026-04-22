@@ -62,10 +62,13 @@ public class LogisticsFluidConnectorBlockItem extends BlockItem {
 
     @Override
     protected boolean updateCustomBlockEntityTag(@NotNull BlockPos pPos, Level pLevel, @Nullable Player pPlayer, @NotNull ItemStack pStack, @NotNull BlockState pState) {
+        var result = super.updateCustomBlockEntityTag(pPos, pLevel, pPlayer, pStack, pState);
         if (pLevel.getBlockEntity(pPos) instanceof LogisticsFluidConnectorBlockEntity connector) {
             var direction = pState.getValue(BlockStateProperties.FACING).getOpposite();
+            connector.leafNode().targets().clear();
             connector.leafNode().targets().add(pPos.relative(direction));
+            connector.setChanged();
         }
-        return super.updateCustomBlockEntityTag(pPos, pLevel, pPlayer, pStack, pState);
+        return result;
     }
 }

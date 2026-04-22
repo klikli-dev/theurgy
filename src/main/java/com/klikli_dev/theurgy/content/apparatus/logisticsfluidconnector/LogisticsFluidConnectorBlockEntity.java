@@ -85,6 +85,7 @@ public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity imp
         super.onLoad();
 
         if (!this.level.isClientSide()) {
+            this.ensureAttachedTarget();
             this.leafNode().onLoad();
 
             this.updateBlockStateToMatchFilter();
@@ -104,6 +105,7 @@ public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity imp
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.leafNode().loadAdditional(input);
+        this.ensureAttachedTarget();
         this.filter().loadAdditional(input);
     }
 
@@ -125,6 +127,16 @@ public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity imp
             var newState = this.getBlockState().setValue(LogisticsFluidConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());
             this.level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
         }
+    }
+
+    protected void ensureAttachedTarget() {
+        if (!this.leafNode().targets().isEmpty()) {
+            return;
+        }
+
+        var attachedPos = this.getBlockPos().relative(this.getBlockState().getValue(LogisticsFluidConnectorBlock.FACING).getOpposite());
+        this.leafNode().targets().add(attachedPos);
+        this.setChanged();
     }
 
     @Override

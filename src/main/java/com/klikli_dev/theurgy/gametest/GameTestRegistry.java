@@ -454,6 +454,12 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER_REVERSED =
             TEST_FUNCTIONS.register("logistics_item_extractor_targets_in_any_registration_order_reversed", () -> LogisticsGameTests::itemExtractorFindsInserterTargetRegardlessOfRegistrationOrderReversed);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_ITEM_CONNECTOR_RESTORES_ATTACHED_TARGET_ON_LOAD =
+            TEST_FUNCTIONS.register("logistics_item_connector_restores_attached_target_on_load", () -> LogisticsGameTests::itemConnectorRestoresAttachedTargetOnLoad);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_FLUID_CONNECTOR_RESTORES_ATTACHED_TARGET_ON_LOAD =
+            TEST_FUNCTIONS.register("logistics_fluid_connector_restores_attached_target_on_load", () -> LogisticsGameTests::fluidConnectorRestoresAttachedTargetOnLoad);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_NEXUS_PAIRS_ACROSS_PLACEMENT =
             TEST_FUNCTIONS.register("logistics_nexus_pairs_across_placement", () -> LogisticsGameTests::logisticsNexusPairsAcrossPlacement);
 
@@ -736,6 +742,8 @@ private static void registerLogisticsTests(RegisterGameTestsEvent event) {
         registerTest(event, LOG_FLUID_EXTRACTS_WORLD_SOURCE, environment, structure, 80, 0);
         registerTest(event, LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER, environment, structure, 40, 0);
         registerTest(event, LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER_REVERSED, environment, structure, 40, 0);
+        registerTest(event, LOG_ITEM_CONNECTOR_RESTORES_ATTACHED_TARGET_ON_LOAD, environment, structure, 40, 0);
+        registerTest(event, LOG_FLUID_CONNECTOR_RESTORES_ATTACHED_TARGET_ON_LOAD, environment, structure, 40, 0);
         registerTest(event, LOG_NEXUS_PAIRS_ACROSS_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, LOG_NODE_ONLY_CONNECTS_WHEN_ATTACHED_TO_NEXUS, environment, structure, 40, 0);
         registerTest(event, LOG_NEXUS_BE_ACCEPTS_ITEM_UUID, environment, structure, 40, 0);

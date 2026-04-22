@@ -9,6 +9,8 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extracto
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -83,6 +85,34 @@ public class LogisticsGameTests {
 
     public static void itemExtractorFindsInserterTargetRegardlessOfRegistrationOrderReversed(GameTestHelper helper) {
         assertItemExtractorFindsInserterTarget(helper, false);
+    }
+
+    public static void itemConnectorRestoresAttachedTargetOnLoad(GameTestHelper helper) {
+        helper.setBlock(INSERTER_POS, BlockRegistry.LOGISTICS_ITEM_INSERTER.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST));
+
+        helper.runAfterDelay(1, () -> {
+            var connector = helper.getBlockEntity(INSERTER_POS, LogisticsItemConnectorBlockEntity.class);
+            connector.leafNode().targets().clear();
+            connector.onLoad();
+
+            helper.assertTrue(connector.leafNode().targets().size() == 1, "Item connector should restore its attached target on load");
+            helper.assertTrue(connector.leafNode().targets().getFirst().equals(helper.absolutePos(INSERTER_POS).west()), "Item connector should target the attached block");
+            helper.succeed();
+        });
+    }
+
+    public static void fluidConnectorRestoresAttachedTargetOnLoad(GameTestHelper helper) {
+        helper.setBlock(FLUID_INSERTER_POS, BlockRegistry.LOGISTICS_FLUID_INSERTER.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
+
+        helper.runAfterDelay(1, () -> {
+            var connector = helper.getBlockEntity(FLUID_INSERTER_POS, LogisticsFluidConnectorBlockEntity.class);
+            connector.leafNode().targets().clear();
+            connector.onLoad();
+
+            helper.assertTrue(connector.leafNode().targets().size() == 1, "Fluid connector should restore its attached target on load");
+            helper.assertTrue(connector.leafNode().targets().getFirst().equals(helper.absolutePos(FLUID_INSERTER_POS).east()), "Fluid connector should target the attached block");
+            helper.succeed();
+        });
     }
 
     public static void logisticsNexusPairsAcrossPlacement(GameTestHelper helper) {

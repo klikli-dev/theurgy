@@ -87,11 +87,7 @@ public class Theurgy {
     public static final String MODID = "theurgy";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static Theurgy INSTANCE;
-
     public Theurgy(IEventBus modEventBus, ModContainer modContainer) {
-        INSTANCE = this;
-
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
         modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);

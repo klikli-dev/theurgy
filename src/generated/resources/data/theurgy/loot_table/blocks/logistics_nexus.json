@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "theurgy:logistics_nexus_id"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "theurgy:logistics_nexus"
         }
       ],

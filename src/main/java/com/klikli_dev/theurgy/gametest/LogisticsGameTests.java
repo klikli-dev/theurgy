@@ -4,12 +4,14 @@
 
 package com.klikli_dev.theurgy.gametest;
 
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor.LogisticsFluidExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import com.klikli_dev.theurgy.logistics.Logistics;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
@@ -37,6 +39,10 @@ public class LogisticsGameTests {
     private static final BlockPos ITEM_INSERTER_POS = new BlockPos(3, 2, 2);
     private static final BlockPos ITEM_EXTRACTOR_POS = new BlockPos(5, 2, 2);
     private static final BlockPos ITEM_EXTRACTOR_TARGET_POS = new BlockPos(6, 2, 2);
+    private static final BlockPos NEXUS_A_POS = new BlockPos(2, 2, 2);
+    private static final BlockPos NEXUS_B_POS = new BlockPos(6, 2, 2);
+    private static final BlockPos ATTACHED_NODE_POS = new BlockPos(2, 2, 1);
+    private static final BlockPos DETACHED_NODE_POS = new BlockPos(1, 2, 2);
 
     // --- Connection Node ---
 
@@ -77,6 +83,58 @@ public class LogisticsGameTests {
 
     public static void itemExtractorFindsInserterTargetRegardlessOfRegistrationOrderReversed(GameTestHelper helper) {
         assertItemExtractorFindsInserterTarget(helper, false);
+    }
+
+    public static void logisticsNexusPairsAcrossPlacement(GameTestHelper helper) {
+        var nexusId = java.util.UUID.randomUUID();
+
+        helper.setBlock(NEXUS_A_POS, BlockRegistry.LOGISTICS_NEXUS.get());
+        helper.setBlock(NEXUS_B_POS, BlockRegistry.LOGISTICS_NEXUS.get());
+
+        helper.runAfterDelay(1, () -> {
+            var nexusA = helper.getBlockEntity(NEXUS_A_POS, LogisticsNexusBlockEntity.class);
+            var nexusB = helper.getBlockEntity(NEXUS_B_POS, LogisticsNexusBlockEntity.class);
+            nexusA.setNexusId(nexusId);
+            nexusB.setNexusId(nexusId);
+        });
+
+        helper.succeedWhen(() -> {
+            var level = helper.getLevel();
+            var network = Logistics.get().getNetwork(GlobalPos.of(level.dimension(), helper.absolutePos(NEXUS_A_POS)));
+            helper.assertTrue(network != null, "First nexus should have a network after pairing");
+            helper.assertTrue(network.nodes().contains(GlobalPos.of(level.dimension(), helper.absolutePos(NEXUS_B_POS))), "Second nexus should join the first nexus network");
+        });
+    }
+
+    public static void logisticsConnectionNodeOnlyConnectsWhenAttachedToNexus(GameTestHelper helper) {
+        helper.setBlock(NEXUS_A_POS, BlockRegistry.LOGISTICS_NEXUS.get());
+        helper.setBlock(ATTACHED_NODE_POS, BlockRegistry.LOGISTICS_CONNECTION_NODE.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH));
+        helper.setBlock(DETACHED_NODE_POS, BlockRegistry.LOGISTICS_CONNECTION_NODE.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP));
+
+        helper.succeedWhen(() -> {
+            var level = helper.getLevel();
+            var attachedNetwork = Logistics.get().getNetwork(GlobalPos.of(level.dimension(), helper.absolutePos(ATTACHED_NODE_POS)));
+            var detachedNetwork = Logistics.get().getNetwork(GlobalPos.of(level.dimension(), helper.absolutePos(DETACHED_NODE_POS)));
+            helper.assertTrue(attachedNetwork != null && attachedNetwork.nodes().contains(GlobalPos.of(level.dimension(), helper.absolutePos(NEXUS_A_POS))), "Attached node should join the nexus network");
+            helper.assertTrue(detachedNetwork == null || !detachedNetwork.nodes().contains(GlobalPos.of(level.dimension(), helper.absolutePos(NEXUS_A_POS))), "Detached node should not join the nexus network");
+        });
+    }
+
+    public static void logisticsNexusBlockEntityAcceptsItemUuid(GameTestHelper helper) {
+        var uuid = java.util.UUID.randomUUID();
+        helper.setBlock(NEXUS_A_POS, BlockRegistry.LOGISTICS_NEXUS.get());
+
+        helper.runAfterDelay(1, () -> {
+            var nexus = helper.getBlockEntity(NEXUS_A_POS, LogisticsNexusBlockEntity.class);
+            var stack = new ItemStack(ItemRegistry.LOGISTICS_NEXUS.get());
+            stack.set(DataComponentRegistry.LOGISTICS_NEXUS_ID.get(), uuid);
+            nexus.applyComponentsFromItemStack(stack);
+        });
+
+        helper.succeedWhen(() -> {
+            var nexus = helper.getBlockEntity(NEXUS_A_POS, LogisticsNexusBlockEntity.class);
+            helper.assertTrue(uuid.equals(nexus.nexusId()), "Nexus should keep the exact item-provided uuid");
+        });
     }
 
     public static void itemExtractorTransfersItemsFromSourceChestToTargetChest(GameTestHelper helper) {

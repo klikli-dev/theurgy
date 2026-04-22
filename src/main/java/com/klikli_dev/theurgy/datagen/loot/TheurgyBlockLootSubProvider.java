@@ -48,7 +48,7 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(BlockRegistry.INCUBATOR_SALT_VESSEL.get());
         this.dropSelf(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
         this.dropSelf(BlockRegistry.SAL_AMMONIAC_TANK.get());
-        this.dropSelf(BlockRegistry.LOGISTICS_NEXUS.get());
+        this.dropSelfWithComponents(BlockRegistry.LOGISTICS_NEXUS.get(), DataComponentRegistry.LOGISTICS_NEXUS_ID.get());
         this.dropSelfWithComponents(BlockRegistry.MERCURY_CATALYST.get(),
                 DataComponentRegistry.MERCURY_FLUX_STORAGE.get(),
                 DataComponentRegistry.MERCURY_FLUX_TO_CONVERT.get(),

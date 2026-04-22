@@ -1,0 +1,19 @@
+{
+  "type": "theurgy:logistics_nexus",
+  "category": "misc",
+  "key": {
+    "b": "#c:bricks/normal",
+    "c": "theurgy:logistics_connector_node",
+    "i": "#c:ingots/iron",
+    "m": "theurgy:mercury_shard"
+  },
+  "pattern": [
+    " m ",
+    "ici",
+    "bbb"
+  ],
+  "result": {
+    "count": 2,
+    "id": "theurgy:logistics_nexus"
+  }
+}

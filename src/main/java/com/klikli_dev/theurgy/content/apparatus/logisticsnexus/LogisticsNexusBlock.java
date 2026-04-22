@@ -4,9 +4,11 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsnexus;
 
+import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -69,9 +71,25 @@ public class LogisticsNexusBlock extends Block implements EntityBlock {
     }
 
     @Nullable @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return BlockEntityRegistry.LOGISTICS_NEXUS.get().create(pos, state); }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        if (level.isClientSide() || state.is(oldState.getBlock()) || !(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        if (!(level.getBlockEntity(pos) instanceof LogisticsNexusBlockEntity nexus)) {
+            return;
+        }
+
+        nexus.ensureNexusId();
+    }
+
     @Override
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
         Containers.updateNeighboursAfterDestroy(state, level, pos);
+        Logistics.get().remove(GlobalPos.of(level.dimension(), pos));
     }
 
     private BooleanProperty propertyFor(Direction d) { return switch (d) { case UP -> UP; case DOWN -> DOWN; case NORTH -> NORTH; case SOUTH -> SOUTH; case EAST -> EAST; case WEST -> WEST; }; }

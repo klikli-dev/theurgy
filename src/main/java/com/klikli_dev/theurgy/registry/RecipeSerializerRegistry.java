@@ -19,6 +19,9 @@ public class RecipeSerializerRegistry {
     public static final Supplier<RecipeSerializer<DivinationRodRecipe>> DIVINATION_ROD = RECIPE_SERIALIZERS.register("divination_rod",
             () -> DivinationRodRecipe.SERIALIZER);
 
+    public static final Supplier<RecipeSerializer<LogisticsNexusRecipe>> LOGISTICS_NEXUS = RECIPE_SERIALIZERS.register("logistics_nexus",
+            () -> LogisticsNexusRecipe.SERIALIZER);
+
     public static final Supplier<RecipeSerializer<CalcinationRecipe>> CALCINATION = RECIPE_SERIALIZERS.register("calcination",
             () -> CalcinationRecipe.SERIALIZER);
 

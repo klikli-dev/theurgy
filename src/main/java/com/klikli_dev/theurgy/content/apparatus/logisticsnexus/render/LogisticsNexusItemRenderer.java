@@ -27,16 +27,21 @@ public class LogisticsNexusItemRenderer extends GeoItemRenderer<LogisticsNexusBl
     }
 
     @Override
+    public void scaleModelForRender(RenderPassInfo<GeoRenderState> renderPassInfo, float widthScale, float heightScale) {
+        super.scaleModelForRender(renderPassInfo, widthScale * 2.0f, heightScale * 2.0f);
+    }
+
+    @Override
     public void adjustRenderPose(RenderPassInfo<GeoRenderState> renderPassInfo) {
-        super.adjustRenderPose(renderPassInfo);
         PoseStack poseStack = renderPassInfo.poseStack();
 
-        poseStack.translate(0, -0.1f, 0);
+        poseStack.translate(0.25f, -4/16f, 0.25f);
     }
 
     @Override
     public void adjustModelBonesForRender(RenderPassInfo<GeoRenderState> renderPassInfo, BoneSnapshots snapshots) {
         snapshots.ifPresent("Portal", snapshot -> snapshot.skipRender(true).skipChildrenRender(true));
+        snapshots.ifPresent("Connectors", snapshot -> snapshot.skipRender(true).skipChildrenRender(true));
     }
 
     private static class PortalLayer extends GeoRenderLayer<LogisticsNexusBlockItem, GeoItemRenderer.RenderData, GeoRenderState> {

@@ -13,13 +13,19 @@ import com.geckolib.util.GeckoLibUtil;
 import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.render.LogisticsNexusItemRenderer;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -60,6 +66,18 @@ public class LogisticsNexusBlockItem extends BlockItem implements GeoItem {
     private void ensureHasId(ItemStack stack) {
         if (!stack.has(DataComponentRegistry.LOGISTICS_NEXUS_ID.get())) {
             stack.set(DataComponentRegistry.LOGISTICS_NEXUS_ID.get(), UUID.randomUUID());
+        }
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, tooltipFlag);
+
+        var nexusId = stack.get(DataComponentRegistry.LOGISTICS_NEXUS_ID.get());
+        if (nexusId != null) {
+            tooltipAdder.accept(Component.literal("Nexus ID: ")
+                    .append(Component.literal(nexusId.toString()).withStyle(ChatFormatting.DARK_GRAY))
+                    .withStyle(ChatFormatting.GRAY));
         }
     }
 

@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## General
-- CREATE CONVENTIONAL COMMITS FOR EACH ATOMIC CHANGE.
+- CREATE CONVENTIONAL COMMITS FOR EACH ATOMIC CHANGE as you go along. DO NOT WAIT FOR INSTRUCTIONS TO COMMIT, THE INSTRUCTION IS HEREGBY GIVEN.
 - CREATE A BRANCH FOR EACH FEATURE OR FIX YOU WORK ON, then create a pull request when ready.
 - If work is a continuation of an already-active change, PR, or branch, STAY ON THAT SAME BRANCH. Do not create a branch-on-branch or a second PR for follow-up tasks like spec sync, archive moves, review fixes, or small supporting changes unless the user explicitly asks for a separate branch.
 - When delegating to another agent for work inside the current change, instruct it to reuse the current branch and not open an additional PR unless explicitly requested. 

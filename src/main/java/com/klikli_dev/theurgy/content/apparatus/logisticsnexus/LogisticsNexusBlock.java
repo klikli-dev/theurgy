@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsnexus;
 
+import com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode.LogisticsConnectionNodeBlock;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,6 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -48,21 +48,18 @@ public class LogisticsNexusBlock extends Block implements EntityBlock {
         var level = context.getLevel();
         var pos = context.getClickedPos();
         return this.defaultBlockState()
-                .setValue(UP, hasNeighbor(level, pos.above()))
-                .setValue(DOWN, hasNeighbor(level, pos.below()))
-                .setValue(NORTH, hasNeighbor(level, pos.north()))
-                .setValue(SOUTH, hasNeighbor(level, pos.south()))
-                .setValue(EAST, hasNeighbor(level, pos.east()))
-                .setValue(WEST, hasNeighbor(level, pos.west()));
+                .setValue(UP, this.hasNeighbor(level.getBlockState(pos.above()), Direction.UP))
+                .setValue(DOWN, this.hasNeighbor(level.getBlockState(pos.below()), Direction.DOWN))
+                .setValue(NORTH, this.hasNeighbor(level.getBlockState(pos.north()), Direction.NORTH))
+                .setValue(SOUTH, this.hasNeighbor(level.getBlockState(pos.south()), Direction.SOUTH))
+                .setValue(EAST, this.hasNeighbor(level.getBlockState(pos.east()), Direction.EAST))
+                .setValue(WEST, this.hasNeighbor(level.getBlockState(pos.west()), Direction.WEST));
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, net.minecraft.util.RandomSource random) {
-        if (facing.getAxis() == Direction.Axis.Y || facing.getAxis().isHorizontal()) {
-            return state.setValue(propertyFor(facing), hasNeighbor(facingState));
-        }
-        return state;
+        return state.setValue(propertyFor(facing), this.hasNeighbor(facingState, facing));
     }
 
     @Override
@@ -93,6 +90,7 @@ public class LogisticsNexusBlock extends Block implements EntityBlock {
     }
 
     private BooleanProperty propertyFor(Direction d) { return switch (d) { case UP -> UP; case DOWN -> DOWN; case NORTH -> NORTH; case SOUTH -> SOUTH; case EAST -> EAST; case WEST -> WEST; }; }
-    private boolean hasNeighbor(LevelReader level, BlockPos pos) { return hasNeighbor(level.getBlockState(pos)); }
-    private boolean hasNeighbor(BlockState state) { return !state.isAir(); }
+    private boolean hasNeighbor(BlockState state, Direction facing) {
+        return state.getBlock() instanceof LogisticsConnectionNodeBlock && state.getValue(LogisticsConnectionNodeBlock.FACING) == facing;
+    }
 }

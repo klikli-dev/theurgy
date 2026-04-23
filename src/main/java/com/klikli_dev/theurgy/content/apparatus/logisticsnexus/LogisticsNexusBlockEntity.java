@@ -99,6 +99,10 @@ public class LogisticsNexusBlockEntity extends BlockEntity implements GeoBlockEn
     }
 
     public void setNexusId(UUID nexusId) {
+        if (nexusId == null || nexusId.equals(this.nexusId)) {
+            return;
+        }
+
         var oldNexusId = this.nexusId;
         this.nexusId = nexusId;
         this.setChanged();

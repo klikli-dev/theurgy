@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class Filter implements NBTSerializable<CompoundTag> {
+public abstract class Filter {
     protected ItemStack filterItemStack;
 
     protected Filter(HolderLookup.Provider provider, ItemStack filter) {
@@ -59,16 +59,4 @@ public abstract class Filter implements NBTSerializable<CompoundTag> {
     public abstract boolean test(Level level, FluidStack stack, boolean matchDataComponents);
 
     public abstract boolean isEmpty();
-
-    @Override
-    public @NotNull CompoundTag serializeNBT(HolderLookup.@NotNull Provider provider) {
-        return (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this.filterItemStack).getOrThrow();
-    }
-
-    @Override
-    public void deserializeNBT(HolderLookup.@NotNull Provider provider, @NotNull CompoundTag nbt) {
-        var item = ItemStack.OPTIONAL_CODEC.decode(provider.createSerializationContext(NbtOps.INSTANCE), nbt).getOrThrow().getFirst();
-        this.filterItemStack = item;
-        this.initFromFilterItemStack(provider, item);
-    }
 }

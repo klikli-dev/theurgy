@@ -20,6 +20,14 @@ public class ComponentItemStorage extends ItemAccessItemHandler implements Setta
     }
 
     @Override
+    public boolean isValid(int slot, ItemResource resource) {
+        // Used for filter ghost inventories: accept any item the UI tries to place.
+        // ResourceHandlerSlot gates placement via isValid(), and ItemAccessItemHandler's
+        // default validation is too strict for component-backed ghost slots.
+        return true;
+    }
+
+    @Override
     public void set(int slot, ItemResource resource, int amount) {
         Objects.checkIndex(slot, this.size());
         if (!resource.isEmpty() && !this.isValid(slot, resource)) {

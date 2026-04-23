@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.gui.menu;
 
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -11,12 +12,14 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ComponentItemHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearableMenu {
 
-    public ComponentItemHandler ghostInventory;
+    public SettableItemStorage ghostInventory;
 
     protected GhostItemMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
@@ -26,7 +29,7 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
         super(type, id, inv, contentHolder);
     }
 
-    protected abstract ComponentItemHandler createGhostInventory();
+    protected abstract SettableItemStorage createGhostInventory();
 
     protected abstract boolean allowRepeats();
 
@@ -37,8 +40,8 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
 
     @Override
     public void clearContents() {
-        for (int i = 0; i < this.ghostInventory.getSlots(); i++)
-            this.ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
+        for (int i = 0; i < this.ghostInventory.size(); i++)
+            this.ghostInventory.set(i, ItemResource.of(ItemStack.EMPTY), 0);
     }
 
     @Override
@@ -64,7 +67,7 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
         int slot = slotId - 36;
         if (clickTypeIn == ContainerInput.CLONE) {
             if (player.isCreative() && held.isEmpty()) {
-                ItemStack stackInSlot = this.ghostInventory.getStackInSlot(slot).copy();
+                ItemStack stackInSlot = ItemUtil.getStack(this.ghostInventory, slot).copy();
                 stackInSlot.setCount(stackInSlot.getMaxStackSize());
                 this.setCarried(stackInSlot);
                 return;
@@ -79,7 +82,7 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
             insert = held.copy();
             insert.setCount(1);
         }
-        this.ghostInventory.setStackInSlot(slot, insert);
+        this.ghostInventory.set(slot, ItemResource.of(insert), insert.isEmpty() ? 0 : 1);
         this.getSlot(slotId).setChanged();
     }
 
@@ -87,20 +90,20 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
     public @NotNull ItemStack quickMoveStack(@NotNull Player playerIn, int index) {
         if (index < 36) {
             ItemStack stackToInsert = this.playerInventory.getItem(index);
-            for (int i = 0; i < this.ghostInventory.getSlots(); i++) {
-                ItemStack stack = this.ghostInventory.getStackInSlot(i);
+            for (int i = 0; i < this.ghostInventory.size(); i++) {
+                ItemStack stack = ItemUtil.getStack(this.ghostInventory, i);
                 if (!this.allowRepeats() && ItemStack.isSameItemSameComponents(stack, stackToInsert))
                     break;
                 if (stack.isEmpty()) {
                     ItemStack copy = stackToInsert.copy();
                     copy.setCount(1);
-                    this.ghostInventory.setStackInSlot(i, copy);
+                    this.ghostInventory.set(i, ItemResource.of(copy), 1);
                     this.getSlot(i + 36).setChanged();
                     break;
                 }
             }
         } else {
-            this.ghostInventory.setStackInSlot(index - 36, ItemStack.EMPTY);
+            this.ghostInventory.set(index - 36, ItemResource.of(ItemStack.EMPTY), 0);
             this.getSlot(index).setChanged();
         }
         return ItemStack.EMPTY;

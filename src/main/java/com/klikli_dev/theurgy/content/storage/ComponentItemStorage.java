@@ -11,12 +11,13 @@ import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.item.ItemAccessItemHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.Objects;
 
 public class ComponentItemStorage extends ItemAccessItemHandler implements SettableItemStorage {
-    public ComponentItemStorage(ItemStack parent, DataComponentType<ItemContainerContents> component, int size) {
-        super(ItemAccess.forStack(parent), component, size);
+    public ComponentItemStorage(Player player, int selectedSlot, DataComponentType<ItemContainerContents> component, int size) {
+        super(ItemAccess.forPlayerSlot(player, selectedSlot), component, size);
     }
 
     @Override

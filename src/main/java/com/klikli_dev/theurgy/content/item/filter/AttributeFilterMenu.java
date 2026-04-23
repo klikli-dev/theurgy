@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.item.filter;
 import com.klikli_dev.theurgy.content.behaviour.filter.FilterMode;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
 import com.klikli_dev.theurgy.content.storage.ComponentItemStorage;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.MenuTypeRegistry;
 import com.mojang.datafixers.util.Pair;
@@ -24,8 +25,8 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -53,8 +54,8 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
     }
 
     @Override
-    protected ComponentItemStorage createGhostInventory() {
-        return new ComponentItemStorage(this.contentHolder, DataComponentRegistry.FILTER_ITEMS.get(), 2);
+    protected SettableItemStorage createGhostInventory() {
+        return new ComponentItemStorage(this.player, this.playerInventory.getSelectedSlot(), DataComponentRegistry.FILTER_ITEMS.get(), 2);
     }
 
     @Override
@@ -114,14 +115,14 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
         if (index == 37)
             return ItemStack.EMPTY;
         if (index == 36) {
-            this.ghostInventory.set(1, ItemResource.of(ItemStack.EMPTY), 0);
+            this.ghostInventory.set(0, ItemResource.of(ItemStack.EMPTY), 0);
             return ItemStack.EMPTY;
         }
         if (index < 36) {
             ItemStack stackToInsert = this.playerInventory.getItem(index);
             ItemStack copy = stackToInsert.copy();
             copy.setCount(1);
-            this.ghostInventory.set(0, ItemResource.of(copy), copy.getCount());
+            this.ghostInventory.set(0, ItemResource.of(copy), 1);
         }
         return ItemStack.EMPTY;
     }

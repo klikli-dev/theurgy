@@ -98,6 +98,18 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
         this.updateIndicatorState();
     }
 
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        for (GuiEventListener listener : this.children()) {
+            if (listener.isMouseOver(mouseX, mouseY) && listener.mouseScrolled(mouseX, mouseY, scrollX, scrollY)) {
+                this.setFocused(listener);
+                return true;
+            }
+        }
+
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+    }
+
 
     public int getLeftOfCentered(int textureWidth) {
         return this.leftPos + (this.imageWidth - textureWidth) / 2;

@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.gui.menu;
 
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +13,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearableMenu {
@@ -51,9 +51,7 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
 
     @Override
     public boolean canDragTo(@NotNull Slot slotIn) {
-        if (this.allowRepeats())
-            return true;
-        return slotIn.container == this.playerInventory;
+        return this.allowRepeats() || slotIn.container == this.playerInventory;
     }
 
     @Override
@@ -84,7 +82,7 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
             insert = held.copy();
             insert.setCount(1);
         }
-        this.ghostInventory.set(slot, ItemResource.of(insert), insert.getCount());
+        this.ghostInventory.set(slot, ItemResource.of(insert), insert.isEmpty() ? 0 : 1);
         this.getSlot(slotId).setChanged();
     }
 
@@ -99,19 +97,13 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
                 if (stack.isEmpty()) {
                     ItemStack copy = stackToInsert.copy();
                     copy.setCount(1);
-                    try (var tx = Transaction.openRoot()) {
-                        this.ghostInventory.insert(ItemResource.of(copy), 1, tx);
-                        tx.commit();
-                    }
+                    this.ghostInventory.set(i, ItemResource.of(copy), 1);
                     this.getSlot(i + 36).setChanged();
                     break;
                 }
             }
         } else {
-            try (var tx = Transaction.openRoot()) {
-                this.ghostInventory.extract(ItemResource.of(ItemUtil.getStack(this.ghostInventory, index - 36)), 1, tx);
-                tx.commit();
-            }
+            this.ghostInventory.set(index - 36, ItemResource.of(ItemStack.EMPTY), 0);
             this.getSlot(index).setChanged();
         }
         return ItemStack.EMPTY;

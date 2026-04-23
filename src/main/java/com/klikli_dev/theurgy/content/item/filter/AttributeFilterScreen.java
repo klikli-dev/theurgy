@@ -18,9 +18,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3x2fStack;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

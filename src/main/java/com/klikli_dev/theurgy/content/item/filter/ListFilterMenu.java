@@ -4,14 +4,14 @@
 
 package com.klikli_dev.theurgy.content.item.filter;
 
-import com.klikli_dev.theurgy.content.storage.ComponentItemStorage;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.MenuTypeRegistry;
+import com.klikli_dev.theurgy.content.storage.ComponentItemStorage;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class ListFilterMenu extends AbstractFilterMenu {
@@ -37,8 +37,8 @@ public class ListFilterMenu extends AbstractFilterMenu {
     }
 
     @Override
-    protected ComponentItemStorage createGhostInventory() {
-        return new ComponentItemStorage(this.contentHolder, DataComponentRegistry.FILTER_ITEMS.get(), 18);
+    protected SettableItemStorage createGhostInventory() {
+        return new ComponentItemStorage(this.player, this.playerInventory.getSelectedSlot(), DataComponentRegistry.FILTER_ITEMS.get(), 18);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ListFilterMenu extends AbstractFilterMenu {
         int y = 22;
         for (int row = 0; row < 2; ++row)
             for (int col = 0; col < 9; ++col)
-                this.addSlot(new ResourceHandlerSlot(this.ghostInventory, (slot, resource, amount) -> this.ghostInventory.set(slot, ItemResource.of(resource.toStack(amount)), amount), col + row * 9, x + col * 18, y + row * 18));
+                this.addSlot(new ResourceHandlerSlot(this.ghostInventory, (slot, resource, amount) -> this.ghostInventory.set(slot, resource, amount), col + row * 9, x + col * 18, y + row * 18));
     }
 
     @Override

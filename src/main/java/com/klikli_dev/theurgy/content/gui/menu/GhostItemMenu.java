@@ -51,9 +51,7 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
 
     @Override
     public boolean canDragTo(@NotNull Slot slotIn) {
-        if (this.allowRepeats())
-            return true;
-        return slotIn.container == this.playerInventory;
+        return true;
     }
 
     @Override

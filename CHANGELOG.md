@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.88.0] - 2026-04-23
+### :sparkles: New Features
+- [`687d817`](https://github.com/klikli-dev/theurgy/commit/687d8171e7a3e6cf12e29482b1665496230afa5a) - add logistics nexus *(PR [#350](https://github.com/klikli-dev/theurgy/pull/350) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.87.0] - 2026-04-18
 ### :sparkles: New Features
 - [`de01c40`](https://github.com/klikli-dev/theurgy/commit/de01c405ded2a5bfb95a7e2297472d547aa53725) - add FE support to mercury flux transport *(PR [#348](https://github.com/klikli-dev/theurgy/pull/348) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1490,3 +1495,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.85.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.84.0...release/v26.1.2-1.85.0
 [release/v26.1.2-1.86.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.85.0...release/v26.1.2-1.86.0
 [release/v26.1.2-1.87.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.86.0...release/v26.1.2-1.87.0
+[release/v26.1.2-1.88.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.87.0...release/v26.1.2-1.88.0

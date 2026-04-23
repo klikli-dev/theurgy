@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.item.filter;
 
 import com.klikli_dev.theurgy.content.gui.menu.GhostItemMenu;
-import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
+import net.neoforged.neoforge.items.ComponentItemHandler;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +25,7 @@ public abstract class AbstractFilterMenu extends GhostItemMenu<ItemStack> {
     }
 
     @Override
-    protected abstract SettableItemStorage createGhostInventory();
+    protected abstract ComponentItemHandler createGhostInventory();
 
     @Override
     protected boolean allowRepeats() {

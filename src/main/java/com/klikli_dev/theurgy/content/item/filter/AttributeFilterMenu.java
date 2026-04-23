@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.item.filter;
 
 import com.klikli_dev.theurgy.content.behaviour.filter.FilterMode;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
-import com.klikli_dev.theurgy.content.storage.ComponentItemStorage;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.MenuTypeRegistry;
 import com.mojang.datafixers.util.Pair;
@@ -24,8 +23,8 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
+import net.neoforged.neoforge.items.ComponentItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -53,8 +52,8 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
     }
 
     @Override
-    protected ComponentItemStorage createGhostInventory() {
-        return new ComponentItemStorage(this.contentHolder, DataComponentRegistry.FILTER_ITEMS.get(), 2);
+    protected ComponentItemHandler createGhostInventory() {
+        return new ComponentItemHandler(this.contentHolder, DataComponentRegistry.FILTER_ITEMS.get(), 2);
     }
 
     @Override
@@ -69,8 +68,8 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
     @Override
     protected void addFilterSlots() {
-        this.addSlot(new ResourceHandlerSlot(this.ghostInventory, (slot, resource, amount) -> this.ghostInventory.set(slot, resource, amount), 0, 16, 24));
-        this.addSlot(new ResourceHandlerSlot(this.ghostInventory, (slot, resource, amount) -> this.ghostInventory.set(slot, resource, amount), 1, 22, 59) {
+        this.addSlot(new SlotItemHandler(this.ghostInventory, 0, 16, 24));
+        this.addSlot(new SlotItemHandler(this.ghostInventory, 1, 22, 59) {
             @Override
             public boolean mayPickup(@NotNull Player playerIn) {
                 return false;
@@ -85,7 +84,7 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
         ItemStack stack = new ItemStack(Items.NAME_TAG);
         stack.set(DataComponents.ITEM_NAME,
                 Component.literal("Selected Tags").withStyle(ChatFormatting.RESET, ChatFormatting.BLUE));
-        this.ghostInventory.set(1, ItemResource.of(stack), stack.getCount());
+        this.ghostInventory.setStackInSlot(1, stack);
     }
 
     @Override
@@ -114,14 +113,14 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
         if (index == 37)
             return ItemStack.EMPTY;
         if (index == 36) {
-            this.ghostInventory.set(1, ItemResource.of(ItemStack.EMPTY), 0);
+            this.ghostInventory.setStackInSlot(0, ItemStack.EMPTY);
             return ItemStack.EMPTY;
         }
         if (index < 36) {
             ItemStack stackToInsert = this.playerInventory.getItem(index);
             ItemStack copy = stackToInsert.copy();
             copy.setCount(1);
-            this.ghostInventory.set(0, ItemResource.of(copy), copy.getCount());
+            this.ghostInventory.setStackInSlot(0, copy);
         }
         return ItemStack.EMPTY;
     }

@@ -18,7 +18,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3x2fStack;
 
@@ -168,7 +167,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
         this.addRenderableWidget(this.attributeSelector);
 
 
-        this.referenceItemChanged(ItemUtil.getStack(this.menu.ghostInventory, 0));
+        this.referenceItemChanged(this.menu.ghostInventory.getStackInSlot(0));
 
 
         this.selectedAttributes.clear();
@@ -184,7 +183,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
     public void extractRenderState(@NotNull GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         super.extractRenderState(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
 
-        ItemStack stack = ItemUtil.getStack(this.menu.ghostInventory, 1);
+        ItemStack stack = this.menu.ghostInventory.getStackInSlot(1);
         Matrix3x2fStack matrixStack = pGuiGraphics.pose();
         matrixStack.pushMatrix();
         pGuiGraphics.itemDecorations(this.font, stack, this.leftPos + 22, this.topPos + 59,
@@ -195,7 +194,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
     @Override
     protected void containerTick() {
         super.containerTick();
-        ItemStack stackInSlot = ItemUtil.getStack(this.menu.ghostInventory, 0);
+        ItemStack stackInSlot = this.menu.ghostInventory.getStackInSlot(0);
         if (!ItemStack.isSameItemSameComponents(stackInSlot, this.lastItemScanned))
             this.referenceItemChanged(stackInSlot);
     }

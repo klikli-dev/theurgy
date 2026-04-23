@@ -5,11 +5,11 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter.attribute;
 
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -39,7 +39,7 @@ public enum StandardAttributes implements ItemAttribute {
     BADLY_DAMAGED(s -> s.isDamaged() && (float) s.getDamageValue() / s.getMaxDamage() > 3 / 4f),
     NOT_STACKABLE(((Predicate<ItemStack>) ItemStack::isStackable).negate()),
     EQUIPABLE(s -> s.has(DataComponents.EQUIPPABLE)),
-    FURNACE_FUEL(s -> s.getBurnTime(RecipeType.SMELTING, null) > 0),
+    FURNACE_FUEL((s, level) -> level != null && s.getBurnTime(RecipeType.SMELTING, level.fuelValues()) > 0),
     SMELTABLE((s, w) -> testRecipe(s, w, RecipeType.SMELTING)),
     SMOKABLE((s, w) -> testRecipe(s, w, RecipeType.SMOKING)),
     BLASTABLE((s, w) -> testRecipe(s, w, RecipeType.BLASTING)),
@@ -58,7 +58,7 @@ public enum StandardAttributes implements ItemAttribute {
 
     private static boolean testRecipe(ItemStack s, Level level, RecipeType<? extends Recipe<SingleRecipeInput>> type) {
         var input = new SingleRecipeInput(s);
-        return ((ServerLevel) level).getServer().getRecipeManager()
+        return TheurgyRecipeManager.get()
                 .getRecipeFor(type, input, level)
                 .isPresent();
     }

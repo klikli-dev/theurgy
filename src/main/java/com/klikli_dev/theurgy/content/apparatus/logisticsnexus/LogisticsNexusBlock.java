@@ -4,13 +4,13 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsnexus;
 
-import com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode.LogisticsConnectionNodeBlock;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 public class LogisticsNexusBlock extends Block implements EntityBlock {
     public static final BooleanProperty UP = BooleanProperty.create("up");
@@ -40,26 +41,26 @@ public class LogisticsNexusBlock extends Block implements EntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public RenderShape getRenderShape(BlockState state) { return RenderShape.INVISIBLE; }
+    public @NonNull RenderShape getRenderShape(BlockState state) {
+        return RenderShape.INVISIBLE;
+    }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         var level = context.getLevel();
         var pos = context.getClickedPos();
         return this.defaultBlockState()
-                .setValue(UP, this.hasNeighbor(level.getBlockState(pos.above()), Direction.UP))
-                .setValue(DOWN, this.hasNeighbor(level.getBlockState(pos.below()), Direction.DOWN))
-                .setValue(NORTH, this.hasNeighbor(level.getBlockState(pos.north()), Direction.NORTH))
-                .setValue(SOUTH, this.hasNeighbor(level.getBlockState(pos.south()), Direction.SOUTH))
-                .setValue(EAST, this.hasNeighbor(level.getBlockState(pos.east()), Direction.EAST))
-                .setValue(WEST, this.hasNeighbor(level.getBlockState(pos.west()), Direction.WEST));
+                .setValue(UP, this.hasNeighbor(level.getBlockState(pos.above())))
+                .setValue(DOWN, this.hasNeighbor(level.getBlockState(pos.below())))
+                .setValue(NORTH, this.hasNeighbor(level.getBlockState(pos.north())))
+                .setValue(SOUTH, this.hasNeighbor(level.getBlockState(pos.south())))
+                .setValue(EAST, this.hasNeighbor(level.getBlockState(pos.east())))
+                .setValue(WEST, this.hasNeighbor(level.getBlockState(pos.west())));
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, net.minecraft.util.RandomSource random) {
-        return state.setValue(propertyFor(facing), this.hasNeighbor(facingState, facing));
+    public @NonNull BlockState updateShape(BlockState state, LevelReader leve , ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource random) {
+        return state.setValue(this.propertyFor(facing), this.hasNeighbor(facingState));
     }
 
     @Override
@@ -67,7 +68,11 @@ public class LogisticsNexusBlock extends Block implements EntityBlock {
         builder.add(UP, DOWN, NORTH, SOUTH, EAST, WEST);
     }
 
-    @Nullable @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return BlockEntityRegistry.LOGISTICS_NEXUS.get().create(pos, state); }
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return BlockEntityRegistry.LOGISTICS_NEXUS.get().create(pos, state);
+    }
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
@@ -89,8 +94,18 @@ public class LogisticsNexusBlock extends Block implements EntityBlock {
         Logistics.get().remove(GlobalPos.of(level.dimension(), pos));
     }
 
-    private BooleanProperty propertyFor(Direction d) { return switch (d) { case UP -> UP; case DOWN -> DOWN; case NORTH -> NORTH; case SOUTH -> SOUTH; case EAST -> EAST; case WEST -> WEST; }; }
-    private boolean hasNeighbor(BlockState state, Direction facing) {
-        return state.getBlock() instanceof LogisticsConnectionNodeBlock && state.getValue(LogisticsConnectionNodeBlock.FACING) == facing;
+    private BooleanProperty propertyFor(Direction d) {
+        return switch (d) {
+            case UP -> UP;
+            case DOWN -> DOWN;
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case EAST -> EAST;
+            case WEST -> WEST;
+        };
+    }
+
+    private boolean hasNeighbor(BlockState state) {
+        return !state.isAir();
     }
 }

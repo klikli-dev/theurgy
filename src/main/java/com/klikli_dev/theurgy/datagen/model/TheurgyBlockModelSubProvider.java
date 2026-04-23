@@ -52,6 +52,7 @@ public class TheurgyBlockModelSubProvider {
         this.registerIncubatorVessels(blockModels, itemModels);
         this.registerSalAmmoniacAccumulator(blockModels, itemModels);
         this.registerSalAmmoniacTank(blockModels, itemModels);
+        this.registerLogisticsNexus(blockModels, itemModels);
         this.registerMercuryCatalyst(blockModels, itemModels);
         this.registerMercuryCapacitor(blockModels, itemModels);
         this.registerCaloricFluxEmitter(blockModels, itemModels);
@@ -229,6 +230,12 @@ public class TheurgyBlockModelSubProvider {
         this.registerGeckolibItem(itemModels, BlockRegistry.SAL_AMMONIAC_TANK.get(), Identifier.withDefaultNamespace("block/copper_block"));
     }
 
+    private void registerLogisticsNexus(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.LOGISTICS_NEXUS.get()), Identifier.withDefaultNamespace("block/copper_block"));
+        this.registerSingleStateBlock(blockModels, BlockRegistry.LOGISTICS_NEXUS.get(), this.blockModel(BlockRegistry.LOGISTICS_NEXUS.get()));
+        this.registerGeckolibItem(itemModels, BlockRegistry.LOGISTICS_NEXUS.get(), Identifier.withDefaultNamespace("block/copper_block"));
+    }
+
     private void registerMercuryCatalyst(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         var block = BlockRegistry.MERCURY_CATALYST.get();
         this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc("block/mercury_catalyst_template"), Map.of(
@@ -370,7 +377,7 @@ public class TheurgyBlockModelSubProvider {
         }
         blockModels.blockStateOutput.accept(generator);
 
-        this.registerParentedItemModel(itemModels, block, this.blockModel(block));
+        this.registerParentedItemModel(itemModels, block, this.blockModel(block), this.logisticsConnectorDisplay());
     }
 
     private void registerLogisticsProbe(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier texture) {
@@ -386,7 +393,7 @@ public class TheurgyBlockModelSubProvider {
         }
         blockModels.blockStateOutput.accept(generator);
 
-        this.registerParentedItemModel(itemModels, block, this.blockModel(block));
+        this.registerParentedItemModel(itemModels, block, this.blockModel(block), this.logisticsConnectorDisplay());
     }
 
     private void registerLogisticsCapabilityProxy(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier texture) {
@@ -402,7 +409,7 @@ public class TheurgyBlockModelSubProvider {
         }
         blockModels.blockStateOutput.accept(generator);
 
-        this.registerParentedItemModel(itemModels, block, this.blockModel(block));
+        this.registerParentedItemModel(itemModels, block, this.blockModel(block), this.logisticsProxyDisplay());
     }
 
     private void registerLogisticsNode(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -419,7 +426,7 @@ public class TheurgyBlockModelSubProvider {
         }
         blockModels.blockStateOutput.accept(generator);
 
-        this.registerParentedItemModel(itemModels, BlockRegistry.LOGISTICS_CONNECTION_NODE.get(), this.blockModel(BlockRegistry.LOGISTICS_CONNECTION_NODE.get()));
+        this.registerParentedItemModel(itemModels, BlockRegistry.LOGISTICS_CONNECTION_NODE.get(), this.blockModel(BlockRegistry.LOGISTICS_CONNECTION_NODE.get()), this.logisticsConnectorDisplay());
     }
 
     private Rotation connectorRotation(Direction direction) {
@@ -460,6 +467,11 @@ public class TheurgyBlockModelSubProvider {
 
     private void registerParentedItemModel(ItemModelGenerators itemModels, Block block, Identifier parentModel) {
         this.emitParentModel(itemModels.modelOutput, this.itemModel(block), parentModel, Map.of());
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.itemModel(block)));
+    }
+
+    private void registerParentedItemModel(ItemModelGenerators itemModels, Block block, Identifier parentModel, JsonObject display) {
+        this.emitParentModel(itemModels.modelOutput, this.itemModel(block), parentModel, Map.of(), display);
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.itemModel(block)));
     }
 
@@ -510,6 +522,10 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void emitParentModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier parent, Map<String, Identifier> textures) {
+        this.emitParentModel(output, modelLocation, parent, textures, null);
+    }
+
+    private void emitParentModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier parent, Map<String, Identifier> textures, JsonObject display) {
         output.accept(modelLocation, () -> {
             JsonObject json = new JsonObject();
             if (parent != null) {
@@ -520,8 +536,36 @@ public class TheurgyBlockModelSubProvider {
                 textures.forEach((key, value) -> textureJson.addProperty(key, value.toString()));
                 json.add("textures", textureJson);
             }
+            if (display != null) {
+                json.add("display", display.deepCopy());
+            }
             return json;
         });
+    }
+
+    private JsonObject logisticsConnectorDisplay() {
+        JsonObject display = new JsonObject();
+        display.add("gui", displayTransform(30, 225, 0, 0, 4, 0, 1.0f));
+        display.add("ground", displayTransform(0, 0, 0, 0, 5, 0, 0.5f));
+        display.add("fixed", displayTransform(0, 0, 0, 0, 3, 0, 0.5f));
+        display.add("thirdperson_righthand", displayTransform(0, 0, 0, 0, 6, 0, 0.7f));
+        display.add("firstperson_righthand", displayTransform(0, 0, 0, 0, 6, 0, 0.7f));
+        display.add("thirdperson_lefthand", displayTransform(0, 0, 0, 0, 6, 0, 0.7f));
+        display.add("firstperson_lefthand", displayTransform(0, 225, 0, 0, 6, 0, 0.7f));
+        return display;
+    }
+
+    private JsonObject logisticsProxyDisplay() {
+        float scale = 2.0f / 3.0f;
+        JsonObject display = new JsonObject();
+        display.add("gui", displayTransform(30, 225, 0, 0, -0.25f, 0, scale));
+        display.add("ground", displayTransform(0, 0, 0, 0, 5, 0, 0.5f * scale));
+        display.add("fixed", displayTransform(0, 0, 0, 0, -0.25f, 0, 0.5f * scale));
+        display.add("thirdperson_righthand", displayTransform(0, 0, 0, 0, -0.5f, 0, 0.7f * scale));
+        display.add("firstperson_righthand", displayTransform(0, 0, 0, 0, -0.5f, 0, 0.7f * scale));
+        display.add("thirdperson_lefthand", displayTransform(0, 0, 0, 0, -0.5f, 0, 0.7f * scale));
+        display.add("firstperson_lefthand", displayTransform(0, 225, 0, 0, -0.5f, 0, 0.7f * scale));
+        return display;
     }
 
     /**

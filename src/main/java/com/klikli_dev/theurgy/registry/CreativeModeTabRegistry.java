@@ -60,6 +60,7 @@ public class CreativeModeTabRegistry {
 
                 output.accept(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
                 output.accept(ItemRegistry.SAL_AMMONIAC_TANK.get());
+                output.accept(ItemRegistry.LOGISTICS_NEXUS.get());
 
                 output.accept(ItemRegistry.MERCURY_CATALYST.get());
                 output.accept(ItemRegistry.MERCURY_CAPACITOR.get());

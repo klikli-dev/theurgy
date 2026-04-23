@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.util.TheurgyExtraStreamCodecs;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -27,6 +28,8 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.UUID;
 
 public class DataComponentRegistry {
 
@@ -180,6 +183,12 @@ public class DataComponentRegistry {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SELECTED_FREQUENCY = DATA_COMPONENTS.registerComponentType("selected_frequency", builder -> builder
             .persistent(Codec.INT)
             .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> LOGISTICS_NEXUS_ID = DATA_COMPONENTS.registerComponentType("logistics_nexus_id", builder -> builder
+            .persistent(UUIDUtil.CODEC)
+            .networkSynchronized(UUIDUtil.STREAM_CODEC)
             .cacheEncoding()
     );
 

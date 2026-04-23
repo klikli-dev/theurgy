@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode;
 
 import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockEntity;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
@@ -93,6 +94,24 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
         var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
         Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
         Logistics.get().remove(GlobalPos.of(pLevel.dimension(), pPos));
+    }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        if (level.isClientSide() || state.is(oldState.getBlock())) {
+            return;
+        }
+
+        var attachedPos = pos.relative(state.getValue(FACING).getOpposite());
+        if (level.getBlockEntity(attachedPos) instanceof LogisticsNexusBlockEntity nexus && nexus.nexusId() != null) {
+            var logistics = Logistics.get();
+            var nodePos = GlobalPos.of(level.dimension(), pos);
+            var nexusPos = GlobalPos.of(level.dimension(), attachedPos);
+            logistics.add(nodePos, nexusPos);
+        } else {
+            Logistics.get().add(GlobalPos.of(level.dimension(), pos));
+        }
     }
 
     @Override

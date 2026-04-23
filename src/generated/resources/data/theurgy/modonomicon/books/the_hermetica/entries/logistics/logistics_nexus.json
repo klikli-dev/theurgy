@@ -1,0 +1,68 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "logistics",
+  "description": "book.theurgy.the_hermetica.logistics.logistics_nexus.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "theurgy:logistics_nexus"
+  },
+  "name": "book.theurgy.the_hermetica.logistics.logistics_nexus.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": "theurgy:logistics_nexus",
+      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.nexus.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_nexus",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.pairing.text",
+      "title": "book.theurgy.the_hermetica.logistics.logistics_nexus.pairing.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.usage.text",
+      "title": "book.theurgy.the_hermetica.logistics.logistics_nexus.usage.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "logistics/connection_node",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 10,
+  "x": 9,
+  "y": -5
+}

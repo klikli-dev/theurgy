@@ -412,6 +412,17 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('b', Tags.Items.BRICKS_NORMAL)
         );
 
+        this.makeRecipe(this.name(ItemRegistry.LOGISTICS_NEXUS.get()), new ShapedRecipeBuilder(
+                "theurgy:logistics_nexus", ItemRegistry.LOGISTICS_NEXUS.get(), 2, DataComponentPatch.EMPTY)
+                .pattern(" m ")
+                .pattern("ici")
+                .pattern("bbb")
+                .define('m', ItemRegistry.MERCURY_SHARD)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .define('c', ItemRegistry.LOGISTICS_CONNECTION_NODE.get())
+                .define('b', Tags.Items.BRICKS_NORMAL)
+        );
+
         this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.LOGISTICS_CAPABILITY_PROBE.get(), 1)
                 .pattern(" q ")

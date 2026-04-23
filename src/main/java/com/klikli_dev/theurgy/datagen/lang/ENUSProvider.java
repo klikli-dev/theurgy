@@ -390,6 +390,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                         The Tank will slowly be filled with Sal Ammoniac.
                         """);
 
+        this.addBlock(BlockRegistry.LOGISTICS_NEXUS, "Logistics Nexus");
+        this.addTooltip(BlockRegistry.LOGISTICS_NEXUS.get()::asItem,
+                "Allows to connect Mercurial Logistics Networks over large distances and dimensions without wires.",
+                "Placed Nexuses with matching IDs connect their attached Mercurial Logistics Networks across any distance.",
+                """
+                        Craft a pair of Nexuses, then place them where you want the network to link.
+                        Attach Mercurial Connection Nodes on each nexus and connect the Nodes with other network parts using a mercurial copper wire.
+                        """
+        );
+
         this.addBlock(BlockRegistry.MERCURY_CATALYST, "Mercury Catalyst");
         this.addTooltip(BlockRegistry.MERCURY_CATALYST.get()::asItem,
                 "Converts mercury from it's crystal form into it's flux form.",

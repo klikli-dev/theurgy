@@ -23,18 +23,18 @@ public class LogisticsCategory extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
-                "______________________________ô___",
                 "__________________________________",
-                "______________________________ì___",
+                "____________________ì_____ø_______",
                 "__________________________________",
-                "________________l___í_____ƒ___è___",
+                "________________l___í_____ň_______",
                 "__________________________________",
-                "________________i_____ŵ_n_ň_______",
+                "________________i_____ŵ_n___ƒ_____",
                 "__________________________________",
                 "________________w___e_____f_m_p___",
                 "__________________________________",
-                "__________________________a___x___",
-                "__________________________________"
+                "____________________è_____a___x___",
+                "__________________________________",
+                "__________________________ô_______"
 
         };
     }
@@ -59,6 +59,12 @@ public class LogisticsCategory extends CategoryProvider {
         var inserterEntry = new ItemInserterEntry(this).generate('í');
         inserterEntry.withParent(introEntry);
 
+        var fluidExtractorEntry = new FluidExtractorEntry(this).generate('è');
+        fluidExtractorEntry.withParent(extractorEntry);
+
+        var fluidInserterEntry = new FluidInserterEntry(this).generate('ì');
+        fluidInserterEntry.withParent(inserterEntry);
+
         var networkEntry = new LogisticsNetworkEntry(this).generate('n');
         networkEntry.withParent(wireEntry);
         networkEntry.withParent(extractorEntry);
@@ -67,32 +73,29 @@ public class LogisticsCategory extends CategoryProvider {
         var nodeEntry = new ConnectionNodeEntry(this).generate('ň');
         nodeEntry.withParent(networkEntry);
 
+        var nexusEntry = new LogisticsNexusEntry(this).generate('ø');
+        nexusEntry.withParent(nodeEntry);
+
         var listFilterEntry = new ListFilterEntry(this).generate('f');
-        listFilterEntry.withParent(nodeEntry);
-
-        var mercuryFluxConnectorEntry = new MercuryFluxConnectorEntry(this).generate('m');
-        mercuryFluxConnectorEntry.withParent(nodeEntry);
-
-        var capabilityProbeEntry = new CapabilityProbeEntry(this).generate('p');
-        capabilityProbeEntry.withParent(nodeEntry);
-
-        var capabilityProxyEntry = new CapabilityProxyEntry(this).generate('x');
-        capabilityProxyEntry.withParent(capabilityProbeEntry);
+        listFilterEntry.withParent(networkEntry);
 
         var attributeFilterEntry = new AttributeFilterEntry(this).generate('a');
         attributeFilterEntry.withParent(listFilterEntry);
 
-        var frequencyEntry = new FrequencyEntry(this).generate('ƒ');
-        frequencyEntry.withParent(nodeEntry);
-
-        var fluidExtractorEntry = new FluidExtractorEntry(this).generate('è');
-        fluidExtractorEntry.withParent(nodeEntry);
-
-        var fluidInserterEntry = new FluidInserterEntry(this).generate('ì');
-        fluidInserterEntry.withParent(fluidExtractorEntry);
-
         var fluidListFilterEntry = new FluidListFilterEntry(this).generate('ô');
-        fluidListFilterEntry.withParent(fluidInserterEntry);
+        fluidListFilterEntry.withParent(attributeFilterEntry);
+
+        var frequencyEntry = new FrequencyEntry(this).generate('ƒ');
+        frequencyEntry.withParent(networkEntry);
+
+        var mercuryFluxConnectorEntry = new MercuryFluxConnectorEntry(this).generate('m');
+        mercuryFluxConnectorEntry.withParent(frequencyEntry);
+
+        var capabilityProbeEntry = new CapabilityProbeEntry(this).generate('p');
+        capabilityProbeEntry.withParent(frequencyEntry);
+
+        var capabilityProxyEntry = new CapabilityProxyEntry(this).generate('x');
+        capabilityProxyEntry.withParent(capabilityProbeEntry);
     }
 
     @Override

@@ -7,7 +7,10 @@ package com.klikli_dev.theurgy.logistics;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import com.google.common.graph.Traverser;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.SetMultimap;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusPairing;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
@@ -34,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -42,7 +46,8 @@ public class Logistics extends SavedData {
     public static final Supplier<MutableGraph<GlobalPos>> GRAPH_SUPPLIER = () -> GraphBuilder.undirected().allowsSelfLoops(false).build();
     public static final String ID = "theurgy.logistics";
     public static final Codec<Logistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            TheurgyExtraCodecs.graph(GlobalPos.CODEC, GRAPH_SUPPLIER).fieldOf("graph").forGetter(Logistics::graph)
+            TheurgyExtraCodecs.graph(GlobalPos.CODEC, GRAPH_SUPPLIER).fieldOf("graph").forGetter(Logistics::graph),
+            LogisticsNexusPairing.CODEC.listOf().optionalFieldOf("nexus_pairs", List.of()).forGetter(Logistics::nexusPairings)
     ).apply(instance, Logistics::new));
     private static final SavedDataType<Logistics> TYPE = new SavedDataType<>(Identifier.parse(Logistics.ID), Logistics::new, Logistics.CODEC, DataFixTypes.LEVEL);
     private static Logistics cachedLogistics;
@@ -50,6 +55,7 @@ public class Logistics extends SavedData {
     private final MutableGraph<GlobalPos> graph;
     private final Set<GlobalPos> graphNodes = new ObjectOpenHashSet<>();
     private final Map<GlobalPos, LogisticsNetwork> blockPosToNetwork = new Object2ObjectOpenHashMap<>();
+    private final SetMultimap<UUID, GlobalPos> nexusPairs = HashMultimap.create();
     private final Map<CachedLeafNodeKey, WeakReference<LeafNodeBehaviour<?, ?>>> cachedLeafNodes = new Object2ObjectOpenHashMap<>();
     /**
      * If true, leaf node lookups will be cached. This is useful if you access a lot of nodes in a short period of time.
@@ -69,11 +75,12 @@ public class Logistics extends SavedData {
     //      the kicking of non-nodes might make sense though
 
     public Logistics() {
-        this(GRAPH_SUPPLIER.get());
+        this(GRAPH_SUPPLIER.get(), List.of());
     }
 
-    public Logistics(MutableGraph<GlobalPos> graph) {
+    public Logistics(MutableGraph<GlobalPos> graph, List<LogisticsNexusPairing> nexusPairings) {
         this.graph = graph;
+        nexusPairings.forEach(pair -> this.nexusPairs.put(pair.id(), pair.pos()));
         this.rebuildGraph();
     }
 
@@ -82,20 +89,15 @@ public class Logistics extends SavedData {
     }
 
     public static Logistics get() {
-        if (cachedLogistics == null) {
-            var server = server();
+        var server = server();
 
-            if (server != null) {
-                var logistics = server.overworld().getDataStorage().computeIfAbsent(TYPE);
-
-                cachedLogistics = logistics;
-            } else {
-                var logistics = new Logistics(); //handle client side access gracefully
-                Theurgy.LOGGER.warn("Logistics accessed client side, this should not happen!");
-                cachedLogistics = logistics;
-            }
+        if (server != null) {
+            return server.overworld().getDataStorage().computeIfAbsent(TYPE);
+        } else {
+            var logistics = new Logistics(); //handle client side access gracefully
+            Theurgy.LOGGER.warn("Logistics accessed client side, this should not happen!");
+            return logistics;
         }
-        return cachedLogistics;
     }
 
     /**
@@ -128,6 +130,31 @@ public class Logistics extends SavedData {
 
     public LogisticsNetwork getNetwork(GlobalPos pos) {
         return this.blockPosToNetwork.get(pos);
+    }
+
+    public GlobalPos findPairedNexus(GlobalPos pos, UUID nexusId) {
+        return this.nexusPairs.get(nexusId).stream()
+                .filter(other -> !other.equals(pos))
+                .filter(this::isLogisticsNode)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void registerNexus(GlobalPos pos, UUID nexusId) {
+        this.nexusPairs.put(nexusId, pos);
+        this.setDirty();
+    }
+
+    public void unregisterNexus(GlobalPos pos, UUID nexusId) {
+        if (this.nexusPairs.remove(nexusId, pos)) {
+            this.setDirty();
+        }
+    }
+
+    public List<LogisticsNexusPairing> nexusPairings() {
+        return this.nexusPairs.entries().stream()
+                .map(entry -> new LogisticsNexusPairing(entry.getKey(), entry.getValue()))
+                .toList();
     }
 
     /**

@@ -23,6 +23,7 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector.LogisticsMercuryFluxConnectorBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
@@ -114,6 +115,13 @@ public class BlockRegistry {
 
     public static final DeferredBlock<SalAmmoniacTankBlock> SAL_AMMONIAC_TANK =
             BLOCKS.registerBlock("sal_ammoniac_tank", SalAmmoniacTankBlock::new, () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.COPPER)
+                    .strength(1.0f));
+
+    public static final DeferredBlock<LogisticsNexusBlock> LOGISTICS_NEXUS =
+            BLOCKS.registerBlock("logistics_nexus", LogisticsNexusBlock::new, () -> BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.COPPER)

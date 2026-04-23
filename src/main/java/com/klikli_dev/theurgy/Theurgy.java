@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercur
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.render.LogisticsNexusRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.render.MercuryCapacitorRenderer;
@@ -86,11 +87,7 @@ public class Theurgy {
     public static final String MODID = "theurgy";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static Theurgy INSTANCE;
-
     public Theurgy(IEventBus modEventBus, ModContainer modContainer) {
-        INSTANCE = this;
-
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
         modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);
@@ -278,6 +275,7 @@ public class Theurgy {
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(), IncubatorSulfurVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(), IncubatorSaltVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), SalAmmoniacTankRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.LOGISTICS_NEXUS.get(), LogisticsNexusRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.DIGESTION_VAT.get(), DigestionVatRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.MERCURY_CAPACITOR.get(), MercuryCapacitorRenderer::new);
         }

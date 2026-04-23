@@ -454,6 +454,21 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER_REVERSED =
             TEST_FUNCTIONS.register("logistics_item_extractor_targets_in_any_registration_order_reversed", () -> LogisticsGameTests::itemExtractorFindsInserterTargetRegardlessOfRegistrationOrderReversed);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_ITEM_CONNECTOR_RESTORES_ATTACHED_TARGET_ON_LOAD =
+            TEST_FUNCTIONS.register("logistics_item_connector_restores_attached_target_on_load", () -> LogisticsGameTests::itemConnectorRestoresAttachedTargetOnLoad);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_FLUID_CONNECTOR_RESTORES_ATTACHED_TARGET_ON_LOAD =
+            TEST_FUNCTIONS.register("logistics_fluid_connector_restores_attached_target_on_load", () -> LogisticsGameTests::fluidConnectorRestoresAttachedTargetOnLoad);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_NEXUS_PAIRS_ACROSS_PLACEMENT =
+            TEST_FUNCTIONS.register("logistics_nexus_pairs_across_placement", () -> LogisticsGameTests::logisticsNexusPairsAcrossPlacement);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_NODE_ONLY_CONNECTS_WHEN_ATTACHED_TO_NEXUS =
+            TEST_FUNCTIONS.register("logistics_node_only_connects_when_attached_to_nexus", () -> LogisticsGameTests::logisticsConnectionNodeOnlyConnectsWhenAttachedToNexus);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_NEXUS_BE_ACCEPTS_ITEM_UUID =
+            TEST_FUNCTIONS.register("logistics_nexus_be_accepts_item_uuid", () -> LogisticsGameTests::logisticsNexusBlockEntityAcceptsItemUuid);
+
     // --- Logistics Capability Proxy ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LCP_PLACEMENT =
@@ -727,6 +742,11 @@ private static void registerLogisticsTests(RegisterGameTestsEvent event) {
         registerTest(event, LOG_FLUID_EXTRACTS_WORLD_SOURCE, environment, structure, 80, 0);
         registerTest(event, LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER, environment, structure, 40, 0);
         registerTest(event, LOG_ITEM_EXTRACTOR_TARGETS_IN_ANY_REGISTRATION_ORDER_REVERSED, environment, structure, 40, 0);
+        registerTest(event, LOG_ITEM_CONNECTOR_RESTORES_ATTACHED_TARGET_ON_LOAD, environment, structure, 40, 0);
+        registerTest(event, LOG_FLUID_CONNECTOR_RESTORES_ATTACHED_TARGET_ON_LOAD, environment, structure, 40, 0);
+        registerTest(event, LOG_NEXUS_PAIRS_ACROSS_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, LOG_NODE_ONLY_CONNECTS_WHEN_ATTACHED_TO_NEXUS, environment, structure, 40, 0);
+        registerTest(event, LOG_NEXUS_BE_ACCEPTS_ITEM_UUID, environment, structure, 40, 0);
         registerTest(event, LCP_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, LCP_FLUID_FORWARDING, environment, structure, 100, 0);
         registerTest(event, LCP_FLUID_ROUND_ROBIN, environment, structure, 100, 0);

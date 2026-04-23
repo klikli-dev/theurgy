@@ -12,7 +12,7 @@
 Do not use fully qualified class names in code. Always import classes and use their simple names. 
 
 ## Minecraft source lookups
-- Prefer the `minecraft-dev` MCP tools for all vanilla lookups, diffs, and signature checks.
+- Use the `minecraft-dev` skill for all vanilla lookups, diffs, and signature checks.
 - Always use **Mojmaps** when querying Minecraft code with `minecraft-dev`.
 - Use `minecraft-dev` version comparison and source lookup before editing code.
 

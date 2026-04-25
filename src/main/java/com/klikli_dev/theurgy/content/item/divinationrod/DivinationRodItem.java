@@ -161,18 +161,14 @@ public class DivinationRodItem extends Item {
     }
 
     public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
-        var level = LevelUtil.getLevelWithoutContext();
-        if (level != null) {
-            //var recipeManager = level.getRecipeManager();
-            //FIXME: 1.21.3 Update - RecipeManager handling
-            /*
-            recipeManager.getRecipes().forEach((recipe) -> {
-                if (recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == item) {
-                    output.accept(recipe.value().getResultItem(level.registryAccess()).copy());
-                }
-            });
-            */
+        var stack = item.getDefaultInstance();
+
+        var itemId = BuiltInRegistries.ITEM.getKey(item);
+        if (itemId != null && "amethyst_divination_rod".equals(itemId.getPath())) {
+            stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.wrapAsHolder(Blocks.BUDDING_AMETHYST));
         }
+
+        output.accept(stack);
     }
 
     @Override

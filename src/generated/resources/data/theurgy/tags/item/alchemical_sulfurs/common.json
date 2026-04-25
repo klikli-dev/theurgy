@@ -1,6 +1,10 @@
 {
   "values": [
     {
+      "id": "#theurgy:alchemical_sulfurs/earthen_matters/common",
+      "required": false
+    },
+    {
       "id": "#theurgy:alchemical_sulfurs/metals/common",
       "required": false
     },

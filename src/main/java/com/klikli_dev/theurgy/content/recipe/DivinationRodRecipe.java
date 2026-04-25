@@ -111,6 +111,10 @@ public class DivinationRodRecipe extends ShapedRecipe {
         if (mapped != null)
             return Identifier.parse(mapped);
 
+        var directTag = Identifier.parse(sourceTag);
+        if (BuiltInRegistries.BLOCK.get(TagKey.create(Registries.BLOCK, directTag)).isPresent())
+            return directTag;
+
         //if not we use generic logic to translate ingot, storage block, nugget, raw, ore, dust to (ore)block.
         //even though likely not all of these will be used to create sulfur its good to handle them.
 
@@ -165,6 +169,11 @@ public class DivinationRodRecipe extends ShapedRecipe {
         var mapped = ServerConfig.get().recipes.sulfurSourceToBlockMapping.get().get(sourceId);
         if (mapped != null)
             return mapped;
+
+        var directBlock = Identifier.parse(sourceId);
+        if (BuiltInRegistries.BLOCK.containsKey(directBlock)) {
+            return directBlock.toString();
+        }
 
         //if not we use generic logic to translate ingot, storage block, nugget, raw, ore, dust to (ore)block.
         //even though likely not all of these will be used to create sulfur its good to handle them.

@@ -263,6 +263,7 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
@@ -274,6 +275,7 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
         ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON)
@@ -285,6 +287,7 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
         ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_RARE)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE)
@@ -296,12 +299,13 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
         ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS)
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS)
         ;

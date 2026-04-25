@@ -198,7 +198,7 @@ public class FollowProjectile extends ColoredProjectile {
 
             for (double i = 0.0; i <= dist; i++) {
                 double coeff = (i / dist);
-                this.level().addParticle(GlowParticleProvider.createOptions(ParticleColor.fromInt(currentColor), this.entityData.get(SIZE), 0.75f, particleAge),
+                this.level().addParticle(GlowParticleProvider.createOptions(ParticleColor.fromInt(currentColor), true, this.entityData.get(SIZE), 0.75f, particleAge),
                         (this.getX() + deltaX * coeff), (this.getY() + deltaY * coeff), (this.getZ() + deltaZ * coeff),
                         0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f));
             }

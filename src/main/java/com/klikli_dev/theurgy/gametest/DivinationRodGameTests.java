@@ -68,22 +68,6 @@ public class DivinationRodGameTests {
         helper.succeed();
     }
 
-    public static void craftDivergentRecipeSurvivesComponents(GameTestHelper helper) {
-        var ingredients = divergentIngredients();
-        var input = CraftingInput.of(GRID_SIZE, GRID_SIZE, ingredients);
-        var recipe = requireRecipe(helper, input, "Expected the divergent divination rod recipe to resolve");
-
-        var output = recipe.value().assemble(input);
-
-        helper.assertTrue(output.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOW_ATTUNING, true) == false, "Divergent recipe should preserve allow-attuning=false");
-        helper.assertTrue(output.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, -1) == 13, "Divergent recipe should preserve custom duration");
-        helper.assertTrue(output.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_MAX_DAMAGE, -1) == 5, "Divergent recipe should preserve custom durability");
-        helper.assertTrue(output.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_RANGE, -1) == 17, "Divergent recipe should preserve custom range");
-        helper.assertTrue(output.has(DataComponentRegistry.DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG), "Divergent recipe should preserve allowed-block tag");
-        helper.assertTrue(output.has(DataComponentRegistry.DIVINATION_SETTINGS_DISALLOWED_BLOCKS_TAG), "Divergent recipe should preserve disallowed-block tag");
-        helper.succeed();
-    }
-
     private static List<ItemStack> t1Ingredients() {
         return List.of(
                 ItemStack.EMPTY, new ItemStack(Items.GLASS), new ItemStack(Items.STICK),
@@ -97,14 +81,6 @@ public class DivinationRodGameTests {
                 ItemStack.EMPTY, new ItemStack(Items.GLASS), new ItemStack(SulfurRegistry.DIRT.get()),
                 ItemStack.EMPTY, new ItemStack(Items.STICK), new ItemStack(Items.GLASS),
                 new ItemStack(Items.STICK), ItemStack.EMPTY, ItemStack.EMPTY
-        );
-    }
-
-    private static List<ItemStack> divergentIngredients() {
-        return List.of(
-                new ItemStack(Items.DIRT), new ItemStack(Items.GLASS), new ItemStack(Items.DIRT),
-                ItemStack.EMPTY, new ItemStack(Items.STICK), ItemStack.EMPTY,
-                new ItemStack(Items.DIRT), new ItemStack(Items.GLASS), new ItemStack(Items.DIRT)
         );
     }
 

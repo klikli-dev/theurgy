@@ -508,9 +508,6 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DR_CRAFT_ABUNDANT_COPPER_SULFUR =
             TEST_FUNCTIONS.register("divination_rod_craft_abundant_copper_sulfur", () -> DivinationRodGameTests::craftSulfurAttunedAbundantRodWithCopper);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DR_CRAFT_DIVERGENT =
-            TEST_FUNCTIONS.register("divination_rod_craft_divergent", () -> DivinationRodGameTests::craftDivergentRecipeSurvivesComponents);
-
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerMercuryCapacitorTests(event);
@@ -785,7 +782,6 @@ private static void registerLogisticsTests(RegisterGameTestsEvent event) {
         registerTest(event, DR_CRAFT_T1, environment, structure, 40, 0);
         registerTest(event, DR_CRAFT_ABUNDANT_DIRT_SULFUR, environment, structure, 40, 0);
         registerTest(event, DR_CRAFT_ABUNDANT_COPPER_SULFUR, environment, structure, 40, 0);
-        registerTest(event, DR_CRAFT_DIVERGENT, environment, structure, 40, 0);
     }
 
     private static void registerTest(

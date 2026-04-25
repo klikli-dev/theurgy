@@ -1,6 +1,10 @@
 {
   "values": [
     {
+      "id": "#theurgy:alchemical_sulfurs/earthen_matters/precious",
+      "required": false
+    },
+    {
       "id": "#theurgy:alchemical_sulfurs/metals/precious",
       "required": false
     },
@@ -21,7 +25,7 @@
       "required": false
     },
     {
-      "id": "#theurgy:alchemical_sulfurs/crops/precious",
+      "id": "#theurgy:alchemical_sulfurs/herbs/precious",
       "required": false
     },
     {

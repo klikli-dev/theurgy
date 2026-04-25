@@ -122,6 +122,10 @@ public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity imp
     }
 
     protected void updateBlockStateToMatchFilter() {
+        if (this.level == null) {
+            return;
+        }
+
         var isEmpty = !this.getBlockState().getValue(LogisticsFluidConnectorBlock.HAS_FILTER);
         if (this.filter().filter().isEmpty() != isEmpty) {
             var newState = this.getBlockState().setValue(LogisticsFluidConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());

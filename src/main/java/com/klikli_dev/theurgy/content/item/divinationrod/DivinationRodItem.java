@@ -6,8 +6,10 @@ package com.klikli_dev.theurgy.content.item.divinationrod;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
+import com.klikli_dev.theurgy.content.recipe.DivinationRodRecipe;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.scanner.ScanManager;
@@ -34,7 +36,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -160,19 +165,19 @@ public class DivinationRodItem extends Item {
         return BuiltInRegistries.BLOCK.get(tagKey);
     }
 
-    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
+    public static void registerCreativeModeTabs(Collection<DivinationRodItem> items, CreativeModeTab.Output output) {
         var level = LevelUtil.getLevelWithoutContext();
-        if (level != null) {
-            //var recipeManager = level.getRecipeManager();
-            //FIXME: 1.21.3 Update - RecipeManager handling
-            /*
-            recipeManager.getRecipes().forEach((recipe) -> {
-                if (recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == item) {
-                    output.accept(recipe.value().getResultItem(level.registryAccess()).copy());
-                }
-            });
-            */
+        if (level == null || items.isEmpty()) {
+            return;
         }
+
+        TheurgyRecipeManager.get().getRecipesByType(RecipeType.CRAFTING, level).forEach(recipe -> {
+            if (recipe.value() instanceof ShapedRecipe shapedRecipe) {
+                if (shapedRecipe.result != null && items.contains(shapedRecipe.result.item().value())) {
+                    output.accept(shapedRecipe.result.create());
+                }
+            }
+        });
     }
 
     @Override

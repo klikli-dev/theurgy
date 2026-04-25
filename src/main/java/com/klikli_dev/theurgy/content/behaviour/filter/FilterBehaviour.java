@@ -68,12 +68,7 @@ public class FilterBehaviour {
     }
 
     public void readNetwork(ValueInput input) {
-        var registryAccess = this.blockEntity.getLevel() != null ? this.blockEntity.getLevel().registryAccess() : null;
-        if (registryAccess == null) {
-            throw new IllegalStateException("FilterBehaviour requires registry access to deserialize its filter state.");
-        }
-
-        this.filter(Filter.of(registryAccess, input.read("filter", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY)));
+        this.filter(Filter.of(input.lookup(), input.read("filter", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY)));
     }
 
     public @NotNull InteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {

@@ -14,6 +14,8 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
+
 public class CreativeModeTabRegistry {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Theurgy.MODID);
 
@@ -22,15 +24,17 @@ public class CreativeModeTabRegistry {
             .icon(() -> ItemRegistry.EMPTY_JAR_ICON.get().getDefaultInstance())
             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP))
             .displayItems((parameters, output) -> {
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T1.get(), output);
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T2.get(), output);
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T3.get(), output);
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T4.get(), output);
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get(), output);
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get(), output);
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(), output);
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(), output);
-                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.AMETHYST_DIVINATION_ROD.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(List.of(
+                        ItemRegistry.DIVINATION_ROD_T1.get(),
+                        ItemRegistry.DIVINATION_ROD_T2.get(),
+                        ItemRegistry.DIVINATION_ROD_T3.get(),
+                        ItemRegistry.DIVINATION_ROD_T4.get(),
+                        ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get(),
+                        ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get(),
+                        ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(),
+                        ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(),
+                        ItemRegistry.AMETHYST_DIVINATION_ROD.get()
+                ), output);
 
                 output.accept(ItemRegistry.SAL_AMMONIAC_BUCKET.get());
                 output.accept(ItemRegistry.COPPER_WIRE.get());

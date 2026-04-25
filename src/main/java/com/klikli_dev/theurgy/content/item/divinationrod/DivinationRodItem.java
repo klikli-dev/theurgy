@@ -165,15 +165,15 @@ public class DivinationRodItem extends Item {
         return BuiltInRegistries.BLOCK.get(tagKey);
     }
 
-    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
+    public static void registerCreativeModeTabs(Collection<DivinationRodItem> items, CreativeModeTab.Output output) {
         var level = LevelUtil.getLevelWithoutContext();
-        if (level == null) {
+        if (level == null || items.isEmpty()) {
             return;
         }
 
         TheurgyRecipeManager.get().getRecipesByType(RecipeType.CRAFTING, level).forEach(recipe -> {
-            if(recipe.value() instanceof ShapedRecipe shapedRecipe){
-                if (shapedRecipe.result != null && shapedRecipe.result.item().value() == item) {
+            if (recipe.value() instanceof ShapedRecipe shapedRecipe) {
+                if (shapedRecipe.result != null && items.contains(shapedRecipe.result.item().value())) {
                     output.accept(shapedRecipe.result.create());
                 }
             }

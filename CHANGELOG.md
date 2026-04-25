@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.89.0] - 2026-04-25
+### :sparkles: New Features
+- [`23037aa`](https://github.com/klikli-dev/theurgy/commit/23037aa15cd9e199ace46a9164e9c30ad5f16ff8) - update agents.md *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`e43c40d`](https://github.com/klikli-dev/theurgy/commit/e43c40dc165536d397ec8267bee73acf24a51a77) - restore filter slot interactions *(PR [#351](https://github.com/klikli-dev/theurgy/pull/351) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ddd2baa`](https://github.com/klikli-dev/theurgy/commit/ddd2baa0758195c512a349594350a49d9059b3c0) - restore divination rod visibility and particle stacking *(PR [#352](https://github.com/klikli-dev/theurgy/pull/352) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`b8fb22d`](https://github.com/klikli-dev/theurgy/commit/b8fb22dd860c1a2265bdc0d5940e67bcd3a74af0) - remove unused *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ed0239d`](https://github.com/klikli-dev/theurgy/commit/ed0239df8893a0bcf732ee5d9a8f4e4dad2ca077) - improve AGENTS.md *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.88.0] - 2026-04-23
 ### :sparkles: New Features
 - [`687d817`](https://github.com/klikli-dev/theurgy/commit/687d8171e7a3e6cf12e29482b1665496230afa5a) - add logistics nexus *(PR [#350](https://github.com/klikli-dev/theurgy/pull/350) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1496,3 +1509,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.86.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.85.0...release/v26.1.2-1.86.0
 [release/v26.1.2-1.87.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.86.0...release/v26.1.2-1.87.0
 [release/v26.1.2-1.88.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.87.0...release/v26.1.2-1.88.0
+[release/v26.1.2-1.89.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.88.0...release/v26.1.2-1.89.0

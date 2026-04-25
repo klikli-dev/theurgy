@@ -497,6 +497,20 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MFC_FORWARDS_TO_MULTIPLE =
             TEST_FUNCTIONS.register("mercury_flux_connector_forwards_to_multiple", () -> MercuryFluxConnectorGameTests::forwardsFluxToMultipleCapacitors);
 
+    // --- Divination Rods ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DR_CRAFT_T1 =
+            TEST_FUNCTIONS.register("divination_rod_craft_t1", () -> DivinationRodGameTests::craftNormalT1Rod);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DR_CRAFT_ABUNDANT_DIRT_SULFUR =
+            TEST_FUNCTIONS.register("divination_rod_craft_abundant_dirt_sulfur", () -> DivinationRodGameTests::craftSulfurAttunedAbundantRodWithDirt);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DR_CRAFT_ABUNDANT_COPPER_SULFUR =
+            TEST_FUNCTIONS.register("divination_rod_craft_abundant_copper_sulfur", () -> DivinationRodGameTests::craftSulfurAttunedAbundantRodWithCopper);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DR_CRAFT_DIVERGENT =
+            TEST_FUNCTIONS.register("divination_rod_craft_divergent", () -> DivinationRodGameTests::craftDivergentRecipeSurvivesComponents);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerMercuryCapacitorTests(event);
@@ -515,6 +529,7 @@ public class GameTestRegistry {
         registerReformationPedestalTests(event);
         registerLogisticsTests(event);
         registerMercuryFluxConnectorTests(event);
+        registerDivinationRodTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -761,6 +776,16 @@ private static void registerLogisticsTests(RegisterGameTestsEvent event) {
         registerTest(event, MFC_EXPOSES_CAPABILITY, environment, structure, 40, 0);
         registerTest(event, MFC_FORWARDS_FLUX, environment, structure, 400, 0);
         registerTest(event, MFC_FORWARDS_TO_MULTIPLE, environment, structure, 400, 0);
+    }
+
+    private static void registerDivinationRodTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("divination_rod"));
+        var structure = Theurgy.loc("reformation_pedestal_test");
+
+        registerTest(event, DR_CRAFT_T1, environment, structure, 40, 0);
+        registerTest(event, DR_CRAFT_ABUNDANT_DIRT_SULFUR, environment, structure, 40, 0);
+        registerTest(event, DR_CRAFT_ABUNDANT_COPPER_SULFUR, environment, structure, 40, 0);
+        registerTest(event, DR_CRAFT_DIVERGENT, environment, structure, 40, 0);
     }
 
     private static void registerTest(

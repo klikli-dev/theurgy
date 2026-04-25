@@ -6,8 +6,10 @@ package com.klikli_dev.theurgy.content.item.divinationrod;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
+import com.klikli_dev.theurgy.content.recipe.DivinationRodRecipe;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.scanner.ScanManager;
@@ -34,7 +36,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -161,14 +166,18 @@ public class DivinationRodItem extends Item {
     }
 
     public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
-        var stack = item.getDefaultInstance();
-
-        var itemId = BuiltInRegistries.ITEM.getKey(item);
-        if (itemId != null && "amethyst_divination_rod".equals(itemId.getPath())) {
-            stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.wrapAsHolder(Blocks.BUDDING_AMETHYST));
+        var level = LevelUtil.getLevelWithoutContext();
+        if (level == null) {
+            return;
         }
 
-        output.accept(stack);
+        TheurgyRecipeManager.get().getRecipesByType(RecipeType.CRAFTING, level).forEach(recipe -> {
+            if(recipe.value() instanceof ShapedRecipe shapedRecipe){
+                if (shapedRecipe.result != null && shapedRecipe.result.item().value() == item) {
+                    output.accept(shapedRecipe.result.create());
+                }
+            }
+        });
     }
 
     @Override

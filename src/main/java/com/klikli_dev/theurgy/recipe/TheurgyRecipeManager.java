@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TheurgyRecipeManager {
     private static final TheurgyRecipeManager INSTANCE = new TheurgyRecipeManager();
     private static final Lazy<List<RecipeType<?>>> SYNCED_RECIPE_TYPES = Lazy.of(() -> List.of(
+            RecipeType.CRAFTING,
             RecipeTypeRegistry.CALCINATION.get(),
             RecipeTypeRegistry.LIQUEFACTION.get(),
             RecipeTypeRegistry.DISTILLATION.get(),

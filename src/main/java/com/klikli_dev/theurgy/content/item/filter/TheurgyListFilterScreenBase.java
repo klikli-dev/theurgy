@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.item.filter;
 
+import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.gui.widget.IconButtonBackgroundSprites;
 import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import net.minecraft.network.chat.Component;
@@ -23,5 +24,15 @@ class TheurgyListFilterScreenBase extends com.klikli_dev.codedefinedgui.gui.filt
     @Override
     protected IconButtonBackgroundSprites buttonBackgroundSprites() {
         return BUTTON_BACKGROUND_SPRITES;
+    }
+
+    @Override
+    protected GuiSprite inventorySlotSprite() {
+        return GuiSprites.INVENTORY_SLOT;
+    }
+
+    @Override
+    protected GuiSprite filterSlotSprite() {
+        return GuiSprites.INVENTORY_SLOT;
     }
 }

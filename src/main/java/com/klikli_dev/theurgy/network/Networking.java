@@ -26,7 +26,6 @@ public class Networking {
         registrar.playToServer(MessageMercuryFluxEmitterSelection.TYPE, MessageMercuryFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
 
         registrar.playToServer(MessageClearMenu.TYPE, MessageClearMenu.STREAM_CODEC, MessageHandler::handle);
-        registrar.playToServer(MessageSetListFilterScreenOption.TYPE, MessageSetListFilterScreenOption.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageOnLeftClickEmpty.TYPE, MessageOnLeftClickEmpty.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageRequestInWorldHUD.TYPE, MessageRequestInWorldHUD.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageRequestHeldStackFit.TYPE, MessageRequestHeldStackFit.STREAM_CODEC, MessageHandler::handle);

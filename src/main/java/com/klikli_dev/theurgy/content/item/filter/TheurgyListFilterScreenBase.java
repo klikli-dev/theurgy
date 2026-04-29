@@ -27,11 +27,6 @@ class TheurgyListFilterScreenBase extends com.klikli_dev.codedefinedgui.gui.filt
     }
 
     @Override
-    protected GuiSprite inventorySlotSprite() {
-        return GuiSprites.INVENTORY_SLOT;
-    }
-
-    @Override
     protected GuiSprite filterSlotSprite() {
         return GuiSprites.INVENTORY_SLOT;
     }

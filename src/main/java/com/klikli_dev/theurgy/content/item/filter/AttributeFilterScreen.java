@@ -10,8 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
-    private static final int PLAYER_INVENTORY_BACKGROUND_HEIGHT = 90;
-    private static final int PLAYER_INVENTORY_BACKGROUND_Y_OFFSET = 11;
     private static final int FILTER_BACKGROUND_HEIGHT = 85;
     private static final int TOP_SECTION_HEIGHT = 15;
     private static final int MIDDLE_SECTION_HEIGHT = 34;
@@ -28,20 +26,5 @@ public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.topPos, this.imageWidth, TOP_SECTION_HEIGHT, GuiSprites.GUI_BACKGROUND.tinted(BLUE_TINT)));
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + 3, this.topPos + TOP_SECTION_HEIGHT, this.imageWidth - 6, MIDDLE_SECTION_HEIGHT, GuiSprites.GUI_BACKGROUND));
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.topPos + TOP_SECTION_HEIGHT + MIDDLE_SECTION_HEIGHT, this.imageWidth, BOTTOM_SECTION_HEIGHT, GuiSprites.GUI_BACKGROUND.tinted(DARK_TINT)));
-    }
-
-    @Override
-    protected int playerInventoryBackgroundHeight() {
-        return PLAYER_INVENTORY_BACKGROUND_HEIGHT;
-    }
-
-    @Override
-    protected int playerInventoryBackgroundTop() {
-        return this.playerInventoryTop() + PLAYER_INVENTORY_BACKGROUND_Y_OFFSET;
-    }
-
-    @Override
-    protected int playerInventoryLabelY() {
-        return this.imageHeight - 94 + PLAYER_INVENTORY_BACKGROUND_Y_OFFSET;
     }
 }

@@ -210,6 +210,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_description        : mod_description,
 
             modonomicon_version    : modonomicon_version,
+            code_defined_gui_version: code_defined_gui_version,
             almost_unified_version : almost_unified_version,
             geckolib_version       : geckolib_version,
             jei_version            : jei_version,

@@ -15,7 +15,7 @@ import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ReformationArrayEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class FermentationVatEntry extends EntryProvider {
@@ -71,7 +71,7 @@ public class FermentationVatEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

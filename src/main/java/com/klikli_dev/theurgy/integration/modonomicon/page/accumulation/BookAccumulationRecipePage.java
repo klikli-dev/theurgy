@@ -77,7 +77,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
                 this.title1 = new BookTextHolder(((MutableComponent) display.resultFluidStack().getHoverName())
                         .withStyle(Style.EMPTY
                                 .withBold(true)
-                                .withColor(this.getParentEntry().getBook().getDefaultTitleColor())
+                                .withColor(this.getParentEntry().getBook().theme().palette().defaultTitleColor())
                         ));
             }
         }
@@ -88,7 +88,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
                 this.title2 = new BookTextHolder(((MutableComponent) display.resultFluidStack().getHoverName())
                         .withStyle(Style.EMPTY
                                 .withBold(true)
-                                .withColor(this.getParentEntry().getBook().getDefaultTitleColor())
+                                .withColor(this.getParentEntry().getBook().theme().palette().defaultTitleColor())
                         ));
             }
         }

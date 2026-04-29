@@ -12,7 +12,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
 import com.klikli_dev.theurgy.datagen.book.apparatus.reformation.ReformationArrayEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class SulfuricFluxEmitterEntry extends EntryProvider {
 
@@ -71,7 +71,7 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

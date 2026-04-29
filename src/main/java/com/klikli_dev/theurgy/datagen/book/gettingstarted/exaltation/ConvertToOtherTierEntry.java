@@ -5,12 +5,13 @@
 package com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class ConvertToOtherTierEntry extends EntryProvider {
     public static final String ENTRY_ID = "convert_to_other_tier";
@@ -115,8 +116,8 @@ public class ConvertToOtherTierEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
-        return Pair.of(0, 2); //the third type of background which has no shorthand in EntryBackground
+    protected GuiSprite entryBackground() {
+        return EntryBackground.CIRCLE_GRAY;
     }
 
     @Override

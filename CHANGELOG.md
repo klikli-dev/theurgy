@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.90.0] - 2026-04-29
+### :sparkles: New Features
+- [`67525c2`](https://github.com/klikli-dev/theurgy/commit/67525c28c28e01c30b199640a1f51ff07b4c305f) - update to new modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.89.0] - 2026-04-25
 ### :sparkles: New Features
 - [`23037aa`](https://github.com/klikli-dev/theurgy/commit/23037aa15cd9e199ace46a9164e9c30ad5f16ff8) - update agents.md *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1510,3 +1515,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.87.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.86.0...release/v26.1.2-1.87.0
 [release/v26.1.2-1.88.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.87.0...release/v26.1.2-1.88.0
 [release/v26.1.2-1.89.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.88.0...release/v26.1.2-1.89.0
+[release/v26.1.2-1.90.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.89.0...release/v26.1.2-1.90.0

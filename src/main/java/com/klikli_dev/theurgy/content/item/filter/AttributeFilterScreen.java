@@ -11,9 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
     private static final int PLAYER_INVENTORY_BACKGROUND_HEIGHT = 90;
-    private static final int PLAYER_INVENTORY_MAIN_SLOT_Y_OFFSET = 7;
-    private static final int PLAYER_INVENTORY_HOTBAR_Y_OFFSET = 65;
-    private static final int PLAYER_INVENTORY_LABEL_Y = 81;
+    private static final int PLAYER_INVENTORY_BACKGROUND_Y_OFFSET = 11;
     private static final int FILTER_BACKGROUND_HEIGHT = 85;
     private static final int TOP_SECTION_HEIGHT = 15;
     private static final int MIDDLE_SECTION_HEIGHT = 34;
@@ -38,17 +36,12 @@ public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
     }
 
     @Override
-    protected int playerInventoryMainSlotYOffset() {
-        return PLAYER_INVENTORY_MAIN_SLOT_Y_OFFSET;
-    }
-
-    @Override
-    protected int playerInventoryHotbarSlotYOffset() {
-        return PLAYER_INVENTORY_HOTBAR_Y_OFFSET;
+    protected int playerInventoryBackgroundTop() {
+        return this.playerInventoryTop() + PLAYER_INVENTORY_BACKGROUND_Y_OFFSET;
     }
 
     @Override
     protected int playerInventoryLabelY() {
-        return PLAYER_INVENTORY_LABEL_Y;
+        return this.imageHeight - 94 + PLAYER_INVENTORY_BACKGROUND_Y_OFFSET;
     }
 }

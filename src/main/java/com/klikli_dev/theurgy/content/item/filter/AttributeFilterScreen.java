@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
+    private static final int BLACK = 0xFF000000;
     private static final int TOP_SECTION_HEIGHT = 15;
     private static final int MIDDLE_SECTION_HEIGHT = 75;
     private static final int SECOND_BACKGROUND_X_OFFSET = 3;
@@ -43,6 +44,6 @@ public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
         int horizontalSeparatorY = this.topPos + HORIZONTAL_SEPARATOR_Y;
 
         this.root.addChild(new HorizontalSeparatorWidget(secondBackgroundX, horizontalSeparatorY, secondBackgroundWidth));
-        this.root.addChild(new VerticalSeparatorWidget(this.leftPos + VERTICAL_SEPARATOR_X, horizontalSeparatorY, secondBackgroundBottom - horizontalSeparatorY));
+        this.root.addChild(new VerticalSeparatorWidget(this.leftPos + VERTICAL_SEPARATOR_X, horizontalSeparatorY, secondBackgroundBottom - horizontalSeparatorY, BLACK));
     }
 }

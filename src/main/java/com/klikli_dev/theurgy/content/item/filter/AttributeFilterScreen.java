@@ -28,10 +28,11 @@ public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
     @Override
     protected void addBackgroundWidgets() {
         var tintedBackground = GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT);
+        var tintedTopBar = GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT);
 
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + SECOND_BACKGROUND_X_OFFSET, this.topPos + SECOND_BACKGROUND_Y_OFFSET, this.imageWidth - SECOND_BACKGROUND_WIDTH_OFFSET, MIDDLE_SECTION_HEIGHT, tintedBackground));
 
-        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.topPos, this.imageWidth, TOP_SECTION_HEIGHT, tintedBackground));
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.topPos, this.imageWidth, TOP_SECTION_HEIGHT, tintedTopBar));
     }
 
     @Override

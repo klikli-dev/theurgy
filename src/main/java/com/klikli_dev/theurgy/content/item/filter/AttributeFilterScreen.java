@@ -18,7 +18,7 @@ public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
     private static final int SECOND_BACKGROUND_X_OFFSET = 3;
     private static final int SECOND_BACKGROUND_Y_OFFSET = TOP_SECTION_HEIGHT - 3;
     private static final int SECOND_BACKGROUND_WIDTH_OFFSET = 5;
-    private static final int HORIZONTAL_SEPARATOR_Y = 51;
+    private static final int HORIZONTAL_SEPARATOR_Y = 48;
     private static final int VERTICAL_SEPARATOR_X = 202;
 
     public AttributeFilterScreen(AttributeFilterMenu menu, Inventory playerInventory, Component title) {

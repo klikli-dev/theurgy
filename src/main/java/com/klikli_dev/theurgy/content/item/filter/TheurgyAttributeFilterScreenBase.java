@@ -16,7 +16,6 @@ class TheurgyAttributeFilterScreenBase extends com.klikli_dev.codedefinedgui.gui
     private static final int SLOT_TINT = 0xFFB8946A;
     private static final int BUTTON_TINT = 0xFFB78F63;
     private static final int BUTTON_HOVER_TINT = 0xFFC89E70;
-    private static final GuiSprite TINTED_BACKGROUND = GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT);
     private static final GuiSprite TINTED_SLOT = GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT);
     private static final GuiSprite TINTED_ATTRIBUTE_SELECTION = GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SLOT_TINT);
     private static final GuiSprite TINTED_ATTRIBUTE_SUMMARY = GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT).sized(24, 24);
@@ -37,12 +36,12 @@ class TheurgyAttributeFilterScreenBase extends com.klikli_dev.codedefinedgui.gui
 
     @Override
     protected GuiSprite playerInventoryBackgroundSprite() {
-        return TINTED_BACKGROUND;
+        return GuiSprites.GUI_BACKGROUND;
     }
 
     @Override
     protected GuiSprite playerInventorySlotSprite() {
-        return TINTED_SLOT;
+        return GuiSprites.INVENTORY_SLOT;
     }
 
     @Override

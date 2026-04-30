@@ -18,7 +18,6 @@ public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
     private static final int SECOND_BACKGROUND_X_OFFSET = 3;
     private static final int SECOND_BACKGROUND_Y_OFFSET = TOP_SECTION_HEIGHT - 3;
     private static final int SECOND_BACKGROUND_WIDTH_OFFSET = 5;
-    private static final int LIGHT_BLUE_TINT = 0xFFD9E8FF;
     private static final int HORIZONTAL_SEPARATOR_Y = 51;
     private static final int VERTICAL_SEPARATOR_X = 202;
 
@@ -28,9 +27,11 @@ public class AttributeFilterScreen extends TheurgyAttributeFilterScreenBase {
 
     @Override
     protected void addBackgroundWidgets() {
-        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + SECOND_BACKGROUND_X_OFFSET, this.topPos + SECOND_BACKGROUND_Y_OFFSET, this.imageWidth - SECOND_BACKGROUND_WIDTH_OFFSET, MIDDLE_SECTION_HEIGHT, com.klikli_dev.theurgy.content.gui.GuiSprites.GUI_BACKGROUND));
+        var tintedBackground = GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT);
 
-        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.topPos, this.imageWidth, TOP_SECTION_HEIGHT, GuiSprites.GUI_BACKGROUND.tinted(LIGHT_BLUE_TINT)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + SECOND_BACKGROUND_X_OFFSET, this.topPos + SECOND_BACKGROUND_Y_OFFSET, this.imageWidth - SECOND_BACKGROUND_WIDTH_OFFSET, MIDDLE_SECTION_HEIGHT, tintedBackground));
+
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.topPos, this.imageWidth, TOP_SECTION_HEIGHT, tintedBackground));
     }
 
     @Override

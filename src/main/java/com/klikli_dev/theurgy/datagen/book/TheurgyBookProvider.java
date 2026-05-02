@@ -47,7 +47,8 @@ public class TheurgyBookProvider extends SingleBookSubProvider {
     protected BookModel additionalSetup(BookModel book) {
         return super.additionalSetup(book)
                 .withModel(this.modLoc("the_hermetica_icon"))
-                .withGenerateBookItem(true)
+                .withGenerateBookItem(false)
+                .withCustomBookItem(this.modLoc("the_hermetica"))
                 .withCreativeTab(CreativeModeTabRegistry.THEURGY.getId())
                 .withAutoAddReadConditions(true);
     }

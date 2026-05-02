@@ -179,6 +179,7 @@ public class TheurgyItemModelSubProvider {
     }
 
     public void registerModels(ItemModelGenerators itemModels) {
+        this.registerItemGenerated(itemModels, ItemRegistry.THE_HERMETICA.get(), "the_hermetica");
         this.registerItemGenerated(itemModels, ItemRegistry.THE_HERMETICA_ICON.get(), "the_hermetica");
         this.registerItemGenerated(itemModels, ItemRegistry.SALT_ICON.get(), "alchemical_salt");
         this.registerItemGenerated(itemModels, ItemRegistry.EMPTY_JAR_ICON.get(), "empty_jar");

@@ -91,6 +91,8 @@ public class CreativeModeTabRegistry {
 
                 output.accept(ItemRegistry.LIST_FILTER.get());
                 output.accept(ItemRegistry.ATTRIBUTE_FILTER.get());
+
+                output.accept(ItemRegistry.THE_HERMETICA.get());
             }).build());
 
 }

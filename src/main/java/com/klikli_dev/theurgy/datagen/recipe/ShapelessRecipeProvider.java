@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.klikli_dev.modonomicon.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
@@ -36,7 +35,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
     @Override
     public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         this.makeRecipe("the_hermetica",
-                new ShapelessRecipeBuilder(com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get(), 1, DataComponentPatch.builder().set(DataComponentRegistry.BOOK_ID.get(), Theurgy.loc("the_hermetica")).build())
+                new ShapelessRecipeBuilder(ItemRegistry.THE_HERMETICA.get(), 1)
                         .requires(Items.BOOK)
                         .requires(Tags.Items.SANDS, 2)
         );

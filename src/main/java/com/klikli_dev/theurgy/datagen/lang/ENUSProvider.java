@@ -1142,6 +1142,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
         this.addItem(ItemRegistry.THE_HERMETICA_ICON, "The Hermetica Icon");
         this.addTooltip(ItemRegistry.THE_HERMETICA_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.THE_HERMETICA, "The Hermetica");
 
         this.addItem(ItemRegistry.GEMS_ABUNDANT_ICON, "Abundant Gems Icon");
         this.addTooltip(ItemRegistry.GEMS_ABUNDANT_ICON, "Dummy item for rendering.");

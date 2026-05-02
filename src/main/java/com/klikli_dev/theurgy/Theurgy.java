@@ -23,7 +23,7 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.Sa
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
 import com.klikli_dev.theurgy.content.item.HandlesOnScroll;
-import com.klikli_dev.theurgy.content.item.filter.FilterScreenStyle;
+import com.klikli_dev.theurgy.content.item.filter.FilterStyles;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
@@ -180,7 +180,7 @@ public class Theurgy {
 
     public static class Client {
         public static void onClientSetup(FMLClientSetupEvent event) {
-            event.enqueueWork(FilterScreenStyle::register);
+            event.enqueueWork(FilterStyles::register);
 
             registerTooltipDataProviders(event);
             PageRenderers.onClientSetup(event);

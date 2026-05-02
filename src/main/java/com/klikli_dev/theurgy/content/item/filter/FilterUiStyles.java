@@ -4,11 +4,12 @@
 
 package com.klikli_dev.theurgy.content.item.filter;
 
-import com.klikli_dev.codedefinedgui.gui.filter.FilterUiStyleKey;
+import com.klikli_dev.codedefinedgui.gui.style.GuiStyleKey;
 import com.klikli_dev.theurgy.Theurgy;
 
 public final class FilterUiStyles {
-    public static final FilterUiStyleKey THEURGY = FilterUiStyleKey.of(Theurgy.loc("filter"));
+    public static final GuiStyleKey THEURGY_LIST = GuiStyleKey.of(Theurgy.loc("filter/list"));
+    public static final GuiStyleKey THEURGY_ATTRIBUTE = GuiStyleKey.of(Theurgy.loc("filter/attribute"));
 
     private FilterUiStyles() {
     }

@@ -143,8 +143,8 @@ public class ItemRegistry {
                     .component(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0)
             ));
 
-    public static final DeferredItem<Item> LIST_FILTER = ITEMS.registerItem("list_filter", p -> new ListFilterItem(p, FilterUiStyles.THEURGY));
-    public static final DeferredItem<Item> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter", p -> new AttributeFilterItem(p, FilterUiStyles.THEURGY));
+    public static final DeferredItem<Item> LIST_FILTER = ITEMS.registerItem("list_filter", p -> new ListFilterItem(p, FilterUiStyles.THEURGY_LIST));
+    public static final DeferredItem<Item> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter", p -> new AttributeFilterItem(p, FilterUiStyles.THEURGY_ATTRIBUTE));
 
     //Buckets
     public static final DeferredItem<Item> SAL_AMMONIAC_BUCKET =

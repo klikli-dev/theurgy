@@ -4,16 +4,7 @@
 
 package com.klikli_dev.theurgy;
 
-import net.minecraft.resources.Identifier;
-
 public class TheurgyConstants {
-
-    public static class ItemProperty {
-
-        public static final Identifier DIVINATION_DISTANCE = Theurgy.loc("divination_distance");
-
-    }
-
     public static class I18n {
 
         public static final String ITEM_GROUP = "itemGroup." + Theurgy.MODID;

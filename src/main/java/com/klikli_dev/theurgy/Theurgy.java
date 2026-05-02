@@ -24,6 +24,7 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoni
 import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
 import com.klikli_dev.theurgy.content.item.HandlesOnScroll;
 import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
+import com.klikli_dev.theurgy.content.item.filter.FilterScreenStyle;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
@@ -183,6 +184,7 @@ public class Theurgy {
 
     public static class Client {
         public static void onClientSetup(FMLClientSetupEvent event) {
+            event.enqueueWork(FilterScreenStyle::registerSlotSkinRenderers);
 
             registerTooltipDataProviders(event);
             PageRenderers.onClientSetup(event);

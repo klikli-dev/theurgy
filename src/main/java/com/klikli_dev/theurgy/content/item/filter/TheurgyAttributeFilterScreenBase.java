@@ -29,16 +29,6 @@ class TheurgyAttributeFilterScreenBase extends com.klikli_dev.codedefinedgui.gui
     }
 
     @Override
-    protected GuiSprite playerInventorySlotSprite() {
-        return GuiSprites.INVENTORY_SLOT;
-    }
-
-    @Override
-    protected GuiSprite filterSlotSprite() {
-        return FilterScreenStyle.TINTED_FILTER_SLOT;
-    }
-
-    @Override
     protected GuiSprite attributeSelectionSprite() {
         return FilterScreenStyle.TINTED_ATTRIBUTE_SELECTION;
     }

@@ -4,11 +4,15 @@
 
 package com.klikli_dev.theurgy.content.item.filter;
 
+import com.klikli_dev.codedefinedgui.filter.core.layout.SlotSkinKey;
+import com.klikli_dev.codedefinedgui.gui.filter.SlotSkinRenderer;
+import com.klikli_dev.codedefinedgui.gui.filter.SlotSkinRendererRegistry;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.gui.widget.IconButtonBackgroundSprites;
+import com.klikli_dev.theurgy.Theurgy;
 
-final class FilterScreenStyle {
+public final class FilterScreenStyle {
     static final int BACKGROUND_TINT = 0xFFC2AA88;
     static final int TOP_BAR_TINT = 0xFFC4D8F5;
 
@@ -16,9 +20,11 @@ final class FilterScreenStyle {
     private static final int BUTTON_TINT = 0xFFB78F63;
     private static final int BUTTON_HOVER_TINT = 0xFFC89E70;
 
+    static final SlotSkinKey TINTED_FILTER_SLOT_SKIN = SlotSkinKey.of(Theurgy.loc("tinted_filter_slot"));
     static final GuiSprite TINTED_FILTER_SLOT = GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT);
     static final GuiSprite TINTED_ATTRIBUTE_SELECTION = GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SLOT_TINT);
     static final GuiSprite TINTED_ATTRIBUTE_SUMMARY = GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT).sized(24, 24);
+    static final SlotSkinRenderer TINTED_FILTER_SLOT_RENDERER = SlotSkinRenderer.create(TINTED_FILTER_SLOT, 1, 1);
     static final IconButtonBackgroundSprites TINTED_BUTTON_BACKGROUNDS = new IconButtonBackgroundSprites(
             GuiSprites.FILTER_BUTTON.tinted(BUTTON_TINT),
             GuiSprites.FILTER_BUTTON_DOWN.tinted(BUTTON_TINT),
@@ -26,5 +32,9 @@ final class FilterScreenStyle {
     );
 
     private FilterScreenStyle() {
+    }
+
+    public static void registerSlotSkinRenderers() {
+        SlotSkinRendererRegistry.register(TINTED_FILTER_SLOT_SKIN, TINTED_FILTER_SLOT_RENDERER);
     }
 }

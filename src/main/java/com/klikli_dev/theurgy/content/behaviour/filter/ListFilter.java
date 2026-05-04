@@ -10,7 +10,6 @@ import com.klikli_dev.codedefinedgui.filter.list.ListFilterMode;
 import com.klikli_dev.codedefinedgui.filter.list.ListFilterState;
 import com.klikli_dev.codedefinedgui.filter.list.ListFilterStateAccessor;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
@@ -106,17 +105,8 @@ public class ListFilter extends Filter {
     }
 
     private List<ItemStack> getFilterItems(ItemContainerContents entries) {
-        var result = new ArrayList<ItemStack>();
-
-        NonNullList<ItemStack> items = NonNullList.withSize(entries.getSlots(), ItemStack.EMPTY);
-        entries.copyInto(items);
-        for (ItemStack stackInSlot : items) {
-            if (!stackInSlot.isEmpty()) {
-                result.add(stackInSlot);
-            }
-        }
-
-        return result;
+        return entries.nonEmptyItemCopyStream()
+                .toList();
     }
 
 }

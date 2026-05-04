@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
-import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.codedefinedgui.filter.core.FilterItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -79,7 +79,7 @@ public class FilterBehaviour {
             //if we have an empty filter, we can try to set one from the item in hand.
 
             //if the item is hand is empty, we pass back to other interaction behaviours
-            if (pStack.isEmpty() || (pStack.getItem() != ItemRegistry.LIST_FILTER.get() && pStack.getItem() != ItemRegistry.ATTRIBUTE_FILTER.get()))
+            if (pStack.isEmpty() || !(pStack.getItem() instanceof FilterItem))
                 return InteractionResult.PASS;
 
             var filter = Filter.of(pPlayer.registryAccess(), pStack.copyWithCount(1));

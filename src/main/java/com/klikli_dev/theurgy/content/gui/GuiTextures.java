@@ -33,12 +33,7 @@ public enum GuiTextures implements ScreenElement {
     INDICATOR_WHITE("widgets", 18, 18, 18, 6),
     INDICATOR_GREEN("widgets", 36, 18, 18, 6),
     INDICATOR_YELLOW("widgets", 54, 18, 18, 6),
-    INDICATOR_RED("widgets", 72, 18, 18, 6),
-
-    PLAYER_INVENTORY("player_inventory", 176, 108),
-
-    FILTER("filters", 214, 99),
-    ATTRIBUTE_FILTER("filters", 0, 99, 241, 85);
+    INDICATOR_RED("widgets", 72, 18, 18, 6);
 
     public final Identifier location;
     public final int textureHeight;

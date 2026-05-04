@@ -2618,6 +2618,7 @@
   "item.theurgy.sulfur_attuned_divination_rod_rare.tooltip": "A divination rod attuned to find rare materials by crafting it with a rare alchemical sulfur.",
   "item.theurgy.sulfur_attuned_divination_rod_rare.tooltip.extended": "This type of divination rod is crafted pre-attuned to find blocks of the a specific type.",
   "item.theurgy.sulfur_attuned_divination_rod_rare.tooltip.usage": "§aCraft§r§7 the rod with a type of Alchemical Sulfur to attune the rod to it.\n§aRight-Click and hold§r§7 to let the rod search for blocks.\n§aRight-Click without holding§r§7 after a successful search to let the rod show the last found block without consuming durability.\n",
+  "item.theurgy.the_hermetica": "The Hermetica",
   "item.theurgy.the_hermetica_icon": "The Hermetica Icon",
   "item.theurgy.the_hermetica_icon.tooltip": "Dummy item for rendering.",
   "itemGroup.theurgy": "Theurgy",

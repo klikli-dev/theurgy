@@ -20,6 +20,7 @@ import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEm
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
+import com.klikli_dev.theurgy.content.item.book.TheHermeticaItem;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.content.item.filter.FilterUiStyles;
 import com.klikli_dev.theurgy.content.item.mercurialwand.MercurialWandItem;
@@ -134,6 +135,9 @@ public class ItemRegistry {
                     96, 40, 16, false));
 
     //Other Tools
+    public static final DeferredItem<TheHermeticaItem> THE_HERMETICA =
+            ITEMS.registerItem("the_hermetica", TheHermeticaItem::new);
+
     public static final DeferredItem<Item> COPPER_WIRE =
             ITEMS.registerItem("copper_wire", p -> new WireItem(p, 32));
 

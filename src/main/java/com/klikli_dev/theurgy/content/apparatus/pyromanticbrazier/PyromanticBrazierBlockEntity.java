@@ -134,16 +134,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldSta
 
             if (this.isLit()) {
                 wasTurnedOnDuringThisTick = true;
-                //handle lava bucket
-                if (fuelStack.getCraftingRemainder() != null)
-                    this.inventory.set(0, ItemResource.of(fuelStack.getCraftingRemainder().create()), 1);
-                    //handle all other fuel items
-                else if (hasFuel) {
-                    fuelStack.shrink(1);
-                    if (fuelStack.isEmpty()) {
-                        this.inventory.set(0, ItemResource.of(ItemStack.EMPTY), 0);
-                    }
-                }
+                this.consumeFuel(fuelStack);
             }
         }
 
@@ -156,6 +147,18 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldSta
 
         if (wasTurnedOnDuringThisTick) {
             this.setChanged();
+        }
+    }
+
+    private void consumeFuel(ItemStack fuelStack) {
+        var remainingFuel = fuelStack.copy();
+        remainingFuel.shrink(1);
+        if (remainingFuel.isEmpty()) {
+            var craftingRemainder = fuelStack.getCraftingRemainder();
+            var remainderStack = craftingRemainder != null ? craftingRemainder.create() : ItemStack.EMPTY;
+            this.inventory.set(0, ItemResource.of(remainderStack), remainderStack.getCount());
+        } else {
+            this.inventory.set(0, ItemResource.of(remainingFuel), remainingFuel.getCount());
         }
     }
 

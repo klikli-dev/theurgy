@@ -127,6 +127,50 @@ public class PyromanticBrazierGameTests {
     }
 
     /**
+     * Tests that stacked fuel is decremented when the brazier starts burning.
+     */
+    public static void stackedFuelShrinksWhenConsumed(GameTestHelper helper) {
+        helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(Items.COAL, 2)), new ItemStack(Items.COAL, 2).getCount());
+        });
+
+        helper.succeedWhen(() -> {
+            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
+            var fuelStack = ItemUtil.getStack(blockEntity.inventory, 0);
+            helper.assertBlockProperty(BRAZIER_POS, BlockStateProperties.LIT, true);
+            helper.assertTrue(
+                    fuelStack.is(Items.COAL) && fuelStack.getCount() == 1,
+                    "Stacked fuel should shrink from 2 coal to 1 when the brazier starts burning"
+            );
+        });
+    }
+
+    /**
+     * Tests that fuel with a crafting remainder leaves that remainder behind when consumed.
+     */
+    public static void fuelLeavesCraftingRemainder(GameTestHelper helper) {
+        helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
+            blockEntity.inventory.set(0, ItemResource.of(new ItemStack(Items.LAVA_BUCKET, 1)), new ItemStack(Items.LAVA_BUCKET, 1).getCount());
+        });
+
+        helper.succeedWhen(() -> {
+            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
+            var fuelStack = ItemUtil.getStack(blockEntity.inventory, 0);
+            helper.assertBlockProperty(BRAZIER_POS, BlockStateProperties.LIT, true);
+            helper.assertTrue(
+                    fuelStack.is(Items.BUCKET) && fuelStack.getCount() == 1,
+                    "Lava bucket fuel should leave one bucket behind when consumed"
+            );
+        });
+    }
+
+    /**
      * Tests that fuel can be removed by right-clicking the brazier with an empty hand.
      * The block's useItemOn handler ejects the fuel into the player's inventory.
      */
@@ -192,8 +236,8 @@ public class PyromanticBrazierGameTests {
         });
 
         helper.succeedWhen(() -> {
-            // Verify exact count of coal items dropped
-            helper.assertItemEntityCountIs(Items.COAL, BRAZIER_POS, 2.0, 3);
+            // One coal is consumed as soon as the brazier starts burning, so only the remaining fuel drops.
+            helper.assertItemEntityCountIs(Items.COAL, BRAZIER_POS, 2.0, 2);
         });
     }
 

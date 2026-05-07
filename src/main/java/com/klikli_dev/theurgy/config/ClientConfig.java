@@ -30,6 +30,7 @@ public class ClientConfig {
         public final BooleanValue renderSulfurSourceItem;
         public final BooleanValue enableItemHUD;
         public final ModConfigSpec.DoubleValue itemHUDScale;
+        public final BooleanValue useSimpleWireRenderer;
 
         public Rendering(ModConfigSpec.Builder builder) {
             builder.comment("Rendering Settings").push("rendering");
@@ -46,6 +47,11 @@ public class ClientConfig {
             this.itemHUDScale = builder
                     .comment("The scale of the Item HUD text (e.g. for the mercurial wand).")
                     .defineInRange("hudScale", 0.7, 0.25, 3);
+
+            this.useSimpleWireRenderer = builder
+                    .comment("True to render logistics wires with RenderType.lines() instead of distanceLines().",
+                            "If shaders are used, this type might allow wires to show when they otherwise do not render.")
+                    .define("useSimpleWireRenderer", false);
 
             builder.pop();
         }

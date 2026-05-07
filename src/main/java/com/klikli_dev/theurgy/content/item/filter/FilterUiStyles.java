@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.item.filter;
 
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleKey;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleKey;
 import com.klikli_dev.theurgy.Theurgy;
 
 public final class FilterUiStyles {

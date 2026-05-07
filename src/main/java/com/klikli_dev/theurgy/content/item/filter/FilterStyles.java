@@ -4,11 +4,12 @@
 
 package com.klikli_dev.theurgy.content.item.filter;
 
-import com.klikli_dev.codedefinedgui.filter.core.layout.BuiltinFilterParts;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.api.style.BuiltinGuiParts;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyle;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleProperties;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.BuiltinFilterParts;
 
 public final class FilterStyles {
     private static final int BACKGROUND_TINT = 0xFFC2AA88;
@@ -23,9 +24,9 @@ public final class FilterStyles {
 
     public static void register() {
         GuiStyleRegistry.register(FilterUiStyles.THEURGY_LIST, GuiStyle.builder()
+                .set(BuiltinGuiParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(BuiltinGuiParts.PLAYER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
                 .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
-                .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.OFFSET_X, 1)
-                .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
                 .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.SPRITE, GuiSprites.FILTER_BUTTON.tinted(BUTTON_TINT))
                 .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.PRESSED_SPRITE, GuiSprites.FILTER_BUTTON_DOWN.tinted(BUTTON_TINT))
                 .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER.tinted(BUTTON_HOVER_TINT))
@@ -37,9 +38,9 @@ public final class FilterStyles {
                 .build());
 
         GuiStyleRegistry.register(FilterUiStyles.THEURGY_ATTRIBUTE, GuiStyle.builder()
+                .set(BuiltinGuiParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(BuiltinGuiParts.PLAYER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
                 .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
-                .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.OFFSET_X, 1)
-                .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
                 .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.SPRITE, GuiSprites.FILTER_BUTTON.tinted(BUTTON_TINT))
                 .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.PRESSED_SPRITE, GuiSprites.FILTER_BUTTON_DOWN.tinted(BUTTON_TINT))
                 .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER.tinted(BUTTON_HOVER_TINT))

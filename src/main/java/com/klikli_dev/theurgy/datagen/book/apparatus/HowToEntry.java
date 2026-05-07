@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.datagen.book.apparatus;
 
-import com.klikli_dev.codedefinedgui.gui.texture.GuiTexture;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;

@@ -4,11 +4,11 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
-import com.klikli_dev.codedefinedgui.filter.core.FilterMatchContext;
-import com.klikli_dev.codedefinedgui.filter.list.ListFilterDefinition;
-import com.klikli_dev.codedefinedgui.filter.list.ListFilterMode;
-import com.klikli_dev.codedefinedgui.filter.list.ListFilterState;
-import com.klikli_dev.codedefinedgui.filter.list.ListFilterStateAccessor;
+import com.klikli_dev.codedefinedgui.premade.filter.core.FilterMatchContext;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterDefinition;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterMode;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterState;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterStateAccessor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;

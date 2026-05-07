@@ -236,8 +236,8 @@ public class PyromanticBrazierGameTests {
         });
 
         helper.succeedWhen(() -> {
-            // Verify exact count of coal items dropped
-            helper.assertItemEntityCountIs(Items.COAL, BRAZIER_POS, 2.0, 3);
+            // One coal is consumed as soon as the brazier starts burning, so only the remaining fuel drops.
+            helper.assertItemEntityCountIs(Items.COAL, BRAZIER_POS, 2.0, 2);
         });
     }
 

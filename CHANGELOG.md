@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.91.1] - 2026-05-07
+### :bug: Bug Fixes
+- [`e5ae436`](https://github.com/klikli-dev/theurgy/commit/e5ae43608a49346b34bff7e70f2f5d074f75209e) - correct brazier fuel consumption *(PR [#359](https://github.com/klikli-dev/theurgy/pull/359) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.91.0] - 2026-05-02
 ### :sparkles: New Features
 - [`d361ba3`](https://github.com/klikli-dev/theurgy/commit/d361ba3aa09ba4fa19801d759d2fc4d7cf0da92e) - use custom Modonomicon book item *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1522,3 +1527,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.89.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.88.0...release/v26.1.2-1.89.0
 [release/v26.1.2-1.90.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.89.0...release/v26.1.2-1.90.0
 [release/v26.1.2-1.91.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.90.0...release/v26.1.2-1.91.0
+[release/v26.1.2-1.91.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.91.0...release/v26.1.2-1.91.1

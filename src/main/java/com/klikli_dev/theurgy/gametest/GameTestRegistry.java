@@ -168,6 +168,12 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_FUEL_CONSUMED =
             TEST_FUNCTIONS.register("pyromantic_brazier_fuel_consumed", () -> PyromanticBrazierGameTests::fuelIsConsumedOverTime);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_STACKED_FUEL_SHRINKS =
+            TEST_FUNCTIONS.register("pyromantic_brazier_stacked_fuel_shrinks", () -> PyromanticBrazierGameTests::stackedFuelShrinksWhenConsumed);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_FUEL_LEAVES_REMAINDER =
+            TEST_FUNCTIONS.register("pyromantic_brazier_fuel_leaves_remainder", () -> PyromanticBrazierGameTests::fuelLeavesCraftingRemainder);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_HEAT_CALCINATION_OVEN =
             TEST_FUNCTIONS.register("pyromantic_brazier_heat_calcination_oven", () -> PyromanticBrazierGameTests::providesHeatToCalcinationOven);
 

@@ -8,7 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
+import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
@@ -44,7 +44,7 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
     public CalcinationCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(82, 43);
 
-        this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
+        this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiSprites.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
 
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.CALCINATION_OVEN.get()));
         this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY);
@@ -55,7 +55,7 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiSprites.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
     }
@@ -94,10 +94,10 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
 
     @Override
     public void draw(RecipeHolder<CalcinationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 1, 20);
+        GuiSprites.JEI_FIRE_EMPTY.extractRenderState(guiGraphics, 1, 20);
         this.animatedFire.draw(guiGraphics, 1, 20);
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 24, 8);
+        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 24, 8);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 24, 8);
 
         this.drawCookTime(recipe, guiGraphics, 34);

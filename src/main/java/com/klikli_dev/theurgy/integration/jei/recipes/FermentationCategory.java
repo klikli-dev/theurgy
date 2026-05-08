@@ -8,7 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
+import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
@@ -56,7 +56,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiSprites.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
     }
@@ -108,7 +108,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
 
     @Override
     public void draw(RecipeHolder<FermentationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 45, 8);
+        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 45, 8);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 45, 8);
 
         this.drawCookTime(recipe, guiGraphics, 34);

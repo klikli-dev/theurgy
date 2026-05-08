@@ -8,7 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
+import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
@@ -60,7 +60,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiSprites.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
     }
@@ -100,12 +100,12 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
     @Override
     public void draw(RecipeHolder<ReformationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 19, 19);
+        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 19, 19);
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 130, 19);
+        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 130, 19);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 130, 19);
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 65, 19);
+        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 65, 19);
 
         this.drawCookTime(recipe, guiGraphics, 37);
         this.drawFlux(recipe, guiGraphics, 90);

@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.integration.modonomicon.page.incubation;
 
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
+import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.IncubationRecipeDisplay;
 import net.minecraft.client.Minecraft;
@@ -47,23 +47,23 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
         }
 
 
-        GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the mercury input slot
+        GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX, recipeY); //render the mercury input slot
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 3, mouseX, mouseY, display.mercury());
 
-        GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 24, recipeY); //render the salt input slot
+        GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX + 24, recipeY); //render the salt input slot
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 24 + 3, recipeY + 3, mouseX, mouseY, display.salt());
 
-        GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the sulfur input slot
+        GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX, recipeY + 24); //render the sulfur input slot
         ItemStack[] sulfurs = display.sulfur().items().map(ItemStack::new).toArray(ItemStack[]::new);
         if (sulfurs != null && sulfurs.length > 0) {
             this.parentScreen.renderItemStacks(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, List.of(sulfurs));
         }
 
 
-        GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 61 + 14, recipeY); //render the output slot
+        GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX + 61 + 14, recipeY); //render the output slot
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 61 + 3 + 14, recipeY + 3, mouseX, mouseY, display.output().getStack());
 
-        GuiTextures.MODONOMICON_ARROW_RIGHT.render(guiGraphics, recipeX + 40 + 16, recipeY + 7); //render the arrow
+        GuiSprites.MODONOMICON_ARROW_RIGHT.extractRenderState(guiGraphics, recipeX + 40 + 16, recipeY + 7); //render the arrow
         var level = Minecraft.getInstance().level;
         ItemStack craftingStation = level != null ? display.craftingStation().resolveForFirstStack(SlotDisplayContext.fromLevel(level)) : ItemStack.EMPTY;
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 36 + 16, recipeY + 24, mouseX, mouseY, craftingStation);

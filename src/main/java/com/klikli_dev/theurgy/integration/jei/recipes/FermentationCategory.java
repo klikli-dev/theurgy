@@ -8,9 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
-import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -43,6 +41,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
     private final IDrawable icon;
     private final Component localizedName;
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
+    private final IDrawable emptyArrow;
 
     public FermentationCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(102, 43);
@@ -56,9 +55,10 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiSprites.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return guiHelper.createAnimatedRecipeArrow(cookTime);
                     }
                 });
+        this.emptyArrow = guiHelper.getRecipeArrow();
     }
 
     public static void addFluidTooltip(IRecipeSlotsView view, List<Component> tooltip, long overrideAmount) {
@@ -108,7 +108,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
 
     @Override
     public void draw(RecipeHolder<FermentationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 45, 8);
+        this.emptyArrow.draw(guiGraphics, 45, 8);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 45, 8);
 
         this.drawCookTime(recipe, guiGraphics, 34);
@@ -129,11 +129,11 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<FermentationRecipe> recipe, @NotNull IFocusGroup focuses) {
         var topLeft = builder.addSlot(INPUT, 1, 1)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
+                .setStandardSlotBackground();
         var topRight = builder.addSlot(INPUT, 1 + 18, 1)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
+                .setStandardSlotBackground();
         var bottomLeft = builder.addSlot(INPUT, 1, 1 + 18)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
+                .setStandardSlotBackground();
 
         if (!recipe.value().getIngredients().isEmpty())
             topLeft.add(recipe.value().getIngredients().get(0));
@@ -145,11 +145,11 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
             bottomLeft.add(recipe.value().getIngredients().get(2));
 
         builder.addSlot(OUTPUT, 81, 9)
-                .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
+                .setOutputSlotBackground()
                 .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
 
         builder.addSlot(INPUT, 1 + 18, 1 + 18)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16);
 

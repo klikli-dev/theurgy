@@ -8,9 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
-import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -47,6 +45,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
     private final IDrawable icon;
     private final Component localizedName;
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
+    private final IDrawable emptyArrow;
 
     public ReformationCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(180, 100);
@@ -60,9 +59,10 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiSprites.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return guiHelper.createAnimatedRecipeArrow(cookTime);
                     }
                 });
+        this.emptyArrow = guiHelper.getRecipeArrow();
     }
 
     protected IDrawableAnimated getAnimatedArrow(RecipeHolder<ReformationRecipe> recipe) {
@@ -100,12 +100,12 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
     @Override
     public void draw(RecipeHolder<ReformationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
 
-        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 19, 19);
+        this.emptyArrow.draw(guiGraphics, 19, 19);
 
-        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 130, 19);
+        this.emptyArrow.draw(guiGraphics, 130, 19);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 130, 19);
 
-        GuiSprites.JEI_ARROW_RIGHT_EMPTY.extractRenderState(guiGraphics, 65, 19);
+        this.emptyArrow.draw(guiGraphics, 65, 19);
 
         this.drawCookTime(recipe, guiGraphics, 37);
         this.drawFlux(recipe, guiGraphics, 90);
@@ -155,7 +155,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
 
 
         builder.addSlot(INPUT, 45, 19)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .add(recipe.value().getTarget());
 
         builder.addSlot(INPUT, 45, 35)
@@ -167,7 +167,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
         int sourceSlotY = startY; // Start from the bottom
 
         for (int i = 0; i < 8; i++) {
-            var slot = builder.addSlot(INPUT, sourceSlotX, sourceSlotY).setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
+            var slot = builder.addSlot(INPUT, sourceSlotX, sourceSlotY).setStandardSlotBackground();
 
             if (i < recipe.value().getSources().size()) {
                 var ingredient = recipe.value().getSources().get(i);
@@ -186,7 +186,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
 
 
         builder.addSlot(OUTPUT, 160, 19)
-                .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
+                .setOutputSlotBackground()
                 .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
         builder.addSlot(INPUT, 160, 42)
                 .add(new ItemStack(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));

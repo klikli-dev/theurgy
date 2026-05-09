@@ -19,13 +19,14 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
-public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, DigestionRecipe, DigestionCachedCheck>, HasStorageBehaviour<DigestionStorageBehaviour> {
+public class DigestionVatBlockEntity extends BlockEntity implements Clearable, HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, DigestionRecipe, DigestionCachedCheck>, HasStorageBehaviour<DigestionStorageBehaviour> {
 
     public DigestionCraftingBehaviour craftingBehaviour;
     public DigestionStorageBehaviour storageBehaviour;
@@ -101,6 +102,11 @@ public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingB
             }
         }
         return false;
+    }
+
+    @Override
+    public void clearContent() {
+        this.storageBehaviour.clearContent();
     }
 
     @Override

@@ -68,6 +68,11 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
         this.readNetwork(pTag, pRegistries);
     }
 
+    public void clearContent() {
+        clearItemHandler(this.inputInventory);
+        clearItemHandler(this.outputInventory);
+    }
+
 
     public class InputInventory extends MonitoredItemStackHandler {
 

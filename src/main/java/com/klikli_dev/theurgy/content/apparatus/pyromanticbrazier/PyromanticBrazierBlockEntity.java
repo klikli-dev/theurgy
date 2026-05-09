@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier;
 
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
@@ -21,6 +22,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,8 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-
-public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldStackFitProvider {
+public class PyromanticBrazierBlockEntity extends BlockEntity implements Clearable, HeldStackFitProvider {
     public MonitoredItemStackHandler inventory;
 
     public HeatProvider heatProvider;
@@ -174,6 +175,11 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldSta
         super.loadAdditional(input);
         this.remainingLitTime = input.getShortOr("remainingLitTime", (short) 0);
         this.readNetwork(input);
+    }
+
+    @Override
+    public void clearContent() {
+        StorageBehaviour.clearItemHandler(this.inventory);
     }
 
     private class Inventory extends MonitoredItemStackHandler {

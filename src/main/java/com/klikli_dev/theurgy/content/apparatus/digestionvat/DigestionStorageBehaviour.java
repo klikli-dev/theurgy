@@ -140,6 +140,11 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
         return this.outputInventory;
     }
 
+    public void clearContent() {
+        clearItemHandler(this.inputInventory);
+        clearItemHandler(this.outputInventory);
+    }
+
     public class WaterTank extends MonitoredFluidTank {
 
         public WaterTank(int capacity, Predicate<FluidStack> validator) {

@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.incubator;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
@@ -25,6 +26,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -35,7 +37,7 @@ import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 
-public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, LevelAwareCachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
+public class IncubatorBlockEntity extends BlockEntity implements Clearable, HasCraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, LevelAwareCachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
     public IncubatorSaltVesselBlockEntity saltVessel;
@@ -173,6 +175,11 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
         input.child("heatReceiver").ifPresent(this.heatReceiver::deserialize);
 
         this.readNetwork(input);
+    }
+
+    @Override
+    public void clearContent() {
+        StorageBehaviour.clearItemHandler(this.outputInventory);
     }
 
     private void checkForVessel(BlockPos pos) {

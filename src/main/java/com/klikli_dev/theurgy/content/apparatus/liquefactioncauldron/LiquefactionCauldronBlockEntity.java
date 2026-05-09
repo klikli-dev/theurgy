@@ -25,6 +25,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,8 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-
-public class LiquefactionCauldronBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe, LiquefactionCachedCheck>, HeldStackFitProvider {
+public class LiquefactionCauldronBlockEntity extends BlockEntity implements Clearable, HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe, LiquefactionCachedCheck>, HeldStackFitProvider {
 
     public CraftingHeatReceiver heatReceiver;
 
@@ -126,6 +126,11 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements HasC
                 Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.storageBehaviour.inventory, i));
             }
         }
+    }
+
+    @Override
+    public void clearContent() {
+        this.storageBehaviour.clearContent();
     }
 
     @Override

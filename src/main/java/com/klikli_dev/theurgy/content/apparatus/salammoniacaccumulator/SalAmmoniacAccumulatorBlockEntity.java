@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -27,6 +28,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,7 +46,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity, HeldStackFitProvider {
+public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity, Clearable, HeldStackFitProvider {
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -199,6 +201,11 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         super.loadAdditional(input);
         this.readNetwork(input);
         this.craftingBehaviour.loadAdditional(input);
+    }
+
+    @Override
+    public void clearContent() {
+        StorageBehaviour.clearItemHandler(this.inventory);
     }
 
     @Override

@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -21,6 +22,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class ReformationTargetPedestalBlockEntity extends BlockEntity implements HeldStackFitProvider {
+public class ReformationTargetPedestalBlockEntity extends BlockEntity implements Clearable, HeldStackFitProvider {
 
     public MonitoredItemStackHandler inputInventory;
 
@@ -131,6 +133,11 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity implements
                 Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.inputInventory, i));
             }
         }
+    }
+
+    @Override
+    public void clearContent() {
+        StorageBehaviour.clearItemHandler(this.inputInventory);
     }
 
     public void sendBlockUpdated() {

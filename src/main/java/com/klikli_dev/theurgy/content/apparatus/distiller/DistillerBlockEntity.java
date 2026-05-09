@@ -27,6 +27,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
+import net.minecraft.world.Clearable;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 
-public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck>, HeldStackFitProvider {
+public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, Clearable, HasCraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck>, HeldStackFitProvider {
 
     public CraftingHeatReceiver heatReceiver;
 
@@ -96,6 +97,11 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
         boolean hasInput = !ItemUtil.getStack(this.storageBehaviour.inputInventory, 0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
+    }
+
+    @Override
+    public void clearContent() {
+        this.storageBehaviour.clearContent();
     }
 
     @Override

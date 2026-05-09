@@ -17,6 +17,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -31,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
+public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements Clearable, HasLeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
     protected LeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> leafNodeBehaviour;
     protected FilterBehaviour filterBehaviour;
@@ -156,6 +157,11 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
 
             this.leafNode().onDestroyed();
         }
+    }
+
+    @Override
+    public void clearContent() {
+        this.filterBehaviour.clearContent();
     }
 
 }

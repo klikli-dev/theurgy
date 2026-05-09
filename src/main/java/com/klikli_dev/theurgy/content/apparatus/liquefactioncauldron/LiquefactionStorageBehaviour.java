@@ -89,6 +89,11 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
         this.readNetwork(input);
     }
 
+    public void clearContent() {
+        clearItemHandler(this.inputInventory);
+        clearItemHandler(this.outputInventory);
+    }
+
     public class SolventTank extends MonitoredFluidTank {
 
         public SolventTank(int capacity, Predicate<FluidStack> validator) {

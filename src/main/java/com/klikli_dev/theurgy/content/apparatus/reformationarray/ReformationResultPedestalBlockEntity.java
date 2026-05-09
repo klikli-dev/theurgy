@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -19,6 +20,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 
-public class ReformationResultPedestalBlockEntity extends BlockEntity {
+public class ReformationResultPedestalBlockEntity extends BlockEntity implements Clearable {
 
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
@@ -136,6 +138,11 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
                 Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemUtil.getStack(this.outputInventory, i));
             }
         }
+    }
+
+    @Override
+    public void clearContent() {
+        StorageBehaviour.clearItemHandler(this.outputInventory);
     }
 
     public void sendBlockUpdated() {

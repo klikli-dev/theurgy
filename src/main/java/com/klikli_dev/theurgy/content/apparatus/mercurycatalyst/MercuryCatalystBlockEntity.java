@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -25,6 +26,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,8 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStackFitProvider {
+public class MercuryCatalystBlockEntity extends BlockEntity implements Clearable, HeldStackFitProvider {
 
     public static final int CAPACITY = 50000;
 
@@ -180,6 +181,11 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStack
         this.readNetwork(input);
 
         this.craftingBehaviour.loadAdditional(input);
+    }
+
+    @Override
+    public void clearContent() {
+        StorageBehaviour.clearItemHandler(this.inventory);
     }
 
     @Override

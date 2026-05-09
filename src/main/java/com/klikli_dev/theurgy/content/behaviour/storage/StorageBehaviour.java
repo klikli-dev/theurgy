@@ -13,6 +13,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -75,5 +76,11 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
 
     protected void setChanged() {
         this.blockEntity.setChanged();
+    }
+
+    public static void clearItemHandler(SettableItemStorage handler) {
+        for (int i = 0; i < handler.size(); i++) {
+            handler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
+        }
     }
 }

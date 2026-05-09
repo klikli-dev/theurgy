@@ -23,8 +23,7 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.Sa
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
 import com.klikli_dev.theurgy.content.item.HandlesOnScroll;
-import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
-import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
+import com.klikli_dev.theurgy.content.item.filter.FilterStyles;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
@@ -111,7 +110,6 @@ public class Theurgy {
         RecipeResultRegistry.RECIPE_RESULT_TYPES.register(modEventBus);
         RecipeDisplayRegistry.RECIPE_DISPLAYS.register(modEventBus);
         DataComponentRegistry.DATA_COMPONENTS.register(modEventBus);
-        MenuTypeRegistry.MENU_TYPES.register(modEventBus);
         GameTestRegistry.TEST_FUNCTIONS.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
@@ -144,7 +142,6 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
-            modEventBus.addListener(Client::onRegisterMenuScreens);
             modEventBus.addListener(Client::onRegisterClientTooltipComponentFactories);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
             modEventBus.addListener(ParticleSprites::onTextureAtlasStitched);
@@ -183,6 +180,7 @@ public class Theurgy {
 
     public static class Client {
         public static void onClientSetup(FMLClientSetupEvent event) {
+            event.enqueueWork(FilterStyles::register);
 
             registerTooltipDataProviders(event);
             PageRenderers.onClientSetup(event);
@@ -312,11 +310,6 @@ public class Theurgy {
 
         public static void onRegisterClientTooltipComponentFactories(RegisterClientTooltipComponentFactoriesEvent event) {
             event.register(ItemStacksTooltip.class, ClientItemStacksTooltip::new);
-        }
-
-        public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
-            event.register(MenuTypeRegistry.LIST_FILTER.get(), ListFilterScreen::new);
-            event.register(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), AttributeFilterScreen::new);
         }
 
         public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {

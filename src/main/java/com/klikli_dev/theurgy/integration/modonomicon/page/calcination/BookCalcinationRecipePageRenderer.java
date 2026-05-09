@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.integration.modonomicon.page.calcination;
 
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
+import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.CalcinationRecipeDisplay;
 import net.minecraft.client.Minecraft;
@@ -43,13 +43,13 @@ public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<Ca
             }
         }
 
-        GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the input slot
+        GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX, recipeY); //render the input slot
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 3, mouseX, mouseY, display.ingredient().ingredient(), display.ingredient().count());
 
-        GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 61, recipeY); //render the output slot
+        GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX + 61, recipeY); //render the output slot
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, display.output().create());
 
-        GuiTextures.MODONOMICON_ARROW_RIGHT.render(guiGraphics, recipeX + 40, recipeY + 7); //render the arrow
+        GuiSprites.MODONOMICON_ARROW_RIGHT.extractRenderState(guiGraphics, recipeX + 40, recipeY + 7); //render the arrow
         var level = Minecraft.getInstance().level;
         ItemStack craftingStation = level != null ? display.craftingStation().resolveForFirstStack(SlotDisplayContext.fromLevel(level)) : ItemStack.EMPTY;
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 36, recipeY + 20, mouseX, mouseY, craftingStation);

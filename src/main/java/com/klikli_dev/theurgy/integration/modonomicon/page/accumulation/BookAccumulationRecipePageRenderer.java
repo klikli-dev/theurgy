@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.modonomicon.fluid.NeoFluidHolder;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
+import com.klikli_dev.theurgy.content.gui.GuiSprites;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
 import net.minecraft.client.Minecraft;
@@ -46,19 +46,19 @@ public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<A
         }
 
         if (display.evaporant().isPresent()) {
-            GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the fluid input slot            this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, display.evaporant().ingredient().fluids().stream().map(f -> (FluidHolder) new NeoFluidHolder(new net.neoforged.neoforge.fluids.FluidStack(f.value(), display.evaporantAmount()))).toList(), FluidType.BUCKET_VOLUME);;
+            GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX, recipeY); //render the fluid input slot            this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, display.evaporant().ingredient().fluids().stream().map(f -> (FluidHolder) new NeoFluidHolder(new net.neoforged.neoforge.fluids.FluidStack(f.value(), display.evaporantAmount()))).toList(), FluidType.BUCKET_VOLUME);;
         }
 
         if (display.solute().isPresent()) {
-            GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the item input slot
+            GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX, recipeY + 24); //render the item input slot
             this.parentScreen.renderItemStacks(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, display.solute().get().resolveForStacks(SlotDisplayContext.fromLevel(Minecraft.getInstance().level)));
         }
 
-        GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 61, recipeY); //render the fluid output slot
+        GuiSprites.MODONOMICON_SLOT.extractRenderState(guiGraphics, recipeX + 61, recipeY); //render the fluid output slot
         this.parentScreen.renderFluidStack(guiGraphics, recipeX + 61 + 2, recipeY + 2, mouseX, mouseY, new NeoFluidHolder(
                 display.resultFluidStack()), FluidType.BUCKET_VOLUME);
 
-        GuiTextures.MODONOMICON_ARROW_RIGHT.render(guiGraphics, recipeX + 40, recipeY + 7); //render the arrow
+        GuiSprites.MODONOMICON_ARROW_RIGHT.extractRenderState(guiGraphics, recipeX + 40, recipeY + 7); //render the arrow
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 36, recipeY + 20, mouseX, mouseY, display.craftingStation().resolveForFirstStack(SlotDisplayContext.fromLevel(Minecraft.getInstance().level)));
     }
 }

@@ -4,10 +4,14 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
-import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import com.klikli_dev.codedefinedgui.premade.filter.core.FilterMatchContext;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterDefinition;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterMode;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterState;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterStateAccessor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -20,6 +24,7 @@ import java.util.List;
 
 public class ListFilter extends Filter {
 
+    protected ListFilterState state;
     protected List<ItemStack> filterItems;
     protected List<FluidStack> filterFluids;
     protected boolean shouldRespectDataComponents;
@@ -47,20 +52,16 @@ public class ListFilter extends Filter {
 
     @Override
     protected void initFromFilterItemStack(HolderLookup.Provider provider, ItemStack filterItemStack) {
-        this.filterItems = this.getFilterItems(filterItemStack);
-
-        this.shouldRespectDataComponents = filterItemStack.getOrDefault(DataComponentRegistry.FILTER_RESPECTS_DATA_COMPONENTS, false);
-        this.isDenyList = filterItemStack.getOrDefault(DataComponentRegistry.FILTER_IS_DENY_LIST, false);
+        this.state = ListFilterStateAccessor.INSTANCE.read(filterItemStack);
+        this.filterItems = this.getFilterItems(this.state.entries());
+        this.shouldRespectDataComponents = this.state.respectDataComponents();
+        this.isDenyList = this.state.mode() == ListFilterMode.DENY;
+        this.filterFluids = null;
     }
 
     @Override
     public boolean test(Level world, ItemStack stack, boolean matchDataComponents) {
-        for (var filterItemStack : this.filterItems) {
-            if (this.testFilterItemStack(filterItemStack, stack, this.shouldRespectDataComponents))
-                return !this.isDenyList;
-        }
-
-        return this.isDenyList;
+        return ListFilterDefinition.INSTANCE.matches(stack, this.state, new FilterMatchContext(world));
     }
 
     @Override
@@ -95,14 +96,6 @@ public class ListFilter extends Filter {
         return this.filterItems.isEmpty();
     }
 
-    private boolean testFilterItemStack(ItemStack filterItemStack, ItemStack stackToTest, boolean matchDataComponents) {
-        if (matchDataComponents) {
-            return ItemStack.isSameItemSameComponents(filterItemStack, stackToTest);
-        } else {
-            return ItemStack.isSameItem(filterItemStack, stackToTest);
-        }
-    }
-
     private boolean testFilterFluidStack(FluidStack filterFluidStack, FluidStack stackToTest, boolean matchDataComponents) {
         if (matchDataComponents) {
             return FluidStack.matches(filterFluidStack, stackToTest);
@@ -111,19 +104,9 @@ public class ListFilter extends Filter {
         }
     }
 
-    private List<ItemStack> getFilterItems(ItemStack filter) {
-        var result = new ArrayList<ItemStack>();
-
-        if (!filter.has(DataComponentRegistry.FILTER_ITEMS))
-            return result;
-
-        var items = filter.get(DataComponentRegistry.FILTER_ITEMS);
-
-        for (ItemStackTemplate stackInSlot : items.nonEmptyItems()) {
-            result.add(stackInSlot.create());
-        }
-
-        return result;
+    private List<ItemStack> getFilterItems(ItemContainerContents entries) {
+        return entries.nonEmptyItemCopyStream()
+                .toList();
     }
 
 }

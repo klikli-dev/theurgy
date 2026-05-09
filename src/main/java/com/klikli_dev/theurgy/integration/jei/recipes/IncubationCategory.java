@@ -8,9 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
-import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -37,15 +35,18 @@ import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
 public class IncubationCategory implements IRecipeCategory<RecipeHolder<IncubationRecipe>> {
     private final IDrawableAnimated animatedFire;
+    private final IDrawable emptyFire;
     private final IDrawable background;
     private final IDrawable icon;
     private final Component localizedName;
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
+    private final IDrawable emptyArrow;
 
     public IncubationCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(82, 60);
 
-        this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
+        this.animatedFire = guiHelper.createAnimatedRecipeFlame(300);
+        this.emptyFire = guiHelper.getRecipeFlameEmpty();
 
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.INCUBATOR.get()));
         this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY);
@@ -56,9 +57,10 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return guiHelper.createAnimatedRecipeArrow(cookTime);
                     }
                 });
+        this.emptyArrow = guiHelper.getRecipeArrow();
     }
 
     protected IDrawableAnimated getAnimatedArrow(RecipeHolder<IncubationRecipe> recipe) {
@@ -95,10 +97,10 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
 
     @Override
     public void draw(RecipeHolder<IncubationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 28, 44);
+        this.emptyFire.draw(guiGraphics, 28, 44);
         this.animatedFire.draw(guiGraphics, 28, 44);
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 24, 22);
+        this.emptyArrow.draw(guiGraphics, 24, 22);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 24, 22);
 
         this.drawCookTime(recipe, guiGraphics, 47);
@@ -119,19 +121,19 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<IncubationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .add(recipe.value().mercury());
 
         builder.addSlot(INPUT, 1, 21)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .addItemStacks(JeiIngredients.getStacks(recipe.value().sulfur()));
 
         builder.addSlot(INPUT, 1, 42)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .add(recipe.value().salt());
 
         builder.addSlot(OUTPUT, 61, 22)
-                .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
+                .setOutputSlotBackground()
                 .addItemStacks(Arrays.asList(recipe.value().result().getStacks()));
     }
 

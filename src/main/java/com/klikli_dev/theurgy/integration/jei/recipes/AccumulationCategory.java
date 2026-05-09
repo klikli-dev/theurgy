@@ -8,9 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
-import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -42,6 +40,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
     private final IDrawable icon;
     private final Component localizedName;
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
+    private final IDrawable emptyArrow;
 
     public AccumulationCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(82, 40);
@@ -55,9 +54,10 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return guiHelper.createAnimatedRecipeArrow(cookTime);
                     }
                 });
+        this.emptyArrow = guiHelper.getRecipeArrow();
     }
 
     public static void addFluidTooltip(IRecipeSlotsView view, List<Component> tooltip, long overrideAmount) {
@@ -106,7 +106,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
 
     @Override
     public void draw(RecipeHolder<AccumulationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 24, 2);
+        this.emptyArrow.draw(guiGraphics, 24, 2);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 24, 2);
 
         this.drawCookTime(recipe, guiGraphics, 29);
@@ -128,7 +128,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<AccumulationRecipe> recipe, @NotNull IFocusGroup focuses) {
         if (recipe.value().hasEvaporant()) {
             builder.addSlot(INPUT, 1, 1)
-                    .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                    .setStandardSlotBackground()
                     .addIngredients(NeoForgeTypes.FLUID_STACK, recipe.value().evaporant().ingredient().fluids().stream()
                             .map(f -> new FluidStack(f.value(), recipe.value().getEvaporantAmount())).toList())
                     .setFluidRenderer(1000, false, 16, 16);
@@ -137,12 +137,12 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
         if (recipe.value().hasSolute()) {
             assert recipe.value().solute() != null;
             builder.addSlot(INPUT, 1, 21)
-                    .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                    .setStandardSlotBackground()
                     .add(recipe.value().solute());
         }
 
         builder.addSlot(OUTPUT, 56, 1)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .add(recipe.value().result().fluid().value(), recipe.value().result().amount());
 
         //now add the bucket to the recipe lookup for the output fluid

@@ -22,12 +22,12 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoni
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.book.TheHermeticaItem;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
-import com.klikli_dev.theurgy.content.item.filter.AttributeFilterItem;
-import com.klikli_dev.theurgy.content.item.filter.FilterItem;
-import com.klikli_dev.theurgy.content.item.filter.ListFilterItem;
+import com.klikli_dev.theurgy.content.item.filter.FilterUiStyles;
 import com.klikli_dev.theurgy.content.item.mercurialwand.MercurialWandItem;
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
+import com.klikli_dev.codedefinedgui.premade.filter.attribute.AttributeFilterItem;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterItem;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -147,8 +147,8 @@ public class ItemRegistry {
                     .component(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0)
             ));
 
-    public static final DeferredItem<FilterItem> LIST_FILTER = ITEMS.registerItem("list_filter", ListFilterItem::new);
-    public static final DeferredItem<FilterItem> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter", AttributeFilterItem::new);
+    public static final DeferredItem<Item> LIST_FILTER = ITEMS.registerItem("list_filter", p -> new ListFilterItem(p, FilterUiStyles.THEURGY_LIST));
+    public static final DeferredItem<Item> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter", p -> new AttributeFilterItem(p, FilterUiStyles.THEURGY_ATTRIBUTE));
 
     //Buckets
     public static final DeferredItem<Item> SAL_AMMONIAC_BUCKET =

@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
-import com.klikli_dev.theurgy.content.item.filter.FilterItem;
+import com.klikli_dev.codedefinedgui.premade.filter.core.FilterItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;

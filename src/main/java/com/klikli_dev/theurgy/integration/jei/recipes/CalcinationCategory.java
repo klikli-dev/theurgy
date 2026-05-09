@@ -8,9 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
-import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiIngredients;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -36,15 +34,18 @@ import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
 public class CalcinationCategory implements IRecipeCategory<RecipeHolder<CalcinationRecipe>> {
     private final IDrawableAnimated animatedFire;
+    private final IDrawable emptyFire;
     private final IDrawable background;
     private final IDrawable icon;
     private final Component localizedName;
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
+    private final IDrawable emptyArrow;
 
     public CalcinationCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(82, 43);
 
-        this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
+        this.animatedFire = guiHelper.createAnimatedRecipeFlame(300);
+        this.emptyFire = guiHelper.getRecipeFlameEmpty();
 
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.CALCINATION_OVEN.get()));
         this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY);
@@ -55,9 +56,10 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return guiHelper.createAnimatedRecipeArrow(cookTime);
                     }
                 });
+        this.emptyArrow = guiHelper.getRecipeArrow();
     }
 
     protected IDrawableAnimated getAnimatedArrow(RecipeHolder<CalcinationRecipe> recipe) {
@@ -94,10 +96,10 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
 
     @Override
     public void draw(RecipeHolder<CalcinationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 1, 20);
+        this.emptyFire.draw(guiGraphics, 1, 20);
         this.animatedFire.draw(guiGraphics, 1, 20);
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 24, 8);
+        this.emptyArrow.draw(guiGraphics, 24, 8);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 24, 8);
 
         this.drawCookTime(recipe, guiGraphics, 34);
@@ -118,11 +120,11 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CalcinationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .addItemStacks(JeiIngredients.getStacks(recipe.value().getIngredients().getFirst(), recipe.value().getIngredientCount()));
 
         builder.addSlot(OUTPUT, 61, 9)
-                .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
+                .setOutputSlotBackground()
                 .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
     }
 

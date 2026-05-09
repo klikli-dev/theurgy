@@ -8,9 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
-import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -40,15 +38,18 @@ import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
 public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<LiquefactionRecipe>> {
     private final IDrawableAnimated animatedFire;
+    private final IDrawable emptyFire;
     private final IDrawable background;
     private final IDrawable icon;
     private final Component localizedName;
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
+    private final IDrawable emptyArrow;
 
     public LiquefactionCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(102, 43);
 
-        this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
+        this.animatedFire = guiHelper.createAnimatedRecipeFlame(300);
+        this.emptyFire = guiHelper.getRecipeFlameEmpty();
 
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get()));
         this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY);
@@ -59,9 +60,10 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
-                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return guiHelper.createAnimatedRecipeArrow(cookTime);
                     }
                 });
+        this.emptyArrow = guiHelper.getRecipeArrow();
     }
 
     public static void addFluidTooltip(IRecipeSlotsView view, List<Component> tooltip, long overrideAmount) {
@@ -111,10 +113,10 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
 
     @Override
     public void draw(RecipeHolder<LiquefactionRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 12, 20);
+        this.emptyFire.draw(guiGraphics, 12, 20);
         this.animatedFire.draw(guiGraphics, 12, 20);
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 45, 8);
+        this.emptyArrow.draw(guiGraphics, 45, 8);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 45, 8);
 
         this.drawCookTime(recipe, guiGraphics, 34);
@@ -135,15 +137,15 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, @NotNull RecipeHolder<LiquefactionRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16);
 
         builder.addSlot(INPUT, 19, 1)
-                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .setStandardSlotBackground()
                 .add(recipe.value().getIngredients().getFirst());
         builder.addSlot(OUTPUT, 81, 9)
-                .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
+                .setOutputSlotBackground()
                 .add(recipe.value().getResultItem(RegistryAccess.EMPTY));
 
         //now add the bucket to the recipe lookup for the output fluid

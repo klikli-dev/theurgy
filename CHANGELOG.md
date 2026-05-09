@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.93.0] - 2026-05-09
+### :sparkles: New Features
+- [`3f459f2`](https://github.com/klikli-dev/theurgy/commit/3f459f2dd05f76ab2000b7c3a0affbd85f8202f4) - update to latest cdg *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.92.0] - 2026-05-09
 ### :sparkles: New Features
 - [`25ff878`](https://github.com/klikli-dev/theurgy/commit/25ff878796e4a49ac291f34759d1ebc4ccfd5ae6) - update to latest cdg *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1543,3 +1548,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.91.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.91.0...release/v26.1.2-1.91.1
 [release/v26.1.2-1.91.2]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.91.1...release/v26.1.2-1.91.2
 [release/v26.1.2-1.92.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.91.2...release/v26.1.2-1.92.0
+[release/v26.1.2-1.93.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.92.0...release/v26.1.2-1.93.0

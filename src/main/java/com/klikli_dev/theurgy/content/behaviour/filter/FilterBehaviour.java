@@ -114,4 +114,8 @@ public class FilterBehaviour {
             Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), stack);
         }
     }
+
+    public void clearContent() {
+        this.filter(Filter.empty());
+    }
 }

@@ -15,6 +15,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,7 +27,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 
-public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements GeoBlockEntity, Clearable {
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public IncubatorBlockEntity incubator;
@@ -90,6 +91,13 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
         super.loadAdditional(pTag, pRegistries);
 
         this.readNetwork(pTag, pRegistries);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.inputInventory.getSlots(); i++) {
+            this.inputInventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 
 

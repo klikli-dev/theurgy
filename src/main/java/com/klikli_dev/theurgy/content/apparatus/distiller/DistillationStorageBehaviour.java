@@ -65,6 +65,11 @@ public class DistillationStorageBehaviour extends StorageBehaviour<DistillationS
         this.readNetwork(pTag, pRegistries);
     }
 
+    public void clearContent() {
+        clearItemHandler(this.inputInventory);
+        clearItemHandler(this.outputInventory);
+    }
+
     public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {

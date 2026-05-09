@@ -17,6 +17,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 
-public class ReformationResultPedestalBlockEntity extends BlockEntity {
+public class ReformationResultPedestalBlockEntity extends BlockEntity implements Clearable {
 
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
@@ -122,6 +123,13 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
         this.showParticles = !this.outputInventory.getStackInSlot(0).isEmpty();
         pTag.putBoolean("showParticles", this.showParticles);
         pTag.put("outputInventory", this.outputInventory.serializeNBT(pRegistries));
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.outputInventory.getSlots(); i++) {
+            this.outputInventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 
     public void sendBlockUpdated() {

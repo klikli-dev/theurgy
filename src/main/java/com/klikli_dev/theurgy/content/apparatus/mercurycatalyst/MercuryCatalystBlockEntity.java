@@ -20,6 +20,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -29,7 +30,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 
-public class MercuryCatalystBlockEntity extends BlockEntity {
+public class MercuryCatalystBlockEntity extends BlockEntity implements Clearable {
 
     public static final int CAPACITY = 50000;
 
@@ -151,6 +152,13 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
             this.mercuryFluxStorage.deserializeNBT(pRegistries, pTag.get("mercuryFluxStorage"));
 
         this.craftingBehaviour.loadAdditional(pTag, pRegistries);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.inventory.getSlots(); i++) {
+            this.inventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 
     @Override

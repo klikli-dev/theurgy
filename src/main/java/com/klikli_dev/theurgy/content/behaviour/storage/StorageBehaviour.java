@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -74,5 +75,11 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
 
     protected void setChanged() {
         this.blockEntity.setChanged();
+    }
+
+    protected static void clearItemHandler(ItemStackHandler handler) {
+        for (int i = 0; i < handler.getSlots(); i++) {
+            handler.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 }

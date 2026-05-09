@@ -17,6 +17,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,7 +37,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Predicate;
 
-public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity, Clearable {
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -192,6 +193,13 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         }
 
         this.craftingBehaviour.loadAdditional(pTag, pRegistries);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.inventory.getSlots(); i++) {
+            this.inventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 
     @Override

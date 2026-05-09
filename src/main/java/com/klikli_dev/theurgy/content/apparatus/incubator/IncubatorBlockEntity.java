@@ -24,6 +24,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,7 +33,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 
-public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, RecipeManager.CachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
+public class IncubatorBlockEntity extends BlockEntity implements Clearable, HasCraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, RecipeManager.CachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
     public IncubatorSaltVesselBlockEntity saltVessel;
@@ -158,6 +159,13 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
             this.heatReceiver.deserializeNBT(pRegistries, pTag.get("heatReceiver"));
 
         this.readNetwork(pTag, pRegistries);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.outputInventory.getSlots(); i++) {
+            this.outputInventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 
     private void checkForVessel(BlockPos pos) {

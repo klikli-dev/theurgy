@@ -17,6 +17,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 
-public class ReformationTargetPedestalBlockEntity extends BlockEntity {
+public class ReformationTargetPedestalBlockEntity extends BlockEntity implements Clearable {
 
     public ItemStackHandler inputInventory;
 
@@ -111,6 +112,13 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity {
         this.showParticles = !this.inputInventory.getStackInSlot(0).isEmpty();
         pTag.putBoolean("showParticles", this.showParticles);
         pTag.put("inputInventory", this.inputInventory.serializeNBT(pRegistries));
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.inputInventory.getSlots(); i++) {
+            this.inputInventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 
     public void sendBlockUpdated() {

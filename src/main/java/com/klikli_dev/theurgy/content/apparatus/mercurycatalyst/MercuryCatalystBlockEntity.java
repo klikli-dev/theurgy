@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -156,9 +157,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements Clearable
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < this.inventory.getSlots(); i++) {
-            this.inventory.setStackInSlot(i, ItemStack.EMPTY);
-        }
+        StorageBehaviour.clearItemHandler(this.inventory);
     }
 
     @Override

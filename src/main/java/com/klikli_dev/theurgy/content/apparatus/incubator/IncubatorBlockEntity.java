@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.incubator;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
@@ -163,9 +164,7 @@ public class IncubatorBlockEntity extends BlockEntity implements Clearable, HasC
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < this.outputInventory.getSlots(); i++) {
-            this.outputInventory.setStackInSlot(i, ItemStack.EMPTY);
-        }
+        StorageBehaviour.clearItemHandler(this.outputInventory);
     }
 
     private void checkForVessel(BlockPos pos) {

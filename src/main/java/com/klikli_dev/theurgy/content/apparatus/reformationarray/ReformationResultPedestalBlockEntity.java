@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -127,9 +128,7 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity implements
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < this.outputInventory.getSlots(); i++) {
-            this.outputInventory.setStackInSlot(i, ItemStack.EMPTY);
-        }
+        StorageBehaviour.clearItemHandler(this.outputInventory);
     }
 
     public void sendBlockUpdated() {

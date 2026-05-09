@@ -77,7 +77,7 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
         this.blockEntity.setChanged();
     }
 
-    protected static void clearItemHandler(ItemStackHandler handler) {
+    public static void clearItemHandler(ItemStackHandler handler) {
         for (int i = 0; i < handler.getSlots(); i++) {
             handler.setStackInSlot(i, ItemStack.EMPTY);
         }

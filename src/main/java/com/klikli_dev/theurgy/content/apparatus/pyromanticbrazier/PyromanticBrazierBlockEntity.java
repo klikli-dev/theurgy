@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier;
 
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -165,9 +166,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements Clearab
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < this.inventory.getSlots(); i++) {
-            this.inventory.setStackInSlot(i, ItemStack.EMPTY);
-        }
+        StorageBehaviour.clearItemHandler(this.inventory);
     }
 
     private class Inventory extends MonitoredItemStackHandler {

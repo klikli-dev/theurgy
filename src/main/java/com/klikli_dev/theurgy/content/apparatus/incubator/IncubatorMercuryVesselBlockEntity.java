@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
@@ -95,9 +96,7 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < this.inputInventory.getSlots(); i++) {
-            this.inputInventory.setStackInSlot(i, ItemStack.EMPTY);
-        }
+        StorageBehaviour.clearItemHandler(this.inputInventory);
     }
 
 

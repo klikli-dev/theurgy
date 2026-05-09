@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
@@ -197,9 +198,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < this.inventory.getSlots(); i++) {
-            this.inventory.setStackInSlot(i, ItemStack.EMPTY);
-        }
+        StorageBehaviour.clearItemHandler(this.inventory);
     }
 
     @Override

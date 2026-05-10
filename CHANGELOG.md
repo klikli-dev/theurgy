@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.94.0] - 2026-05-10
+### :sparkles: New Features
+- [`645585e`](https://github.com/klikli-dev/theurgy/commit/645585ec1dbd8397e4a58d4f4ea967c8ae6278cf) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`dad4429`](https://github.com/klikli-dev/theurgy/commit/dad44292a8e80619e0d788ae15d6961b7e42bfa4) - include cdg via jarinjar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.93.0] - 2026-05-09
 ### :sparkles: New Features
 - [`3f459f2`](https://github.com/klikli-dev/theurgy/commit/3f459f2dd05f76ab2000b7c3a0affbd85f8202f4) - update to latest cdg *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1549,3 +1555,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.91.2]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.91.1...release/v26.1.2-1.91.2
 [release/v26.1.2-1.92.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.91.2...release/v26.1.2-1.92.0
 [release/v26.1.2-1.93.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.92.0...release/v26.1.2-1.93.0
+[release/v26.1.2-1.94.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.93.0...release/v26.1.2-1.94.0

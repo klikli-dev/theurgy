@@ -104,11 +104,12 @@ jobs:
             
             Find changes for all versions at https://github.com/klikli-dev/theurgy/releases
           dependencies: |
-            codedefinedgui(required)
+            codedefinedgui(optional) 
             modonomicon(required)
             geckolib(required)
             jei(optional)
             jade(optional)
+          # cdg is supplied via jar in jar and thus optional
       # Publish at the end because it creates a non reobfed jarjar which otherwise would be distributed
       - name: Publish
         run: ./gradlew publish

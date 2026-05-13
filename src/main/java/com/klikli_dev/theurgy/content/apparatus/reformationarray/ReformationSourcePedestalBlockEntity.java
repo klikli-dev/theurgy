@@ -4,10 +4,10 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
-import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -20,16 +20,16 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
@@ -145,6 +145,11 @@ public class ReformationSourcePedestalBlockEntity extends BlockEntity implements
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inputInventory);
+    }
+
     /**
      * Notification behaviour:
      * if the inventory becomes empty or non-empty or item type changes, do a network update
@@ -180,10 +185,5 @@ public class ReformationSourcePedestalBlockEntity extends BlockEntity implements
             if (this.emitter() != null)
                 this.emitter().onSourcePedestalContentChange(ReformationSourcePedestalBlockEntity.this);
         }
-    }
-
-    @Override
-    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
-        return List.of(this.inputInventory);
     }
 }

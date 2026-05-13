@@ -19,6 +19,8 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 public class MercuryCapacitorGameTests {
 
     private static final BlockPos CAPACITOR_POS = new BlockPos(2, 1, 2);
+    private static final BlockPos CATALYST_POS = new BlockPos(3, 1, 2);
+    private static final BlockPos CAPACITOR_B_POS = new BlockPos(3, 1, 2);
 
     /**
      * Tests that a Mercury Capacitor block can be placed and has the correct default state (enabled = true).
@@ -133,7 +135,7 @@ public class MercuryCapacitorGameTests {
         // Fill capacitor A with flux manually
         helper.runAfterDelay(1, () -> {
             var capacitorA = helper.getBlockEntity(CAPACITOR_POS, MercuryCapacitorBlockEntity.class);
-                    capacitorA.mercuryFluxHandler.set(10000);
+            capacitorA.mercuryFluxHandler.set(10000);
         });
 
         // Wait for several tick cycles and verify no flux transfer happens
@@ -203,7 +205,4 @@ public class MercuryCapacitorGameTests {
 
         helper.succeed();
     }
-
-    private static final BlockPos CATALYST_POS = new BlockPos(3, 1, 2);
-    private static final BlockPos CAPACITOR_B_POS = new BlockPos(3, 1, 2);
 }

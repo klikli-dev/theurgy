@@ -9,8 +9,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 
 public class LoreEntry extends EntryProvider {
     public LoreEntry(CategoryProvider parent) {

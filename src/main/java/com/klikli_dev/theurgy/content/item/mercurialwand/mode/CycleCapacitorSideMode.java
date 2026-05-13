@@ -8,7 +8,6 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.SideMode;
 import com.klikli_dev.theurgy.content.item.mode.SideModeSetter;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;

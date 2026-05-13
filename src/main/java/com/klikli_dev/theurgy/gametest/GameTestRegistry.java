@@ -715,7 +715,7 @@ public class GameTestRegistry {
         registerTest(event, CFE_ENERGY, environment, structure, 40, 0);
     }
 
-private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent event) {
+    private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent event) {
         var environment = event.registerEnvironment(Theurgy.loc("sulfuric_flux_emitter"));
         var structure = Theurgy.loc("sulfuric_flux_emitter_test");
 
@@ -750,7 +750,7 @@ private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent even
         registerTest(event, RP_RESULT_EXTRACT, environment, structure, 40, 0);
     }
 
-private static void registerLogisticsTests(RegisterGameTestsEvent event) {
+    private static void registerLogisticsTests(RegisterGameTestsEvent event) {
         var environment = event.registerEnvironment(Theurgy.loc("logistics"));
         var structure = Theurgy.loc("logistics_test");
 

@@ -8,23 +8,22 @@ import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
-import com.klikli_dev.theurgy.content.behaviour.logistics.LogisticsNode;
 import com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode.LogisticsConnectionNodeBlock;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LogisticsNode;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
-
 import java.util.UUID;
 
 public class LogisticsNexusBlockEntity extends BlockEntity implements GeoBlockEntity, LogisticsNode {

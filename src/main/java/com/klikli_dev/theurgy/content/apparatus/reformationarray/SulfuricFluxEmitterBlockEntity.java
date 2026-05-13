@@ -6,8 +6,8 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.content.render.Color;
@@ -174,7 +174,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.onSourcePedestalContentChange(null); //only call it once as we don't need to call it on each
 
 
-        this.ItemHandlerRecipeInput = new ReformationArrayRecipeInput(sourceInventories, targetPedestalBlockEntity.inputInventory, (MercuryFluxHandler) this.mercuryFluxHandler);
+        this.ItemHandlerRecipeInput = new ReformationArrayRecipeInput(sourceInventories, targetPedestalBlockEntity.inputInventory, this.mercuryFluxHandler);
     }
 
     public void onDisassembleMultiblock() {

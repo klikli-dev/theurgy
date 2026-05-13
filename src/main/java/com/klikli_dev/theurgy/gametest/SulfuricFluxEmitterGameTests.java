@@ -4,11 +4,7 @@
 
 package com.klikli_dev.theurgy.gametest;
 
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterSelectedPoint;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.*;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
@@ -17,11 +13,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-
-import java.util.List;
-import java.lang.Runnable;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+
+import java.util.List;
 
 public class SulfuricFluxEmitterGameTests {
 
@@ -89,11 +85,11 @@ public class SulfuricFluxEmitterGameTests {
 
         helper.runAtTickTime(2, () -> {
             var emitter = helper.getBlockEntity(EMITTER_POS, SulfuricFluxEmitterBlockEntity.class);
-                // Add initial energy
-                    try (var tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
-                        emitter.mercuryFluxHandler.insert(500, tx);
-                        tx.commit();
-                    }
+            // Add initial energy
+            try (var tx = Transaction.openRoot()) {
+                emitter.mercuryFluxHandler.insert(500, tx);
+                tx.commit();
+            }
 
             var source = helper.getBlockEntity(SOURCE_PEDESTAL_POS, ReformationSourcePedestalBlockEntity.class);
             source.inputInventory.set(0, ItemResource.of(new ItemStack(NiterRegistry.MOBS_ABUNDANT.get(), 1)), new ItemStack(NiterRegistry.MOBS_ABUNDANT.get(), 1).getCount());

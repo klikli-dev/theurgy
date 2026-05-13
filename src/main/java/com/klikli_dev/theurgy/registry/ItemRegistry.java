@@ -4,11 +4,11 @@
 
 package com.klikli_dev.theurgy.registry;
 
+import com.klikli_dev.codedefinedgui.premade.filter.attribute.AttributeFilterItem;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterItem;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
@@ -16,6 +16,8 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselB
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
@@ -26,8 +28,6 @@ import com.klikli_dev.theurgy.content.item.filter.FilterUiStyles;
 import com.klikli_dev.theurgy.content.item.mercurialwand.MercurialWandItem;
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
-import com.klikli_dev.codedefinedgui.premade.filter.attribute.AttributeFilterItem;
-import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterItem;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;

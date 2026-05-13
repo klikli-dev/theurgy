@@ -77,10 +77,10 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
                 .map(target -> {
                     var immutableTarget = target.immutable();
                     return BlockCapabilityCache.create(this.capabilityType(), serverLevel, immutableTarget, this.getTargetContext(immutableTarget),
-                        //Only listen while this exact cache generation is still active for this inserter lifecycle.
-                        //This avoids stale callbacks after chunk unloads, disable toggles, or direction/context rebuilds.
-                        () -> this.isTargetCapabilityCacheValid(generation),
-                        () -> server.schedule(server.wrapRunnable(() -> this.handleCapabilityInvalidated(immutableTarget, generation))));
+                            //Only listen while this exact cache generation is still active for this inserter lifecycle.
+                            //This avoids stale callbacks after chunk unloads, disable toggles, or direction/context rebuilds.
+                            () -> this.isTargetCapabilityCacheValid(generation),
+                            () -> server.schedule(server.wrapRunnable(() -> this.handleCapabilityInvalidated(immutableTarget, generation))));
                 }).toList();
     }
 

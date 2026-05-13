@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycapacitor;
 
-import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.item.mode.SideModeSetter;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
@@ -27,11 +27,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -44,18 +45,15 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
 
     public static final int PUSH_TICK_INTERVAL = 20;
     public static final int PUSH_RATE_PER_SIDE_PER_TICK = 2;
-
-    public MercuryCapacitorMercuryFluxHandler mercuryFluxHandler;
-
     /**
      * Pre-constructed side-aware storage wrappers for each direction.
      */
     private final Map<Direction, MercuryFluxHandler> sideAwareStorages = new EnumMap<>(Direction.class);
-
     /**
      * Side configuration for each direction. Default is NONE (no interaction).
      */
     private final Map<Direction, SideMode> sideModes = new EnumMap<>(Direction.class);
+    public MercuryCapacitorMercuryFluxHandler mercuryFluxHandler;
 
     public MercuryCapacitorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_CAPACITOR.get(), pPos, pBlockState);
@@ -92,48 +90,6 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
             return this.mercuryFluxHandler;
         }
         return this.sideAwareStorages.getOrDefault(side, this.mercuryFluxHandler);
-    }
-
-    /**
-     * Wrapper that enforces side mode on receive operations.
-     */
-    private class SideAwareMercuryFluxHandler implements MercuryFluxHandler {
-        private final MercuryFluxHandler delegate;
-        private final Direction side;
-
-        public SideAwareMercuryFluxHandler(MercuryFluxHandler delegate, Direction side) {
-            this.delegate = delegate;
-            this.side = side;
-        }
-
-        @Override
-        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
-            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
-            // Only allow receiving if side is INPUT or BOTH
-            if (mode != SideMode.INPUT && mode != SideMode.BOTH) {
-                return 0;
-            }
-            return this.delegate.insert(amount, transaction);
-        }
-
-        @Override
-        public int extract(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
-            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
-            if (mode != SideMode.OUTPUT && mode != SideMode.BOTH) {
-                return 0;
-            }
-            return this.delegate.extract(amount, transaction);
-        }
-
-        @Override
-        public long getAmountAsLong() {
-            return this.delegate.getAmountAsLong();
-        }
-
-        @Override
-        public long getCapacityAsLong() {
-            return this.delegate.getCapacityAsLong();
-        }
     }
 
     /**
@@ -265,7 +221,7 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
 
-            try (net.neoforged.neoforge.transfer.transaction.Transaction tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+            try (Transaction tx = Transaction.openRoot()) {
                 var received = targets.get(i).insert(amount, tx);
                 if (received > 0) {
                     this.mercuryFluxHandler.extract(received, tx);
@@ -303,6 +259,48 @@ public class MercuryCapacitorBlockEntity extends BlockEntity implements SideMode
         super.collectImplicitComponents(pComponents);
 
         pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxHandler.getAmountAsInt());
+    }
+
+    /**
+     * Wrapper that enforces side mode on receive operations.
+     */
+    private class SideAwareMercuryFluxHandler implements MercuryFluxHandler {
+        private final MercuryFluxHandler delegate;
+        private final Direction side;
+
+        public SideAwareMercuryFluxHandler(MercuryFluxHandler delegate, Direction side) {
+            this.delegate = delegate;
+            this.side = side;
+        }
+
+        @Override
+        public int insert(int amount, TransactionContext transaction) {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            // Only allow receiving if side is INPUT or BOTH
+            if (mode != SideMode.INPUT && mode != SideMode.BOTH) {
+                return 0;
+            }
+            return this.delegate.insert(amount, transaction);
+        }
+
+        @Override
+        public int extract(int amount, TransactionContext transaction) {
+            var mode = MercuryCapacitorBlockEntity.this.getSideMode(this.side);
+            if (mode != SideMode.OUTPUT && mode != SideMode.BOTH) {
+                return 0;
+            }
+            return this.delegate.extract(amount, transaction);
+        }
+
+        @Override
+        public long getAmountAsLong() {
+            return this.delegate.getAmountAsLong();
+        }
+
+        @Override
+        public long getCapacityAsLong() {
+            return this.delegate.getCapacityAsLong();
+        }
     }
 
     public class MercuryCapacitorMercuryFluxHandler extends SimpleMercuryFluxHandler {

@@ -9,10 +9,10 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.SulfuricFluxEmitterEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class SulfuricFluxEmitterReferenceEntry extends EntryProvider {

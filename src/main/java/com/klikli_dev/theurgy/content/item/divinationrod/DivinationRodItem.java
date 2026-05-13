@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.item.divinationrod;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
-import com.klikli_dev.theurgy.content.recipe.DivinationRodRecipe;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
@@ -36,9 +35,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.item.crafting.CraftingInput;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -67,6 +65,7 @@ public class DivinationRodItem extends Item {
     public int defaultDuration;
     public int defaultDurability;
     public boolean defaultAllowAttuning;
+
     public DivinationRodItem(Properties pProperties, ToolMaterial defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
         super(pProperties
                 .component(DataComponentRegistry.DIVINATION_SETTINGS_TIER, defaultTier)

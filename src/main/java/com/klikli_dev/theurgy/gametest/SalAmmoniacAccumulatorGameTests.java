@@ -10,10 +10,10 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class SalAmmoniacAccumulatorGameTests {
 
@@ -34,7 +34,10 @@ public class SalAmmoniacAccumulatorGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(ACCUMULATOR_POS, SalAmmoniacAccumulatorBlockEntity.class);
             ItemStack remainder;
-            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, new ItemStack(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get(), 1), false, tx); tx.commit(); }
+            try (var tx = Transaction.openRoot()) {
+                remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, new ItemStack(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get(), 1), false, tx);
+                tx.commit();
+            }
             helper.assertTrue(remainder.isEmpty(), "Sal ammoniac crystal should be accepted");
             helper.assertTrue(!ItemUtil.getStack(blockEntity.inventory, 0).isEmpty(), "Inventory should contain item");
             helper.succeed();

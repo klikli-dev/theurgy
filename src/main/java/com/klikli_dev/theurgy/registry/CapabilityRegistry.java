@@ -10,7 +10,6 @@ import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercuryfluxemitter.MercuryFluxEmitterBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector.LogisticsMercuryFluxConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;

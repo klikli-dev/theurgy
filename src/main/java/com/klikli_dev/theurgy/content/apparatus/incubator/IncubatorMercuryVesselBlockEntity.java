@@ -8,8 +8,8 @@ import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
-import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -22,14 +22,15 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -131,6 +132,11 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
         return this.animatableInstanceCache;
     }
 
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inputInventory);
+    }
+
     public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {
@@ -146,7 +152,7 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
         }
 
         @Override
-        public boolean isValid(int slot, net.neoforged.neoforge.transfer.item.ItemResource resource) {
+        public boolean isValid(int slot, ItemResource resource) {
             return resource.isEmpty() || resource.toStack(1).is(ItemTagRegistry.ALCHEMICAL_MERCURIES);
         }
 
@@ -154,10 +160,5 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
         protected void onContentsChanged(int slot) {
             IncubatorMercuryVesselBlockEntity.this.setChanged();
         }
-    }
-
-    @Override
-    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
-        return List.of(this.inputInventory);
     }
 }

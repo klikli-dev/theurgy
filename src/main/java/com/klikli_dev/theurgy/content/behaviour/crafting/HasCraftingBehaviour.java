@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.behaviour.crafting;
 
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeManager;
 
 
 public interface HasCraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends LevelAwareRecipeCheck<W, R>> {

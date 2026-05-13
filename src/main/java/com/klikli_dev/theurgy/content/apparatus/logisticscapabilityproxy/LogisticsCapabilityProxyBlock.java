@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy;
 
-import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageShowLogisticsNodeStatus;
@@ -33,8 +32,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

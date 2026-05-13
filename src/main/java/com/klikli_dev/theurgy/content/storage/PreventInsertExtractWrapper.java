@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.storage;
 
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper for item storage that prevents insertion and extraction of items.

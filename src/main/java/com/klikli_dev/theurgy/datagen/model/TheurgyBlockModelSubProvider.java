@@ -13,8 +13,8 @@ import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatB
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
-import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.math.Quadrant;
 import com.mojang.math.Transformation;
@@ -42,6 +42,22 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class TheurgyBlockModelSubProvider {
+
+    private static JsonObject displayTransform(float rotX, float rotY, float rotZ, float transX, float transY, float transZ, float scale) {
+        JsonObject obj = new JsonObject();
+        obj.add("rotation", jsonArray(rotX, rotY, rotZ));
+        obj.add("translation", jsonArray(transX, transY, transZ));
+        obj.add("scale", jsonArray(scale, scale, scale));
+        return obj;
+    }
+
+    private static JsonArray jsonArray(float x, float y, float z) {
+        JsonArray arr = new JsonArray();
+        arr.add(x);
+        arr.add(y);
+        arr.add(z);
+        return arr;
+    }
 
     public void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.registerCalcinationOven(blockModels, itemModels);
@@ -116,7 +132,7 @@ public class TheurgyBlockModelSubProvider {
 
         this.registerScaledParentedItemModel(itemModels, BlockRegistry.PYROMANTIC_BRAZIER.get(), this.blockModel(BlockRegistry.PYROMANTIC_BRAZIER.get()),
                 new Transformation(
-                        new Vector3f(1/16f * 1.6f, 1/16f * 1.6f, 1/16f * 1.6f), // compensate for scale shifting model towards origin
+                        new Vector3f(1 / 16f * 1.6f, 1 / 16f * 1.6f, 1 / 16f * 1.6f), // compensate for scale shifting model towards origin
                         null,
                         new Vector3f(0.8f, 0.8f, 0.8f), // scale down to 80%
                         null
@@ -147,7 +163,7 @@ public class TheurgyBlockModelSubProvider {
     private void registerLiquefactionCauldronItemModel(ItemModelGenerators itemModels, Block block) {
         this.registerScaledParentedItemModel(itemModels, block, Theurgy.loc("block/liquefaction_cauldron_lower"),
                 new Transformation(
-                        new Vector3f(1/16f * 6, 1/16f, 0), // nudge left and up to center the model
+                        new Vector3f(1 / 16f * 6, 1 / 16f, 0), // nudge left and up to center the model
                         null,
                         new Vector3f(0.625f, 0.625f, 0.625f), // scale down to 62.5%
                         null
@@ -189,7 +205,7 @@ public class TheurgyBlockModelSubProvider {
 
         this.registerScaledParentedItemModel(itemModels, BlockRegistry.INCUBATOR.get(), this.blockModel(BlockRegistry.INCUBATOR.get()),
                 new Transformation(
-                        new Vector3f(1/16f * 3f, 1/16f * -3f, 1/16f * 3f), // compensate for scale shifting the tall model towards origin
+                        new Vector3f(1 / 16f * 3f, 1 / 16f * -3f, 1 / 16f * 3f), // compensate for scale shifting the tall model towards origin
                         null,
                         new Vector3f(0.625f, 0.625f, 0.625f), // scale down to 62.5% (model extends to Y=30, nearly 2 blocks tall)
                         null
@@ -592,22 +608,6 @@ public class TheurgyBlockModelSubProvider {
 
             return json;
         });
-    }
-
-    private static JsonObject displayTransform(float rotX, float rotY, float rotZ, float transX, float transY, float transZ, float scale) {
-        JsonObject obj = new JsonObject();
-        obj.add("rotation", jsonArray(rotX, rotY, rotZ));
-        obj.add("translation", jsonArray(transX, transY, transZ));
-        obj.add("scale", jsonArray(scale, scale, scale));
-        return obj;
-    }
-
-    private static JsonArray jsonArray(float x, float y, float z) {
-        JsonArray arr = new JsonArray();
-        arr.add(x);
-        arr.add(y);
-        arr.add(z);
-        return arr;
     }
 
     private Identifier blockModel(Block block) {

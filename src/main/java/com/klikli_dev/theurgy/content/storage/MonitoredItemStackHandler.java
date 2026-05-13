@@ -7,8 +7,8 @@ package com.klikli_dev.theurgy.content.storage;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
@@ -106,6 +106,19 @@ public abstract class MonitoredItemStackHandler extends ItemStacksResourceHandle
         return extractedAmount;
     }
 
+    private enum ItemChangeKind {INSERT, EXTRACT}
+
+    private record ItemChange(ItemChangeKind kind, int slot, ItemStack oldStack, ItemStack newStack,
+                              ItemStack affectedStack, ItemStack remainingStack) {
+        static ItemChange insert(int slot, ItemStack oldStack, ItemStack newStack, ItemStack insertedStack, ItemStack remaining) {
+            return new ItemChange(ItemChangeKind.INSERT, slot, oldStack, newStack, insertedStack, remaining);
+        }
+
+        static ItemChange extract(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
+            return new ItemChange(ItemChangeKind.EXTRACT, slot, oldStack, newStack, extracted, ItemStack.EMPTY);
+        }
+    }
+
     private class ItemChangeJournal extends SnapshotJournal<List<ItemChange>> {
         private final List<ItemChange> pending = new ArrayList<>();
 
@@ -142,18 +155,6 @@ public abstract class MonitoredItemStackHandler extends ItemStacksResourceHandle
                 }
             }
             this.pending.clear();
-        }
-    }
-
-    private enum ItemChangeKind { INSERT, EXTRACT }
-
-    private record ItemChange(ItemChangeKind kind, int slot, ItemStack oldStack, ItemStack newStack, ItemStack affectedStack, ItemStack remainingStack) {
-        static ItemChange insert(int slot, ItemStack oldStack, ItemStack newStack, ItemStack insertedStack, ItemStack remaining) {
-            return new ItemChange(ItemChangeKind.INSERT, slot, oldStack, newStack, insertedStack, remaining);
-        }
-
-        static ItemChange extract(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
-            return new ItemChange(ItemChangeKind.EXTRACT, slot, oldStack, newStack, extracted, ItemStack.EMPTY);
         }
     }
 }

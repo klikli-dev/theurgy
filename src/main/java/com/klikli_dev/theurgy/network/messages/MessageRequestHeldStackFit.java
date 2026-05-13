@@ -37,6 +37,14 @@ public record MessageRequestHeldStackFit(BlockPos displayPos, int requestId) imp
             MessageRequestHeldStackFit::new
     );
 
+    private static BlockPos resolveQueryPos(BlockPos pos, BlockState state) {
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+            return pos.below();
+        }
+
+        return pos;
+    }
+
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
         ServerLevel level = player.level();
@@ -58,14 +66,6 @@ public record MessageRequestHeldStackFit(BlockPos displayPos, int requestId) imp
         var lookTarget = eyePosition.add(player.calculateViewVector(player.getXRot(), player.getYRot()).scale(player.blockInteractionRange()));
         BlockHitResult hitResult = level.clip(new ClipContext(eyePosition, lookTarget, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
         return hitResult.getType() == HitResult.Type.BLOCK && this.displayPos.equals(hitResult.getBlockPos());
-    }
-
-    private static BlockPos resolveQueryPos(BlockPos pos, BlockState state) {
-        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-            return pos.below();
-        }
-
-        return pos;
     }
 
     @Override

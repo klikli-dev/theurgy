@@ -4,11 +4,11 @@
 
 package com.klikli_dev.theurgy.logistics;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.SetMultimap;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import com.google.common.graph.Traverser;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.SetMultimap;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusPairing;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
@@ -32,12 +32,7 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -545,10 +540,10 @@ public class Logistics extends SavedData {
             if (this == obj) {
                 return true;
             }
-            if (!(obj instanceof CachedLeafNodeKey other)) {
+            if (!(obj instanceof CachedLeafNodeKey(GlobalPos pos1, BlockCapability<?, ?> capability1))) {
                 return false;
             }
-            return this.pos.equals(other.pos) && Objects.equals(this.capability, other.capability);
+            return this.pos.equals(pos1) && Objects.equals(this.capability, capability1);
         }
 
         @Override

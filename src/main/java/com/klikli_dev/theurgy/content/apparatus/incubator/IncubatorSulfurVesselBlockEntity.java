@@ -8,8 +8,8 @@ import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
-import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -22,9 +22,9 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -133,6 +133,11 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity implements Geo
         return this.animatableInstanceCache;
     }
 
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inputInventory);
+    }
+
     public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {
@@ -156,10 +161,5 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity implements Geo
         protected void onContentsChanged(int slot) {
             IncubatorSulfurVesselBlockEntity.this.setChanged();
         }
-    }
-
-    @Override
-    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
-        return List.of(this.inputInventory);
     }
 }

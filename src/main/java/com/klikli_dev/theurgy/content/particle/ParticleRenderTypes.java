@@ -8,16 +8,19 @@ package com.klikli_dev.theurgy.content.particle;
 import com.klikli_dev.theurgy.Theurgy;
 import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.ColorTargetState;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.pipeline.DepthStencilState;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.shaders.UniformType;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 
 public class ParticleRenderTypes {
+
+    public static final SingleQuadParticle.Layer EMBER_RENDER = SingleQuadParticle.Layer.TRANSLUCENT;
+    public static final SingleQuadParticle.Layer EMBER_RENDER_NO_DEPTH = createNoDepthWriteLayer();
 
     /**
      * Creates a custom particle layer with depth writing disabled.
@@ -45,7 +48,4 @@ public class ParticleRenderTypes {
 
         return new SingleQuadParticle.Layer(true, TextureAtlas.LOCATION_PARTICLES, noDepthPipeline);
     }
-
-    public static final SingleQuadParticle.Layer EMBER_RENDER = SingleQuadParticle.Layer.TRANSLUCENT;
-    public static final SingleQuadParticle.Layer EMBER_RENDER_NO_DEPTH = createNoDepthWriteLayer();
 }

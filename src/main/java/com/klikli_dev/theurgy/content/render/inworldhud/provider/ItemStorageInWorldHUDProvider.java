@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.render.inworldhud.provider;
 
 import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDBuilder;
 import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDProvider;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemStorageInWorldHUDProvider implements InWorldHUDProvider {

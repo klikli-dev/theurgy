@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
+import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
@@ -16,12 +17,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 /**
  * A leaf node behaviour that acts as a mercury flux conduit in the logistics network.
@@ -41,14 +42,14 @@ public class LogisticsMercuryFluxConnectorBehaviour extends InserterNodeBehaviou
     public static final int BUFFER_CAPACITY = 1000;
 
     private final int slowTickRandomOffset = (int) (Math.random() * TRANSFER_EVERY_N_TICKS);
+    private final SimpleMercuryFluxHandler buffer;
     private boolean enabled = true;
     private Direction directionOverride = null;
-    private final com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler buffer;
 
     public LogisticsMercuryFluxConnectorBehaviour(BlockEntity blockEntity) {
         super(blockEntity, CapabilityRegistry.MERCURY_FLUX_HANDLER);
         // High maxInsert so source blocks can fill the buffer quickly
-        this.buffer = new com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler(BUFFER_CAPACITY, BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE);
+        this.buffer = new SimpleMercuryFluxHandler(BUFFER_CAPACITY, BUFFER_CAPACITY, DEFAULT_TRANSFER_RATE);
     }
 
     /**

@@ -70,7 +70,10 @@ public class PyromanticBrazierGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             ItemStack remainder;
-            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, new ItemStack(Items.COAL, 1), false, tx); tx.commit(); }
+            try (var tx = Transaction.openRoot()) {
+                remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, new ItemStack(Items.COAL, 1), false, tx);
+                tx.commit();
+            }
             helper.assertTrue(
                     remainder.isEmpty(),
                     "Coal should be accepted as fuel, remainder should be empty"
@@ -92,7 +95,10 @@ public class PyromanticBrazierGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             ItemStack remainder;
-            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, new ItemStack(Items.DIAMOND, 1), false, tx); tx.commit(); }
+            try (var tx = Transaction.openRoot()) {
+                remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, new ItemStack(Items.DIAMOND, 1), false, tx);
+                tx.commit();
+            }
             helper.assertTrue(
                     remainder.getCount() == 1,
                     "Diamond should be rejected as non-fuel, remainder should be 1"

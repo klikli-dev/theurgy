@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode;
 
 import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
-import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockEntity;
+import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;

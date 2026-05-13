@@ -17,7 +17,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
-public record MessageSyncHeldStackFit(BlockPos displayPos, int requestId, HeldStackFitStatus status) implements Message {
+public record MessageSyncHeldStackFit(BlockPos displayPos, int requestId,
+                                      HeldStackFitStatus status) implements Message {
 
     public static final Type<MessageSyncHeldStackFit> TYPE = new Type<>(Theurgy.loc("sync_held_stack_fit"));
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSyncHeldStackFit> STREAM_CODEC = StreamCodec.composite(

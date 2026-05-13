@@ -19,8 +19,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class ReformationPedestalGameTests {
@@ -42,7 +42,10 @@ public class ReformationPedestalGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(SOURCE_POS, ReformationSourcePedestalBlockEntity.class);
-            try (var tx = Transaction.openRoot()) { ItemUtil.insertItemReturnRemaining(blockEntity.inputInventory, 0, new ItemStack(SulfurRegistry.BONE.get(), 1), false, tx); tx.commit(); }
+            try (var tx = Transaction.openRoot()) {
+                ItemUtil.insertItemReturnRemaining(blockEntity.inputInventory, 0, new ItemStack(SulfurRegistry.BONE.get(), 1), false, tx);
+                tx.commit();
+            }
             helper.assertTrue(!ItemUtil.getStack(blockEntity.inputInventory, 0).isEmpty(), "Inventory should contain item");
             helper.succeed();
         });
@@ -98,7 +101,10 @@ public class ReformationPedestalGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(TARGET_POS, ReformationTargetPedestalBlockEntity.class);
-            try (var tx = Transaction.openRoot()) { ItemUtil.insertItemReturnRemaining(blockEntity.inputInventory, 0, new ItemStack(SulfurRegistry.BONE.get(), 1), false, tx); tx.commit(); }
+            try (var tx = Transaction.openRoot()) {
+                ItemUtil.insertItemReturnRemaining(blockEntity.inputInventory, 0, new ItemStack(SulfurRegistry.BONE.get(), 1), false, tx);
+                tx.commit();
+            }
             helper.succeed();
         });
     }

@@ -4,10 +4,10 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
-import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -24,9 +24,9 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,6 +35,8 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -122,33 +124,33 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements Clearable
         // Collect all valid flux handlers first
         var directions = Direction.allShuffled(this.getLevel().getRandom());
         var targets = new ArrayList<MercuryFluxHandler>();
-        
+
         for (var direction : directions) {
             var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), direction.getOpposite());
             if (fluxStorage != null) {
                 targets.add(fluxStorage);
             }
         }
-        
+
         if (targets.isEmpty()) {
             return;
         }
-        
+
         // Calculate how much to push to each target (scale by number of targets to maintain throughput)
         int totalToPush = Math.min(this.mercuryFluxHandler.getAmountAsInt(), PUSH_RATE_PER_SIDE_PER_TICK * PUSH_TICK_INTERVAL * targets.size());
         if (totalToPush <= 0) {
             return;
         }
-        
+
         int perTarget = totalToPush / targets.size();
         int remainder = totalToPush % targets.size();
-        
+
         // Distribute evenly to all targets
         for (int i = 0; i < targets.size(); i++) {
             int amount = perTarget + (i < remainder ? 1 : 0);
             if (amount <= 0) continue;
-            
-            try (net.neoforged.neoforge.transfer.transaction.Transaction tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+
+            try (Transaction tx = Transaction.openRoot()) {
                 var received = targets.get(i).insert(amount, tx);
                 if (received > 0) {
                     this.mercuryFluxHandler.extract(received, tx);
@@ -216,6 +218,11 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements Clearable
         this.craftingBehaviour.collectImplicitComponents(pComponents);
     }
 
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inventory);
+    }
+
     private class Inventory extends MonitoredItemStackHandler {
         public Inventory() {
             super(1);
@@ -251,7 +258,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements Clearable
         }
 
         @Override
-        public int insert(int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+        public int insert(int amount, TransactionContext transaction) {
             // Do not receive any external flux - only internal generation
             return 0;
         }
@@ -263,13 +270,13 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements Clearable
         public int addInternalFlux(int amount) {
             int spaceAvailable = this.capacity - this.energy;
             int energyReceived = Math.min(spaceAvailable, amount);
-            
+
             if (energyReceived > 0) {
                 this.energy += energyReceived;
                 MercuryCatalystBlockEntity.this.setChanged();
                 this.trySendBlockUpdated();
             }
-            
+
             return energyReceived;
         }
 
@@ -286,10 +293,5 @@ public class MercuryCatalystBlockEntity extends BlockEntity implements Clearable
                 MercuryCatalystBlockEntity.this.sendBlockUpdated();
             }
         }
-    }
-
-    @Override
-    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
-        return List.of(this.inventory);
     }
 }

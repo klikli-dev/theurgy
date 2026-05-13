@@ -13,12 +13,11 @@ import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
 public class SimpleTheurgyEnergyHandler implements EnergyHandler, ValueIOSerializable {
+    private final EnergyJournal energyJournal = new EnergyJournal();
     protected int energy;
     protected int capacity;
     protected int maxInsert;
     protected int maxExtract;
-
-    private final EnergyJournal energyJournal = new EnergyJournal();
 
     public SimpleTheurgyEnergyHandler(int capacity) {
         this(capacity, capacity);
@@ -108,19 +107,19 @@ public class SimpleTheurgyEnergyHandler implements EnergyHandler, ValueIOSeriali
     private class EnergyJournal extends SnapshotJournal<Integer> {
         @Override
         protected Integer createSnapshot() {
-            return energy;
+            return SimpleTheurgyEnergyHandler.this.energy;
         }
 
         @Override
         protected void revertToSnapshot(Integer snapshot) {
-            energy = snapshot;
+            SimpleTheurgyEnergyHandler.this.energy = snapshot;
         }
 
         @Override
         protected void onRootCommit(Integer originalState) {
             int previousAmount = originalState;
-            if (energy != previousAmount) {
-                onEnergyChanged(previousAmount);
+            if (SimpleTheurgyEnergyHandler.this.energy != previousAmount) {
+                SimpleTheurgyEnergyHandler.this.onEnergyChanged(previousAmount);
             }
         }
     }

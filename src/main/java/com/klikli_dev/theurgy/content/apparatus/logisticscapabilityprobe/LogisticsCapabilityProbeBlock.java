@@ -55,6 +55,47 @@ public class LogisticsCapabilityProbeBlock extends DirectionalBlock implements H
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
     }
 
+    public static @Nullable Target getTarget(Level level, BlockPos probePos) {
+        if (!level.isLoaded(probePos)) {
+            return null;
+        }
+
+        var state = level.getBlockState(probePos);
+        if (!state.is(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get())) {
+            return null;
+        }
+
+        return getTarget(level, probePos, state);
+    }
+
+    public static @Nullable Target getTarget(Level level, BlockPos probePos, BlockState state) {
+        if (!(state.getBlock() instanceof LogisticsCapabilityProbeBlock)) {
+            return null;
+        }
+
+        var side = state.getValue(FACING);
+        var targetPos = probePos.relative(side.getOpposite());
+        if (!level.isLoaded(targetPos) || level.getBlockState(targetPos).isAir()) {
+            return null;
+        }
+
+        var targetState = level.getBlockState(targetPos);
+        if (targetState.is(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get()) || targetState.is(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get())) {
+            return null;
+        }
+
+        return new Target(targetPos, side);
+    }
+
+    public static <T> @Nullable T resolveSidedCapability(Level level, BlockPos probePos, BlockCapability<T, @Nullable Direction> capability) {
+        var target = getTarget(level, probePos);
+        if (target == null) {
+            return null;
+        }
+
+        return level.getCapability(capability, target.pos(), target.side());
+    }
+
     @Override
     protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
@@ -121,47 +162,6 @@ public class LogisticsCapabilityProbeBlock extends DirectionalBlock implements H
             result.add(Pair.of(target.pos(), 0x00FF00));
         }
         return result;
-    }
-
-    public static @Nullable Target getTarget(Level level, BlockPos probePos) {
-        if (!level.isLoaded(probePos)) {
-            return null;
-        }
-
-        var state = level.getBlockState(probePos);
-        if (!state.is(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get())) {
-            return null;
-        }
-
-        return getTarget(level, probePos, state);
-    }
-
-    public static @Nullable Target getTarget(Level level, BlockPos probePos, BlockState state) {
-        if (!(state.getBlock() instanceof LogisticsCapabilityProbeBlock)) {
-            return null;
-        }
-
-        var side = state.getValue(FACING);
-        var targetPos = probePos.relative(side.getOpposite());
-        if (!level.isLoaded(targetPos) || level.getBlockState(targetPos).isAir()) {
-            return null;
-        }
-
-        var targetState = level.getBlockState(targetPos);
-        if (targetState.is(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get()) || targetState.is(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get())) {
-            return null;
-        }
-
-        return new Target(targetPos, side);
-    }
-
-    public static <T> @Nullable T resolveSidedCapability(Level level, BlockPos probePos, BlockCapability<T, @Nullable Direction> capability) {
-        var target = getTarget(level, probePos);
-        if (target == null) {
-            return null;
-        }
-
-        return level.getCapability(capability, target.pos(), target.side());
     }
 
     public record Target(BlockPos pos, Direction side) {

@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.gametest;
 
-import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy.LogisticsCapabilityProxyBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
 import com.klikli_dev.theurgy.logistics.Logistics;
@@ -20,8 +19,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
-import java.util.List;
-
 public class LogisticsCapabilityProxyGameTests {
 
     private static final BlockPos PROXY_POS = new BlockPos(2, 2, 2);
@@ -35,10 +32,10 @@ public class LogisticsCapabilityProxyGameTests {
 
         helper.assertBlockPresent(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get(), PROXY_POS);
         helper.assertBlockProperty(PROXY_POS, BlockStateProperties.FACING, Direction.NORTH);
-        
+
         helper.assertBlockPresent(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get(), PROBE_POS);
         helper.assertBlockProperty(PROBE_POS, BlockStateProperties.FACING, Direction.EAST);
-        
+
         helper.succeed();
     }
 
@@ -57,17 +54,17 @@ public class LogisticsCapabilityProxyGameTests {
             // Connect proxy to probe with wires
             var logistics = Logistics.get();
             logistics.add(GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(proxyPos)),
-                          GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(probePos)));
+                    GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(probePos)));
 
             // Fill tank with some fluid
             tankBE.tank.setFluid(new FluidStack(Fluids.WATER, 1000));
 
             // Access capability through proxy
             var proxyFluidHandler = helper.getLevel().getCapability(CapabilityRegistry.FLUID_HANDLER, helper.absolutePos(proxyPos), null);
-            
+
             helper.assertTrue(proxyFluidHandler != null, "Proxy should expose fluid capability");
             helper.assertTrue(FluidStorageHelper.getFluidInTank(proxyFluidHandler, 0).getAmount() == 1000, "Proxy should show correct fluid amount from tank");
-            
+
             // Test drain through proxy
             try (var tx = Transaction.openRoot()) {
                 int extracted = proxyFluidHandler.extract(FluidResource.of(Fluids.WATER), 500, tx);
@@ -75,7 +72,7 @@ public class LogisticsCapabilityProxyGameTests {
                 helper.assertTrue(extracted == 500, "Should be able to drain fluid through proxy");
             }
             helper.assertTrue(tankBE.tank.getFluidAmount() == 500, "Tank should be drained");
-            
+
             helper.succeed();
         });
     }

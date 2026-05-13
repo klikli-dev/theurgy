@@ -5,13 +5,12 @@
 package com.klikli_dev.theurgy.content.storage;
 
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.item.ItemAccessItemHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
-import net.minecraft.world.entity.player.Player;
 
 import java.util.Objects;
 

@@ -7,8 +7,8 @@ package com.klikli_dev.theurgy.content.render;
 import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.fluid.FluidUtil;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.List;
 

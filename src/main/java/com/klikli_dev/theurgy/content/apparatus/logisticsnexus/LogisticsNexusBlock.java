@@ -59,7 +59,7 @@ public class LogisticsNexusBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public @NonNull BlockState updateShape(BlockState state, LevelReader leve , ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource random) {
+    public @NonNull BlockState updateShape(BlockState state, LevelReader leve, ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource random) {
         return state.setValue(this.propertyFor(facing), this.hasNeighbor(facingState));
     }
 

@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
             if (heatReceiver.getIsHotUntil() > this.getLevel().getGameTime() + TICK_INTERVAL)
                 return; //target block is still hot until next tick so do nothing
 
-            try (net.neoforged.neoforge.transfer.transaction.Transaction tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+            try (Transaction tx = Transaction.openRoot()) {
                 this.mercuryFluxHandler.extract(FLUX_PER_HEAT, tx);
                 tx.commit();
             }

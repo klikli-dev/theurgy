@@ -4,12 +4,7 @@
 
 package com.klikli_dev.theurgy.content.render.inworldhud;
 
-import com.klikli_dev.theurgy.content.render.inworldhud.provider.BlockTitleInWorldHUDProvider;
-import com.klikli_dev.theurgy.content.render.inworldhud.provider.FluidStorageInWorldHUDProvider;
-import com.klikli_dev.theurgy.content.render.inworldhud.provider.GenericCraftingProgressInWorldHUDProvider;
-import com.klikli_dev.theurgy.content.render.inworldhud.provider.ItemStorageInWorldHUDProvider;
-import com.klikli_dev.theurgy.content.render.inworldhud.provider.MercuryCatalystInWorldHUDProvider;
-import com.klikli_dev.theurgy.content.render.inworldhud.provider.MercuryFluxHandlerInWorldHUDProvider;
+import com.klikli_dev.theurgy.content.render.inworldhud.provider.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;

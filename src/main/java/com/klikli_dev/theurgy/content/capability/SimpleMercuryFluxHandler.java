@@ -16,12 +16,11 @@ import net.neoforged.neoforge.transfer.transaction.TransactionContext;
  * Copy of SimpleEnergyHandler, separate to prevent conversion to/from FE.
  */
 public class SimpleMercuryFluxHandler implements MercuryFluxHandler, ValueIOSerializable {
+    private final EnergyJournal energyJournal = new EnergyJournal();
     protected int energy;
     protected int capacity;
     protected int maxInsert;
     protected int maxExtract;
-
-    private final EnergyJournal energyJournal = new EnergyJournal();
 
     public SimpleMercuryFluxHandler(int capacity) {
         this(capacity, capacity);
@@ -49,12 +48,12 @@ public class SimpleMercuryFluxHandler implements MercuryFluxHandler, ValueIOSeri
 
     @Override
     public void serialize(ValueOutput output) {
-        output.putInt("energy", energy);
+        output.putInt("energy", this.energy);
     }
 
     @Override
     public void deserialize(ValueInput input) {
-        energy = Math.max(0, input.getIntOr("energy", 0));
+        this.energy = Math.max(0, input.getIntOr("energy", 0));
     }
 
     public void set(int amount) {
@@ -63,11 +62,12 @@ public class SimpleMercuryFluxHandler implements MercuryFluxHandler, ValueIOSeri
         if (this.energy != amount) {
             int previousAmount = this.energy;
             this.energy = amount;
-            onEnergyChanged(previousAmount);
+            this.onEnergyChanged(previousAmount);
         }
     }
 
-    protected void onEnergyChanged(int previousAmount) {}
+    protected void onEnergyChanged(int previousAmount) {
+    }
 
     @Override
     public long getAmountAsLong() {
@@ -83,10 +83,10 @@ public class SimpleMercuryFluxHandler implements MercuryFluxHandler, ValueIOSeri
     public int insert(int amount, TransactionContext transaction) {
         TransferPreconditions.checkNonNegative(amount);
 
-        int inserted = Math.min(capacity - energy, Math.min(amount, maxInsert));
+        int inserted = Math.min(this.capacity - this.energy, Math.min(amount, this.maxInsert));
         if (inserted > 0) {
-            energyJournal.updateSnapshots(transaction);
-            energy += inserted;
+            this.energyJournal.updateSnapshots(transaction);
+            this.energy += inserted;
             return inserted;
         }
 
@@ -97,10 +97,10 @@ public class SimpleMercuryFluxHandler implements MercuryFluxHandler, ValueIOSeri
     public int extract(int amount, TransactionContext transaction) {
         TransferPreconditions.checkNonNegative(amount);
 
-        int extracted = Math.min(energy, Math.min(amount, maxExtract));
+        int extracted = Math.min(this.energy, Math.min(amount, this.maxExtract));
         if (extracted > 0) {
-            energyJournal.updateSnapshots(transaction);
-            energy -= extracted;
+            this.energyJournal.updateSnapshots(transaction);
+            this.energy -= extracted;
             return extracted;
         }
 
@@ -110,19 +110,19 @@ public class SimpleMercuryFluxHandler implements MercuryFluxHandler, ValueIOSeri
     private class EnergyJournal extends SnapshotJournal<Integer> {
         @Override
         protected Integer createSnapshot() {
-            return energy;
+            return SimpleMercuryFluxHandler.this.energy;
         }
 
         @Override
         protected void revertToSnapshot(Integer snapshot) {
-            energy = snapshot;
+            SimpleMercuryFluxHandler.this.energy = snapshot;
         }
 
         @Override
         protected void onRootCommit(Integer originalState) {
             int previousAmount = originalState;
-            if (energy != previousAmount) {
-                onEnergyChanged(previousAmount);
+            if (SimpleMercuryFluxHandler.this.energy != previousAmount) {
+                SimpleMercuryFluxHandler.this.onEnergyChanged(previousAmount);
             }
         }
     }

@@ -10,13 +10,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
-import snownee.jade.api.Accessor;
-import snownee.jade.api.BlockAccessor;
-import snownee.jade.api.JadeIds;
-import snownee.jade.api.StreamServerDataProvider;
-import snownee.jade.api.TooltipPosition;
+import snownee.jade.api.*;
 import snownee.jade.api.config.IWailaConfig;
-import snownee.jade.api.view.ClientViewGroup;
 import snownee.jade.api.view.EnergyView;
 import snownee.jade.api.view.IServerExtensionProvider;
 import snownee.jade.api.view.ViewGroup;
@@ -25,13 +20,12 @@ import snownee.jade.util.CommonProxy;
 
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Objects;
 
 public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamServerDataProvider<T, Entry<Identifier, List<ViewGroup<EnergyView.Data>>>> {
     public static final Identifier ID = Theurgy.loc("mercury_flux");
+    public static final MercuryFluxEnergyProvider<BlockAccessor> BLOCK = new MercuryFluxEnergyProvider<>();
     protected static final StreamCodec<RegistryFriendlyByteBuf, Entry<Identifier, List<ViewGroup<EnergyView.Data>>>> STREAM_CODEC = ViewGroup.listCodec(EnergyView.Data.STREAM_CODEC)
             .cast();
-    public static final MercuryFluxEnergyProvider<BlockAccessor> BLOCK = new MercuryFluxEnergyProvider<>();
 
     public static @Nullable List<ViewGroup<EnergyView.Data>> wrapMercuryFluxHandler(Accessor<?> accessor) {
         if (!(accessor instanceof BlockAccessor)) {

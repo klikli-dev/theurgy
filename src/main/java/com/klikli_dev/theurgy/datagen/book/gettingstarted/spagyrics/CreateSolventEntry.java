@@ -11,12 +11,12 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
 import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
 import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.SalAmmoniacAccumulatorEntry;
 import com.klikli_dev.theurgy.datagen.book.logistics.FluidExtractorEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class CreateSolventEntry extends EntryProvider {

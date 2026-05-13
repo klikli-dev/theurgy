@@ -14,12 +14,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 /**
  * Game tests for the Mercury Flux Logistics Connector.
@@ -104,7 +105,7 @@ public class MercuryFluxConnectorGameTests {
             helper.assertTrue(fluxStorage != null, "Connector should expose MERCURY_FLUX_HANDLER capability");
 
             // Push some flux into the buffer
-            try (var tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+            try (var tx = Transaction.openRoot()) {
                 int received = fluxStorage.insert(500, tx);
                 tx.commit();
                 helper.assertTrue(received == 500, "Should be able to push 500 flux into connector buffer, got " + received);
@@ -156,7 +157,7 @@ public class MercuryFluxConnectorGameTests {
     /**
      * Tests that flux is distributed to multiple capacitors through the logistics network.
      * Setup: [Catalyst] [ConnectorA]---wire---[ConnectorB] [Capacitor1]
-     *                                      \---[ConnectorC] [Capacitor2]
+     * \---[ConnectorC] [Capacitor2]
      * Both capacitors should receive some flux.
      */
     public static void forwardsFluxToMultipleCapacitors(GameTestHelper helper) {

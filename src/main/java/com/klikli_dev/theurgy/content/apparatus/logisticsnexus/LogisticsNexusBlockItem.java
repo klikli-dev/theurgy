@@ -15,18 +15,20 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.render.LogisticsN
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
+
 import javax.annotation.Nullable;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -34,6 +36,7 @@ import java.util.function.Supplier;
 
 public class LogisticsNexusBlockItem extends BlockItem implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     public LogisticsNexusBlockItem(Block block, Properties properties) {
         super(block, properties);
     }
@@ -46,7 +49,7 @@ public class LogisticsNexusBlockItem extends BlockItem implements GeoItem {
     }
 
     @Override
-    public void onCraftedBy(ItemStack itemStack, net.minecraft.world.entity.player.Player player) {
+    public void onCraftedBy(ItemStack itemStack, Player player) {
         super.onCraftedBy(itemStack, player);
         this.ensureHasId(itemStack);
     }

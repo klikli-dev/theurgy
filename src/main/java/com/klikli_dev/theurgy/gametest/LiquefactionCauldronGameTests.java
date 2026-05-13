@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.gametest;
 
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
@@ -19,8 +18,8 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class LiquefactionCauldronGameTests {
@@ -236,7 +235,7 @@ public class LiquefactionCauldronGameTests {
             // Simulate right-click with a bucket to extract fluid
             var player = helper.makeMockPlayer(GameType.SURVIVAL);
             player.getInventory().setItem(0, new ItemStack(Items.BUCKET));
-            helper.useBlock( helper.relativePos(CAULDRON_LOWER_POS), player);
+            helper.useBlock(helper.relativePos(CAULDRON_LOWER_POS), player);
         });
 
         helper.succeedWhen(() -> {

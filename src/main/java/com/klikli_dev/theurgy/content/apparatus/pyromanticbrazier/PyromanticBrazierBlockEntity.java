@@ -20,9 +20,9 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.Clearable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +30,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -182,6 +181,11 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements Clearab
         StorageBehaviour.clearItemHandler(this.inventory);
     }
 
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inventory);
+    }
+
     private class Inventory extends MonitoredItemStackHandler {
         public Inventory() {
             super(1);
@@ -203,10 +207,5 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements Clearab
         protected void onContentsChanged(int slot) {
             PyromanticBrazierBlockEntity.this.setChanged();
         }
-    }
-
-    @Override
-    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
-        return List.of(this.inventory);
     }
 }

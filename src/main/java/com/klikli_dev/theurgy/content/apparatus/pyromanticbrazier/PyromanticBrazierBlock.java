@@ -64,7 +64,7 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
                 }
             } else {
                 try (var tx = Transaction.openRoot()) {
-                    var remainder = net.neoforged.neoforge.transfer.item.ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, stackInHand, false, tx);
+                    var remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, stackInHand, false, tx);
                     if (remainder.getCount() != stackInHand.getCount()) {
                         tx.commit();
                         pPlayer.setItemInHand(pHand, remainder);

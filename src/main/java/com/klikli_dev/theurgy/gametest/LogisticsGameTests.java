@@ -4,29 +4,32 @@
 
 package com.klikli_dev.theurgy.gametest;
 
-import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor.LogisticsFluidExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import com.klikli_dev.theurgy.logistics.Logistics;
-import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.UUID;
 
 public class LogisticsGameTests {
 
@@ -116,7 +119,7 @@ public class LogisticsGameTests {
     }
 
     public static void logisticsNexusPairsAcrossPlacement(GameTestHelper helper) {
-        var nexusId = java.util.UUID.randomUUID();
+        var nexusId = UUID.randomUUID();
 
         helper.setBlock(NEXUS_A_POS, BlockRegistry.LOGISTICS_NEXUS.get());
         helper.setBlock(NEXUS_B_POS, BlockRegistry.LOGISTICS_NEXUS.get());
@@ -151,7 +154,7 @@ public class LogisticsGameTests {
     }
 
     public static void logisticsNexusBlockEntityAcceptsItemUuid(GameTestHelper helper) {
-        var uuid = java.util.UUID.randomUUID();
+        var uuid = UUID.randomUUID();
         helper.setBlock(NEXUS_A_POS, BlockRegistry.LOGISTICS_NEXUS.get());
 
         helper.runAfterDelay(1, () -> {
@@ -175,8 +178,8 @@ public class LogisticsGameTests {
 
         helper.runAfterDelay(1, () -> {
             var level = helper.getLevel();
-            var sourceChest = helper.getBlockEntity(ITEM_INSERTER_TARGET_POS, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
-            var targetChest = helper.getBlockEntity(ITEM_EXTRACTOR_TARGET_POS, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+            var sourceChest = helper.getBlockEntity(ITEM_INSERTER_TARGET_POS, ChestBlockEntity.class);
+            var targetChest = helper.getBlockEntity(ITEM_EXTRACTOR_TARGET_POS, ChestBlockEntity.class);
             var inserter = helper.getBlockEntity(ITEM_INSERTER_POS, LogisticsItemInserterBlockEntity.class);
             var extractor = helper.getBlockEntity(ITEM_EXTRACTOR_POS, LogisticsItemExtractorBlockEntity.class);
 
@@ -199,8 +202,8 @@ public class LogisticsGameTests {
         });
 
         helper.succeedWhen(() -> {
-            var sourceChest = helper.getBlockEntity(ITEM_INSERTER_TARGET_POS, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
-            var targetChest = helper.getBlockEntity(ITEM_EXTRACTOR_TARGET_POS, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+            var sourceChest = helper.getBlockEntity(ITEM_INSERTER_TARGET_POS, ChestBlockEntity.class);
+            var targetChest = helper.getBlockEntity(ITEM_EXTRACTOR_TARGET_POS, ChestBlockEntity.class);
             helper.assertTrue(sourceChest.getItem(0).isEmpty(), "Source chest item should be extracted");
             helper.assertTrue(!targetChest.getItem(0).isEmpty(), "Target chest should receive the transferred item");
         });

@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.render;
 
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlockEntity;
 import com.klikli_dev.theurgy.content.render.ParticleSprites;
@@ -19,10 +18,9 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.LightCoordsUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
@@ -68,7 +66,7 @@ public class MercuryCapacitorRenderer implements BlockEntityRenderer<MercuryCapa
         // Center the quad at the block center (local coordinates 0-1)
         float halfSize = 0.25f;
         Vec3 localCenter = new Vec3(0.5, 0.5, 0.5);
-        
+
         // Center in world coordinates for camera direction calculation
         Vec3 worldCenter = new Vec3(
                 state.blockPos.getX() + 0.5,

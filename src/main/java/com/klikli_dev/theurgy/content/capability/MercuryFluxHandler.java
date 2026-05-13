@@ -9,7 +9,7 @@ import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
 /**
  * Copy of EnergyHandler, separate to prevent conversion to/from FE.
- *
+ * <p>
  * Mirrors the NeoForge EnergyHandler interface with long-based amount/capacity
  * and transaction-based insert/extract methods.
  */
@@ -32,7 +32,7 @@ public interface MercuryFluxHandler {
      * @return the amount as an {@code int}
      */
     default int getAmountAsInt() {
-        return Ints.saturatedCast(getAmountAsLong());
+        return Ints.saturatedCast(this.getAmountAsLong());
     }
 
     /**
@@ -54,7 +54,7 @@ public interface MercuryFluxHandler {
      * @return the capacity, as an {@code int}
      */
     default int getCapacityAsInt() {
-        return Ints.saturatedCast(getCapacityAsLong());
+        return Ints.saturatedCast(this.getCapacityAsLong());
     }
 
     /**

@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.gametest;
 
-import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
@@ -14,11 +13,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class DigestionVatGameTests {
 

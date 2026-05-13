@@ -21,7 +21,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-
 import org.jspecify.annotations.Nullable;
 
 

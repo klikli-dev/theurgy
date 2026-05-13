@@ -4,25 +4,20 @@
 
 package com.klikli_dev.theurgy.gametest;
 
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.*;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class IncubatorGameTests {
@@ -194,7 +189,10 @@ public class IncubatorGameTests {
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(MERCURY_VESSEL_POS, IncubatorMercuryVesselBlockEntity.class);
             ItemStack remainder;
-            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1), false, tx); tx.commit(); }
+            try (var tx = Transaction.openRoot()) {
+                remainder = ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1), false, tx);
+                tx.commit();
+            }
             helper.assertTrue(
                     remainder.isEmpty(),
                     "Mercury shard should be accepted by mercury vessel"
@@ -215,7 +213,10 @@ public class IncubatorGameTests {
 
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class);
-            try (var tx = Transaction.openRoot()) { ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(SaltRegistry.CREATURE.get(), 1), false, tx); tx.commit(); }
+            try (var tx = Transaction.openRoot()) {
+                ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(SaltRegistry.CREATURE.get(), 1), false, tx);
+                tx.commit();
+            }
         });
 
         helper.succeedWhen(() -> {
@@ -238,7 +239,10 @@ public class IncubatorGameTests {
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(SULFUR_VESSEL_POS, IncubatorSulfurVesselBlockEntity.class);
             ItemStack remainder;
-            try (var tx = Transaction.openRoot()) { remainder = ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(SulfurRegistry.BONE.get(), 1), false, tx); tx.commit(); }
+            try (var tx = Transaction.openRoot()) {
+                remainder = ItemUtil.insertItemReturnRemaining(vessel.inputInventory, 0, new ItemStack(SulfurRegistry.BONE.get(), 1), false, tx);
+                tx.commit();
+            }
             helper.assertTrue(
                     remainder.isEmpty(),
                     "Alchemical sulfur should be accepted by sulfur vessel"

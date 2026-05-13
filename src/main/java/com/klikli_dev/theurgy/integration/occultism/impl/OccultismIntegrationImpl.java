@@ -13,9 +13,11 @@ import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
+
+import java.util.function.Predicate;
 
 public class OccultismIntegrationImpl implements OccultismIntegration {
     public boolean isLoaded() {
@@ -47,7 +49,7 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
             var filterItems = extractFilter.filterItems();
 
             for (var filterItem : filterItems) {
-                var predicate = (java.util.function.Predicate<ItemResource>) resource -> {
+                var predicate = (Predicate<ItemResource>) resource -> {
                     var resourceStack = resource.toStack(1);
                     return extractFilter.shouldRespectDataComponents()
                             ? ItemStack.isSameItemSameComponents(resourceStack, filterItem)

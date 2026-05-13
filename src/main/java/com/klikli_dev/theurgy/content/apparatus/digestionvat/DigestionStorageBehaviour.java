@@ -18,7 +18,6 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;

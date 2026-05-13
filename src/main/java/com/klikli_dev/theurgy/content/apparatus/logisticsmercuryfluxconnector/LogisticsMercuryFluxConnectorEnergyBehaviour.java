@@ -30,9 +30,9 @@ public class LogisticsMercuryFluxConnectorEnergyBehaviour extends InserterNodeBe
     public static final int BUFFER_CAPACITY = 1000;
 
     private final int slowTickRandomOffset = (int) (Math.random() * TRANSFER_EVERY_N_TICKS);
+    private final EnergyBuffer buffer;
     private boolean enabled = true;
     private Direction directionOverride = null;
-    private final EnergyBuffer buffer;
 
     public LogisticsMercuryFluxConnectorEnergyBehaviour(BlockEntity blockEntity) {
         super(blockEntity, Capabilities.Energy.BLOCK);

@@ -25,6 +25,7 @@ import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 
@@ -40,6 +41,7 @@ public record IncubationRecipe(Ingredient mercury, Ingredient salt, Ingredient s
             RecipeResult.CODEC.fieldOf("result").forGetter(r -> r.result),
             Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
     ).apply(instance, IncubationRecipe::new));
+    public static final RecipeSerializer<IncubationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, IncubationRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.mercury,
@@ -54,7 +56,6 @@ public record IncubationRecipe(Ingredient mercury, Ingredient salt, Ingredient s
             IncubationRecipe::new
     );
 
-    public static final RecipeSerializer<IncubationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     @Override
     public boolean isSpecial() {
         return true;

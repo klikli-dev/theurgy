@@ -9,10 +9,10 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ConvertWithinTypeAndTierEntry;
 import com.klikli_dev.theurgy.registry.NiterRegistry;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class NiterToNiterReformationEntry extends EntryProvider {
     public static final String ENTRY_ID = "niter_to_niter_reformation";

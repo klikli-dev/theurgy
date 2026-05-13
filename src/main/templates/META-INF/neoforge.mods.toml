@@ -6,7 +6,7 @@
 
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
-license="${mod_license}"
+license = "${mod_license}"
 
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL = "https://github.com/klikli-dev/theurgy/issues" #optional
@@ -15,13 +15,13 @@ issueTrackerURL = "https://github.com/klikli-dev/theurgy/issues" #optional
 [[mods]] #mandatory
 
 # The modid of the mod
-modId="${mod_id}" #mandatory
+modId = "${mod_id}" #mandatory
 
 # The version number of the mod
-version="${mod_version}" #mandatory
+version = "${mod_version}" #mandatory
 
 # A display name for the mod
-displayName="${mod_name}" #mandatory
+displayName = "${mod_name}" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification https://docs.neoforged.net/docs/misc/updatechecker/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
@@ -53,55 +53,55 @@ description = '''${mod_description}'''
 # The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.${mod_id}]]
-    modId="neoforge" #mandatory
-    type="required" #mandatory
-    versionRange="[${neo_version},)" #mandatory
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.${ mod_id }]]
+modId = "neoforge" #mandatory
+type = "required" #mandatory
+versionRange = "[${neo_version},)" #mandatory
+ordering = "NONE"
+side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "modonomicon"
 type = "optional"
-versionRange="[${modonomicon_version},)"
-ordering="NONE"
+versionRange = "[${modonomicon_version},)"
+ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "codedefinedgui"
 type = "required"
-versionRange="[${code_defined_gui_version},)"
-ordering="NONE"
+versionRange = "[${code_defined_gui_version},)"
+ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "geckolib"
 type = "required"
-versionRange="[${geckolib_version},)"
+versionRange = "[${geckolib_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "almostunified"
 type = "optional"
-versionRange="[${almost_unified_version},)"
+versionRange = "[${almost_unified_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "jei"
 type = "optional"
-versionRange="[${jei_version},)"
+versionRange = "[${jei_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "jade"
 type = "optional"
-versionRange="[${jade_version},)"
+versionRange = "[${jade_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "emi"
 type = "optional"
-versionRange="[${emi_version},)"
+versionRange = "[${emi_version},)"
 side = "BOTH"
 
 

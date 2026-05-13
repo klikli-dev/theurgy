@@ -51,27 +51,80 @@ public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityB
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(BlockStateProperties.ENABLED, true));
     }
 
-    public SelectionBehaviour<MercuryFluxEmitterSelectedPoint> selectionBehaviour() { return this.selectionBehaviour; }
+    public SelectionBehaviour<MercuryFluxEmitterSelectedPoint> selectionBehaviour() {
+        return this.selectionBehaviour;
+    }
+
     @SuppressWarnings("deprecation")
-    @Override public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) { return SHAPES.get(pState.getValue(FACING)); }
+    @Override
+    public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return SHAPES.get(pState.getValue(FACING));
+    }
+
     @Nullable
-    @Override public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Direction direction = pContext.getClickedFace();
         BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos().relative(direction.getOpposite()));
         return blockstate.is(this) && blockstate.getValue(FACING) == direction ? this.defaultBlockState().setValue(FACING, direction.getOpposite()) : this.defaultBlockState().setValue(FACING, direction);
     }
+
     @SuppressWarnings("deprecation")
-    @Override public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, Orientation pOrientation, boolean pIsMoving) { super.neighborChanged(pState, pLevel, pPos, pBlock, pOrientation, pIsMoving); if (!this.canSurvive(pState, pLevel, pPos)) { pLevel.destroyBlock(pPos, true); } }
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, Orientation pOrientation, boolean pIsMoving) {
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pOrientation, pIsMoving);
+        if (!this.canSurvive(pState, pLevel, pPos)) {
+            pLevel.destroyBlock(pPos, true);
+        }
+    }
+
     @SuppressWarnings("deprecation")
-    @Override public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) { var facing = pState.getValue(FACING); var facingNeighborPos = pPos.relative(facing.getOpposite()); var facingNeighborState = pLevel.getBlockState(facingNeighborPos); return facingNeighborState.isFaceSturdy(pLevel, pPos, facing); }
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        var facing = pState.getValue(FACING);
+        var facingNeighborPos = pPos.relative(facing.getOpposite());
+        var facingNeighborState = pLevel.getBlockState(facingNeighborPos);
+        return facingNeighborState.isFaceSturdy(pLevel, pPos, facing);
+    }
+
     @SuppressWarnings("deprecation")
-    @Override public @NotNull BlockState rotate(BlockState state, Rotation rot) { return state.setValue(FACING, rot.rotate(state.getValue(FACING))); }
+    @Override
+    public @NotNull BlockState rotate(BlockState state, Rotation rot) {
+        return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
+    }
+
     @SuppressWarnings("deprecation")
-    @Override public @NotNull BlockState mirror(BlockState state, Mirror mirrorIn) { return state.setValue(FACING, mirrorIn.mirror(state.getValue(FACING))); }
-    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) { pBuilder.add(FACING, BlockStateProperties.ENABLED); }
+    @Override
+    public @NotNull BlockState mirror(BlockState state, Mirror mirrorIn) {
+        return state.setValue(FACING, mirrorIn.mirror(state.getValue(FACING)));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(FACING, BlockStateProperties.ENABLED);
+    }
+
     @Nullable
-    @Override public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) { return BlockEntityRegistry.MERCURY_FLUX_EMITTER.get().create(pPos, pState); }
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return BlockEntityRegistry.MERCURY_FLUX_EMITTER.get().create(pPos, pState);
+    }
+
     @Nullable
-    @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) { if (pLevel.isClientSide()) { return null; } return (lvl, pos, blockState, t) -> { if (t instanceof MercuryFluxEmitterBlockEntity blockEntity) { blockEntity.tickServer(); } }; }
-    @Override protected MapCodec<? extends DirectionalBlock> codec() { return CODEC; }
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) {
+            return null;
+        }
+        return (lvl, pos, blockState, t) -> {
+            if (t instanceof MercuryFluxEmitterBlockEntity blockEntity) {
+                blockEntity.tickServer();
+            }
+        };
+    }
+
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return CODEC;
+    }
 }

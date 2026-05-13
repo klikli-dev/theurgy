@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
-import com.klikli_dev.theurgy.gametest.GameTestRegistry;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenRenderer;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatRenderer;
 import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerRenderer;
@@ -16,18 +15,17 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVe
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.render.LogisticsNexusRenderer;
-import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.render.MercuryCapacitorRenderer;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
 import com.klikli_dev.theurgy.content.item.HandlesOnScroll;
-import com.klikli_dev.theurgy.content.item.filter.FilterStyles;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
+import com.klikli_dev.theurgy.content.item.filter.FilterStyles;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.inworldhud.ClientItemStacksTooltip;
@@ -36,10 +34,8 @@ import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDRegistry;
 import com.klikli_dev.theurgy.content.render.inworldhud.ItemStacksTooltip;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
-import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
-import com.klikli_dev.theurgy.recipe.TheurgyRecipeManagerClient;
-import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
+import com.klikli_dev.theurgy.gametest.GameTestRegistry;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.logistics.Logistics;
@@ -48,12 +44,16 @@ import com.klikli_dev.theurgy.logistics.WireSync;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageOnLeftClickEmpty;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManagerClient;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
-import com.klikli_dev.theurgy.util.LevelUtil;
+import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.FluidModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -67,8 +67,6 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.minecraft.client.renderer.block.FluidModel;
-import net.minecraft.client.resources.model.sprite.Material;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.fluid.FluidTintSources;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
@@ -330,7 +328,7 @@ public class Theurgy {
 
         public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
             var player = event.getEntity();
-            
+
             // If player is holding shift, don't interfere with normal block placement
             if (player != null && player.isShiftKeyDown()) {
                 return;

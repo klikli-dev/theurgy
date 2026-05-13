@@ -4,9 +4,11 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsnexus.render;
 
-import com.geckolib.renderer.base.BoneSnapshots;
+import com.geckolib.cache.model.GeoBone;
 import com.geckolib.renderer.GeoItemRenderer;
+import com.geckolib.renderer.base.BoneSnapshots;
 import com.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.renderer.base.PerBoneRender;
 import com.geckolib.renderer.base.RenderPassInfo;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.LogisticsNexusBlockItem;
@@ -16,9 +18,6 @@ import net.minecraft.client.renderer.blockentity.AbstractEndPortalRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import java.util.function.BiConsumer;
-
-import com.geckolib.cache.model.GeoBone;
-import com.geckolib.renderer.base.PerBoneRender;
 
 public class LogisticsNexusItemRenderer extends GeoItemRenderer<LogisticsNexusBlockItem> {
     public LogisticsNexusItemRenderer() {
@@ -35,7 +34,7 @@ public class LogisticsNexusItemRenderer extends GeoItemRenderer<LogisticsNexusBl
     public void adjustRenderPose(RenderPassInfo<GeoRenderState> renderPassInfo) {
         PoseStack poseStack = renderPassInfo.poseStack();
 
-        poseStack.translate(0.25f, -4/16f, 0.25f);
+        poseStack.translate(0.25f, -4 / 16f, 0.25f);
     }
 
     @Override

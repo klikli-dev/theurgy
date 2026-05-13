@@ -43,6 +43,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, LiquefactionRecipe::new)
     );
+    public static final RecipeSerializer<LiquefactionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, LiquefactionRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.ingredient,
@@ -55,7 +56,6 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             LiquefactionRecipe::new
     );
     protected final Ingredient ingredient;
-    public static final RecipeSerializer<LiquefactionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     protected final SizedFluidIngredient solvent;
     protected final ItemStackTemplate result;
     protected final int time;

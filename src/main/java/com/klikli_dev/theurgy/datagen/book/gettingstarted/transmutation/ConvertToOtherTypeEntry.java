@@ -9,8 +9,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 
 public class ConvertToOtherTypeEntry extends EntryProvider {
     public static final String ENTRY_ID = "convert_to_other_type";

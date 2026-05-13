@@ -14,9 +14,9 @@ import java.util.Optional;
 
 public class InWorldHUDBuilder {
 
-    private @Nullable Component title;
     private final List<Component> lines = new ArrayList<>();
     private final List<ItemStack> items = new ArrayList<>();
+    private @Nullable Component title;
 
     public void setTitleIfAbsent(Component title) {
         if (this.title == null) {

@@ -42,7 +42,6 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, ReformationRecipe::new)
     );
-    public static final RecipeSerializer<ReformationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, ReformationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.sources,
@@ -56,6 +55,8 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             r -> r.time,
             ReformationRecipe::new
     );
+    public static final RecipeSerializer<ReformationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     protected final List<SizedIngredient> sources;
     protected final NonNullList<Ingredient> sourcesNonNullList;
     protected final Ingredient target;

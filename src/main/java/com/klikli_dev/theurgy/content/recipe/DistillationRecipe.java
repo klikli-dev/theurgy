@@ -38,7 +38,6 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DistillationRecipe::new)
     );
-    public static final RecipeSerializer<DistillationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, DistillationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
             r -> r.ingredient,
@@ -48,6 +47,8 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
             r -> r.time,
             DistillationRecipe::new
     );
+    public static final RecipeSerializer<DistillationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     protected final SizedIngredient ingredient;
     protected final ItemStackTemplate result;
     protected final int time;

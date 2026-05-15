@@ -51,7 +51,6 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time))
     );
-    public static final RecipeSerializer<AccumulationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.optional(SizedFluidIngredient.STREAM_CODEC),
             r -> Optional.ofNullable(r.evaporant),
@@ -63,6 +62,7 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
             r -> r.time,
             (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time)
     );
+    public static final RecipeSerializer<AccumulationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     @Override
     public @NotNull RecipeType<AccumulationRecipe> getType() {

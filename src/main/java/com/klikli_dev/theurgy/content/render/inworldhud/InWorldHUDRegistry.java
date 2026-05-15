@@ -4,8 +4,10 @@
 
 package com.klikli_dev.theurgy.content.render.inworldhud;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
@@ -82,6 +84,9 @@ public class InWorldHUDRegistry {
     private static List<InWorldHUDProvider> getApplicableProviders(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         BlockEntity blockEntity = level.getBlockEntity(pos);
+
+        if(!Theurgy.MODID.equals(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getNamespace()))
+            return List.of();
 
         List<InWorldHUDProvider> applicableBlockProviders = new ArrayList<>();
         boolean hasActivatingProvider = false;

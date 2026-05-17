@@ -98,8 +98,6 @@ public class Theurgy {
         BlockEntityRegistry.BLOCKS.register(modEventBus);
         FluidTypeRegistry.FLUID_TYPES.register(modEventBus);
         FluidRegistry.FLUIDS.register(modEventBus);
-        EntityRegistry.ENTITIES.register(modEventBus);
-        EntityDataSerializerRegistry.ENTITY_DATA_SERIALIZERS.register(modEventBus);
         ParticleRegistry.PARTICLES.register(modEventBus);
         SoundRegistry.SOUNDS.register(modEventBus);
         RecipeSerializerRegistry.RECIPE_SERIALIZERS.register(modEventBus);
@@ -262,7 +260,6 @@ public class Theurgy {
         }
 
         public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerEntityRenderer(EntityRegistry.FOLLOW_PROJECTILE.get(), BlankEntityRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(), LiquefactionCauldronRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.DISTILLER.get(), DistillerRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.CALCINATION_OVEN.get(), CalcinationOvenRenderer::new);

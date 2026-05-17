@@ -29,20 +29,4 @@ public class ParticleRegistry {
     public static void registerFactories(RegisterParticleProvidersEvent evt) {
         evt.registerSpriteSet(COLORED_BUBBLE_TYPE.get(), ColoredBubbleParticleProvider::new);
     }
-
-    public static void spawnTouch(ClientLevel world, BlockPos loc, ParticleColor particleColor) {
-        for (int i = 0; i < 10; i++) {
-            double d0 = loc.getX() + 0.5;
-            double d1 = loc.getY() + 1.0;
-            double d2 = loc.getZ() + .5;
-            world.addParticle(GlowParticleOptions.of(ARGB.color(191, (particleColor.getColor() >> 16) & 0xFF, (particleColor.getColor() >> 8) & 0xFF, particleColor.getColor() & 0xFF))
-                            .disableDepthTest(true),
-                    d0, d1, d2,
-                    (world.getRandom().nextFloat() * 1 - 0.5) / 5,
-                    (world.getRandom().nextFloat() * 1 - 0.5) / 5,
-                    (world.getRandom().nextFloat() * 1 - 0.5) / 5);
-        }
-    }
-
-
 }

@@ -5,16 +5,16 @@
 package com.klikli_dev.theurgy.network.messages;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.entity.FollowProjectile;
-import com.klikli_dev.theurgy.content.render.Color;
+import com.klikli_dev.magicparticleslib.premade.projectile.VisualEntitySpawner;
+import com.klikli_dev.magicparticleslib.premade.projectile.glowtrail.GlowTrailProjectile;
 import com.klikli_dev.theurgy.network.Message;
-import com.klikli_dev.theurgy.util.EntityUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -22,8 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class MessageShowMercuryFlux implements Message {
     public static final Type<MessageShowMercuryFlux> TYPE = new Type<>(Theurgy.loc("show_mercury_flux"));
-
-    public static final Color COLOR = new Color(0x00FFFF, false);
 
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageShowMercuryFlux> STREAM_CODEC =
             StreamCodec.composite(
@@ -55,10 +53,12 @@ public class MessageShowMercuryFlux implements Message {
 
         //discard the message if source/target are not loaded or if the player is too far
         if (level.isLoaded(this.to) && level.isLoaded(this.from) && level.isClientSide() && player.getOnPos().distSqr(this.from) < 15 * 15) {
-            FollowProjectile projectile = new FollowProjectile(level, from, to, COLOR, 0.1f);
-            projectile.setDeltaMovement(normal.scale(0.3f));
+            GlowTrailProjectile projectile = new GlowTrailProjectile(level, from, to)
+                    .color(ARGB.opaque(0x00FFFF))
+                    .size(0.1f)
+                    .initialVelocity(normal.scale(0.3f));
 
-            EntityUtil.spawnEntityClientSide(level, projectile, true);
+            VisualEntitySpawner.spawn(level, projectile, true);
         }
     }
 

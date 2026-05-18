@@ -8,14 +8,13 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxHandler;
 import com.klikli_dev.theurgy.content.capability.SimpleMercuryFluxHandler;
-import com.klikli_dev.theurgy.content.entity.FollowProjectile;
+import com.klikli_dev.magicparticleslib.premade.projectile.VisualEntitySpawner;
+import com.klikli_dev.magicparticleslib.premade.projectile.glowtrail.GlowTrailProjectile;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
-import com.klikli_dev.theurgy.content.render.Color;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
-import com.klikli_dev.theurgy.util.EntityUtil;
 import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
@@ -358,47 +357,49 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
             var to = Vec3.atCenterOf(emitter.targetPedestal.getBlockPos()).add(0, 0.5, 0);
 
             if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from)) && emitter.level.isClientSide()) {
-                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), new Color(0x0000ff, false), 0.1f, 0.3f, (targetProjectile) -> {
-                    DistHelper.sendSourceProjectiles(targetProjectile, emitter);
-                });
-                projectile.setDeltaMovement(normal.scale(0.3f));
+                GlowTrailProjectile projectile = new GlowTrailProjectile(emitter.level, from, to)
+                        .colors(0xFFFFFFFF, 0xFF0000FF)
+                        .size(0.1f)
+                        .arrivalDistance(0.3f)
+                        .onArrival(targetProjectile -> DistHelper.sendSourceProjectiles(targetProjectile, emitter))
+                        .initialVelocity(normal.scale(0.3f));
 
-                EntityUtil.spawnEntityClientSide(emitter.level, projectile, true);
+                VisualEntitySpawner.spawn(emitter.level, projectile, true);
             }
         }
 
-        static void sendSourceProjectiles(FollowProjectile targetProjectile, SulfuricFluxEmitterBlockEntity emitter) {
+        static void sendSourceProjectiles(GlowTrailProjectile targetProjectile, SulfuricFluxEmitterBlockEntity emitter) {
             for (var sourcePedestal : emitter.sourcePedestalsWithContents) {
                 var from = targetProjectile.position();
                 var to = Vec3.atCenterOf(sourcePedestal.getBlockPos()).add(0, 0.7, 0);
                 var normal = targetProjectile.to().subtract(targetProjectile.from()).normalize();
 
                 if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
-                    FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0x0000ff, false), new Color(0xFF00FF, false), 0.1f, 0.3f,
-                            (sourceProjectile) -> {
-                                DistHelper.sendResultProjectile(sourceProjectile, emitter);
-                            });
+                    GlowTrailProjectile projectile = new GlowTrailProjectile(emitter.level, from, to)
+                            .colors(0xFF0000FF, 0xFFFF00FF)
+                            .size(0.1f)
+                            .arrivalDistance(0.3f)
+                            .onArrival(sourceProjectile -> DistHelper.sendResultProjectile(sourceProjectile, emitter))
+                            .initialVelocity(normal.scale(0.3f));
 
-                    //the scale is "force" with which the projectile starts moving in the direction of the normal
-                    projectile.setDeltaMovement(normal.scale(0.3f));
-
-                    EntityUtil.spawnEntityClientSide(emitter.level, projectile, true);
+                    VisualEntitySpawner.spawn(emitter.level, projectile, true);
                 }
             }
         }
 
-        static void sendResultProjectile(FollowProjectile sourceProjectile, SulfuricFluxEmitterBlockEntity emitter) {
+        static void sendResultProjectile(GlowTrailProjectile sourceProjectile, SulfuricFluxEmitterBlockEntity emitter) {
             var from = sourceProjectile.position();
             var to = Vec3.atCenterOf(emitter.resultPedestal.getBlockPos()).add(0, 0.7, 0);
             var normal = sourceProjectile.to().subtract(sourceProjectile.from()).normalize();
 
             if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
-                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xAA08AA, false), new Color(0x00FF00, false), 0.1f, 1f);
+                GlowTrailProjectile projectile = new GlowTrailProjectile(emitter.level, from, to)
+                        .colors(0xFFAA08AA, 0xFF00FF00)
+                        .size(0.1f)
+                        .arrivalDistance(1f)
+                        .initialVelocity(normal.scale(0.3f));
 
-                //the scale is "force" with which the projectile starts moving in the direction of the normal
-                projectile.setDeltaMovement(normal.scale(0.3f));
-
-                EntityUtil.spawnEntityClientSide(emitter.level, projectile, true);
+                VisualEntitySpawner.spawn(emitter.level, projectile, true);
             }
         }
     }

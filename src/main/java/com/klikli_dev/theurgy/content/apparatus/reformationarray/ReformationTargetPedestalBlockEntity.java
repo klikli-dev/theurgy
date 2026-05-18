@@ -5,8 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
-import com.klikli_dev.theurgy.content.particle.ParticleColor;
-import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.magicparticleslib.premade.particle.glow.GlowParticleOptions;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
@@ -20,6 +19,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
@@ -56,12 +56,8 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity implements
     public void tickClient() {
         if (this.showParticles && this.level.getRandom().nextFloat() < 0.07f) {
             var pos = this.getBlockPos();
-            this.level.addParticle(GlowParticleProvider.createOptions(
-                    ParticleColor.fromInt(0x0000FF),
-                    true,
-                    0.5f,
-                    0.75f,
-                    200), pos.getX() + 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 0, 0, 0);
+            this.level.addParticle(GlowParticleOptions.of(ARGB.color(191, 0, 0, 255)).disableDepthTest(true).size(0.5f).age(200),
+                    pos.getX() + 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 0, 0, 0);
         }
     }
 

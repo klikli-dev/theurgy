@@ -5,14 +5,14 @@
 package com.klikli_dev.theurgy.content.item.divinationrod;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.entity.FollowProjectile;
+import com.klikli_dev.magicparticleslib.premade.projectile.VisualEntitySpawner;
+import com.klikli_dev.magicparticleslib.premade.projectile.glowtrail.GlowTrailProjectile;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.scanner.ScanManager;
-import com.klikli_dev.theurgy.util.EntityUtil;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -476,8 +476,10 @@ public class DivinationRodItem extends Item {
         var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
         if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide()) {
-            FollowProjectile aoeProjectile = new FollowProjectile(level, from, to, 255, 25, 180, 0.25f);
-            EntityUtil.spawnEntityClientSide(level, aoeProjectile, true);
+            GlowTrailProjectile aoeProjectile = new GlowTrailProjectile(level, from, to)
+                    .color(0xFFFF19B4)
+                    .size(0.25f);
+            VisualEntitySpawner.spawn(level, aoeProjectile, true);
         }
     }
 

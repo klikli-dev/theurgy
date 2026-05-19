@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.97.0] - 2026-05-19
+### :wrench: Chores
+- [`9c0d4cf`](https://github.com/klikli-dev/theurgy/commit/9c0d4cf0ce52e370a1a7b30218d8daa2e2b232aa) - bump mpl to latest *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.96.0] - 2026-05-18
 ### :sparkles: New Features
 - [`9fdd0b5`](https://github.com/klikli-dev/theurgy/commit/9fdd0b5e466336b458cc6a05301e62946773378a) - use and embed magic particle lib *(PR [#362](https://github.com/klikli-dev/theurgy/pull/362) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1574,3 +1579,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.94.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.93.0...release/v26.1.2-1.94.0
 [release/v26.1.2-1.95.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.94.0...release/v26.1.2-1.95.0
 [release/v26.1.2-1.96.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.95.0...release/v26.1.2-1.96.0
+[release/v26.1.2-1.97.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.96.0...release/v26.1.2-1.97.0

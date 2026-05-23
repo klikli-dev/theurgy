@@ -40,7 +40,7 @@ public class OreRefiningEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Ore Duplication");
         this.pageText("""
-                        The first application of Spagyrics thus we will be the efficient refining of raw metals into multiple ingots.
+                        Our first application of Spagyrics will thus be the efficient refining of raw metals into multiple ingots.
                         In the following pages and entries we will attempt to create *three* {0} out of just *one* {1} using Spagyrics processes.
                         """,
                 this.itemLink("Iron Ingots", Items.IRON_INGOT),

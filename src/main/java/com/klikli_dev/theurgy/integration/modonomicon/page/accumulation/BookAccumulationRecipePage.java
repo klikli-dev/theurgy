@@ -4,16 +4,18 @@
 
 package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.entries.BookContentEntry;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.data.BookPageType;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
-import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
@@ -28,6 +30,9 @@ import java.util.ArrayList;
 
 
 public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecipe> {
+    public static final Identifier ID = Theurgy.loc("accumulation_recipe");
+    public static final MapCodec<BookAccumulationRecipePage> CODEC = codec(BookAccumulationRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookAccumulationRecipePage> STREAM_CODEC = streamCodec(BookAccumulationRecipePage::new);
 
     public BookAccumulationRecipePage(JsonDataHolder common) {
         super(common);
@@ -37,19 +42,9 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         super(common);
     }
 
-    public static BookAccumulationRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
-        var common = BookRecipePage.commonFromJson(entryId, json, provider);
-        return new BookAccumulationRecipePage(common);
-    }
-
-    public static BookAccumulationRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var common = BookRecipePage.commonFromNetwork(buffer);
-        return new BookAccumulationRecipePage(common);
-    }
-
     @Override
-    public Identifier getType() {
-        return TheurgyModonomiconConstants.Page.ACCUMULATION_RECIPE;
+    public BookPageType<?> type() {
+        return TheurgyModonomiconPageTypeRegistry.ACCUMULATION_RECIPE;
     }
 
     @Override

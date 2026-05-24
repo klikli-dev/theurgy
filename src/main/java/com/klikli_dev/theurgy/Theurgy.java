@@ -36,8 +36,8 @@ import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.gametest.GameTestRegistry;
-import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
+import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconPageTypeRegistry;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.WireRenderer;
 import com.klikli_dev.theurgy.logistics.WireSync;
@@ -165,7 +165,7 @@ public class Theurgy {
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(InWorldHUDRegistry::registerDefaults);
-        PageLoaders.onCommonSetup(event);
+        TheurgyModonomiconPageTypeRegistry.bootstrap();
 
         LOGGER.info("Common setup complete.");
     }

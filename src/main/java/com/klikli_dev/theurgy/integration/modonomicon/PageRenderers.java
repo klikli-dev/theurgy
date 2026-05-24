@@ -21,23 +21,23 @@ public class PageRenderers {
 
     public static void onClientSetup(FMLClientSetupEvent event) {
         PageRendererRegistry.registerPageRenderer(
-                TheurgyModonomiconConstants.Page.ACCUMULATION_RECIPE,
+                BookAccumulationRecipePage.ID,
                 p -> new BookAccumulationRecipePageRenderer((BookAccumulationRecipePage) p));
 
         PageRendererRegistry.registerPageRenderer(
-                TheurgyModonomiconConstants.Page.CALCINATION_RECIPE,
+                BookCalcinationRecipePage.ID,
                 p -> new BookCalcinationRecipePageRenderer((BookCalcinationRecipePage) p));
 
         PageRendererRegistry.registerPageRenderer(
-                TheurgyModonomiconConstants.Page.DISTILLATION_RECIPE,
+                BookDistillationRecipePage.ID,
                 p -> new BookDistillationRecipePageRenderer((BookDistillationRecipePage) p));
 
         PageRendererRegistry.registerPageRenderer(
-                TheurgyModonomiconConstants.Page.INCUBATION_RECIPE,
+                BookIncubationRecipePage.ID,
                 p -> new BookIncubationRecipePageRenderer((BookIncubationRecipePage) p));
 
         PageRendererRegistry.registerPageRenderer(
-                TheurgyModonomiconConstants.Page.LIQUEFACTION_RECIPE,
+                BookLiquefactionRecipePage.ID,
                 p -> new BookLiquefactionRecipePageRenderer((BookLiquefactionRecipePage) p));
     }
 

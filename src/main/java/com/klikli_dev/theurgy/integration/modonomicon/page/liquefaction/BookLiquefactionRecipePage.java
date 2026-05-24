@@ -4,17 +4,22 @@
 
 package com.klikli_dev.theurgy.integration.modonomicon.page.liquefaction;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
-import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.data.BookPageType;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
-import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 
 public class BookLiquefactionRecipePage extends BookProcessingRecipePage<LiquefactionRecipe> {
+    public static final Identifier ID = Theurgy.loc("liquefaction_recipe");
+    public static final MapCodec<BookLiquefactionRecipePage> CODEC = codec(BookLiquefactionRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookLiquefactionRecipePage> STREAM_CODEC = streamCodec(BookLiquefactionRecipePage::new);
+
     public BookLiquefactionRecipePage(JsonDataHolder common) {
         super(common);
     }
@@ -23,18 +28,8 @@ public class BookLiquefactionRecipePage extends BookProcessingRecipePage<Liquefa
         super(common);
     }
 
-    public static BookLiquefactionRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
-        var common = BookRecipePage.commonFromJson(entryId, json, provider);
-        return new BookLiquefactionRecipePage(common);
-    }
-
-    public static BookLiquefactionRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var common = BookRecipePage.commonFromNetwork(buffer);
-        return new BookLiquefactionRecipePage(common);
-    }
-
     @Override
-    public Identifier getType() {
-        return TheurgyModonomiconConstants.Page.LIQUEFACTION_RECIPE;
+    public BookPageType<?> type() {
+        return TheurgyModonomiconPageTypeRegistry.LIQUEFACTION_RECIPE;
     }
 }

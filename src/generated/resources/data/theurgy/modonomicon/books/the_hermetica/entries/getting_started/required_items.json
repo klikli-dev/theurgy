@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/reformation_array"
+  },
   "description": "book.theurgy.the_hermetica.getting_started.required_items.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:lapis_lazuli"
   },
+  "id": "theurgy:getting_started/required_items",
   "name": "book.theurgy.the_hermetica.getting_started.required_items.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,18 +28,15 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.required_items.source2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.required_items.source2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.required_items.source2.title"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -47,12 +48,9 @@
   "parents": [
     {
       "draw_arrow": false,
-      "entry": "getting_started/reformation_array",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/reformation_array"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 28,
   "x": 9,
   "y": -4

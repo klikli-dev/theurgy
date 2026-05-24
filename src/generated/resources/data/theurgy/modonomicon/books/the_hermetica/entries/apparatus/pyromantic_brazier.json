@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "apparatus",
+  "category": "theurgy:apparatus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:apparatus/spagyrics"
+  },
   "description": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:pyromantic_brazier"
   },
+  "id": "theurgy:apparatus/pyromantic_brazier",
   "name": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,36 +28,26 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.usage.title"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/pyromantic_brazier",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "theurgy:crafting/shaped/pyromantic_brazier"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "apparatus/spagyrics",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:apparatus/spagyrics"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 4,
   "x": 1,
   "y": -3

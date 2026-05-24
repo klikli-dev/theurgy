@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "logistics",
+  "category": "theurgy:logistics",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:logistics/logistics_network"
+  },
   "description": "book.theurgy.the_hermetica.logistics.connection_node.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:logistics_connector_node"
   },
+  "id": "theurgy:logistics/connection_node",
   "name": "book.theurgy.the_hermetica.logistics.connection_node.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,29 +28,22 @@
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_connector_node",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_connector_node"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.connection_node.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.connection_node.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.usage.title"
     },
     {
       "type": "modonomicon:image",
-      "anchor": "",
       "border": true,
       "condition": {
         "type": "modonomicon:none"
@@ -55,30 +52,23 @@
         "theurgy:textures/gui/book/connection_node_example.png"
       ],
       "text": "",
-      "title": "book.theurgy.the_hermetica.logistics.connection_node.image.title",
-      "use_legacy_rendering": false
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.image.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.text",
-      "title": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "logistics/logistics_network",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:logistics/logistics_network"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 9,
   "x": 9,
   "y": -3

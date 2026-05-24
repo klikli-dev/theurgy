@@ -1,31 +1,33 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/convert_within_type_and_tier"
+  },
   "description": "book.theurgy.the_hermetica.getting_started.reformation_array.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:reformation_result_pedestal"
   },
+  "id": "theurgy:getting_started/reformation_array",
   "name": "book.theurgy.the_hermetica.getting_started.reformation_array.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.reformation_array.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.reformation_array.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.reformation_array.intro.title"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -35,7 +37,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -45,7 +46,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -55,7 +55,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -65,25 +64,19 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.reformation_array.next_steps.text",
-      "title": "book.theurgy.the_hermetica.getting_started.reformation_array.next_steps.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.reformation_array.next_steps.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/convert_within_type_and_tier",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/convert_within_type_and_tier"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 27,
   "x": 9,
   "y": -2

@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "logistics",
+  "category": "theurgy:logistics",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:logistics/intro"
+  },
   "description": "book.theurgy.the_hermetica.logistics.item_inserter.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:logistics_item_inserter"
   },
+  "id": "theurgy:logistics/item_inserter",
   "name": "book.theurgy.the_hermetica.logistics.item_inserter.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,58 +28,44 @@
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_item_inserter",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_item_inserter"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.item_inserter.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.item_inserter.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.item_inserter.usage.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.item_inserter.identification.text",
-      "title": "book.theurgy.the_hermetica.logistics.item_inserter.identification.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.item_inserter.identification.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.item_inserter.direction.text",
-      "title": "book.theurgy.the_hermetica.logistics.item_inserter.direction.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.item_inserter.direction.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "logistics/intro",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:logistics/intro"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 5,
   "x": 3,
   "y": -3

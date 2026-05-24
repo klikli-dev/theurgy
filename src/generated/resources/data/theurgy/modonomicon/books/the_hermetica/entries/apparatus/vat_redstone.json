@@ -1,44 +1,42 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "apparatus",
+  "category": "theurgy:apparatus",
   "condition": {
     "type": "modonomicon:or",
     "children": [
       {
         "type": "modonomicon:entry_read",
-        "entry_id": "apparatus/digestion_vat"
+        "entry_id": "theurgy:apparatus/digestion_vat"
       },
       {
         "type": "modonomicon:entry_read",
-        "entry_id": "apparatus/fermentation_vat"
+        "entry_id": "theurgy:apparatus/fermentation_vat"
       }
     ]
   },
   "description": "book.theurgy.the_hermetica.apparatus.vat_redstone.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:redstone_torch"
   },
+  "id": "theurgy:apparatus/vat_redstone",
   "name": "book.theurgy.the_hermetica.apparatus.vat_redstone.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_control.text",
-      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_control.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_control.title"
     },
     {
       "type": "modonomicon:image",
-      "anchor": "",
       "border": true,
       "condition": {
         "type": "modonomicon:none"
@@ -48,47 +46,37 @@
         "theurgy:textures/gui/book/redstone_fermentation_vat.png"
       ],
       "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.sides.text",
-      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.sides.title",
-      "use_legacy_rendering": false
+      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.sides.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_output.text",
-      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_output.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_output.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.analog_output.text",
-      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.analog_output.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.analog_output.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "apparatus/digestion_vat",
-      "line_enabled": true,
+      "entry": "theurgy:apparatus/digestion_vat",
       "line_reversed": true
     },
     {
-      "draw_arrow": true,
-      "entry": "apparatus/fermentation_vat",
-      "line_enabled": true,
+      "entry": "theurgy:apparatus/fermentation_vat",
       "line_reversed": true
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 25,
   "x": 5,
   "y": 5

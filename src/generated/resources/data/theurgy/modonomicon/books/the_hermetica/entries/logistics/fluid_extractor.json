@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "logistics",
+  "category": "theurgy:logistics",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:logistics/item_extractor"
+  },
   "description": "book.theurgy.the_hermetica.logistics.fluid_extractor.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:logistics_fluid_extractor"
   },
+  "id": "theurgy:logistics/fluid_extractor",
   "name": "book.theurgy.the_hermetica.logistics.fluid_extractor.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,58 +28,44 @@
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_fluid_extractor",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_fluid_extractor"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.fluid_extractor.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.usage.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.fluid_extractor.identification.text",
-      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.identification.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.identification.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.fluid_extractor.direction.text",
-      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.direction.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.fluid_extractor.direction.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "logistics/item_extractor",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:logistics/item_extractor"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 6,
   "x": 3,
   "y": 3

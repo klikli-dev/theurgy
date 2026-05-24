@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/needed_apparatus_spagyrics"
+  },
   "description": "book.theurgy.the_hermetica.getting_started.create_solvent.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:sal_ammoniac_bucket"
   },
+  "id": "theurgy:getting_started/create_solvent",
   "name": "book.theurgy.the_hermetica.getting_started.create_solvent.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,80 +28,63 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.obtain.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.obtain.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.obtain.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.faster.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.faster.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.faster.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.step1.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step1.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step1.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.step2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step2.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.step3.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step3.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step3.title"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "theurgy:crafting/shapeless/sal_ammoniac_crystal_from_sal_ammoniac_bucket",
-      "text": "book.theurgy.the_hermetica.getting_started.create_solvent.recipe.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.theurgy.the_hermetica.getting_started.create_solvent.recipe.text"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/needed_apparatus_spagyrics",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/needed_apparatus_spagyrics"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 15,
   "x": -5,
   "y": 4

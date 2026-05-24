@@ -1,31 +1,33 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "apparatus",
+  "category": "theurgy:apparatus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:apparatus/vat_redstone"
+  },
   "description": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:lever"
   },
+  "id": "theurgy:apparatus/basic_vat_automation",
   "name": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.intro.text",
-      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.intro.title"
     },
     {
       "type": "modonomicon:image",
-      "anchor": "",
       "border": true,
       "condition": {
         "type": "modonomicon:none"
@@ -37,74 +39,59 @@
         "theurgy:textures/gui/book/vat_automation_3.png"
       ],
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.setup.text",
-      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.setup.title",
-      "use_legacy_rendering": false
+      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.setup.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.usage.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.usage2.text",
-      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.usage2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.usage2.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.logistics.text",
-      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.logistics.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.logistics.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.hopper.text",
-      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.hopper.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.hopper.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.text",
-      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "apparatus/vat_redstone",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:apparatus/vat_redstone"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 26,
   "x": 5,
   "y": 7

@@ -1,41 +1,40 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
     "width": 26
   },
-  "category": "apparatus",
+  "category": "theurgy:apparatus",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.theurgy.the_hermetica.apparatus.intro.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:calcination_oven"
   },
+  "id": "theurgy:apparatus/intro",
   "name": "book.theurgy.the_hermetica.apparatus.intro.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.intro.intro.text",
-      "title": "book.theurgy.the_hermetica.apparatus.intro.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.intro.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.intro.further_reading.text",
-      "title": "book.theurgy.the_hermetica.apparatus.intro.further_reading.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.intro.further_reading.title"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 0,
   "x": -1,
   "y": -1

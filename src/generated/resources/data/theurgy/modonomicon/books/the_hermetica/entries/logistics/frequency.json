@@ -1,71 +1,64 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "logistics",
+  "category": "theurgy:logistics",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:logistics/logistics_network"
+  },
   "description": "book.theurgy.the_hermetica.logistics.frequency.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:mercurial_wand"
   },
+  "id": "theurgy:logistics/frequency",
   "name": "book.theurgy.the_hermetica.logistics.frequency.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.frequency.intro.text",
-      "title": "book.theurgy.the_hermetica.logistics.frequency.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.frequency.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.frequency.subnetworks.text",
-      "title": "book.theurgy.the_hermetica.logistics.frequency.subnetworks.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.frequency.subnetworks.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.frequency.select.text",
-      "title": "book.theurgy.the_hermetica.logistics.frequency.select.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.frequency.select.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.frequency.set.text",
-      "title": "book.theurgy.the_hermetica.logistics.frequency.set.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.frequency.set.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "logistics/logistics_network",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:logistics/logistics_network"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 14,
   "x": 11,
   "y": -1

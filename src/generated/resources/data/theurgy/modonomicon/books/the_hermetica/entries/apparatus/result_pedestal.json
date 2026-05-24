@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "apparatus",
+  "category": "theurgy:apparatus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:apparatus/reformation_array"
+  },
   "description": "book.theurgy.the_hermetica.apparatus.result_pedestal.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:reformation_source_pedestal"
   },
+  "id": "theurgy:apparatus/result_pedestal",
   "name": "book.theurgy.the_hermetica.apparatus.result_pedestal.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,58 +28,44 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.result_pedestal.structure.text",
-      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.structure.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.structure.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.result_pedestal.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.usage.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.result_pedestal.visuals.text",
-      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.visuals.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.visuals.title"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/reformation_result_pedestal",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "theurgy:crafting/shaped/reformation_result_pedestal"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "apparatus/reformation_array",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:apparatus/reformation_array"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 21,
   "x": 7,
   "y": -5

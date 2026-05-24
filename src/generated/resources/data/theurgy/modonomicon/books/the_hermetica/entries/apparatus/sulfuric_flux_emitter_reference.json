@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "apparatus",
+  "category": "theurgy:apparatus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:apparatus/reformation_array"
+  },
   "description": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter_reference.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:sulfuric_flux_emitter"
   },
+  "id": "theurgy:apparatus/sulfuric_flux_emitter_reference",
   "name": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter_reference.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -25,13 +29,9 @@
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "apparatus/reformation_array",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:apparatus/reformation_array"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 18,
   "x": 7,
   "y": -3

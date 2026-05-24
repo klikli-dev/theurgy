@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/about_mod"
+  },
   "description": "book.theurgy.the_hermetica.getting_started.about_divination_rods.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:divination_rod_t1"
   },
+  "id": "theurgy:getting_started/about_divination_rods",
   "name": "book.theurgy.the_hermetica.getting_started.about_divination_rods.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,58 +28,46 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.intro2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.intro2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.intro2.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.sulfur_attuned_rods.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.sulfur_attuned_rods.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.sulfur_attuned_rods.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage2.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/about_mod",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/about_mod"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 3,
   "x": -1,
   "y": -8

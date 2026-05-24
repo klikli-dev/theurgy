@@ -1,85 +1,81 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
-  "description": "book.theurgy.the_hermetica.getting_started.incubation.description",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "theurgy:textures/gui/book/ingot_x3.png",
-    "width": 16
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "theurgy:getting_started/create_mercury"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "theurgy:getting_started/create_salt"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "theurgy:getting_started/create_sulfur"
+      }
+    ]
   },
+  "description": "book.theurgy.the_hermetica.getting_started.incubation.description",
+  "icon": "theurgy:textures/gui/book/ingot_x3.png",
+  "id": "theurgy:getting_started/incubation",
   "name": "book.theurgy.the_hermetica.getting_started.incubation.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.incubation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.incubation.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.incubation.step1.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation.step1.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.incubation.step1.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.incubation.step2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation.step2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.incubation.step2.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.incubation.step3.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation.step3.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.incubation.step3.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/create_mercury",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/create_mercury"
     },
     {
-      "draw_arrow": true,
-      "entry": "getting_started/create_salt",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/create_salt"
     },
     {
-      "draw_arrow": true,
-      "entry": "getting_started/create_sulfur",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/create_sulfur"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 22,
   "x": -3,
   "y": 8

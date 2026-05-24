@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "logistics",
+  "category": "theurgy:logistics",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:logistics/frequency"
+  },
   "description": "book.theurgy.the_hermetica.logistics.capability_probe.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:logistics_capability_probe"
   },
+  "id": "theurgy:logistics/capability_probe",
   "name": "book.theurgy.the_hermetica.logistics.capability_probe.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,58 +28,44 @@
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_capability_probe",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_capability_probe"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.capability_probe.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.capability_probe.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.capability_probe.usage.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.capability_probe.how_it_works.text",
-      "title": "book.theurgy.the_hermetica.logistics.capability_probe.how_it_works.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.capability_probe.how_it_works.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.logistics.capability_probe.inspection.text",
-      "title": "book.theurgy.the_hermetica.logistics.capability_probe.inspection.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.logistics.capability_probe.inspection.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "logistics/frequency",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:logistics/frequency"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 16,
   "x": 13,
   "y": 1

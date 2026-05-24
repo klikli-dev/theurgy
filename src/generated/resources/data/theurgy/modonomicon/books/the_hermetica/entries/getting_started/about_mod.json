@@ -1,82 +1,73 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/intro"
+  },
   "description": "book.theurgy.the_hermetica.getting_started.about_mod.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:reformation_result_pedestal"
   },
+  "id": "theurgy:getting_started/about_mod",
   "name": "book.theurgy.the_hermetica.getting_started.about_mod.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.about.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_mod.about.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_mod.about.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.about2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_mod.about2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_mod.about2.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.about3.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_mod.about3.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_mod.about3.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.features.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_mod.features.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_mod.features.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.features2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.about_mod.features2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.about_mod.features2.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/intro",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/intro"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 1,
   "x": -5,
   "y": -4

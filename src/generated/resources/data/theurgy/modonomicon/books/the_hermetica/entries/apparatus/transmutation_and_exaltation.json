@@ -1,65 +1,56 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/circle_gray",
     "width": 26
   },
-  "category": "apparatus",
+  "category": "theurgy:apparatus",
   "condition": {
     "type": "modonomicon:true"
   },
   "description": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.description",
-  "hide_while_locked": false,
   "icon": {
     "height": 64,
     "texture": "theurgy:textures/gui/book/convert_niter.png",
     "width": 64
   },
+  "id": "theurgy:apparatus/transmutation_and_exaltation",
   "name": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.about.text",
-      "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.about.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.about.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.transmutation.text",
-      "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.transmutation.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.transmutation.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.exaltation.text",
-      "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.exaltation.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.exaltation.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "apparatus/intro",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:apparatus/intro"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 22,
   "x": 5,
   "y": 3

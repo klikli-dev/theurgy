@@ -1,31 +1,33 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/ore_refining"
+  },
   "description": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:distiller"
   },
+  "id": "theurgy:getting_started/needed_apparatus_spagyrics",
   "name": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.intro.title"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -35,7 +37,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -45,7 +46,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -55,7 +55,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -65,7 +64,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -75,7 +73,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -85,7 +82,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -95,36 +91,28 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps.text",
-      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps2.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps2.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/ore_refining",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/ore_refining"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 14,
   "x": -3,
   "y": 2

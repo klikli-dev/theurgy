@@ -1,49 +1,46 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/niter_to_niter_reformation"
+  },
   "description": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:alchemical_sulfur_iron"
   },
+  "id": "theurgy:getting_started/niter_to_sulfur_reformation",
   "name": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.instructions.text",
-      "title": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.instructions.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.instructions.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/niter_to_niter_reformation",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/niter_to_niter_reformation"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 40,
   "x": 15,
   "y": 4

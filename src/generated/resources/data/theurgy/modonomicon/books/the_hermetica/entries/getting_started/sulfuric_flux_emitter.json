@@ -1,66 +1,67 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "theurgy:getting_started/source_pedestal"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "theurgy:getting_started/target_pedestal"
+      }
+    ]
+  },
   "description": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:sulfuric_flux_emitter"
   },
+  "id": "theurgy:getting_started/sulfuric_flux_emitter",
   "name": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.target.text",
-      "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.target.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.target.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.visuals.text",
-      "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.visuals.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.visuals.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.problems.text",
-      "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.problems.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.problems.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/source_pedestal",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/source_pedestal"
     },
     {
-      "draw_arrow": true,
-      "entry": "getting_started/target_pedestal",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:getting_started/target_pedestal"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 31,
   "x": 13,
   "y": -2

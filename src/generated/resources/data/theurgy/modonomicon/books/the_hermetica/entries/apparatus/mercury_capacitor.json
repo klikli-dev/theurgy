@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "apparatus",
+  "category": "theurgy:apparatus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:apparatus/mercury_catalyst"
+  },
   "description": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "theurgy:mercury_capacitor"
   },
+  "id": "theurgy:apparatus/mercury_capacitor",
   "name": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,58 +28,44 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.usage.title"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/mercury_capacitor",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "theurgy:crafting/shaped/mercury_capacitor"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.sides.text",
-      "title": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.sides.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.sides.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.wand.text",
-      "title": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.wand.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.wand.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "apparatus/mercury_catalyst",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "theurgy:apparatus/mercury_catalyst"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 14,
   "x": -7,
   "y": 1

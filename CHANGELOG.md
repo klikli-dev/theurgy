@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.98.0] - 2026-05-24
+### :sparkles: New Features
+- [`aeb542a`](https://github.com/klikli-dev/theurgy/commit/aeb542aaaf2e6569806dd6169cb9ad35671c61d1) - update to modo codecs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`8463e9f`](https://github.com/klikli-dev/theurgy/commit/8463e9fb75125b2d54af114472e92e0085bd679d) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0630301`](https://github.com/klikli-dev/theurgy/commit/0630301e7f8c6b20e39a44be6f5b358867aaa1f5) - update to latest modo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.97.0] - 2026-05-19
 ### :wrench: Chores
 - [`9c0d4cf`](https://github.com/klikli-dev/theurgy/commit/9c0d4cf0ce52e370a1a7b30218d8daa2e2b232aa) - bump mpl to latest *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1580,3 +1589,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.95.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.94.0...release/v26.1.2-1.95.0
 [release/v26.1.2-1.96.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.95.0...release/v26.1.2-1.96.0
 [release/v26.1.2-1.97.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.96.0...release/v26.1.2-1.97.0
+[release/v26.1.2-1.98.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.97.0...release/v26.1.2-1.98.0

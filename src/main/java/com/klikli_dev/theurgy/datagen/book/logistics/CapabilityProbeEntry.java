@@ -13,6 +13,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -32,8 +33,9 @@ public class CapabilityProbeEntry extends EntryProvider {
                 The Logistics Capability Probe marks one side of a block for remote access through the Mercurial Logistics network.
                 \\
                 \\
-                Its main purpose is to turn that one used-up side into many more usable sides by feeding one or more [Logistics Capability Proxies](entry://logistics/capability_proxy).
-                """
+                Its main purpose is to turn that one used-up side into many more usable sides by feeding one or more {0}.
+                """,
+                this.entryLink("Logistics Capability Proxies", LogisticsCategory.CATEGORY_ID, CapabilityProxyEntry.ENTRY_ID)
         );
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

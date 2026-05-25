@@ -13,6 +13,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -44,11 +45,12 @@ public class CapabilityProxyEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-                Place the proxy anywhere convenient, then connect it with Mercurial Wires to one or more [Logistics Capability Probes](entry://logistics/capability_probe).
+                Place the proxy anywhere convenient, then connect it with Mercurial Wires to one or more {0}.
                 \\
                 \\
                 The proxy does not need to touch the target block. It only needs to share a network with the probe.
-                """
+                """,
+                this.entryLink("Logistics Capability Probes", LogisticsCategory.CATEGORY_ID, CapabilityProbeEntry.ENTRY_ID)
         );
 
         this.page("how_it_works", () -> BookTextPageModel.create()

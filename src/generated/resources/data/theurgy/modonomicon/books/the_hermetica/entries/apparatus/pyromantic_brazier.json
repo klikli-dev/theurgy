@@ -16,33 +16,6 @@
   },
   "id": "theurgy:apparatus/pyromantic_brazier",
   "name": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:pyromantic_brazier",
-      "text": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.usage.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/pyromantic_brazier"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/spagyrics"

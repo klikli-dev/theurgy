@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "theurgy:crafting/shapeless/sal_ammoniac_crystal_from_sal_ammoniac_bucket",
+  "sort_number": 6,
+  "text": "book.theurgy.the_hermetica.getting_started.create_solvent.recipe.text"
+}

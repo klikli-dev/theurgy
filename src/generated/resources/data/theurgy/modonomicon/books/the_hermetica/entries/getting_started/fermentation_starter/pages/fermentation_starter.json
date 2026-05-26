@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fermentation_starter",
+  "item": "theurgy:fermentation_starter",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.getting_started.fermentation_starter.fermentation_starter.text",
+  "title": ""
+}

@@ -16,42 +16,6 @@
   },
   "id": "theurgy:logistics/logistics_nexus",
   "name": "book.theurgy.the_hermetica.logistics.logistics_nexus.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:logistics_nexus",
-      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.nexus.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_nexus"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.pairing.text",
-      "title": "book.theurgy.the_hermetica.logistics.logistics_nexus.pairing.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.logistics_nexus.usage.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:logistics/connection_node"

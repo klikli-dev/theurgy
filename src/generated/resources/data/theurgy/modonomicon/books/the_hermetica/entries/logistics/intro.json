@@ -15,26 +15,6 @@
   },
   "id": "theurgy:logistics/intro",
   "name": "book.theurgy.the_hermetica.logistics.intro.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.intro.intro.text",
-      "title": "book.theurgy.the_hermetica.logistics.intro.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.intro.intro2.text",
-      "title": "book.theurgy.the_hermetica.logistics.intro.intro2.title"
-    }
-  ],
   "sort_number": 0,
   "x": -1,
   "y": -1

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "minecraft:iron_ingot",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.intro.text",
+  "title": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.intro.title"
+}

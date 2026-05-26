@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "process2",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process2.text",
+  "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process2.title"
+}

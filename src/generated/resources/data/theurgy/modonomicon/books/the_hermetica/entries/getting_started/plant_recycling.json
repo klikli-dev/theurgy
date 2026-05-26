@@ -16,49 +16,6 @@
   },
   "id": "theurgy:getting_started/plant_recycling",
   "name": "book.theurgy.the_hermetica.getting_started.plant_recycling.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:alchemical_salt_mineral",
-      "text": "book.theurgy.the_hermetica.getting_started.plant_recycling.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.plant_recycling.refining.text",
-      "title": "book.theurgy.the_hermetica.getting_started.plant_recycling.refining.title"
-    },
-    {
-      "type": "theurgy:calcination_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:calcination/alchemical_salt_plant_from_crops",
-      "recipe_id_2": "theurgy:calcination/alchemical_salt_creature_from_plant_salt"
-    },
-    {
-      "type": "theurgy:calcination_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:calcination/alchemical_salt_plant_from_logs",
-      "recipe_id_2": "theurgy:calcination/alchemical_salt_plant_from_leaves"
-    },
-    {
-      "type": "theurgy:calcination_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:calcination/alchemical_salt_plant_from_saplings"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/strata_recycling"

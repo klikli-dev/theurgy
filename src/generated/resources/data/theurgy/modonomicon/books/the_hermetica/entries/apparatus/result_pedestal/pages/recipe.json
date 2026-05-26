@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "theurgy:crafting/shaped/reformation_result_pedestal",
+  "sort_number": 4
+}

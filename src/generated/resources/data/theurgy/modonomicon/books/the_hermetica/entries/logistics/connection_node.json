@@ -16,54 +16,6 @@
   },
   "id": "theurgy:logistics/connection_node",
   "name": "book.theurgy.the_hermetica.logistics.connection_node.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:logistics_connector_node",
-      "text": "book.theurgy.the_hermetica.logistics.connection_node.node.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_connector_node"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.connection_node.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.connection_node.usage.title"
-    },
-    {
-      "type": "modonomicon:image",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "theurgy:textures/gui/book/connection_node_example.png"
-      ],
-      "text": "",
-      "title": "book.theurgy.the_hermetica.logistics.connection_node.image.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.text",
-      "title": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:logistics/logistics_network"

@@ -16,17 +16,6 @@
   },
   "id": "theurgy:getting_started/incubation_after_reformation",
   "name": "book.theurgy.the_hermetica.getting_started.incubation_after_reformation.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "minecraft:quartz",
-      "text": "book.theurgy.the_hermetica.getting_started.incubation_after_reformation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation_after_reformation.intro.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/result_pedestal"

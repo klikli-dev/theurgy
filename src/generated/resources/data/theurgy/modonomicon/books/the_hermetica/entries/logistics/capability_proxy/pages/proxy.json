@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "proxy",
+  "item": "theurgy:logistics_capability_proxy",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.logistics.capability_proxy.proxy.text",
+  "title": ""
+}

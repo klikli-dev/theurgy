@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "theurgy:caloric_flux_emitter",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.intro.text",
+  "title": ""
+}

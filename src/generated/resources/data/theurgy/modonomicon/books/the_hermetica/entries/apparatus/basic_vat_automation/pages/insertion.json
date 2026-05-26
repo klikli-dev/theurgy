@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "insertion",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.text",
+  "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.title"
+}

@@ -16,43 +16,6 @@
   },
   "id": "theurgy:apparatus/caloric_flux_emitter",
   "name": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:caloric_flux_emitter",
-      "text": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.redstone.text",
-      "title": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.redstone.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/caloric_flux_emitter_from_campfire",
-      "recipe_id_2": "theurgy:crafting/shaped/caloric_flux_emitter_from_lava_bucket"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/mercury_flux"

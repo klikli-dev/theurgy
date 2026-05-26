@@ -15,26 +15,6 @@
   },
   "id": "theurgy:getting_started/intro",
   "name": "book.theurgy.the_hermetica.getting_started.intro.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.intro.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.intro.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.intro.help.text",
-      "title": "book.theurgy.the_hermetica.getting_started.intro.help.title"
-    }
-  ],
   "sort_number": 0,
   "x": -7,
   "y": -4

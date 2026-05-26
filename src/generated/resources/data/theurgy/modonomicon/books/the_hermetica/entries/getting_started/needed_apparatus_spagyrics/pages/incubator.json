@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "incubator",
+  "item": "theurgy:incubator",
+  "sort_number": 7,
+  "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.incubator.text",
+  "title": ""
+}

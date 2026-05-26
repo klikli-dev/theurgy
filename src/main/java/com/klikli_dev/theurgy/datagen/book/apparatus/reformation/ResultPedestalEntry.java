@@ -29,7 +29,7 @@ public class ResultPedestalEntry extends EntryProvider {
         this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()))
                 .withText(this.context().pageText()));
-        this.add(this.context().pageText(),
+        this.pageText(
                 """
                         This pedestal will be filled with the Sulfur resulting from the reformation process.
                         """
@@ -38,8 +38,8 @@ public class ResultPedestalEntry extends EntryProvider {
         this.page("structure", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Structure");
-        this.add(this.context().pageText(),
+        this.pageTitle("Structure");
+        this.pageText(
                 """
                         Reformation recipes have only one output. Correspondingly, your reformation array needs only one result pedestal. Additional pedestals will not be linked to the array.
                         """
@@ -49,8 +49,8 @@ public class ResultPedestalEntry extends EntryProvider {
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Usage");
-        this.add(this.context().pageText(),
+        this.pageTitle("Usage");
+        this.pageText(
                 """
                         Place the pedestal on the ground.\\
                         After the reformation is complete, the pedestal will be filled with the resulting sulfur.\\
@@ -61,8 +61,8 @@ public class ResultPedestalEntry extends EntryProvider {
         this.page("visuals", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Visuals");
-        this.add(this.context().pageText(),
+        this.pageTitle("Visuals");
+        this.pageText(
                 """
                         A glowing orb will show above the pedestal if it contains sulfur.
                         """

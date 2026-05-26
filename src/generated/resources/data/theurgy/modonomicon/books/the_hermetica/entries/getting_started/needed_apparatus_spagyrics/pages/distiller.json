@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "distiller",
+  "item": "theurgy:distiller",
+  "sort_number": 6,
+  "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.distiller.text",
+  "title": ""
+}

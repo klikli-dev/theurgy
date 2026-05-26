@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_abundant",
+  "recipe_id_1": "theurgy:crafting/shaped/sulfur_attuned_divination_rod_abundant",
+  "sort_number": 2,
+  "text": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.recipe_abundant.text"
+}

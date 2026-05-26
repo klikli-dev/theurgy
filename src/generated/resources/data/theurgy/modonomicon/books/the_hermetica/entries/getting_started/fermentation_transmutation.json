@@ -16,62 +16,6 @@
   },
   "id": "theurgy:getting_started/fermentation_transmutation",
   "name": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.intro.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:alchemical_niter_gems_common",
-      "text": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.gems.text",
-      "title": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.gems.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:alchemical_niter_metals_common",
-      "text": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.metals.text",
-      "title": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.metals.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.start.text",
-      "title": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.start.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.bulk.text",
-      "title": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.bulk.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.bulk2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.bulk2.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/fermentation_vat"

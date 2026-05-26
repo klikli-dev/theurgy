@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "working",
+  "images": [
+    "theurgy:textures/gui/book/incubator_working.png"
+  ],
+  "sort_number": 7,
+  "text": "book.theurgy.the_hermetica.apparatus.incubator.working.text",
+  "title": "book.theurgy.the_hermetica.apparatus.incubator.working.title"
+}

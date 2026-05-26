@@ -16,60 +16,6 @@
   },
   "id": "theurgy:logistics/capability_proxy",
   "name": "book.theurgy.the_hermetica.logistics.capability_proxy.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:logistics_capability_proxy",
-      "text": "book.theurgy.the_hermetica.logistics.capability_proxy.proxy.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_capability_proxy"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.capability_proxy.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.capability_proxy.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.capability_proxy.how_it_works.text",
-      "title": "book.theurgy.the_hermetica.logistics.capability_proxy.how_it_works.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.capability_proxy.multiple_probes.text",
-      "title": "book.theurgy.the_hermetica.logistics.capability_proxy.multiple_probes.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.capability_proxy.inspection.text",
-      "title": "book.theurgy.the_hermetica.logistics.capability_proxy.inspection.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:logistics/capability_probe"

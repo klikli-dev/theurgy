@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "extractor",
+  "item": "theurgy:logistics_item_extractor",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.logistics.item_extractor.extractor.text",
+  "title": ""
+}

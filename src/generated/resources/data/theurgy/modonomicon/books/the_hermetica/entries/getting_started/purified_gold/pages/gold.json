@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "gold",
+  "item": "theurgy:purified_gold",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.getting_started.purified_gold.gold.text",
+  "title": ""
+}

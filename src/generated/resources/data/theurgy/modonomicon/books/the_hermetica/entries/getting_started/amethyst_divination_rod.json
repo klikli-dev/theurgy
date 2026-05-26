@@ -25,25 +25,6 @@
   },
   "id": "theurgy:getting_started/amethyst_divination_rod",
   "name": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:amethyst_divination_rod",
-      "text": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/amethyst_divination_rod",
-      "text": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.recipe.text"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/t1_divination_rod"

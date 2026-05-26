@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "multiblock",
+  "multiblock_id": "theurgy:placement/liquefaction_cauldron",
+  "multiblock_name": "",
+  "sort_number": 1,
+  "text": ""
+}

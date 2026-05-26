@@ -16,53 +16,6 @@
   },
   "id": "theurgy:getting_started/create_sulfur",
   "name": "book.theurgy.the_hermetica.getting_started.create_sulfur.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:alchemical_sulfur_iron",
-      "text": "book.theurgy.the_hermetica.getting_started.create_sulfur.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_sulfur.step1.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_sulfur.step1.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_sulfur.step2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_sulfur.step2.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_sulfur.step3.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_sulfur.step3.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_sulfur.step4.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_sulfur.step4.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/create_solvent"

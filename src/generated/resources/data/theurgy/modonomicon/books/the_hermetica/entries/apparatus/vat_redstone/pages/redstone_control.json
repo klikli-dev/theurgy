@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "redstone_control",
+  "show_title_separator": true,
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_control.text",
+  "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_control.title"
+}

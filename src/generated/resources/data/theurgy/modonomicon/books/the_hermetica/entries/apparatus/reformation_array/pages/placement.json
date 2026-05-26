@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "placement",
+  "multiblock_id": "theurgy:placement/reformation_array",
+  "multiblock_name": "",
+  "show_visualize_button": true,
+  "sort_number": 5,
+  "text": "book.theurgy.the_hermetica.apparatus.reformation_array.placement.text"
+}

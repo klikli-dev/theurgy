@@ -16,54 +16,6 @@
   },
   "id": "theurgy:apparatus/calcination_oven",
   "name": "book.theurgy.the_hermetica.apparatus.calcination_oven.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:calcination_oven",
-      "text": "book.theurgy.the_hermetica.apparatus.calcination_oven.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "theurgy:placement/calcination_oven",
-      "multiblock_name": "",
-      "text": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.calcination_oven.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.calcination_oven.usage.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/calcination_oven"
-    },
-    {
-      "type": "modonomicon:image",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "theurgy:textures/gui/book/calcination_oven_working.png"
-      ],
-      "text": "book.theurgy.the_hermetica.apparatus.calcination_oven.working.text",
-      "title": "book.theurgy.the_hermetica.apparatus.calcination_oven.working.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/spagyrics"

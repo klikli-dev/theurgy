@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "further_reading",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.apparatus.spagyrics.further_reading.text",
+  "title": "book.theurgy.the_hermetica.apparatus.spagyrics.further_reading.title"
+}

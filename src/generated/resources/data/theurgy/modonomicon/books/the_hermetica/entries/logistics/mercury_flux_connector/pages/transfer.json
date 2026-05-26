@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "transfer",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.transfer.text",
+  "title": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.transfer.title"
+}

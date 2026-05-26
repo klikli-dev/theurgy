@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "nexus",
+  "item": "theurgy:logistics_nexus",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.logistics.logistics_nexus.nexus.text",
+  "title": ""
+}

@@ -29,7 +29,7 @@ public class DigestionVatEntry extends EntryProvider {
         this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIGESTION_VAT.get()))
                 .withText(this.context().pageText()));
-        this.add(this.context().pageText(),
+        this.pageText(
                 """
                         Digestion vats are required for Alchemical Digestion, whereby Alchemical Niters can be converted into higher or lower tiers.\\
                         This is required to convert objects of different value into each other, such as Iron into Gold - also known as [#]($PURPLE)Exaltation[#]().
@@ -42,8 +42,8 @@ public class DigestionVatEntry extends EntryProvider {
         this.page("process", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Process");
-        this.add(this.context().pageText(),
+        this.pageTitle("Process");
+        this.pageText(
                 """
                         Unlike other apparatus the digestion vat only works when closed.\\
                         Shift-right-click with an empty hand to open or close the vat.\\
@@ -57,8 +57,8 @@ public class DigestionVatEntry extends EntryProvider {
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Usage");
-        this.add(this.context().pageText(),
+        this.pageTitle("Usage");
+        this.pageText(
                 """
                         Place the vat on the ground.\\
                         Then right-click it with the ingredients (usually an Alchemical Niter and {0})\\
@@ -71,8 +71,8 @@ public class DigestionVatEntry extends EntryProvider {
         this.page("usage2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Usage");
-        this.add(this.context().pageText(),
+        this.pageTitle("Usage");
+        this.pageText(
                 """
                         Both items and fluids can also be piped in and out of the vat, or hoppers can be used.
                         """

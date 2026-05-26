@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "structure",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.apparatus.target_pedestal.structure.text",
+  "title": "book.theurgy.the_hermetica.apparatus.target_pedestal.structure.title"
+}

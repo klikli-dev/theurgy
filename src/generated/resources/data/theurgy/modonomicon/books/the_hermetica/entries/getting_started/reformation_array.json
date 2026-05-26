@@ -16,62 +16,6 @@
   },
   "id": "theurgy:getting_started/reformation_array",
   "name": "book.theurgy.the_hermetica.getting_started.reformation_array.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.reformation_array.intro.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:reformation_target_pedestal",
-      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.target.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:reformation_result_pedestal",
-      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.result.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:reformation_source_pedestal",
-      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.source.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:sulfuric_flux_emitter",
-      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.emitter.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.next_steps.text",
-      "title": "book.theurgy.the_hermetica.getting_started.reformation_array.next_steps.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/convert_within_type_and_tier"

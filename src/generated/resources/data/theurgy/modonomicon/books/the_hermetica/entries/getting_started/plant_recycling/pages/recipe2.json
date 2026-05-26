@@ -1,0 +1,10 @@
+{
+  "type": "theurgy:calcination_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe2",
+  "recipe_id_1": "theurgy:calcination/alchemical_salt_plant_from_logs",
+  "recipe_id_2": "theurgy:calcination/alchemical_salt_plant_from_leaves",
+  "sort_number": 3
+}

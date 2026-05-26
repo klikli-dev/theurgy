@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "features2",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.theurgy.the_hermetica.getting_started.about_mod.features2.text",
+  "title": "book.theurgy.the_hermetica.getting_started.about_mod.features2.title"
+}

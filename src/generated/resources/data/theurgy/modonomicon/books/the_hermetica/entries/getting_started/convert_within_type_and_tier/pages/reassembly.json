@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "reassembly",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.reassembly.text",
+  "title": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.reassembly.title"
+}

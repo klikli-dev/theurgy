@@ -29,7 +29,7 @@ public class TargetPedestalEntry extends EntryProvider {
         this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()))
                 .withText(this.context().pageText()));
-        this.add(this.context().pageText(),
+        this.pageText(
                 """
                         Reformation requires a target sulfur that the source will be transformed into, effectively replicating the target.
                         \\
@@ -40,8 +40,8 @@ public class TargetPedestalEntry extends EntryProvider {
         this.page("structure", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Structure");
-        this.add(this.context().pageText(),
+        this.pageTitle("Structure");
+        this.pageText(
                 """
                         Reformation recipes have only one target sulfur. Correspondingly, your reformation array needs only one target pedestal. Additional pedestals will not be linked to the array.
                         """
@@ -50,8 +50,8 @@ public class TargetPedestalEntry extends EntryProvider {
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Usage");
-        this.add(this.context().pageText(),
+        this.pageTitle("Usage");
+        this.pageText(
                 """
                         Place the pedestal on the ground.\\
                         Then right-click it with the sulfur you want more of.

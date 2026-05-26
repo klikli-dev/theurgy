@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "sal_ammoniac_accumulator",
+  "item": "theurgy:sal_ammoniac_accumulator",
+  "sort_number": 3,
+  "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.sal_ammoniac_accumulator.text",
+  "title": ""
+}

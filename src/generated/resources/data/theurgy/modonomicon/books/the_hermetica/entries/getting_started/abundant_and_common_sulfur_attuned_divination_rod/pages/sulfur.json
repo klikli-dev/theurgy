@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "sulfur",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.sulfur.text",
+  "title": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.sulfur.title"
+}

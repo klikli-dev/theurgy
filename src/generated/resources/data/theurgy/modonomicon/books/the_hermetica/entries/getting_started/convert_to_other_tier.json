@@ -15,62 +15,6 @@
   "icon": "theurgy:textures/gui/book/convert_tiers.png",
   "id": "theurgy:getting_started/convert_to_other_tier",
   "name": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro2.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.digestion.text",
-      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.digestion.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process.text",
-      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process2.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.instructions.text",
-      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.instructions.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/convert_to_other_type"

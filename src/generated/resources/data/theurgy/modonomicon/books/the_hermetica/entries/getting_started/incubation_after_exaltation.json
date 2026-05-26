@@ -16,26 +16,6 @@
   },
   "id": "theurgy:getting_started/incubation_after_exaltation",
   "name": "book.theurgy.the_hermetica.getting_started.incubation_after_exaltation.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "minecraft:gold_ingot",
-      "text": "book.theurgy.the_hermetica.getting_started.incubation_after_exaltation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation_after_exaltation.intro.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "minecraft:gold_ingot",
-      "text": "book.theurgy.the_hermetica.getting_started.incubation_after_exaltation.outro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation_after_exaltation.outro.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/niter_to_sulfur_reformation_exaltation"

@@ -51,8 +51,8 @@ public class ReformationArrayEntry extends EntryProvider {
         this.page("structure", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Structure");
-        this.add(this.context().pageText(),
+        this.pageTitle("Structure");
+        this.pageText(
                 """
                         The array has no fixed structure, you simply need to place a {0}, at least one {1}, and a {2} within a few blocks of each other.
                         """,
@@ -66,8 +66,8 @@ public class ReformationArrayEntry extends EntryProvider {
         this.page("structure2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Structure");
-        this.add(this.context().pageText(),
+        this.pageTitle("Structure");
+        this.pageText(
                 """
                         To set up the array, right-click each of the pedestals with the {3} to link it. Finally place the {3} near the pedestals and supply it with mercury flux, e.g. by attaching it to a {4}.
                         """,
@@ -82,8 +82,8 @@ public class ReformationArrayEntry extends EntryProvider {
         this.page("functions", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Functions");
-        this.add(this.context().pageText(),
+        this.pageTitle("Functions");
+        this.pageText(
                 """
                         - {0} will hold the sulfur you want to create more of.
                         - {1} will hold the input sulfur you want to use up. Multiple may be required.
@@ -97,7 +97,7 @@ public class ReformationArrayEntry extends EntryProvider {
         this.page("placement", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Theurgy.loc("placement/reformation_array"))
                 .withText(this.context().pageText()));
-        this.add(this.context().pageText(),
+        this.pageText(
                 """
                         An example setup for a Reformation Array. Note that other placements are possible.
                         """
@@ -106,8 +106,8 @@ public class ReformationArrayEntry extends EntryProvider {
         this.page("visuals", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Visuals");
-        this.add(this.context().pageText(),
+        this.pageTitle("Visuals");
+        this.pageText(
                 """
                         A glowing orb will show above a pedestal if it contains sulfur.\\
                         Flux particles will fly from the Emitter to the Pedestals if the array is active.

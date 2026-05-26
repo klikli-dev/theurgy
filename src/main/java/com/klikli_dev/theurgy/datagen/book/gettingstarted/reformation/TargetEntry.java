@@ -25,8 +25,8 @@ public class TargetEntry extends EntryProvider {
         this.page("target", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "The Target");
-        this.add(this.context().pageText(),
+        this.pageTitle("The Target");
+        this.pageText(
                 """
                         Place (= [#]($INPUT)right-click[#]()) at least one {0} into the target pedestal.\\
                         A glowing orb should appear above it.

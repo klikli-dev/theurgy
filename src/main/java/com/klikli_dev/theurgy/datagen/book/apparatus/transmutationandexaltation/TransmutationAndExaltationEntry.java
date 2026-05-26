@@ -38,8 +38,8 @@ public class TransmutationAndExaltationEntry extends EntryProvider {
         this.page("transmutation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Transmutation");
-        this.add(this.context().pageText(),
+        this.pageTitle("Transmutation");
+        this.pageText(
                 """
                         Transmutation requires two apparatus: a Fermentation Vat and a Reformation Array.
                         \\
@@ -52,8 +52,8 @@ public class TransmutationAndExaltationEntry extends EntryProvider {
         this.page("exaltation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Exaltation");
-        this.add(this.context().pageText(),
+        this.pageTitle("Exaltation");
+        this.pageText(
                 """
                         Exaltation similarly requires two apparatus: a Digestion Vat and a Reformation Array.
                         \\

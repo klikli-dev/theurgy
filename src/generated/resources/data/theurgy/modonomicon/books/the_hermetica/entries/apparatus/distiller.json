@@ -16,54 +16,6 @@
   },
   "id": "theurgy:apparatus/distiller",
   "name": "book.theurgy.the_hermetica.apparatus.distiller.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:distiller",
-      "text": "book.theurgy.the_hermetica.apparatus.distiller.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "theurgy:placement/distiller",
-      "multiblock_name": "",
-      "text": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.distiller.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.distiller.usage.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/distiller"
-    },
-    {
-      "type": "modonomicon:image",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "theurgy:textures/gui/book/distiller_working.png"
-      ],
-      "text": "book.theurgy.the_hermetica.apparatus.distiller.working.text",
-      "title": "book.theurgy.the_hermetica.apparatus.distiller.working.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/spagyrics"

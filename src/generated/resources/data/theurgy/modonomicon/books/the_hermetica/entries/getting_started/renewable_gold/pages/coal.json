@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "coal",
+  "item": "minecraft:charcoal",
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.getting_started.renewable_gold.coal.text",
+  "title": "book.theurgy.the_hermetica.getting_started.renewable_gold.coal.title"
+}

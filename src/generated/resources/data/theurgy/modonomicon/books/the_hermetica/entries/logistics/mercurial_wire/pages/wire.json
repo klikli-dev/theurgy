@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "wire",
+  "item": "theurgy:copper_wire",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.logistics.mercurial_wire.wire.text",
+  "title": ""
+}

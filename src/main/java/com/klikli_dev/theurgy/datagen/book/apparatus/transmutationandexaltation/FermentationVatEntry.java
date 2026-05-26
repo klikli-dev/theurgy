@@ -29,7 +29,7 @@ public class FermentationVatEntry extends EntryProvider {
         this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.FERMENTATION_VAT.get()))
                 .withText(this.context().pageText()));
-        this.add(this.context().pageText(),
+        this.pageText(
                 """
                         Fermentation vats enable a process called Alchemical fermentation. This allows converting Alchemical Sulfur into Alchemical Niter, enabling [#]($PURPLE)Transmutation[#]().
                         """
@@ -40,8 +40,8 @@ public class FermentationVatEntry extends EntryProvider {
         this.page("uses", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Uses");
-        this.add(this.context().pageText(),
+        this.pageTitle("Uses");
+        this.pageText(
                 """
                         Fermentation is required to convert objects into other types of objects, such as gems into metals.
                         """
@@ -50,8 +50,8 @@ public class FermentationVatEntry extends EntryProvider {
         this.page("process", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Process");
-        this.add(this.context().pageText(),
+        this.pageTitle("Process");
+        this.pageText(
                 """
                         Unlike other apparatus the fermentation vat only works when closed.\\
                         Shift-right-click with an empty hand to open or close the vat.\\
@@ -65,8 +65,8 @@ public class FermentationVatEntry extends EntryProvider {
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Usage");
-        this.add(this.context().pageText(),
+        this.pageTitle("Usage");
+        this.pageText(
                 """
                         Place the vat on the ground.\\
                         Then right-click it with the ingredients (usually an Alchemical Sulfur and a source of sugar, such as a crop)\\
@@ -78,8 +78,8 @@ public class FermentationVatEntry extends EntryProvider {
         this.page("usage2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Usage");
-        this.add(this.context().pageText(),
+        this.pageTitle("Usage");
+        this.pageText(
                 """
                         Both items and fluids can also be piped in and out of the vat, or hoppers can be used.
                         """

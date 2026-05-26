@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "probe",
+  "item": "theurgy:logistics_capability_probe",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.logistics.capability_probe.probe.text",
+  "title": ""
+}

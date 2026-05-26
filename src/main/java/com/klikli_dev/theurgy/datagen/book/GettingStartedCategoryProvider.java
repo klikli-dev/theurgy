@@ -9,7 +9,23 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.*;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutDivinationRodsEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutModEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.AlchemicalNiterEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.AmethystDivinationRodEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.BasicSulfurAttunedDivinationRodsEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.CaloricFluxEmitterEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.CreditsEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.DiamondDivinationRodEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.GlassDivinationRodEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.IntroEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.IronDivinationRodEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.LogisticsEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.NetheriteDivinationRodEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.PreciousSulfurAttunedDivinationRodsEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.RareSulfurAttunedDivinationRodsEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.ReplicationEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.RenewableGoldEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.ConvertToOtherTierEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.DigestionEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.DigestionVatEntry;
@@ -73,7 +89,33 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var creditsEntry = new CreditsEntry(this).generate('ç');
         creditsEntry.withParent(aboutModEntry);
 
-        this.generateDivinationRodEntries(aboutModEntry);
+        var aboutDivinationRods = new AboutDivinationRodsEntry(this).generate('d');
+        aboutDivinationRods.withParent(aboutModEntry);
+
+        var glassDivinationRod = new GlassDivinationRodEntry(this).generate('ḍ');
+        glassDivinationRod.withParent(aboutDivinationRods);
+
+        var basicSulfurAttunedDivinationRods = new BasicSulfurAttunedDivinationRodsEntry(this).generate('đ');
+        basicSulfurAttunedDivinationRods.withParent(aboutDivinationRods);
+
+        var amethystDivinationRod = new AmethystDivinationRodEntry(this).generate('ḋ');
+        amethystDivinationRod.withParent(glassDivinationRod);
+        amethystDivinationRod.withParent(basicSulfurAttunedDivinationRods);
+
+        var ironDivinationRod = new IronDivinationRodEntry(this).generate('ď');
+        ironDivinationRod.withParent(amethystDivinationRod);
+
+        var diamondDivinationRod = new DiamondDivinationRodEntry(this).generate('ḑ');
+        diamondDivinationRod.withParent(ironDivinationRod);
+
+        var netheriteDivinationRod = new NetheriteDivinationRodEntry(this).generate('ḓ');
+        netheriteDivinationRod.withParent(diamondDivinationRod);
+
+        var rareSulfurAttunedDivinationRods = new RareSulfurAttunedDivinationRodsEntry(this).generate('ɖ');
+        rareSulfurAttunedDivinationRods.withParent(amethystDivinationRod);
+
+        var preciousSulfurAttunedDivinationRods = new PreciousSulfurAttunedDivinationRodsEntry(this).generate('ᶑ');
+        preciousSulfurAttunedDivinationRods.withParent(rareSulfurAttunedDivinationRods);
 
         var spagyrics = this.generateSpagyricsEntries(aboutModEntry); //spagyrics, incubation
 
@@ -233,90 +275,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withParent(createSulfur);
 
         return Pair.of(spagyrics, incubation);
-    }
-
-    protected void generateDivinationRodEntries(BookEntryModel parent) {
-        var rods = new DivinationRodEntryProvider(this.parent(), this.entryMap());
-        var aboutDivinationRods = this.add(rods.aboutDivinationRods('d'));
-        aboutDivinationRods.withParent(parent);
-
-        var t1DivinationRod = this.add(rods.t1DivinationRodEntry('ḍ'));
-        var abundantAndCommonSulfurAttunedDivinationRod = this.add(rods.abundantAndCommonSulfurAttunedDivinationRodEntry('đ'));
-        //TODO: should be child of spagyrics / sulfur
-
-        var amethystDivinationRod = this.add(rods.amethystDivinationRodEntry('ḋ'));
-        var t2DivinationRod = this.add(rods.t2DivinationRodEntry('ď'));
-        var t3DivinationRod = this.add(rods.t3DivinationRodEntry('ḑ'));
-        var t4DivinationRod = this.add(rods.t4DivinationRodEntry('ḓ'));
-        var rareSulfurAttunedDivinationRod = this.add(rods.rareSulfurAttunedDivinationRodEntry('ɖ'));
-        var preciousSulfurAttunedDivinationRod = this.add(rods.preciousSulfurAttunedDivinationRodEntry('ᶑ'));
-
-        t1DivinationRod.withParent(aboutDivinationRods);
-
-        abundantAndCommonSulfurAttunedDivinationRod.withParent(aboutDivinationRods);
-//        abundantAndCommonSulfurAttunedDivinationRod.withCondition(
-//                this.parent().and(
-//                        this.parent().entryReadCondition(aboutDivinationRods),
-//                        this.parent().advancementCondition(this.modLoc("has_liquefaction_cauldron"))
-//                )
-//        );
-
-        amethystDivinationRod.withParent(t1DivinationRod);
-        amethystDivinationRod.withParent(abundantAndCommonSulfurAttunedDivinationRod);
-//        amethystDivinationRod.withCondition(
-//                this.parent().and(
-//                        this.parent().or(
-//                                this.parent().entryReadCondition(t1DivinationRod),
-//                                this.parent().entryReadCondition(abundantAndCommonSulfurAttunedDivinationRod)
-//                        ),
-//                        this.parent().advancementCondition(this.modLoc("has_basic_rod")
-//                        )
-//                )
-//        );
-
-        t2DivinationRod.withParent(amethystDivinationRod);
-//        t2DivinationRod.withCondition(
-//                this.parent().and(
-//                        this.parent().entryReadCondition(amethystDivinationRod),
-//                        this.parent().advancementCondition(this.modLoc("has_amethyst_rod"))
-//                )
-//        );
-
-        t3DivinationRod.withParent(t2DivinationRod);
-//        t3DivinationRod.withCondition(
-//                this.parent().and(
-//                        this.parent().entryReadCondition(t2DivinationRod),
-//                        this.parent().advancementCondition(this.modLoc("has_t2_rod"))
-//                )
-//        );
-
-        t4DivinationRod.withParent(t3DivinationRod);
-//        t4DivinationRod.withCondition(
-//                this.parent().and(
-//                        this.parent().entryReadCondition(t3DivinationRod),
-//                        this.parent().advancementCondition(this.modLoc("has_t3_rod"))
-//                )
-//        );
-
-        rareSulfurAttunedDivinationRod.withParent(amethystDivinationRod);
-//        rareSulfurAttunedDivinationRod.withCondition(
-//                this.parent().and(
-//                        this.parent().entryReadCondition(amethystDivinationRod),
-//                        this.parent().advancementCondition(this.modLoc("has_amethyst_rod"))
-//                )
-//        );
-
-        preciousSulfurAttunedDivinationRod.withParent(rareSulfurAttunedDivinationRod);
-//        preciousSulfurAttunedDivinationRod.withCondition(
-//                this.parent().and(
-//                        this.parent().entryReadCondition(rareSulfurAttunedDivinationRod),
-//                        this.parent().advancementCondition(this.modLoc("has_rare_rod"))
-//                )
-//        );
-
-
-        //TODO: Conditions
-        //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
     }
 
 }

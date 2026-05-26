@@ -18,50 +18,6 @@
   },
   "id": "theurgy:apparatus/insert_helper",
   "name": "book.theurgy.the_hermetica.apparatus.insert_helper.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.insert_helper.intro.text",
-      "title": "book.theurgy.the_hermetica.apparatus.insert_helper.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.insert_helper.intro_config.text",
-      "title": "book.theurgy.the_hermetica.apparatus.insert_helper.intro_config.title"
-    },
-    {
-      "type": "modonomicon:image",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "theurgy:textures/gui/book/insert_helper_green.png"
-      ],
-      "text": "book.theurgy.the_hermetica.apparatus.insert_helper.accepted.text",
-      "title": "book.theurgy.the_hermetica.apparatus.insert_helper.accepted.title"
-    },
-    {
-      "type": "modonomicon:image",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "theurgy:textures/gui/book/insert_helper_red.png"
-      ],
-      "text": "book.theurgy.the_hermetica.apparatus.insert_helper.rejected.text",
-      "title": "book.theurgy.the_hermetica.apparatus.insert_helper.rejected.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/how_to"

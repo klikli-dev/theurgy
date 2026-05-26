@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "emitter",
+  "item": "theurgy:sulfuric_flux_emitter",
+  "sort_number": 4,
+  "text": "book.theurgy.the_hermetica.getting_started.reformation_array.emitter.text",
+  "title": ""
+}

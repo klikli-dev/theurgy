@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "theurgy:divination_rod_t2",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.getting_started.t2_divination_rod.intro.text",
+  "title": ""
+}

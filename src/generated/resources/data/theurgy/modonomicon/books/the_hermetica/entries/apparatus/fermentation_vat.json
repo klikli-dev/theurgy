@@ -16,60 +16,6 @@
   },
   "id": "theurgy:apparatus/fermentation_vat",
   "name": "book.theurgy.the_hermetica.apparatus.fermentation_vat.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:fermentation_vat",
-      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.uses.text",
-      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.uses.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.process.text",
-      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.process.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/fermentation_vat"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.usage2.text",
-      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.usage2.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/transmutation_and_exaltation"

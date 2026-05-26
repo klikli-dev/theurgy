@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "niter",
+  "item": "theurgy:alchemical_niter_metals_common",
+  "sort_number": 2,
+  "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter.text",
+  "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter.title"
+}

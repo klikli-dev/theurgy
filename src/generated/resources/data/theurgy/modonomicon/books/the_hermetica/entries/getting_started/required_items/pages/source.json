@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "source",
+  "item": "theurgy:alchemical_sulfur_lapis",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.getting_started.required_items.source.text",
+  "title": "book.theurgy.the_hermetica.getting_started.required_items.source.title"
+}

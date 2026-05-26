@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "refining",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.theurgy.the_hermetica.getting_started.strata_recycling.refining.text",
+  "title": "book.theurgy.the_hermetica.getting_started.strata_recycling.refining.title"
+}

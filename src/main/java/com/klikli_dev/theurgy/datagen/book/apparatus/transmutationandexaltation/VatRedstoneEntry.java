@@ -26,8 +26,8 @@ public class VatRedstoneEntry extends EntryProvider {
         this.page("redstone_control", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Redstone Control");
-        this.add(this.context().pageText(),
+        this.pageTitle("Redstone Control");
+        this.pageText(
                 """
                         Vats can be closed by applying a redstone signal (if a valid recipe is present).\\
                         If a redstone signal is applied and ingredients for a valid recipe are inserted, the vat will automatically close.\\
@@ -45,8 +45,8 @@ public class VatRedstoneEntry extends EntryProvider {
                         this.modLoc("textures/gui/book/redstone_fermentation_vat.png")
                 );
 
-        this.add(this.context().pageTitle(), "Sided Behaviour");
-        this.add(this.context().pageText(),
+        this.pageTitle("Sided Behaviour");
+        this.pageText(
                 """
                         The side with the dark red (light red if it outputs a redstone signal) dot is where the vat **outputs** redstone. On all other side it accepts redstone input.
                         """
@@ -55,8 +55,8 @@ public class VatRedstoneEntry extends EntryProvider {
         this.page("redstone_output", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Redstone Output");
-        this.add(this.context().pageText(),
+        this.pageTitle("Redstone Output");
+        this.pageText(
                 """
                         Vats output a redstone signal when they have at least one item in the output slot.
                         \\
@@ -68,8 +68,8 @@ public class VatRedstoneEntry extends EntryProvider {
         this.page("analog_output", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Analog Output");
-        this.add(this.context().pageText(),
+        this.pageTitle("Analog Output");
+        this.pageText(
                 """
                         Vats output a comparator signal based on the amount of items in the output slot.
                         \\

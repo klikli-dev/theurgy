@@ -16,54 +16,6 @@
   },
   "id": "theurgy:apparatus/sal_ammoniac_accumulator",
   "name": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:sal_ammoniac_accumulator",
-      "text": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "theurgy:placement/sal_ammoniac_accumulator",
-      "multiblock_name": "",
-      "text": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.usage.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/sal_ammoniac_accumulator"
-    },
-    {
-      "type": "modonomicon:image",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "theurgy:textures/gui/book/sal_ammoniac_accumulator_working.png"
-      ],
-      "text": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.working.text",
-      "title": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.working.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/sal_ammoniac_tank"

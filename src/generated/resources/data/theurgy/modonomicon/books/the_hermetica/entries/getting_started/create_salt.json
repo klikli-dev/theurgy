@@ -16,44 +16,6 @@
   },
   "id": "theurgy:getting_started/create_salt",
   "name": "book.theurgy.the_hermetica.getting_started.create_salt.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:alchemical_salt_mineral",
-      "text": "book.theurgy.the_hermetica.getting_started.create_salt.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_salt.step1.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_salt.step1.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_salt.step2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_salt.step2.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_salt.step3.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_salt.step3.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/needed_apparatus_spagyrics"

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "process",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.process.text",
+  "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.process.title"
+}

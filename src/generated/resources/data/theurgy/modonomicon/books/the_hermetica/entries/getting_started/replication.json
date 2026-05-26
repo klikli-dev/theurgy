@@ -14,35 +14,6 @@
   "icon": "theurgy:textures/gui/book/conversion.png",
   "id": "theurgy:getting_started/replication",
   "name": "book.theurgy.the_hermetica.getting_started.replication.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.replication.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.replication.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.replication.intro2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.replication.intro2.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.replication.intro3.text",
-      "title": "book.theurgy.the_hermetica.getting_started.replication.intro3.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/spagyrics"

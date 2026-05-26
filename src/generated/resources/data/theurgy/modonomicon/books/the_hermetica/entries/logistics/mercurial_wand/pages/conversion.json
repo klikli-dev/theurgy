@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "conversion",
+  "item": "theurgy:mercurial_wand",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.logistics.mercurial_wand.conversion.text",
+  "title": ""
+}

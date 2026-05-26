@@ -27,8 +27,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.page("target", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Supplying Sulfuric Flux");
-        this.add(this.context().pageText(),
+        this.pageTitle("Supplying Sulfuric Flux");
+        this.pageText(
                 """
                         Make sure the Sulfuric Flux Emitter is supplied with mercury flux, e.g. from a Mercury Catalyst.\\
                         The replication process will start automatically, once a target and sufficient source sulfur are present in the pedestals, and enough mercury flux is supplied to the emitter.
@@ -38,8 +38,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.page("visuals", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Visuals");
-        this.add(this.context().pageText(),
+        this.pageTitle("Visuals");
+        this.pageText(
                 """
                         If the process is working you will see particles fly from the emitter to the pedestals.
                         \\
@@ -51,8 +51,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.page("problems", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Problem Resolution");
-        this.add(this.context().pageText(),
+        this.pageTitle("Problem Resolution");
+        this.pageText(
                 """
                         If that is not the case, double check the recipe in JEI, and visit {0} to review your knowledge of the reformation array setup.           
                         """,

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "target",
+  "item": "theurgy:reformation_target_pedestal",
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.getting_started.reformation_array.target.text",
+  "title": ""
+}

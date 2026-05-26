@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "extending2",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.theurgy.the_hermetica.logistics.logistics_network.extending2.text",
+  "title": "book.theurgy.the_hermetica.logistics.logistics_network.extending2.title"
+}

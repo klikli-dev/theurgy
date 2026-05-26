@@ -16,51 +16,6 @@
   },
   "id": "theurgy:apparatus/result_pedestal",
   "name": "book.theurgy.the_hermetica.apparatus.result_pedestal.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:reformation_result_pedestal",
-      "text": "book.theurgy.the_hermetica.apparatus.result_pedestal.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.result_pedestal.structure.text",
-      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.structure.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.result_pedestal.usage.text",
-      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.result_pedestal.visuals.text",
-      "title": "book.theurgy.the_hermetica.apparatus.result_pedestal.visuals.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/reformation_result_pedestal"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/reformation_array"

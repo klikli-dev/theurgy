@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "inserter",
+  "item": "theurgy:logistics_fluid_inserter",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.logistics.fluid_inserter.inserter.text",
+  "title": ""
+}

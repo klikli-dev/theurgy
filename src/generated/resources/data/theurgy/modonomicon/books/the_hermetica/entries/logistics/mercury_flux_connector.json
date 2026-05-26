@@ -16,51 +16,6 @@
   },
   "id": "theurgy:logistics/mercury_flux_connector",
   "name": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:logistics_mercury_flux_connector",
-      "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.connector.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/logistics_mercury_flux_connector"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.transfer.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.transfer.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.direction.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.direction.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:logistics/frequency"

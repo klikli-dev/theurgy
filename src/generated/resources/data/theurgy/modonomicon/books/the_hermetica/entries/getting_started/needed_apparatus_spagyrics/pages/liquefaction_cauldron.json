@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "liquefaction_cauldron",
+  "item": "theurgy:liquefaction_cauldron",
+  "sort_number": 5,
+  "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.liquefaction_cauldron.text",
+  "title": ""
+}

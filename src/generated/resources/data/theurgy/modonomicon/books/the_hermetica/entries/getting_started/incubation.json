@@ -27,44 +27,6 @@
   "icon": "theurgy:textures/gui/book/ingot_x3.png",
   "id": "theurgy:getting_started/incubation",
   "name": "book.theurgy.the_hermetica.getting_started.incubation.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.incubation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.incubation.step1.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation.step1.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.incubation.step2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation.step2.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.incubation.step3.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation.step3.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/create_mercury"

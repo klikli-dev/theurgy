@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "connector",
+  "item": "theurgy:logistics_mercury_flux_connector",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.connector.text",
+  "title": ""
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "step1",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.getting_started.incubation.step1.text",
+  "title": "book.theurgy.the_hermetica.getting_started.incubation.step1.title"
+}

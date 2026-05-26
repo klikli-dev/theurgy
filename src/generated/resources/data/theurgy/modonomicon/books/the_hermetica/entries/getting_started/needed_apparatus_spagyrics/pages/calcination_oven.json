@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "calcination_oven",
+  "item": "theurgy:calcination_oven",
+  "sort_number": 2,
+  "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.calcination_oven.text",
+  "title": ""
+}

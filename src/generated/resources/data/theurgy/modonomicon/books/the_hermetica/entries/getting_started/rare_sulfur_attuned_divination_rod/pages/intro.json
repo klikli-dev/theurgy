@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "theurgy:sulfur_attuned_divination_rod_rare",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.getting_started.rare_sulfur_attuned_divination_rod.intro.text",
+  "title": ""
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "targets",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter.targets.text",
+  "title": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter.targets.title"
+}

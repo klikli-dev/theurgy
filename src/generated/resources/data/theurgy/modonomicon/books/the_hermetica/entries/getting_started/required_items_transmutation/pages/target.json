@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "target",
+  "item": "theurgy:alchemical_sulfur_iron",
+  "sort_number": 2,
+  "text": "book.theurgy.the_hermetica.getting_started.required_items_transmutation.target.text",
+  "title": "book.theurgy.the_hermetica.getting_started.required_items_transmutation.target.title"
+}

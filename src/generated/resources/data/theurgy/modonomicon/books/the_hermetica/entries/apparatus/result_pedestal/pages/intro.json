@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "theurgy:reformation_result_pedestal",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.apparatus.result_pedestal.intro.text",
+  "title": ""
+}

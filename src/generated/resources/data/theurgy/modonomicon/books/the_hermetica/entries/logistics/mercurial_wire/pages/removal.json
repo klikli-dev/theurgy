@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "removal",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.theurgy.the_hermetica.logistics.mercurial_wire.removal.text",
+  "title": "book.theurgy.the_hermetica.logistics.mercurial_wire.removal.title"
+}

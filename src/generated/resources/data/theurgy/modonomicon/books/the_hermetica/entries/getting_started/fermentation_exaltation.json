@@ -16,26 +16,6 @@
   },
   "id": "theurgy:getting_started/fermentation_exaltation",
   "name": "book.theurgy.the_hermetica.getting_started.fermentation_exaltation.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.fermentation_exaltation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.fermentation_exaltation.intro.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:alchemical_niter_metals_common",
-      "text": "book.theurgy.the_hermetica.getting_started.fermentation_exaltation.metals.text",
-      "title": "book.theurgy.the_hermetica.getting_started.fermentation_exaltation.metals.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/digestion_vat"

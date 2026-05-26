@@ -16,17 +16,6 @@
   },
   "id": "theurgy:apparatus/sulfuric_flux_emitter_reference",
   "name": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter_reference.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "theurgy:sulfuric_flux_emitter",
-      "text": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter_reference.intro.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/reformation_array"

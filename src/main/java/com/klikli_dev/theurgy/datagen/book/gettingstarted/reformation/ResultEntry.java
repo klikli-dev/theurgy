@@ -25,8 +25,8 @@ public class ResultEntry extends EntryProvider {
         this.page("result", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "The Result");
-        this.add(this.context().pageText(),
+        this.pageTitle("The Result");
+        this.pageText(
                 """
                         After the process is finished a glowing orb should appear above the result pedestal, indicating it contains Sulfur.
                         \\
@@ -39,8 +39,8 @@ public class ResultEntry extends EntryProvider {
         this.page("result2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "The Result");
-        this.add(this.context().pageText(),
+        this.pageTitle("The Result");
+        this.pageText(
                 """
                         Also [#]($INPUT)right-click[#]() on the target pedestal to retrieve the original {1}.
                         \\
@@ -55,8 +55,8 @@ public class ResultEntry extends EntryProvider {
         this.page("repeat", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Crafting more");
-        this.add(this.context().pageText(),
+        this.pageTitle("Crafting more");
+        this.pageText(
                 """
                         As long as the emitter is supplied with mercury flux and there is enough source sulfur in the pedestals, the process will continue, creating more sulfur in the target pedestal.
                         """

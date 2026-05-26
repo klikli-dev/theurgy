@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "pyromantic_brazier",
+  "item": "theurgy:pyromantic_brazier",
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.pyromantic_brazier.text",
+  "title": ""
+}

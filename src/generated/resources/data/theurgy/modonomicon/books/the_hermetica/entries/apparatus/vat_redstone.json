@@ -25,48 +25,6 @@
   },
   "id": "theurgy:apparatus/vat_redstone",
   "name": "book.theurgy.the_hermetica.apparatus.vat_redstone.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_control.text",
-      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_control.title"
-    },
-    {
-      "type": "modonomicon:image",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "theurgy:textures/gui/book/redstone_digestion_vat.png",
-        "theurgy:textures/gui/book/redstone_fermentation_vat.png"
-      ],
-      "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.sides.text",
-      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.sides.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_output.text",
-      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.redstone_output.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.analog_output.text",
-      "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.analog_output.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:apparatus/digestion_vat",

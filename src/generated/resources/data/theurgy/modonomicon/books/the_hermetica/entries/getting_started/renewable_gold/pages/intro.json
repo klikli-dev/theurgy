@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "minecraft:gold_ingot",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.getting_started.renewable_gold.intro.text",
+  "title": "book.theurgy.the_hermetica.getting_started.renewable_gold.intro.title"
+}

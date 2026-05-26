@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "rejected",
+  "images": [
+    "theurgy:textures/gui/book/insert_helper_red.png"
+  ],
+  "sort_number": 3,
+  "text": "book.theurgy.the_hermetica.apparatus.insert_helper.rejected.text",
+  "title": "book.theurgy.the_hermetica.apparatus.insert_helper.rejected.title"
+}

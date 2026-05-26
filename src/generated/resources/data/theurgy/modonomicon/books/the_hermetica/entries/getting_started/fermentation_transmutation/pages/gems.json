@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "gems",
+  "item": "theurgy:alchemical_niter_gems_common",
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.gems.text",
+  "title": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.gems.title"
+}

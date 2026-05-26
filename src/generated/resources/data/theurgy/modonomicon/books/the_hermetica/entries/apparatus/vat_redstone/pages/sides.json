@@ -1,0 +1,15 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "sides",
+  "images": [
+    "theurgy:textures/gui/book/redstone_digestion_vat.png",
+    "theurgy:textures/gui/book/redstone_fermentation_vat.png"
+  ],
+  "sort_number": 1,
+  "text": "book.theurgy.the_hermetica.apparatus.vat_redstone.sides.text",
+  "title": "book.theurgy.the_hermetica.apparatus.vat_redstone.sides.title"
+}

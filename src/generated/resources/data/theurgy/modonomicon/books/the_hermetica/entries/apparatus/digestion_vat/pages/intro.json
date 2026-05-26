@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "theurgy:digestion_vat",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.apparatus.digestion_vat.intro.text",
+  "title": ""
+}

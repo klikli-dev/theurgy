@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "create",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.theurgy.the_hermetica.getting_started.credits.create.text",
+  "title": "book.theurgy.the_hermetica.getting_started.credits.create.title"
+}

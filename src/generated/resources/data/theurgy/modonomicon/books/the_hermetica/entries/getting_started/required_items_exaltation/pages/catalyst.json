@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "catalyst",
+  "item": "theurgy:purified_gold",
+  "sort_number": 4,
+  "text": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.catalyst.text",
+  "title": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.catalyst.title"
+}

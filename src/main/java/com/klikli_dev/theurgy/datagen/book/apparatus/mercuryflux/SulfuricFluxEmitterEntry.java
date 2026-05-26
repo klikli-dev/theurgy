@@ -41,8 +41,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.page("targets", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Target Blocks");
-        this.add(this.context().pageText(),
+        this.pageTitle("Target Blocks");
+        this.pageText(
                 """
                         Valid target blocks that will form a Reformation Array are {0},  {1}, and {2}.
                         """,
@@ -55,8 +55,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Usage");
-        this.add(this.context().pageText(),
+        this.pageTitle("Usage");
+        this.pageText(
                 """
                         Right-click the target blocks (the pedestals) with the {0} so they get highlighted.\\
                         Then place the Emitter onto a Mercury Flux source, such as a {1}.\\
@@ -69,8 +69,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.page("usage2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Usage");
-        this.add(this.context().pageText(),
+        this.pageTitle("Usage");
+        this.pageText(
                 """
                         The emitter is the central controlling element of the reformation array.\\
                         If a valid array is linked to the emitter, and a valid recipe is present in the pedestals, the emitter will start emitting sulfuric flux and transform the sulfur.
@@ -82,8 +82,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.page("usage3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Checking Validity");
-        this.add(this.context().pageText(),
+        this.pageTitle("Checking Validity");
+        this.pageText(
                 """
                         Right-click the placed {0} to check if it is linked to a valid reformation array.\\
                         If it is not, destroy it, link it to the pedestals again, and place it.

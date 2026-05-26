@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "digestion_vat",
+  "item": "theurgy:digestion_vat",
+  "sort_number": 3,
+  "text": "book.theurgy.the_hermetica.getting_started.digestion_vat.digestion_vat.text",
+  "title": ""
+}

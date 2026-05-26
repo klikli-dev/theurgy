@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "theurgy:amethyst_divination_rod",
+  "sort_number": 0,
+  "text": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.intro.text",
+  "title": ""
+}

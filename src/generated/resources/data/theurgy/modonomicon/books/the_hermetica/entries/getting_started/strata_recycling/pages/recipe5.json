@@ -1,0 +1,9 @@
+{
+  "type": "theurgy:calcination_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe5",
+  "recipe_id_1": "theurgy:calcination/alchemical_salt_strata_from_stone",
+  "sort_number": 7
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "next_steps",
+  "show_title_separator": true,
+  "sort_number": 8,
+  "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps.text",
+  "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps.title"
+}

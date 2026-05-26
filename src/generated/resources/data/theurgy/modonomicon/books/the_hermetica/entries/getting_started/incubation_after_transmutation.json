@@ -16,17 +16,6 @@
   },
   "id": "theurgy:getting_started/incubation_after_transmutation",
   "name": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "minecraft:iron_ingot",
-      "text": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.intro.title"
-    }
-  ],
   "parents": [
     {
       "entry": "theurgy:getting_started/niter_to_sulfur_reformation"

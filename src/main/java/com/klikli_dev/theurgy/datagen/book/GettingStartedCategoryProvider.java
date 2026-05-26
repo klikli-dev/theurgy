@@ -36,7 +36,6 @@ import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.mojang.datafixers.util.Pair;
 
 
 public class GettingStartedCategoryProvider extends CategoryProvider {
@@ -52,95 +51,230 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     }
 
     @Override
-    protected String[] generateEntryMap() {
-        return new String[]{
-                "___________________________________",
-                "__________________ḍ___ď_ḑ_ḓ________",
-                "___________________________________",
-                "________________d___ḋ______________",
-                "___________________________________",
-                "____________ç_____đ___ɖ_ᶑ__________",
-                "___________________________________",
-                "__________i_a_________c___ṛ_ŕ______",
-                "___________________________________",
-                "______________s_____ṟ_n_r_ȓ___ŗ_ʀ_ȑ",
-                "___________________________________",
-                "______________o_____________ř______",
-                "___________________________________",
-                "______________ó___________ț_ẗ______",
-                "___________________________________",
-                "____________ő_ò___ǒ_____ť_ţ_ƭ_ʈ_ṫ_ṭ",
-                "___________________________________",
-                "____________ö___ô_ơ_______ê_ě______",
-                "___________________________________",
-                "______________õ_________é_è_ë_ē_ė_ę",
-                "___________________________________",
-                "__________________Õ_____ƒ__________"
-        };
-    }
-
-
-    @Override
     protected void generateEntries() {
-        var introEntry = new IntroEntry(this).generate('i');
-        var aboutModEntry = new AboutModEntry(this).generate('a');
+        // Main entries
+        var introEntry = this.add(new IntroEntry(this).generate());
+        this.layout().entry(introEntry).at(-7, -4);
+
+        var aboutModEntry = this.add(new AboutModEntry(this).generate());
         aboutModEntry.withParent(introEntry);
+        this.layout().entry(aboutModEntry).rightOf(introEntry, 2);
 
-        var creditsEntry = new CreditsEntry(this).generate('ç');
+        var creditsEntry = this.add(new CreditsEntry(this).generate());
         creditsEntry.withParent(aboutModEntry);
+        this.layout().entry(creditsEntry).above(aboutModEntry, 2);
 
-        var aboutDivinationRods = new AboutDivinationRodsEntry(this).generate('d');
+        var aboutDivinationRods = this.add(new AboutDivinationRodsEntry(this).generate());
         aboutDivinationRods.withParent(aboutModEntry);
+        this.layout().entry(aboutDivinationRods).rightOf(aboutModEntry, 4).above(4);
 
-        var glassDivinationRod = new GlassDivinationRodEntry(this).generate('ḍ');
+        var glassDivinationRod = this.add(new GlassDivinationRodEntry(this).generate());
         glassDivinationRod.withParent(aboutDivinationRods);
+        this.layout().entry(glassDivinationRod).rightOf(aboutDivinationRods, 2).above(2);
 
-        var basicSulfurAttunedDivinationRods = new BasicSulfurAttunedDivinationRodsEntry(this).generate('đ');
+        var basicSulfurAttunedDivinationRods = this.add(new BasicSulfurAttunedDivinationRodsEntry(this).generate());
         basicSulfurAttunedDivinationRods.withParent(aboutDivinationRods);
+        this.layout().entry(basicSulfurAttunedDivinationRods).rightOf(aboutDivinationRods, 2).below(2);
 
-        var amethystDivinationRod = new AmethystDivinationRodEntry(this).generate('ḋ');
+        var amethystDivinationRod = this.add(new AmethystDivinationRodEntry(this).generate());
         amethystDivinationRod.withParent(glassDivinationRod);
         amethystDivinationRod.withParent(basicSulfurAttunedDivinationRods);
+        this.layout().entry(amethystDivinationRod).rightOf(aboutDivinationRods, 4);
 
-        var ironDivinationRod = new IronDivinationRodEntry(this).generate('ď');
+        var ironDivinationRod = this.add(new IronDivinationRodEntry(this).generate());
         ironDivinationRod.withParent(amethystDivinationRod);
+        this.layout().entry(ironDivinationRod).rightOf(amethystDivinationRod, 2).above(2);
 
-        var diamondDivinationRod = new DiamondDivinationRodEntry(this).generate('ḑ');
+        var diamondDivinationRod = this.add(new DiamondDivinationRodEntry(this).generate());
         diamondDivinationRod.withParent(ironDivinationRod);
+        this.layout().entry(diamondDivinationRod).rightOf(ironDivinationRod, 2);
 
-        var netheriteDivinationRod = new NetheriteDivinationRodEntry(this).generate('ḓ');
+        var netheriteDivinationRod = this.add(new NetheriteDivinationRodEntry(this).generate());
         netheriteDivinationRod.withParent(diamondDivinationRod);
+        this.layout().entry(netheriteDivinationRod).rightOf(diamondDivinationRod, 2);
 
-        var rareSulfurAttunedDivinationRods = new RareSulfurAttunedDivinationRodsEntry(this).generate('ɖ');
+        var rareSulfurAttunedDivinationRods = this.add(new RareSulfurAttunedDivinationRodsEntry(this).generate());
         rareSulfurAttunedDivinationRods.withParent(amethystDivinationRod);
+        this.layout().entry(rareSulfurAttunedDivinationRods).rightOf(amethystDivinationRod, 2).below(2);
 
-        var preciousSulfurAttunedDivinationRods = new PreciousSulfurAttunedDivinationRodsEntry(this).generate('ᶑ');
+        var preciousSulfurAttunedDivinationRods = this.add(new PreciousSulfurAttunedDivinationRodsEntry(this).generate());
         preciousSulfurAttunedDivinationRods.withParent(rareSulfurAttunedDivinationRods);
+        this.layout().entry(preciousSulfurAttunedDivinationRods).rightOf(rareSulfurAttunedDivinationRods, 2);
 
-        var spagyrics = this.generateSpagyricsEntries(aboutModEntry); //spagyrics, incubation
+        // Spagyrics entries (inlined from generateSpagyricsEntries)
+        var spagyrics = this.add(new SpagyricsEntry(this).generate());
+        spagyrics.withParent(aboutModEntry);
+        this.layout().entry(spagyrics).rightOf(aboutModEntry, 2).below(2);
 
-        var replication = new ReplicationEntry(this).generate('ṟ');
-        replication.withParent(spagyrics.getFirst());
-        replication.withParent(spagyrics.getSecond());
-        replication.withCondition(this.condition().entryRead(spagyrics.getSecond()));
+        var oreRefining = this.add(new OreRefiningEntry(this).generate());
+        oreRefining.withParent(spagyrics);
+        this.layout().entry(oreRefining).below(spagyrics, 2);
+
+        var neededApparatus = this.add(new NeededApparatusEntry(this).generate());
+        neededApparatus.withParent(oreRefining);
+        this.layout().entry(neededApparatus).below(oreRefining, 2);
+
+        var createSolvent = this.add(new CreateSolventEntry(this).generate());
+        createSolvent.withParent(neededApparatus);
+        this.layout().entry(createSolvent).leftOf(neededApparatus, 2).below(2);
+
+        var createSulfur = this.add(new CreateSulfurEntry(this).generate());
+        createSulfur.withParent(createSolvent);
+        this.layout().entry(createSulfur).below(createSolvent, 2);
+
+        var createSalt = this.add(new CreateSaltEntry(this).generate());
+        createSalt.withParent(neededApparatus);
+        this.layout().entry(createSalt).rightOf(createSulfur, 4);
+
+        var recycleStrata = this.add(new StrataRecyclingEntry(this).generate());
+        recycleStrata.withParent(createSalt);
+        this.layout().entry(recycleStrata).rightOf(createSalt, 2);
+
+        var recyclePlants = this.add(new PlantRecyclingEntry(this).generate());
+        recyclePlants.withParent(recycleStrata);
+        this.layout().entry(recyclePlants).below(recycleStrata, 4);
+
+        var createMercury = this.add(new CreateMercuryEntry(this).generate());
+        createMercury.withParent(neededApparatus);
+        this.layout().entry(createMercury).below(neededApparatus, 2);
+
+        var logistics = this.add(new LogisticsEntry(this).generate());
+        logistics.withParent(createMercury);
+        this.layout().entry(logistics).rightOf(createMercury, 4);
+
+        var incubation = this.add(new IncubationEntry(this).generate());
+        incubation.withParent(createMercury)
+                .withParent(createSalt)
+                .withParent(createSulfur);
+        this.layout().entry(incubation).below(createMercury, 4);
+
+        // Post-spagyrics entries
+        var replication = this.add(new ReplicationEntry(this).generate());
+        replication.withParent(spagyrics);
+        replication.withParent(incubation);
+        replication.withCondition(this.condition().entryRead(incubation));
         replication.showWhenAnyParentUnlocked(true);
+        this.layout().entry(replication).rightOf(spagyrics, 6);
 
-        var niter = new AlchemicalNiterEntry(this).generate('n');
+        var niter = this.add(new AlchemicalNiterEntry(this).generate());
         niter.withParent(replication);
+        this.layout().entry(niter).rightOf(replication, 2);
 
-        var caloricFlux = new CaloricFluxEmitterEntry(this).generate('c');
+        var caloricFlux = this.add(new CaloricFluxEmitterEntry(this).generate());
         caloricFlux.withParent(niter);
+        this.layout().entry(caloricFlux).above(niter, 2);
 
-        var reformation = this.generateReformationEntries(niter); //convertWithinTypeAndTier, reformationIncubation
+        // Reformation entries (inlined from generateReformationEntries)
+        var convertWithinTypeAndTier = this.add(new ConvertWithinTypeAndTierEntry(this).generate());
+        convertWithinTypeAndTier.withParent(niter);
+        this.layout().entry(convertWithinTypeAndTier).rightOf(niter, 2);
 
-        var transmutation = this.generateTransmutationEntries(reformation);  //convertToOtherType, reformationIncubation
+        var reformationArray = this.add(new ReformationArrayEntry(this).generate());
+        reformationArray.withParent(convertWithinTypeAndTier);
+        this.layout().entry(reformationArray).rightOf(convertWithinTypeAndTier, 2);
 
-        var exaltation = this.generateExaltationEntries(transmutation); //convertToOtherTier, incubation
+        var requiredItems = this.add(new RequiredItemsEntry(this).generate());
+        requiredItems.withParent(this.parent(reformationArray).withDrawArrow(false));
+        this.layout().entry(requiredItems).above(reformationArray, 2);
 
-        var renewableGold = new RenewableGoldEntry(this).generate('ƒ');
-        renewableGold.withParent(exaltation.getFirst());
-        renewableGold.withCondition(this.condition().entryRead(exaltation.getSecond()));
+        var source = this.add(new SourceEntry(this).generate());
+        source.withParent(this.parent(reformationArray));
+        this.layout().entry(source).rightOf(requiredItems, 2);
+
+        var target = this.add(new TargetEntry(this).generate());
+        target.withParent(reformationArray);
+        this.layout().entry(target).below(source, 4);
+
+        var sulfuricFluxEmitter = this.add(new SulfuricFluxEmitterEntry(this).generate());
+        sulfuricFluxEmitter.withParent(source);
+        sulfuricFluxEmitter.withParent(target);
+        this.layout().entry(sulfuricFluxEmitter).rightOf(source, 2).below(2);
+
+        var result = this.add(new ResultEntry(this).generate());
+        result.withParent(sulfuricFluxEmitter);
+        this.layout().entry(result).rightOf(sulfuricFluxEmitter, 2);
+
+        var reformationIncubation = this.add(new com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.IncubationEntry(this).generate());
+        reformationIncubation.withParent(result);
+        this.layout().entry(reformationIncubation).rightOf(result, 2);
+
+        // Transmutation entries (inlined from generateTransmutationEntries)
+        var convertToOtherType = this.add(new ConvertToOtherTypeEntry(this).generate());
+        convertToOtherType.withParent(convertWithinTypeAndTier);
+        convertToOtherType.withCondition(this.condition().entryRead(reformationIncubation));
+        convertToOtherType.hideWhileLocked(true);
+        this.layout().entry(convertToOtherType).below(convertWithinTypeAndTier, 6);
+
+        var fermentationVatEntry = this.add(new FermentationVatEntry(this).generate());
+        fermentationVatEntry.withParent(convertToOtherType);
+        this.layout().entry(fermentationVatEntry).below(reformationArray, 6);
+
+        var requiredItemsTransmutation = this.add(new com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.RequiredItemsEntry(this).generate());
+        requiredItemsTransmutation.withParent(this.parent(fermentationVatEntry).withDrawArrow(false));
+        this.layout().entry(requiredItemsTransmutation).below(reformationArray, 4);
+
+        var fermentationTransmutation = this.add(new FermentationEntry(this).generate());
+        fermentationTransmutation.withParent(fermentationVatEntry);
+        this.layout().entry(fermentationTransmutation).rightOf(fermentationVatEntry, 2);
+
+        var fermentationStarter = this.add(new FermentationStarterEntry(this).generate());
+        fermentationStarter.withParent(fermentationTransmutation);
+        this.layout().entry(fermentationStarter).above(fermentationTransmutation, 2);
+
+        var niterToNiterReformation = this.add(new NiterToNiterReformationEntry(this).generate());
+        niterToNiterReformation.withParent(fermentationTransmutation);
+        this.layout().entry(niterToNiterReformation).rightOf(fermentationTransmutation, 2);
+
+        var niterToSulfurReformation = this.add(new NiterToSulfurReformationEntry(this).generate());
+        niterToSulfurReformation.withParent(niterToNiterReformation);
+        this.layout().entry(niterToSulfurReformation).rightOf(niterToNiterReformation, 2);
+
+        var incubation_transmutation = this.add(new com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.IncubationEntry(this).generate());
+        incubation_transmutation.withParent(niterToSulfurReformation);
+        this.layout().entry(incubation_transmutation).rightOf(niterToSulfurReformation, 2);
+
+        // Exaltation entries (inlined from generateExaltationEntries)
+        var convertToOtherTier = this.add(new ConvertToOtherTierEntry(this).generate());
+        convertToOtherTier.withParent(convertToOtherType);
+        convertToOtherTier.withCondition(this.condition().entryRead(incubation_transmutation));
+        convertToOtherTier.hideWhileLocked(true);
+        this.layout().entry(convertToOtherTier).below(convertToOtherType, 4);
+
+        var digestionVat = this.add(new DigestionVatEntry(this).generate());
+        digestionVat.withParent(convertToOtherTier);
+        this.layout().entry(digestionVat).below(fermentationVatEntry, 4);
+
+        var requiredItems_exaltation = this.add(new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.RequiredItemsEntry(this).generate());
+        requiredItems_exaltation.withParent(this.parent(digestionVat));
+        this.layout().entry(requiredItems_exaltation).above(digestionVat, 2);
+
+        var purifiedGold = this.add(new PurifiedGoldEntry(this).generate());
+        purifiedGold.withParent(requiredItems_exaltation);
+        this.layout().entry(purifiedGold).rightOf(requiredItems_exaltation, 2);
+
+        var fermentation_exaltation = this.add(new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.FermentationEntry(this).generate());
+        fermentation_exaltation.withParent(digestionVat);
+        this.layout().entry(fermentation_exaltation).rightOf(digestionVat, 2);
+
+        var digestion_exaltation = this.add(new DigestionEntry(this).generate());
+        digestion_exaltation.withParent(fermentation_exaltation);
+        digestion_exaltation.withParent(purifiedGold);
+        this.layout().entry(digestion_exaltation).rightOf(fermentation_exaltation, 2);
+
+        var niterToSulfurReformation_exaltation = this.add(new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.NiterToSulfurReformationEntry(this).generate());
+        niterToSulfurReformation_exaltation.withParent(digestion_exaltation);
+        this.layout().entry(niterToSulfurReformation_exaltation).rightOf(digestion_exaltation, 2);
+
+        var incubation_exaltation = this.add(new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.IncubationEntry(this).generate());
+        incubation_exaltation.withParent(niterToSulfurReformation_exaltation);
+        this.layout().entry(incubation_exaltation).rightOf(niterToSulfurReformation_exaltation, 2);
+
+        // Final entry
+        var renewableGold = this.add(new RenewableGoldEntry(this).generate());
+        renewableGold.withParent(convertToOtherTier);
+        renewableGold.withCondition(this.condition().entryRead(incubation_exaltation));
         renewableGold.hideWhileLocked(true);
+        this.layout().entry(renewableGold).rightOf(digestionVat, -2).below(2);
     }
 
     @Override
@@ -162,119 +296,4 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     protected BookCategoryModel additionalSetup(BookCategoryModel category) {
         return super.additionalSetup(category).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"));
     }
-
-    protected Pair<BookEntryModel, BookEntryModel> generateExaltationEntries(Pair<BookEntryModel, BookEntryModel> transmutation) {
-        var convertToOtherTier = new ConvertToOtherTierEntry(this).generate('é');
-        convertToOtherTier.withParent(transmutation.getFirst());
-        convertToOtherTier.withCondition(this.condition().entryRead(transmutation.getSecond()));
-        convertToOtherTier.hideWhileLocked(true);
-
-        var digestionVat = new DigestionVatEntry(this).generate('è');
-        digestionVat.withParent(convertToOtherTier);
-
-        var requiredItems = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.RequiredItemsEntry(this).generate('ê');
-        requiredItems.withParent(this.parent(digestionVat));
-
-        var purifiedGold = new PurifiedGoldEntry(this).generate('ě');
-        purifiedGold.withParent(requiredItems);
-
-        var fermentation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.FermentationEntry(this).generate('ë');
-        fermentation.withParent(digestionVat);
-
-        var digestion = new DigestionEntry(this).generate('ē');
-        digestion.withParent(fermentation);
-        digestion.withParent(purifiedGold);
-
-        var niterToSulfurReformation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.NiterToSulfurReformationEntry(this).generate('ė');
-        niterToSulfurReformation.withParent(digestion);
-
-        var incubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.IncubationEntry(this).generate('ę');
-        incubation.withParent(niterToSulfurReformation);
-
-        return Pair.of(convertToOtherTier, incubation);
-    }
-
-    protected Pair<BookEntryModel, BookEntryModel> generateTransmutationEntries(Pair<BookEntryModel, BookEntryModel> reformation) {
-        var convertToOtherType = new ConvertToOtherTypeEntry(this).generate('ť');
-        convertToOtherType.withParent(reformation.getFirst());
-        convertToOtherType.withCondition(this.condition().entryRead(reformation.getSecond()));
-        convertToOtherType.hideWhileLocked(true);
-
-        var fermentationVatEntry = new FermentationVatEntry(this).generate('ţ');
-        fermentationVatEntry.withParent(convertToOtherType);
-
-        var requiredItemsTransmutation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.RequiredItemsEntry(this).generate('ț');
-        requiredItemsTransmutation.withParent(this.parent(fermentationVatEntry).withDrawArrow(false));
-
-        var fermentationTransmutation = new FermentationEntry(this).generate('ƭ');
-        fermentationTransmutation.withParent(fermentationVatEntry);
-
-        var fermentationStarter = new FermentationStarterEntry(this).generate('ẗ');
-        fermentationStarter.withParent(fermentationTransmutation);
-
-        var niterToNiterReformation = new NiterToNiterReformationEntry(this).generate('ʈ');
-        niterToNiterReformation.withParent(fermentationTransmutation);
-
-        var niterToSulfurReformation = new NiterToSulfurReformationEntry(this).generate('ṫ');
-        niterToSulfurReformation.withParent(niterToNiterReformation);
-
-        var incubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.IncubationEntry(this).generate('ṭ');
-        incubation.withParent(niterToSulfurReformation);
-
-        return Pair.of(convertToOtherType, incubation);
-    }
-
-    protected Pair<BookEntryModel, BookEntryModel> generateReformationEntries(BookEntryModel parent) {
-        var convertWithinTypeAndTier = new ConvertWithinTypeAndTierEntry(this).generate('r');
-        convertWithinTypeAndTier.withParent(parent);
-        var reformationArray = new ReformationArrayEntry(this).generate('ȓ');
-        reformationArray.withParent(convertWithinTypeAndTier);
-        var requiredItems = new RequiredItemsEntry(this).generate('ṛ');
-        requiredItems.withParent(this.parent(reformationArray).withDrawArrow(false));
-
-        var source = new SourceEntry(this).generate('ŕ');
-        source.withParent(this.parent(reformationArray));
-        var target = new TargetEntry(this).generate('ř');
-        target.withParent(reformationArray);
-        var sulfuricFluxEmitter = new SulfuricFluxEmitterEntry(this).generate('ŗ');
-        sulfuricFluxEmitter.withParent(source);
-        sulfuricFluxEmitter.withParent(target);
-        var result = new ResultEntry(this).generate('ʀ');
-        result.withParent(sulfuricFluxEmitter);
-        var reformationIncubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.IncubationEntry(this).generate('ȑ');
-        reformationIncubation.withParent(result);
-
-        return Pair.of(convertWithinTypeAndTier, reformationIncubation);
-    }
-
-    protected Pair<BookEntryModel, BookEntryModel> generateSpagyricsEntries(BookEntryModel parent) {
-        var spagyrics = new SpagyricsEntry(this).generate('s');
-        spagyrics.withParent(parent);
-        var oreRefining = new OreRefiningEntry(this).generate('o');
-        oreRefining.withParent(spagyrics);
-        var neededApparatus = new NeededApparatusEntry(this).generate('ó');
-        neededApparatus.withParent(oreRefining);
-        var createSolvent = new CreateSolventEntry(this).generate('ő');
-        createSolvent.withParent(neededApparatus);
-        var createSulfur = new CreateSulfurEntry(this).generate('ö');
-        createSulfur.withParent(createSolvent);
-        var createSalt = new CreateSaltEntry(this).generate('ô');
-        createSalt.withParent(neededApparatus);
-        var recycleStrata = new StrataRecyclingEntry(this).generate('ơ');
-        recycleStrata.withParent(createSalt);
-        var recyclePlants = new PlantRecyclingEntry(this).generate('Õ');
-        recyclePlants.withParent(recycleStrata);
-        var createMercury = new CreateMercuryEntry(this).generate('ò');
-        createMercury.withParent(neededApparatus);
-        var logistics = new LogisticsEntry(this).generate('ǒ');
-        logistics.withParent(createMercury);
-        var incubation = new IncubationEntry(this).generate('õ');
-        incubation
-                .withParent(createMercury)
-                .withParent(createSalt)
-                .withParent(createSulfur);
-
-        return Pair.of(spagyrics, incubation);
-    }
-
 }

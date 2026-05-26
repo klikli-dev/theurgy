@@ -21,81 +21,81 @@ public class LogisticsCategory extends CategoryProvider {
     }
 
     @Override
-    protected String[] generateEntryMap() {
-        return new String[]{
-                "__________________________________",
-                "____________________ì_____ø_______",
-                "__________________________________",
-                "________________l___í_____ň_______",
-                "__________________________________",
-                "________________i_____ŵ_n___ƒ_____",
-                "__________________________________",
-                "________________w___e_____f_m_p___",
-                "__________________________________",
-                "____________________è_____a___x___",
-                "__________________________________",
-                "__________________________ô_______"
-
-        };
-    }
-
-    @Override
     protected void generateEntries() {
-        var introEntry = new IntroEntry(this).generate('i');
-        var loreEntry = new LoreEntry(this).generate('l');
-        loreEntry.withParent(introEntry);
+        var introEntry = this.add(new IntroEntry(this).generate());
+        this.layout().entry(introEntry).at(-1, -1);
 
-        var wandEntry = new MercurialWandEntry(this).generate('w');
+        var loreEntry = this.add(new LoreEntry(this).generate());
+        loreEntry.withParent(introEntry);
+        this.layout().entry(loreEntry).above(introEntry, 2);
+
+        var wandEntry = this.add(new MercurialWandEntry(this).generate());
         wandEntry.withParent(introEntry);
         //TODO: add a brief tutorial entry for reconfiguring e.g. an oven setup with the wand to not use the default direction?
         //      maybe after the network entry
+        this.layout().entry(wandEntry).below(introEntry, 2);
 
-        var wireEntry = new MercurialWireEntry(this).generate('ŵ');
+        var wireEntry = this.add(new MercurialWireEntry(this).generate());
         wireEntry.withParent(introEntry);
+        this.layout().entry(wireEntry).rightOf(introEntry, 6);
 
-        var extractorEntry = new ItemExtractorEntry(this).generate('e');
+        var extractorEntry = this.add(new ItemExtractorEntry(this).generate());
         extractorEntry.withParent(introEntry);
+        this.layout().entry(extractorEntry).rightOf(introEntry, 4).below(2);
 
-        var inserterEntry = new ItemInserterEntry(this).generate('í');
+        var inserterEntry = this.add(new ItemInserterEntry(this).generate());
         inserterEntry.withParent(introEntry);
+        this.layout().entry(inserterEntry).rightOf(introEntry, 4).above(2);
 
-        var fluidExtractorEntry = new FluidExtractorEntry(this).generate('è');
+        var fluidExtractorEntry = this.add(new FluidExtractorEntry(this).generate());
         fluidExtractorEntry.withParent(extractorEntry);
+        this.layout().entry(fluidExtractorEntry).below(extractorEntry, 2);
 
-        var fluidInserterEntry = new FluidInserterEntry(this).generate('ì');
+        var fluidInserterEntry = this.add(new FluidInserterEntry(this).generate());
         fluidInserterEntry.withParent(inserterEntry);
+        this.layout().entry(fluidInserterEntry).above(inserterEntry, 2);
 
-        var networkEntry = new LogisticsNetworkEntry(this).generate('n');
+        var networkEntry = this.add(new LogisticsNetworkEntry(this).generate());
         networkEntry.withParent(wireEntry);
         networkEntry.withParent(extractorEntry);
         networkEntry.withParent(inserterEntry);
+        this.layout().entry(networkEntry).rightOf(wireEntry, 2);
 
-        var nodeEntry = new ConnectionNodeEntry(this).generate('ň');
+        var nodeEntry = this.add(new ConnectionNodeEntry(this).generate());
         nodeEntry.withParent(networkEntry);
+        this.layout().entry(nodeEntry).rightOf(networkEntry, 2).above(2);
 
-        var nexusEntry = new LogisticsNexusEntry(this).generate('ø');
+        var nexusEntry = this.add(new LogisticsNexusEntry(this).generate());
         nexusEntry.withParent(nodeEntry);
+        this.layout().entry(nexusEntry).above(nodeEntry, 2);
 
-        var listFilterEntry = new ListFilterEntry(this).generate('f');
+        var listFilterEntry = this.add(new ListFilterEntry(this).generate());
         listFilterEntry.withParent(networkEntry);
+        this.layout().entry(listFilterEntry).rightOf(networkEntry, 2).below(2);
 
-        var attributeFilterEntry = new AttributeFilterEntry(this).generate('a');
+        var attributeFilterEntry = this.add(new AttributeFilterEntry(this).generate());
         attributeFilterEntry.withParent(listFilterEntry);
+        this.layout().entry(attributeFilterEntry).below(listFilterEntry, 2);
 
-        var fluidListFilterEntry = new FluidListFilterEntry(this).generate('ô');
+        var fluidListFilterEntry = this.add(new FluidListFilterEntry(this).generate());
         fluidListFilterEntry.withParent(attributeFilterEntry);
+        this.layout().entry(fluidListFilterEntry).below(attributeFilterEntry, 2);
 
-        var frequencyEntry = new FrequencyEntry(this).generate('ƒ');
+        var frequencyEntry = this.add(new FrequencyEntry(this).generate());
         frequencyEntry.withParent(networkEntry);
+        this.layout().entry(frequencyEntry).rightOf(networkEntry, 4);
 
-        var mercuryFluxConnectorEntry = new MercuryFluxConnectorEntry(this).generate('m');
+        var mercuryFluxConnectorEntry = this.add(new MercuryFluxConnectorEntry(this).generate());
         mercuryFluxConnectorEntry.withParent(frequencyEntry);
+        this.layout().entry(mercuryFluxConnectorEntry).below(frequencyEntry, 2);
 
-        var capabilityProbeEntry = new CapabilityProbeEntry(this).generate('p');
+        var capabilityProbeEntry = this.add(new CapabilityProbeEntry(this).generate());
         capabilityProbeEntry.withParent(frequencyEntry);
+        this.layout().entry(capabilityProbeEntry).rightOf(frequencyEntry, 2).below(2);
 
-        var capabilityProxyEntry = new CapabilityProxyEntry(this).generate('x');
+        var capabilityProxyEntry = this.add(new CapabilityProxyEntry(this).generate());
         capabilityProxyEntry.withParent(capabilityProbeEntry);
+        this.layout().entry(capabilityProxyEntry).below(capabilityProbeEntry, 2);
     }
 
     @Override

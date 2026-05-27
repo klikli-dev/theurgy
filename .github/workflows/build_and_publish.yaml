@@ -104,6 +104,7 @@ jobs:
             
             Find changes for all versions at https://github.com/klikli-dev/theurgy/releases
           dependencies: |
+            magic-particles-lib(optional)
             codedefinedgui(optional) 
             modonomicon(required)
             geckolib(required)

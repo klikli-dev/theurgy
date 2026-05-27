@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.101.0] - 2026-05-27
+### :sparkles: New Features
+- [`2769c8d`](https://github.com/klikli-dev/theurgy/commit/2769c8dc5d7966b1a57830a4135634bee968ba9f) - switch to modo layout api *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.100.0] - 2026-05-26
 ### :sparkles: New Features
 - [`7f5f235`](https://github.com/klikli-dev/theurgy/commit/7f5f23528eb3f2828d5cddac08529cf1af7ca75d) - update datagen to modern modonomicon api *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1602,3 +1607,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.98.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.97.0...release/v26.1.2-1.98.0
 [release/v26.1.2-1.98.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.98.0...release/v26.1.2-1.98.1
 [release/v26.1.2-1.100.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.99.0...release/v26.1.2-1.100.0
+[release/v26.1.2-1.101.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.100.0...release/v26.1.2-1.101.0

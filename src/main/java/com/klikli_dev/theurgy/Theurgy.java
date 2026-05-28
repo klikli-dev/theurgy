@@ -138,6 +138,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
+            modEventBus.addListener(Client::onRegisterRenderPipelines);
             modEventBus.addListener(Client::onRegisterClientTooltipComponentFactories);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
             modEventBus.addListener(ParticleSprites::onTextureAtlasStitched);
@@ -301,6 +302,10 @@ public class Theurgy {
         public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
             event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("in_world_hud"), InWorldHUD.get());
             event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("item_hud"), ItemHUD.get());
+        }
+
+        public static void onRegisterRenderPipelines(net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent event) {
+            event.registerPipeline(RenderTypes.DISTANCE_LINES_PIPELINE);
         }
 
         public static void onRegisterClientTooltipComponentFactories(RegisterClientTooltipComponentFactoriesEvent event) {

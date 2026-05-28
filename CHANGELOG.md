@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.102.0] - 2026-05-28
+### :sparkles: New Features
+- [`a19affa`](https://github.com/klikli-dev/theurgy/commit/a19affa105a6ea449ae4c29dc27819e68c4baabc) - add configurable wire line width in client config *(PR [#367](https://github.com/klikli-dev/theurgy/pull/367) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`2ab891a`](https://github.com/klikli-dev/theurgy/commit/2ab891a80791bb10cdea1102867e4fdb2c3932d5) - update dependencies *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.101.0] - 2026-05-27
 ### :sparkles: New Features
 - [`2769c8d`](https://github.com/klikli-dev/theurgy/commit/2769c8dc5d7966b1a57830a4135634bee968ba9f) - switch to modo layout api *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1608,3 +1616,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.98.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.98.0...release/v26.1.2-1.98.1
 [release/v26.1.2-1.100.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.99.0...release/v26.1.2-1.100.0
 [release/v26.1.2-1.101.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.100.0...release/v26.1.2-1.101.0
+[release/v26.1.2-1.102.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.101.0...release/v26.1.2-1.102.0

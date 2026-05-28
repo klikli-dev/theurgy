@@ -13,6 +13,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -23,6 +24,7 @@ import java.util.Set;
 public class WireRenderer {
 
     private static final WireRenderer instance = new WireRenderer();
+    private static final int WIRE_COLOR = 0xFFB87333;
 
     public Set<Wire> wires = Collections.synchronizedSet(new ObjectOpenHashSet<>());
 
@@ -45,7 +47,10 @@ public class WireRenderer {
         poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
 
         //we use lines() to avoid all the wires getting connected as it would happen with linestrip
-        var buffer = bufferSource.getBuffer(RenderTypes.distanceLines());
+        var renderType = ClientConfig.get().rendering.useSimpleWireRenderer.get()
+                ? net.minecraft.client.renderer.rendertype.RenderTypes.lines()
+                : RenderTypes.distanceLines();
+        var buffer = bufferSource.getBuffer(renderType);
         for (var wire : this.wires) {
             poseStack.pushPose();
             poseStack.translate(wire.from().getX(), wire.from().getY(), wire.from().getZ());
@@ -53,7 +58,7 @@ public class WireRenderer {
             poseStack.popPose();
         }
         poseStack.popPose();
-        bufferSource.endBatch(RenderTypes.distanceLines());
+        bufferSource.endBatch(renderType);
     }
 
     private void renderWire(VertexConsumer vertexBuilder, PoseStack poseStack, Vec3 startPos, Vec3 endPos, float lineWidth) {
@@ -96,12 +101,12 @@ public class WireRenderer {
                 Vec3 reverseNormal = firstPoint.subtract(secondPoint).normalize();
 
                 vertexBuilder.addVertex(pose, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
-                        .setColor(0, 0, 0, 255)
+                        .setColor(((WireRenderer.WIRE_COLOR >> 16) & 0xFF) / 255f, ((WireRenderer.WIRE_COLOR >> 8) & 0xFF) / 255f, (WireRenderer.WIRE_COLOR & 0xFF) / 255f, (WireRenderer.WIRE_COLOR >> 24 & 0xFF) / 255f)
                         .setNormal(pose, (float) normal.x(), (float) normal.y(), (float) normal.z())
                         .setLineWidth(lineWidth);
 
                 vertexBuilder.addVertex(pose, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
-                        .setColor(0, 0, 0, 255)
+                        .setColor(((WireRenderer.WIRE_COLOR >> 16) & 0xFF) / 255f, ((WireRenderer.WIRE_COLOR >> 8) & 0xFF) / 255f, (WireRenderer.WIRE_COLOR & 0xFF) / 255f, (WireRenderer.WIRE_COLOR >> 24 & 0xFF) / 255f)
                         .setNormal(pose, (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
                         .setLineWidth(lineWidth);
             }

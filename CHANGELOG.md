@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.105.0] - 2026-05-28
+### :sparkles: New Features
+- [`feb01cc`](https://github.com/klikli-dev/theurgy/commit/feb01cc3f78bf3633689103feedaaad79a4bae60) - update to latest occultism *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.104.0] - 2026-05-28
 ### :bug: Bug Fixes
 - [`2a75455`](https://github.com/klikli-dev/theurgy/commit/2a75455d6474f9d863b48ad2267c1d5ab25a3ac9) - [#368](https://github.com/klikli-dev/theurgy/pull/368) review comments *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1629,3 +1634,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.102.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.101.0...release/v26.1.2-1.102.0
 [release/v26.1.2-1.103.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.102.0...release/v26.1.2-1.103.0
 [release/v26.1.2-1.104.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.103.0...release/v26.1.2-1.104.0
+[release/v26.1.2-1.105.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.104.0...release/v26.1.2-1.105.0

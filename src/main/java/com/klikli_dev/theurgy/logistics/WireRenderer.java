@@ -23,6 +23,7 @@ import java.util.Set;
 public class WireRenderer {
 
     private static final WireRenderer instance = new WireRenderer();
+    private static final int WIRE_COLOR = 0xFFB87333;
 
     public Set<Wire> wires = Collections.synchronizedSet(new ObjectOpenHashSet<>());
 
@@ -96,12 +97,12 @@ public class WireRenderer {
                 Vec3 reverseNormal = firstPoint.subtract(secondPoint).normalize();
 
                 vertexBuilder.addVertex(pose, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
-                        .setColor(0, 0, 0, 255)
+                        .setColor(((WireRenderer.WIRE_COLOR >> 16) & 0xFF) / 255f, ((WireRenderer.WIRE_COLOR >> 8) & 0xFF) / 255f, (WireRenderer.WIRE_COLOR & 0xFF) / 255f, (WireRenderer.WIRE_COLOR >> 24 & 0xFF) / 255f)
                         .setNormal(pose, (float) normal.x(), (float) normal.y(), (float) normal.z())
                         .setLineWidth(lineWidth);
 
                 vertexBuilder.addVertex(pose, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
-                        .setColor(0, 0, 0, 255)
+                        .setColor(((WireRenderer.WIRE_COLOR >> 16) & 0xFF) / 255f, ((WireRenderer.WIRE_COLOR >> 8) & 0xFF) / 255f, (WireRenderer.WIRE_COLOR & 0xFF) / 255f, (WireRenderer.WIRE_COLOR >> 24 & 0xFF) / 255f)
                         .setNormal(pose, (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
                         .setLineWidth(lineWidth);
             }

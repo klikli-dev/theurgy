@@ -31,9 +31,7 @@ void main() {
 
     vec2 lineScreenDirection = normalize((ndc2.xy - ndc1.xy) * ScreenSize);
 
-    // Distance-based line width scaling: divide by spherical distance so lines
-    // maintain consistent on-screen thickness regardless of camera distance.
-    // (See: https://github.com/klikli-dev/theurgy/issues/224)
+    // Distance-based line width scaling: divide by spherical distance so lines scale with distance.
     float dist = fog_spherical_distance(Position);
     vec2 lineOffset = vec2(-lineScreenDirection.y, lineScreenDirection.x) * LineWidth / ScreenSize / dist;
 

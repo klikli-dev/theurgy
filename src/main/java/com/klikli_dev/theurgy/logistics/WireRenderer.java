@@ -7,6 +7,7 @@
 
 package com.klikli_dev.theurgy.logistics;
 
+import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -33,7 +34,7 @@ public class WireRenderer {
         var minecraft = Minecraft.getInstance();
         var bufferSource = minecraft.renderBuffers().bufferSource();
         var poseStack = event.getPoseStack();
-        float lineWidth = minecraft.getWindow().getAppropriateLineWidth();
+        float lineWidth = minecraft.getWindow().getAppropriateLineWidth() * ClientConfig.get().rendering.wireLineWidth.get();
 
         EntityRenderDispatcher erd = minecraft.getEntityRenderDispatcher();
         double renderPosX = erd.camera.position().x();

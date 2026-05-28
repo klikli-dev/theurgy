@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.config;
 import com.klikli_dev.theurgy.content.render.HeldStackFitRenderMode;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 
 public class ClientConfig {
 
@@ -34,6 +35,7 @@ public class ClientConfig {
         public final BooleanValue enableHeldStackFitOutline;
         public final ModConfigSpec.EnumValue<HeldStackFitRenderMode> heldStackFitOutlineRenderMode;
         public final ModConfigSpec.DoubleValue itemHUDScale;
+        public final IntValue wireLineWidth;
 
         public Rendering(ModConfigSpec.Builder builder) {
             builder.comment("Rendering Settings").push("rendering");
@@ -63,6 +65,11 @@ public class ClientConfig {
             this.itemHUDScale = builder
                     .comment("The scale of the Item HUD text (e.g. for the mercurial wand).")
                     .defineInRange("hudScale", 0.7, 0.25, 3);
+
+            this.wireLineWidth = builder
+                    .comment("The line width of wires rendered in-world. Higher values produce thicker wires.",
+                            "Note: Line width rendering is platform-dependent and may be limited to 1 on some GPUs.")
+                    .defineInRange("wireLineWidth", 1, 1, 16);
 
             builder.pop();
         }

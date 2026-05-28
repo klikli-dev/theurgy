@@ -304,7 +304,7 @@ public class Theurgy {
             event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("item_hud"), ItemHUD.get());
         }
 
-        public static void onRegisterRenderPipelines(net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent event) {
+        public static void onRegisterRenderPipelines(RegisterRenderPipelinesEvent event) {
             event.registerPipeline(RenderTypes.DISTANCE_LINES_PIPELINE);
         }
 

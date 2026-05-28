@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.render;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.theurgy.Theurgy;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -16,7 +15,6 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Util;
 
-import java.util.Optional;
 import java.util.function.Function;
 
 public class RenderTypes {
@@ -31,23 +29,22 @@ public class RenderTypes {
             .withVertexShader(Theurgy.loc("rendertype_distance_lines"))
             .withFragmentShader(Theurgy.loc("rendertype_distance_lines"))
             .build();
-
-    private static final RenderType DISTANCE_LINES = RenderType.create(
-            "theurgy_distance_lines",
-            RenderSetup.builder(DISTANCE_LINES_PIPELINE)
-            .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-                            .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-                            .createRenderSetup());
-
     protected static final Function<Identifier, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
     protected static final Function<Identifier, RenderType> PARTICLE_TRANSLUCENT = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture, true));
     protected static final RenderType TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET = entityTranslucentCullNoDepth(TextureAtlas.LOCATION_BLOCKS);
+    private static final RenderType DISTANCE_LINES = RenderType.create(
+            "theurgy_distance_lines",
+            RenderSetup.builder(DISTANCE_LINES_PIPELINE)
+                    .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                    .createRenderSetup());
     private static final Identifier BLANK_TEXTURE = Theurgy.loc("textures/misc/blank.png");
     private static final RenderType FLUID = net.minecraft.client.renderer.rendertype.RenderTypes.itemTranslucent(TextureAtlas.LOCATION_BLOCKS);
     private static final RenderType OUTLINE_SOLID = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(BLANK_TEXTURE);
     private static final Function<Identifier, RenderType> SRC_MINUS_ONE = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
 
-    private RenderTypes() {}
+    private RenderTypes() {
+    }
 
     public static RenderType entityTranslucentCullNoDepth(Identifier pLocation) {
         return ENTITY_TRANSLUCENT_CULL_NO_DEPTH.apply(pLocation);

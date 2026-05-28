@@ -101,12 +101,12 @@ public class WireRenderer {
                 Vec3 reverseNormal = firstPoint.subtract(secondPoint).normalize();
 
                 vertexBuilder.addVertex(pose, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
-                        .setColor(((WireRenderer.WIRE_COLOR >> 16) & 0xFF) / 255f, ((WireRenderer.WIRE_COLOR >> 8) & 0xFF) / 255f, (WireRenderer.WIRE_COLOR & 0xFF) / 255f, (WireRenderer.WIRE_COLOR >> 24 & 0xFF) / 255f)
+                        .setColor(WIRE_COLOR)
                         .setNormal(pose, (float) normal.x(), (float) normal.y(), (float) normal.z())
                         .setLineWidth(lineWidth);
 
                 vertexBuilder.addVertex(pose, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
-                        .setColor(((WireRenderer.WIRE_COLOR >> 16) & 0xFF) / 255f, ((WireRenderer.WIRE_COLOR >> 8) & 0xFF) / 255f, (WireRenderer.WIRE_COLOR & 0xFF) / 255f, (WireRenderer.WIRE_COLOR >> 24 & 0xFF) / 255f)
+                        .setColor(WIRE_COLOR)
                         .setNormal(pose, (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
                         .setLineWidth(lineWidth);
             }

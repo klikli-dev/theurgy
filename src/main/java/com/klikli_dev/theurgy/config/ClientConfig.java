@@ -70,7 +70,7 @@ public class ClientConfig {
             this.wireLineWidth = builder
                     .comment("The line width of wires rendered in-world. Higher values produce thicker wires.",
                             "Note: Line width rendering is platform-dependent and may be limited to 1 on some GPUs.")
-                    .defineInRange("wireLineWidth", 1, 1, 16);
+                    .defineInRange("wireLineWidth", 2, 1, 64);
 
             this.useSimpleWireRenderer = builder
                     .comment("True to render logistics wires with RenderType.lines() instead of distanceLines().",

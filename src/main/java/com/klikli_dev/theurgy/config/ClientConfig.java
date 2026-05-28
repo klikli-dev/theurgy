@@ -36,6 +36,7 @@ public class ClientConfig {
         public final ModConfigSpec.EnumValue<HeldStackFitRenderMode> heldStackFitOutlineRenderMode;
         public final ModConfigSpec.DoubleValue itemHUDScale;
         public final IntValue wireLineWidth;
+        public final BooleanValue useSimpleWireRenderer;
 
         public Rendering(ModConfigSpec.Builder builder) {
             builder.comment("Rendering Settings").push("rendering");
@@ -70,6 +71,11 @@ public class ClientConfig {
                     .comment("The line width of wires rendered in-world. Higher values produce thicker wires.",
                             "Note: Line width rendering is platform-dependent and may be limited to 1 on some GPUs.")
                     .defineInRange("wireLineWidth", 1, 1, 16);
+
+            this.useSimpleWireRenderer = builder
+                    .comment("True to render logistics wires with RenderType.lines() instead of distanceLines().",
+                            "If shaders are used, this type might allow wires to show when they otherwise do not render.")
+                    .define("useSimpleWireRenderer", false);
 
             builder.pop();
         }

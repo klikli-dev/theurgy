@@ -315,11 +315,13 @@ public class Theurgy {
         public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {
             var minecraft = Minecraft.getInstance();
             if (minecraft.player != null && minecraft.player.isShiftKeyDown()) {
-                double delta = event.getScrollDeltaY();
+                double deltaY = event.getScrollDeltaY();
+                double deltaX = event.getScrollDeltaX();
+                double primaryDelta = (Math.abs(deltaY) >= Math.abs(deltaX)) ? deltaY : deltaX;
                 var stack = minecraft.player.getMainHandItem();
 
-                if (delta != 0 && stack.getItem() instanceof HandlesOnScroll scrollableItem) {
-                    int shift = ScrollHelper.scroll(delta);
+                if (primaryDelta != 0 && stack.getItem() instanceof HandlesOnScroll scrollableItem) {
+                    int shift = ScrollHelper.scroll(primaryDelta);
                     if (shift != 0) {
                         scrollableItem.onScroll(minecraft.player, stack, shift);
                     }

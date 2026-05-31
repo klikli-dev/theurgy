@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": "#c:ingots/gold",
+    "m": "#theurgy:alchemical_mercuries",
+    "s": "#c:stones"
+  },
+  "pattern": [
+    " m ",
+    "gmg",
+    "sss"
+  ],
+  "result": {
+    "id": "theurgy:mercury_flux_emitter"
+  }
+}

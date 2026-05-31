@@ -285,6 +285,16 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         );
 
         this.makeRecipe(new ShapedRecipeBuilder(
+                ItemRegistry.MERCURY_FLUX_EMITTER.get(), 1)
+                .pattern(" m ")
+                .pattern("gmg")
+                .pattern("sss")
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('s', Tags.Items.STONES)
+                .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
+        );
+
+        this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.SULFURIC_FLUX_EMITTER.get(), 1)
                 .pattern(" a ")
                 .pattern("gSg")

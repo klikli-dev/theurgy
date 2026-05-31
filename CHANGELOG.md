@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.108.0] - 2026-05-31
+### :sparkles: New Features
+- [`7c02dff`](https://github.com/klikli-dev/theurgy/commit/7c02dff01cbaac6094bb4a29a97cdaf3a635b3fd) - add Mercury Flux Emitter recipe and modonomicon page *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.107.0] - 2026-05-31
 ### :bug: Bug Fixes
 - [`c0bf2c8`](https://github.com/klikli-dev/theurgy/commit/c0bf2c81b07b682d36805cecb889abb5abbd5c09) - copy mutable components before style change *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1647,3 +1652,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.105.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.104.0...release/v26.1.2-1.105.0
 [release/v26.1.2-1.106.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.105.0...release/v26.1.2-1.106.0
 [release/v26.1.2-1.107.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.106.0...release/v26.1.2-1.107.0
+[release/v26.1.2-1.108.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.107.0...release/v26.1.2-1.108.0

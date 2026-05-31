@@ -69,7 +69,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         if (this.title1.isEmpty()) {
             //use recipe title if we don't have a custom one
             if (this.recipeDisplayEntry1.display() instanceof AccumulationRecipeDisplay display) {
-                this.title1 = new BookTextHolder(((MutableComponent) display.resultFluidStack().getHoverName())
+                this.title1 = new BookTextHolder((display.resultFluidStack().getHoverName().copy())
                         .withStyle(Style.EMPTY
                                 .withBold(true)
                                 .withColor(this.getParentEntry().getBook().theme().palette().defaultTitleColor())
@@ -80,7 +80,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         if (this.recipeDisplayEntry2 != null && this.title2.isEmpty()) {
             //use recipe title if we don't have a custom one
             if (this.recipeDisplayEntry1.display() instanceof AccumulationRecipeDisplay display) {
-                this.title2 = new BookTextHolder(((MutableComponent) display.resultFluidStack().getHoverName())
+                this.title2 = new BookTextHolder((display.resultFluidStack().getHoverName().copy())
                         .withStyle(Style.EMPTY
                                 .withBold(true)
                                 .withColor(this.getParentEntry().getBook().theme().palette().defaultTitleColor())

@@ -182,7 +182,7 @@ public class AlchemicalDerivativeItem extends Item {
         var source = this.getSourceStack(pStack);
         if (!source.isEmpty()) {
             if (source.getHoverName() instanceof MutableComponent hoverName)
-                return this.formatSourceName(hoverName, this.tier);
+                return this.formatSourceName(hoverName.copy(), this.tier);
         }
 
         return Component.translatable(TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_UNKNOWN_SOURCE);

@@ -494,20 +494,4 @@ public class DivinationRodItem extends Item {
     public TagKey<Block> getDisallowedBlocksTag(ItemStack stack) {
         return stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DISALLOWED_BLOCKS_TAG, this.defaultDisallowedBlocksTag);
     }
-
-    /**
-     * Inner class to avoid classloading issues on the server
-     */
-    public static class DistHelper {
-        @SuppressWarnings("deprecation")
-        /*
-        public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
-            if (stack.getOrDefault(DataComponentRegistry.DIVINATION_DISTANCE, -1.0f) < 0)
-                return NOT_FOUND;
-            return stack.get(DataComponentRegistry.DIVINATION_DISTANCE);
-        };
-        */
-        public static void todo() {
-        } // Placeholder
-    }
 }

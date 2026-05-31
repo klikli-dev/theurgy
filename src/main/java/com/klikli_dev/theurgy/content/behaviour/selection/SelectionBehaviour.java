@@ -162,7 +162,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint<?>> {
     }
 
     protected Component getModeMessage(T point, BlockState state) {
-        return Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_MODE, point.getModeMessage(), state.getBlock().getName().withStyle(ChatFormatting.WHITE)).withStyle(s -> s.withColor(point.getColor().getRGB()));
+        return Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_MODE, point.getModeMessage(), state.getBlock().getName().copy().withStyle(ChatFormatting.WHITE)).withStyle(s -> s.withColor(point.getColor().getRGB()));
     }
 
     protected Component getOutsideRangeMessage(int removed) {

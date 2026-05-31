@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.107.0] - 2026-05-31
+### :bug: Bug Fixes
+- [`c0bf2c8`](https://github.com/klikli-dev/theurgy/commit/c0bf2c81b07b682d36805cecb889abb5abbd5c09) - copy mutable components before style change *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.106.0] - 2026-05-29
 ### :sparkles: New Features
 - [`b3c5b18`](https://github.com/klikli-dev/theurgy/commit/b3c5b18a86d23fd83a4f51c4e612ab4525391b66) - Wand - Respond to either vertical or horizontal scrolling *(PR [#369](https://github.com/klikli-dev/theurgy/pull/369) by [@SubordinalBlue](https://github.com/SubordinalBlue))*
@@ -1641,3 +1646,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.104.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.103.0...release/v26.1.2-1.104.0
 [release/v26.1.2-1.105.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.104.0...release/v26.1.2-1.105.0
 [release/v26.1.2-1.106.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.105.0...release/v26.1.2-1.106.0
+[release/v26.1.2-1.107.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.106.0...release/v26.1.2-1.107.0

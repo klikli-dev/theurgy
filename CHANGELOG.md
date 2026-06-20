@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.110.0] - 2026-06-20
+### :sparkles: New Features
+- [`f736a29`](https://github.com/klikli-dev/theurgy/commit/f736a29623c9d69f29ca6a2f078242a7f57d5e95) - add shelve and lectern tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`81a3a0d`](https://github.com/klikli-dev/theurgy/commit/81a3a0dcf9be0a874c3fa5adac1e2a356031f319) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.109.0] - 2026-06-02
 ### :sparkles: New Features
 - [`e255016`](https://github.com/klikli-dev/theurgy/commit/e2550168f009d2d3bd5cfa0d38e98dcca928bf8d) - update to stable neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1659,3 +1667,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.107.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.106.0...release/v26.1.2-1.107.0
 [release/v26.1.2-1.108.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.107.0...release/v26.1.2-1.108.0
 [release/v26.1.2-1.109.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.108.0...release/v26.1.2-1.109.0
+[release/v26.1.2-1.110.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.109.0...release/v26.1.2-1.110.0

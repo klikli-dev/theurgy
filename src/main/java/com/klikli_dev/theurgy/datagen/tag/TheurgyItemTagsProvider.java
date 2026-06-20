@@ -30,6 +30,9 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(ItemRegistry.THE_HERMETICA.get());
+        this.tag(ItemTags.LECTERN_BOOKS).add(ItemRegistry.THE_HERMETICA.get());
+
         //Note: we cannot use this.copy() here because our custom copy converts the block tag to an item
         //tag with the same location and adds it as a tag reference - which creates a self-reference
         //for tags that share the same path (e.g. c:ores/sal_ammoniac exists as both block and item tag).

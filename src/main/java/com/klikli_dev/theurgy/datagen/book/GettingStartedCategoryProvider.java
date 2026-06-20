@@ -9,6 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.TheurgyResearch;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutDivinationRodsEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutModEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.AlchemicalNiterEntry;
@@ -152,7 +153,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var replication = this.add(new ReplicationEntry(this).generate());
         replication.withParent(spagyrics);
         replication.withParent(incubation);
-        replication.withCondition(this.condition().entryRead(incubation));
+        replication.withCondition(this.condition().researchNodeEntryViewedOnce(TheurgyResearch.GETTING_STARTED_INCUBATION, incubation));
         replication.showWhenAnyParentUnlocked(true);
         this.layout().entry(replication).rightOf(spagyrics, 6);
 
@@ -201,7 +202,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         // Transmutation entries (inlined from generateTransmutationEntries)
         var convertToOtherType = this.add(new ConvertToOtherTypeEntry(this).generate());
         convertToOtherType.withParent(convertWithinTypeAndTier);
-        convertToOtherType.withCondition(this.condition().entryRead(reformationIncubation));
+        convertToOtherType.withCondition(this.condition().researchNodeEntryViewedOnce(TheurgyResearch.GETTING_STARTED_INCUBATION_AFTER_REFORMATION, reformationIncubation));
         convertToOtherType.hideWhileLocked(true);
         this.layout().entry(convertToOtherType).below(convertWithinTypeAndTier, 6);
 
@@ -236,7 +237,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         // Exaltation entries (inlined from generateExaltationEntries)
         var convertToOtherTier = this.add(new ConvertToOtherTierEntry(this).generate());
         convertToOtherTier.withParent(convertToOtherType);
-        convertToOtherTier.withCondition(this.condition().entryRead(incubation_transmutation));
+        convertToOtherTier.withCondition(this.condition().researchNodeEntryViewedOnce(TheurgyResearch.GETTING_STARTED_INCUBATION_AFTER_TRANSMUTATION, incubation_transmutation));
         convertToOtherTier.hideWhileLocked(true);
         this.layout().entry(convertToOtherTier).below(convertToOtherType, 4);
 
@@ -272,7 +273,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         // Final entry
         var renewableGold = this.add(new RenewableGoldEntry(this).generate());
         renewableGold.withParent(convertToOtherTier);
-        renewableGold.withCondition(this.condition().entryRead(incubation_exaltation));
+        renewableGold.withCondition(this.condition().researchNodeEntryViewedOnce(TheurgyResearch.GETTING_STARTED_INCUBATION_AFTER_EXALTATION, incubation_exaltation));
         renewableGold.hideWhileLocked(true);
         this.layout().entry(renewableGold).rightOf(digestionVat, -2).below(2);
     }

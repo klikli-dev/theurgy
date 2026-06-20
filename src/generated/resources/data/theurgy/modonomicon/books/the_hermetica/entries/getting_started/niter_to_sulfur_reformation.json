@@ -7,8 +7,16 @@
   },
   "category": "theurgy:getting_started",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "theurgy:getting_started/niter_to_niter_reformation"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_niter_to_sulfur_reformation",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.name"
+        }
+      ]
+    }
   },
   "description": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.description",
   "icon": {

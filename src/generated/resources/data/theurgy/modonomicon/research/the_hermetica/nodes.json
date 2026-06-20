@@ -1,0 +1,38 @@
+[
+  {
+    "id": "theurgy:research/entry_viewed/getting_started/incubation",
+    "required_facts": [
+      "theurgy:theurgy/research/entry_viewed/getting_started/incubation"
+    ]
+  },
+  {
+    "id": "theurgy:research/entry_viewed/getting_started/incubation_after_reformation",
+    "required_facts": [
+      "theurgy:theurgy/research/entry_viewed/getting_started/incubation_after_reformation"
+    ]
+  },
+  {
+    "id": "theurgy:research/entry_viewed/getting_started/incubation_after_transmutation",
+    "required_facts": [
+      "theurgy:theurgy/research/entry_viewed/getting_started/incubation_after_transmutation"
+    ]
+  },
+  {
+    "id": "theurgy:research/entry_viewed/getting_started/incubation_after_exaltation",
+    "required_facts": [
+      "theurgy:theurgy/research/entry_viewed/getting_started/incubation_after_exaltation"
+    ]
+  },
+  {
+    "id": "theurgy:research/entry_viewed/apparatus/digestion_vat",
+    "required_facts": [
+      "theurgy:theurgy/research/entry_viewed/apparatus/digestion_vat"
+    ]
+  },
+  {
+    "id": "theurgy:research/entry_viewed/apparatus/fermentation_vat",
+    "required_facts": [
+      "theurgy:theurgy/research/entry_viewed/apparatus/fermentation_vat"
+    ]
+  }
+]

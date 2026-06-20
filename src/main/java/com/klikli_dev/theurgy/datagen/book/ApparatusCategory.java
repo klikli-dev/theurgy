@@ -9,6 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.TheurgyResearch;
 import com.klikli_dev.theurgy.datagen.book.apparatus.HowToEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.InsertHelperEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.IntroEntry;
@@ -140,8 +141,8 @@ public class ApparatusCategory extends CategoryProvider {
         vatRedstoneEntry.addParent(this.parent(digestionVatEntry).withLineReversed(true));
         vatRedstoneEntry.addParent(this.parent(fermentationVatEntry).withLineReversed(true));
         vatRedstoneEntry.withCondition(this.condition().or(
-                this.condition().entryRead(digestionVatEntry),
-                this.condition().entryRead(fermentationVatEntry)
+                this.condition().researchNodeEntryViewedOnce(TheurgyResearch.APPARATUS_DIGESTION_VAT, digestionVatEntry),
+                this.condition().researchNodeEntryViewedOnce(TheurgyResearch.APPARATUS_FERMENTATION_VAT, fermentationVatEntry)
         ));
         this.layout().entry(vatRedstoneEntry).below(transmutationAndExaltation, 2);
 

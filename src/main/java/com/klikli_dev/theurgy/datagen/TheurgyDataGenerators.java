@@ -4,7 +4,10 @@
 
 package com.klikli_dev.theurgy.datagen;
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
+import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
+import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider;
+import com.klikli_dev.modonomicon.api.datagen.NeoResearchProvider;
+import com.klikli_dev.modonomicon.api.datagen.research.ResearchCache;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.advancement.TheurgyAdvancementSubProvider;
 import com.klikli_dev.theurgy.datagen.book.TheurgyBookProvider;
@@ -70,15 +73,18 @@ public class TheurgyDataGenerators {
 
         generator.addProvider(true, new TheurgyMultiblockProvider(generator.getPackOutput()));
 
-        var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(true,
-                new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Theurgy.MODID, List.of(
-                        new TheurgyBookProvider(enUSProvider))
-                )
-        );
+        var langCache = new LanguageProviderCache("en_us");
+        var researchCache = new ResearchCache();
+
+        generator.addProvider(true, NeoBookProvider.of(event, langCache, researchCache,
+                new TheurgyBookProvider()
+        ));
+        generator.addProvider(true, NeoResearchProvider.of(event, langCache, researchCache,
+                new TheurgyResearch()
+        ));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
-        generator.addProvider(true, enUSProvider);
+        generator.addProvider(true, new ENUSProvider(generator.getPackOutput(), langCache));
 
         event.getGenerator().addProvider(true,
                 (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->

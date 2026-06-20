@@ -7,8 +7,16 @@
   },
   "category": "theurgy:logistics",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "theurgy:logistics/intro"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_item_extractor",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.theurgy.the_hermetica.logistics.item_extractor.name"
+        }
+      ]
+    }
   },
   "description": "book.theurgy.the_hermetica.logistics.item_extractor.description",
   "icon": {

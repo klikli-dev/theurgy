@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.datagen.lang;
 
 import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
+import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.*;
@@ -27,8 +28,8 @@ import java.text.MessageFormat;
 import java.util.function.Supplier;
 
 public class ENUSProvider extends AbstractModonomiconLanguageProvider implements TooltipLanguageProvider {
-    public ENUSProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "en_us");
+    public ENUSProvider(PackOutput packOutput, LanguageProviderCache langCache) {
+        super(packOutput, Theurgy.MODID, "en_us", langCache);
     }
 
     protected String f(String pattern, Object... arguments) {

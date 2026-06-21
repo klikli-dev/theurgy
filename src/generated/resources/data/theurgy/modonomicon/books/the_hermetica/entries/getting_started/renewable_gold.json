@@ -7,8 +7,16 @@
   },
   "category": "theurgy:getting_started",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "theurgy:getting_started/incubation_after_exaltation"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "theurgy:research/entry_viewed/getting_started/incubation_after_exaltation",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.theurgy.the_hermetica.getting_started.incubation_after_exaltation.name"
+        }
+      ]
+    }
   },
   "description": "book.theurgy.the_hermetica.getting_started.renewable_gold.description",
   "hide_while_locked": true,

@@ -7,21 +7,16 @@
   },
   "category": "theurgy:logistics",
   "condition": {
-    "type": "modonomicon:and",
-    "children": [
-      {
-        "type": "modonomicon:entry_read",
-        "entry_id": "theurgy:logistics/mercurial_wire"
-      },
-      {
-        "type": "modonomicon:entry_read",
-        "entry_id": "theurgy:logistics/item_extractor"
-      },
-      {
-        "type": "modonomicon:entry_read",
-        "entry_id": "theurgy:logistics/item_inserter"
-      }
-    ]
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_logistics_network",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.theurgy.the_hermetica.logistics.logistics_network.name"
+        }
+      ]
+    }
   },
   "description": "book.theurgy.the_hermetica.logistics.logistics_network.description",
   "icon": "theurgy:textures/gui/book/logistics_network.png",

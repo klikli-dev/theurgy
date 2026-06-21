@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.theurgy.Theurgy;
@@ -12,8 +11,8 @@ import com.klikli_dev.theurgy.registry.CreativeModeTabRegistry;
 
 
 public class TheurgyBookProvider extends SingleBookSubProvider {
-    public TheurgyBookProvider(ModonomiconLanguageProvider lang) {
-        super("the_hermetica", Theurgy.MODID, lang);
+    public TheurgyBookProvider() {
+        super("the_hermetica", Theurgy.MODID);
     }
 
     @Override
@@ -24,8 +23,6 @@ public class TheurgyBookProvider extends SingleBookSubProvider {
 
     @Override
     protected void generateCategories() {
-        //TODO: setup real entry conditions
-
         var gettingStartedCategory = this.add(new GettingStartedCategoryProvider(this).generate());
 
         var apparatusCategory = this.add(new ApparatusCategory(this).generate());
@@ -50,6 +47,6 @@ public class TheurgyBookProvider extends SingleBookSubProvider {
                 .withGenerateBookItem(false)
                 .withCustomBookItem(this.modLoc("the_hermetica"))
                 .withCreativeTab(CreativeModeTabRegistry.THEURGY.getId())
-                .withAutoAddReadConditions(true);
+                .withGenerateEntryHierarchyResearch(true);
     }
 }

@@ -7,8 +7,16 @@
   },
   "category": "theurgy:apparatus",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "theurgy:apparatus/intro"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_how_to",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.theurgy.the_hermetica.apparatus.how_to.name"
+        }
+      ]
+    }
   },
   "description": "book.theurgy.the_hermetica.apparatus.how_to.description",
   "icon": {

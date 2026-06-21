@@ -1,0 +1,338 @@
+[
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_intro",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_intro_hook",
+    "trigger_target": "theurgy:getting_started/intro",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_mod",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_mod_hook",
+    "trigger_target": "theurgy:getting_started/about_mod",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_divination_rods",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_divination_rods_hook",
+    "trigger_target": "theurgy:getting_started/about_divination_rods",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t1_divination_rod",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t1_divination_rod_hook",
+    "trigger_target": "theurgy:getting_started/t1_divination_rod",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_abundant_and_common_sulfur_attuned_divination_rod",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_abundant_and_common_sulfur_attuned_divination_rod_hook",
+    "trigger_target": "theurgy:getting_started/abundant_and_common_sulfur_attuned_divination_rod",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_amethyst_divination_rod",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_amethyst_divination_rod_hook",
+    "trigger_target": "theurgy:getting_started/amethyst_divination_rod",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t2_divination_rod",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t2_divination_rod_hook",
+    "trigger_target": "theurgy:getting_started/t2_divination_rod",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t3_divination_rod",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t3_divination_rod_hook",
+    "trigger_target": "theurgy:getting_started/t3_divination_rod",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_rare_sulfur_attuned_divination_rod",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_rare_sulfur_attuned_divination_rod_hook",
+    "trigger_target": "theurgy:getting_started/rare_sulfur_attuned_divination_rod",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_spagyrics",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_spagyrics_hook",
+    "trigger_target": "theurgy:getting_started/spagyrics",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_ore_refining",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_ore_refining_hook",
+    "trigger_target": "theurgy:getting_started/ore_refining",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_needed_apparatus_spagyrics",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_needed_apparatus_spagyrics_hook",
+    "trigger_target": "theurgy:getting_started/needed_apparatus_spagyrics",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_solvent",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_solvent_hook",
+    "trigger_target": "theurgy:getting_started/create_solvent",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_salt",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_salt_hook",
+    "trigger_target": "theurgy:getting_started/create_salt",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_strata_recycling",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_strata_recycling_hook",
+    "trigger_target": "theurgy:getting_started/strata_recycling",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_mercury",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_mercury_hook",
+    "trigger_target": "theurgy:getting_started/create_mercury",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_sulfur",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_sulfur_hook",
+    "trigger_target": "theurgy:getting_started/create_sulfur",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_replication",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_replication_hook",
+    "trigger_target": "theurgy:getting_started/replication",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_alchemical_niter",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_alchemical_niter_hook",
+    "trigger_target": "theurgy:getting_started/alchemical_niter",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_within_type_and_tier",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_within_type_and_tier_hook",
+    "trigger_target": "theurgy:getting_started/convert_within_type_and_tier",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_reformation_array",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_reformation_array_hook",
+    "trigger_target": "theurgy:getting_started/reformation_array",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_source_pedestal",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_source_pedestal_hook",
+    "trigger_target": "theurgy:getting_started/source_pedestal",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_target_pedestal",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_target_pedestal_hook",
+    "trigger_target": "theurgy:getting_started/target_pedestal",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_sulfuric_flux_emitter",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_sulfuric_flux_emitter_hook",
+    "trigger_target": "theurgy:getting_started/sulfuric_flux_emitter",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_result_pedestal",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_result_pedestal_hook",
+    "trigger_target": "theurgy:getting_started/result_pedestal",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_to_other_type",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_to_other_type_hook",
+    "trigger_target": "theurgy:getting_started/convert_to_other_type",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_vat",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_vat_hook",
+    "trigger_target": "theurgy:getting_started/fermentation_vat",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_transmutation",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_transmutation_hook",
+    "trigger_target": "theurgy:getting_started/fermentation_transmutation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_niter_reformation",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_niter_reformation_hook",
+    "trigger_target": "theurgy:getting_started/niter_to_niter_reformation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_sulfur_reformation",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_sulfur_reformation_hook",
+    "trigger_target": "theurgy:getting_started/niter_to_sulfur_reformation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_to_other_tier",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_to_other_tier_hook",
+    "trigger_target": "theurgy:getting_started/convert_to_other_tier",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_digestion_vat",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_digestion_vat_hook",
+    "trigger_target": "theurgy:getting_started/digestion_vat",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_required_items_exaltation",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_required_items_exaltation_hook",
+    "trigger_target": "theurgy:getting_started/required_items_exaltation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_exaltation",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_exaltation_hook",
+    "trigger_target": "theurgy:getting_started/fermentation_exaltation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_purified_gold",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_purified_gold_hook",
+    "trigger_target": "theurgy:getting_started/purified_gold",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_digestion_exaltation",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_digestion_exaltation_hook",
+    "trigger_target": "theurgy:getting_started/digestion_exaltation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_sulfur_reformation_exaltation",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_sulfur_reformation_exaltation_hook",
+    "trigger_target": "theurgy:getting_started/niter_to_sulfur_reformation_exaltation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_intro",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_intro_hook",
+    "trigger_target": "theurgy:apparatus/intro",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_how_to",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_how_to_hook",
+    "trigger_target": "theurgy:apparatus/how_to",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_spagyrics",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_spagyrics_hook",
+    "trigger_target": "theurgy:apparatus/spagyrics",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_sal_ammoniac_tank",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_sal_ammoniac_tank_hook",
+    "trigger_target": "theurgy:apparatus/sal_ammoniac_tank",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_flux",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_flux_hook",
+    "trigger_target": "theurgy:apparatus/mercury_flux",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_catalyst",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_catalyst_hook",
+    "trigger_target": "theurgy:apparatus/mercury_catalyst",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_reformation_array",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_reformation_array_hook",
+    "trigger_target": "theurgy:apparatus/reformation_array",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_transmutation_and_exaltation",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_transmutation_and_exaltation_hook",
+    "trigger_target": "theurgy:apparatus/transmutation_and_exaltation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_vat_redstone",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_vat_redstone_hook",
+    "trigger_target": "theurgy:apparatus/vat_redstone",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_intro",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_intro_hook",
+    "trigger_target": "theurgy:logistics/intro",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_item_extractor",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_item_extractor_hook",
+    "trigger_target": "theurgy:logistics/item_extractor",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_item_inserter",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_item_inserter_hook",
+    "trigger_target": "theurgy:logistics/item_inserter",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_mercurial_wire",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_mercurial_wire_hook",
+    "trigger_target": "theurgy:logistics/mercurial_wire",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_logistics_network",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_logistics_network_hook",
+    "trigger_target": "theurgy:logistics/logistics_network",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_connection_node",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_connection_node_hook",
+    "trigger_target": "theurgy:logistics/connection_node",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_list_filter",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_list_filter_hook",
+    "trigger_target": "theurgy:logistics/list_filter",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_attribute_filter",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_attribute_filter_hook",
+    "trigger_target": "theurgy:logistics/attribute_filter",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_frequency",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_frequency_hook",
+    "trigger_target": "theurgy:logistics/frequency",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_capability_probe",
+    "id": "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_capability_probe_hook",
+    "trigger_target": "theurgy:logistics/capability_probe",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  }
+]

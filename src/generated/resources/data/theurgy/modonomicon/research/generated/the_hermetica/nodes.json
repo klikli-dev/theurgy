@@ -1,0 +1,513 @@
+[
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_about_mod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_intro"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_credits",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_mod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_about_divination_rods",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_mod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_t1_divination_rod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_divination_rods"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_abundant_and_common_sulfur_attuned_divination_rod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_divination_rods"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_amethyst_divination_rod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t1_divination_rod",
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_abundant_and_common_sulfur_attuned_divination_rod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_t2_divination_rod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_amethyst_divination_rod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_t3_divination_rod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t2_divination_rod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_t4_divination_rod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_t3_divination_rod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_rare_sulfur_attuned_divination_rod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_amethyst_divination_rod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_precious_sulfur_attuned_divination_rod",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_rare_sulfur_attuned_divination_rod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_spagyrics",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_about_mod"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_ore_refining",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_needed_apparatus_spagyrics",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_ore_refining"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_create_solvent",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_needed_apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_create_sulfur",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_solvent"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_create_salt",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_needed_apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_strata_recycling",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_salt"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_plant_recycling",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_strata_recycling"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_create_mercury",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_needed_apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_logistics",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_mercury"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_incubation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_mercury",
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_salt",
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_create_sulfur"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_alchemical_niter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_replication"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_caloric_flux_emitter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_alchemical_niter"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_convert_within_type_and_tier",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_alchemical_niter"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_reformation_array",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_within_type_and_tier"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_required_items",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_reformation_array"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_source_pedestal",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_reformation_array"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_target_pedestal",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_reformation_array"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_sulfuric_flux_emitter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_source_pedestal",
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_target_pedestal"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_result_pedestal",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_sulfuric_flux_emitter"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_incubation_after_reformation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_result_pedestal"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_fermentation_vat",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_to_other_type"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_required_items_transmutation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_vat"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_fermentation_transmutation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_vat"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_fermentation_starter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_transmutation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_niter_to_niter_reformation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_transmutation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_niter_to_sulfur_reformation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_niter_reformation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_incubation_after_transmutation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_sulfur_reformation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_digestion_vat",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_convert_to_other_tier"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_required_items_exaltation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_digestion_vat"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_purified_gold",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_required_items_exaltation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_fermentation_exaltation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_digestion_vat"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_digestion_exaltation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_fermentation_exaltation",
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_purified_gold"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_niter_to_sulfur_reformation_exaltation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_digestion_exaltation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/getting_started_incubation_after_exaltation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/getting_started_niter_to_sulfur_reformation_exaltation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_how_to",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_intro"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_insert_helper",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_how_to"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_pyromantic_brazier",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_sal_ammoniac_tank",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_sal_ammoniac_accumulator",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_sal_ammoniac_tank"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_liquefaction_cauldron",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_calcination_oven",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_distiller",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_incubator",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_spagyrics"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_mercury_catalyst",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_flux"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_mercury_flux_emitter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_catalyst"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_mercury_capacitor",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_catalyst"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_caloric_flux_emitter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_flux"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_sulfuric_flux_emitter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_mercury_flux"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_sulfuric_flux_emitter_reference",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_reformation_array"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_target_pedestal",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_reformation_array"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_source_pedestal",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_reformation_array"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_result_pedestal",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_reformation_array"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_fermentation_vat",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_transmutation_and_exaltation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_digestion_vat",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_transmutation_and_exaltation"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_basic_vat_automation",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/apparatus_vat_redstone"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_lore",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_intro"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_mercurial_wand",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_intro"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_mercurial_wire",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_intro"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_item_extractor",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_intro"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_item_inserter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_intro"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_fluid_extractor",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_item_extractor"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_fluid_inserter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_item_inserter"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_logistics_network",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_mercurial_wire",
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_item_extractor",
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_item_inserter"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_connection_node",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_logistics_network"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_logistics_nexus",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_connection_node"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_list_filter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_logistics_network"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_attribute_filter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_list_filter"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_fluid_list_filter",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_attribute_filter"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_frequency",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_logistics_network"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_mercury_flux_connector",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_frequency"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_capability_probe",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_frequency"
+    ]
+  },
+  {
+    "id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/logistics_capability_proxy",
+    "required_facts": [
+      "theurgy:generated/the_hermetica/facts/entry_viewed_once/logistics_capability_probe"
+    ]
+  }
+]

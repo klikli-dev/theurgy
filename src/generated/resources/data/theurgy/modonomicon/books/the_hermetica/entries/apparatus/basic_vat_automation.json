@@ -7,8 +7,16 @@
   },
   "category": "theurgy:apparatus",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "theurgy:apparatus/vat_redstone"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_basic_vat_automation",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.name"
+        }
+      ]
+    }
   },
   "description": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.description",
   "icon": {

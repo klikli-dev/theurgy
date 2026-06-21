@@ -7,8 +7,16 @@
   },
   "category": "theurgy:apparatus",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "theurgy:apparatus/transmutation_and_exaltation"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "theurgy:generated/the_hermetica/nodes/entry_viewed_once/apparatus_digestion_vat",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.theurgy.the_hermetica.apparatus.digestion_vat.name"
+        }
+      ]
+    }
   },
   "description": "book.theurgy.the_hermetica.apparatus.digestion_vat.description",
   "icon": {

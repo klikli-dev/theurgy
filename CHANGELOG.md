@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.111.0] - 2026-06-21
+### :sparkles: New Features
+- [`940f7f8`](https://github.com/klikli-dev/theurgy/commit/940f7f83b9130e004ebb53c758a06dc45702c66d) - Update Japanese translation for 26.1.2 *(PR [#375](https://github.com/klikli-dev/theurgy/pull/375) by [@Lily-Ray](https://github.com/Lily-Ray))*
+- [`1d635ee`](https://github.com/klikli-dev/theurgy/commit/1d635eea6f58a02b4d696f6830a6de5f9d59c058) - update to modonomicon 2.0.0 and update conditions to research conditions *(PR [#376](https://github.com/klikli-dev/theurgy/pull/376) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.110.0] - 2026-06-20
 ### :sparkles: New Features
 - [`f736a29`](https://github.com/klikli-dev/theurgy/commit/f736a29623c9d69f29ca6a2f078242a7f57d5e95) - add shelve and lectern tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1668,3 +1674,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.108.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.107.0...release/v26.1.2-1.108.0
 [release/v26.1.2-1.109.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.108.0...release/v26.1.2-1.109.0
 [release/v26.1.2-1.110.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.109.0...release/v26.1.2-1.110.0
+[release/v26.1.2-1.111.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.110.0...release/v26.1.2-1.111.0

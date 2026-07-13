@@ -13,7 +13,10 @@ import net.minecraft.world.level.Level;
  * during bytecode verification of {@link LevelUtil}, which would throw a NoClassDefFoundError even
  * if the client-only branch is never actually executed on the server.
  */
-public class ClientLevelUtil {
+class ClientLevelUtil {
+
+    private ClientLevelUtil() {
+    }
 
     public static Level getClientLevel() {
         return Minecraft.getInstance().level;

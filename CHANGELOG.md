@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.29.0] - 2026-07-21
+### :bug: Bug Fixes
+- [`775c9e6`](https://github.com/klikli-dev/theurgy/commit/775c9e6ffc4599431e25ae5317ce071196be59e8) - alchemical niters from mob sulfurs *(PR [#382](https://github.com/klikli-dev/theurgy/pull/382) by [@KnewOne](https://github.com/KnewOne))*
+
+
 ## [release/v1.20.1-1.28.0] - 2026-03-26
 ### :sparkles: New Features
 - [`611411a`](https://github.com/klikli-dev/theurgy/commit/611411a000deb311c6b04025b97f53e5db90680a) - Generalize Divination Rod's ore tag detection to hopefully catch a larger variety of modded ores. *(PR [#272](https://github.com/klikli-dev/theurgy/pull/272) by [@The-Arcanian](https://github.com/The-Arcanian))*
@@ -606,3 +611,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.26.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.25.0...release/v1.20.1-1.26.0
 [release/v1.20.1-1.27.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.26.0...release/v1.20.1-1.27.0
 [release/v1.20.1-1.28.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.27.0...release/v1.20.1-1.28.0
+[release/v1.20.1-1.29.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.28.0...release/v1.20.1-1.29.0

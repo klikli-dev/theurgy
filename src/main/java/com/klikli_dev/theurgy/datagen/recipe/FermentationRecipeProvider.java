@@ -163,7 +163,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         ), SulfurRegistry.MOBS_ABUNDANT.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 250, List.of(
-                ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES,
+                ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON,
                 cropTag
         ), SulfurRegistry.MOBS_COMMON.get(), 1, TIME, "_using_" + this.name(cropTag));
         this.makeRecipe(Fluids.WATER, 250,
@@ -172,7 +172,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         SulfurRegistry.MOBS_COMMON.get(), 2, TIME, "_from_" + this.name(SulfurRegistry.SKELETON_SKULL.get()) + "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 500, List.of(
-                ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES,
+                ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE,
                 cropTag
         ), SulfurRegistry.MOBS_RARE.get(), 1, TIME, "_using_" + this.name(cropTag));
         this.makeRecipe(Fluids.WATER, 500,
@@ -193,7 +193,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 SulfurRegistry.MOBS_RARE.get(), 2, TIME, "_from_" + this.name(SulfurRegistry.ELYTRA.get()) + "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 1000, List.of(
-                ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES,
+                ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS,
                 cropTag
         ), SulfurRegistry.MOBS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
         this.makeRecipe(Fluids.WATER, 1000,

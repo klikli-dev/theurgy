@@ -5,7 +5,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/mobs/common/automatic_recipes"
+        "tag": "theurgy:alchemical_sulfurs/mobs/common"
       }
     },
     {
@@ -22,7 +22,7 @@
   "fluidAmount": 250,
   "ingredients": [
     {
-      "tag": "theurgy:alchemical_sulfurs/mobs/common/automatic_recipes"
+      "tag": "theurgy:alchemical_sulfurs/mobs/common"
     },
     {
       "tag": "forge:seeds"

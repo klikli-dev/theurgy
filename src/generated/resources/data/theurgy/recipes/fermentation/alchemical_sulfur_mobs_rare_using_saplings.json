@@ -5,7 +5,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/mobs/rare/automatic_recipes"
+        "tag": "theurgy:alchemical_sulfurs/mobs/rare"
       }
     },
     {
@@ -22,7 +22,7 @@
   "fluidAmount": 500,
   "ingredients": [
     {
-      "tag": "theurgy:alchemical_sulfurs/mobs/rare/automatic_recipes"
+      "tag": "theurgy:alchemical_sulfurs/mobs/rare"
     },
     {
       "tag": "minecraft:saplings"

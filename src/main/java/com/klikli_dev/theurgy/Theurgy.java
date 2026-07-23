@@ -73,7 +73,9 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
 
@@ -126,6 +128,8 @@ public class Theurgy {
         NeoForge.EVENT_BUS.addListener(Wires::onLevelUnload);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkWatch);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkUnWatch);
+        NeoForge.EVENT_BUS.addListener(WireSync.get()::onServerTick);
+        NeoForge.EVENT_BUS.addListener(WireSync.get()::onPlayerLoggedOut);
         NeoForge.EVENT_BUS.addListener(TheurgyRecipeManager.get()::onDatapackSync);
 
         if (FMLEnvironment.getDist() == Dist.CLIENT) {

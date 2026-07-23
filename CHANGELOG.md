@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.114.0] - 2026-07-23
+### :zap: Performance Improvements
+- [`b25d3ed`](https://github.com/klikli-dev/theurgy/commit/b25d3edc96107aff8014b2243c4ea68c10080afd) - replace per-chunk wire sync scanning with per-player reference counting *(PR [#388](https://github.com/klikli-dev/theurgy/pull/388) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#378](https://github.com/klikli-dev/theurgy/issues/378) opened by [@matthiashollinger-netizen](https://github.com/matthiashollinger-netizen)*
+
+
 ## [release/v26.1.2-1.113.0] - 2026-07-23
 ### :sparkles: New Features
 - [`4d868a1`](https://github.com/klikli-dev/theurgy/commit/4d868a1f064fa97975fe3300d648b6b544ccedf7) - **salts**: add direct calcination recipes for creature salt from creature items *(PR [#385](https://github.com/klikli-dev/theurgy/pull/385) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1694,3 +1700,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.112.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.0...release/v26.1.2-1.112.1
 [release/v26.1.2-1.112.2]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.1...release/v26.1.2-1.112.2
 [release/v26.1.2-1.113.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.2...release/v26.1.2-1.113.0
+[release/v26.1.2-1.114.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.113.0...release/v26.1.2-1.114.0

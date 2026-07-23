@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.113.0] - 2026-07-23
+### :sparkles: New Features
+- [`4d868a1`](https://github.com/klikli-dev/theurgy/commit/4d868a1f064fa97975fe3300d648b6b544ccedf7) - **salts**: add direct calcination recipes for creature salt from creature items *(PR [#385](https://github.com/klikli-dev/theurgy/pull/385) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#384](https://github.com/klikli-dev/theurgy/issues/384) opened by [@Hallowedz](https://github.com/Hallowedz)*
+
+
 ## [release/v26.1.2-1.112.2] - 2026-07-21
 ### :bug: Bug Fixes
 - [`1ce55b9`](https://github.com/klikli-dev/theurgy/commit/1ce55b9fe7a806c3e080af2df09e4c50041659ab) - NoClassDefFoundError crash with CC:Tweaked *(PR [#379](https://github.com/klikli-dev/theurgy/pull/379) by [@mateus2k2](https://github.com/mateus2k2))*
@@ -1687,3 +1693,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.111.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.110.0...release/v26.1.2-1.111.0
 [release/v26.1.2-1.112.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.0...release/v26.1.2-1.112.1
 [release/v26.1.2-1.112.2]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.1...release/v26.1.2-1.112.2
+[release/v26.1.2-1.113.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.2...release/v26.1.2-1.113.0

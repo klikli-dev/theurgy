@@ -132,7 +132,7 @@ repositories {
     }
     maven {
         name = "TerraformersMC (emi)"
-        url = "https://maven.terraformersmc.com/"
+        url = "https://maven.terraformersmc.com/repository/maven-public"
         content {
             includeGroup "dev.emi"
         }
@@ -168,8 +168,8 @@ dependencies {
     implementation ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
 
     //EMI
-    compileOnly ("dev.emi:emi-neoforge:${emi_version}+${minecraft_version_major}:api") {transitive=false}
-    runtimeOnly ("dev.emi:emi-neoforge:${emi_version}+${minecraft_version_major}") {transitive=false}
+    compileOnly ("dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api") {transitive=false}
+    runtimeOnly ("dev.emi:emi-neoforge:${emi_version}+${minecraft_version}") {transitive=false}
 }
 
 processResources {

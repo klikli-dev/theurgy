@@ -1,0 +1,13 @@
+{
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": "minecraft:heart_of_the_sea"
+  },
+  "result": {
+    "count": 5,
+    "id": "theurgy:alchemical_salt_creature"
+  },
+  "time": 100
+}

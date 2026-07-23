@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#theurgy:creature_items/animals",
+      "required": false
+    },
+    {
+      "id": "#theurgy:creature_items/fish",
+      "required": false
+    },
+    {
+      "id": "#theurgy:creature_items/mobs",
+      "required": false
+    }
+  ]
+}

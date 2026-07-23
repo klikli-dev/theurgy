@@ -439,6 +439,65 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         //  .addOptionalTag(ItemTagRegistry.GEMS_SULFUR) sulfur is classified as a gem, so its handled in the Tags.Items.GEMS
         ;
 
+        //Creature items that can be calcinated into creature salt
+        this.tag(ItemTagRegistry.CREATURE_ITEMS_ANIMALS)
+                .add(Items.PORKCHOP)
+                .add(Items.BEEF)
+                .add(Items.MUTTON)
+                .add(Items.CHICKEN)
+                .add(Items.COOKED_PORKCHOP)
+                .add(Items.COOKED_BEEF)
+                .add(Items.COOKED_MUTTON)
+                .add(Items.COOKED_CHICKEN)
+                .add(Items.RABBIT)
+                .add(Items.COOKED_RABBIT)
+                .add(Items.LEATHER)
+                .add(Items.FEATHER)
+                .add(Items.EGG)
+                .add(Items.RABBIT_HIDE)
+                .add(Items.INK_SAC)
+                .add(Items.GLOW_INK_SAC)
+                .add(Items.ARMADILLO_SCUTE)
+                .addTag(ItemTags.WOOL);
+
+        this.tag(ItemTagRegistry.CREATURE_ITEMS_FISH)
+                .add(Items.COD)
+                .add(Items.COOKED_COD)
+                .add(Items.SALMON)
+                .add(Items.COOKED_SALMON)
+                .add(Items.TROPICAL_FISH)
+                .add(Items.PUFFERFISH);
+
+        this.tag(ItemTagRegistry.CREATURE_ITEMS_MOBS)
+                .add(Items.ROTTEN_FLESH)
+                .add(Items.SPIDER_EYE)
+                .add(Items.STRING)
+                .add(Items.GUNPOWDER)
+                .add(Items.BONE)
+                .add(Items.BONE_MEAL)
+                .add(Items.ARROW)
+                .add(Items.SLIME_BALL)
+                .add(Items.BLAZE_ROD)
+                .add(Items.PHANTOM_MEMBRANE)
+                .add(Items.MAGMA_CREAM)
+                .add(Items.TURTLE_SCUTE)
+                .add(Items.SHULKER_SHELL)
+                .add(Items.ENDER_PEARL)
+                .add(Items.PRISMARINE_SHARD)
+                .add(Items.PRISMARINE_CRYSTALS)
+                .add(Items.SKELETON_SKULL)
+                .add(Items.WITHER_SKELETON_SKULL)
+                .add(Items.GHAST_TEAR)
+                .add(Items.ELYTRA)
+                .add(Items.NETHER_STAR)
+                .add(Items.DRAGON_EGG)
+                .add(Items.HEART_OF_THE_SEA);
+
+        this.tag(ItemTagRegistry.CREATURE_ITEMS)
+                .addOptionalTag(ItemTagRegistry.CREATURE_ITEMS_ANIMALS)
+                .addOptionalTag(ItemTagRegistry.CREATURE_ITEMS_FISH)
+                .addOptionalTag(ItemTagRegistry.CREATURE_ITEMS_MOBS);
+
 
         //Set up tags for other mods that may not properly tag their mats
         this.tag(ItemTagRegistry.INGOTS_URANINITE)

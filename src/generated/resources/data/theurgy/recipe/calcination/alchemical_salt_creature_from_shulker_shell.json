@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:shulker_shell"
+    }
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 3,
+    "id": "theurgy:alchemical_salt_creature"
+  },
+  "time": 100
+}

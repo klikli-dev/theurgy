@@ -73,6 +73,65 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("_from_leaves", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.LEAVES));
         this.makeRecipe("_from_saplings", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.SAPLINGS));
         this.makeRecipe("_from_plant_salt", new Builder(SaltRegistry.CREATURE).sizedIngredient(SaltRegistry.PLANT.get(), 2));
+
+        //creature items from animals
+        this.makeRecipe("_from_beef", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.BEEF));
+        this.makeRecipe("_from_porkchop", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.PORKCHOP));
+        this.makeRecipe("_from_mutton", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.MUTTON));
+        this.makeRecipe("_from_chicken", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.CHICKEN));
+        this.makeRecipe("_from_cooked_beef", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.COOKED_BEEF));
+        this.makeRecipe("_from_cooked_porkchop", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.COOKED_PORKCHOP));
+        this.makeRecipe("_from_cooked_mutton", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.COOKED_MUTTON));
+        this.makeRecipe("_from_cooked_chicken", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.COOKED_CHICKEN));
+        this.makeRecipe("_from_rabbit", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.RABBIT));
+        this.makeRecipe("_from_cooked_rabbit", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.COOKED_RABBIT));
+        this.makeRecipe("_from_leather", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.LEATHER));
+        this.makeRecipe("_from_feather", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.FEATHER));
+        this.makeRecipe("_from_egg", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.EGG));
+        this.makeRecipe("_from_rabbit_hide", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.RABBIT_HIDE));
+        this.makeRecipe("_from_ink_sac", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.INK_SAC));
+        this.makeRecipe("_from_glow_ink_sac", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.GLOW_INK_SAC));
+        this.makeRecipe("_from_turtle_scute", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.TURTLE_SCUTE));
+        this.makeRecipe("_from_armadillo_scute", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.ARMADILLO_SCUTE));
+
+        //creature items from fish
+        this.makeRecipe("_from_cod", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.COD));
+        this.makeRecipe("_from_cooked_cod", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.COOKED_COD));
+        this.makeRecipe("_from_salmon", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.SALMON));
+        this.makeRecipe("_from_cooked_salmon", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.COOKED_SALMON));
+        this.makeRecipe("_from_tropical_fish", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.TROPICAL_FISH));
+        this.makeRecipe("_from_pufferfish", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.PUFFERFISH));
+
+        //creature items from mobs - abundant (1 salt)
+        this.makeRecipe("_from_rotten_flesh", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.ROTTEN_FLESH));
+        this.makeRecipe("_from_spider_eye", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.SPIDER_EYE));
+        this.makeRecipe("_from_string", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.STRING));
+        this.makeRecipe("_from_gunpowder", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.GUNPOWDER));
+        this.makeRecipe("_from_bone", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.BONE));
+        this.makeRecipe("_from_bone_meal", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.BONE_MEAL));
+        this.makeRecipe("_from_arrow", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.ARROW));
+
+        //creature items from mobs - common (1 salt)
+        this.makeRecipe("_from_slime_ball", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.SLIME_BALL));
+        this.makeRecipe("_from_blaze_rod", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.BLAZE_ROD));
+        this.makeRecipe("_from_phantom_membrane", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.PHANTOM_MEMBRANE));
+        this.makeRecipe("_from_magma_cream", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.MAGMA_CREAM));
+        this.makeRecipe("_from_skeleton_skull", new Builder(SaltRegistry.CREATURE).sizedIngredient(Items.SKELETON_SKULL));
+
+        //creature items from mobs - rare (3 salt)
+        this.makeRecipe("_from_ender_pearl", new Builder(SaltRegistry.CREATURE, 3).sizedIngredient(Items.ENDER_PEARL));
+        this.makeRecipe("_from_prismarine_shard", new Builder(SaltRegistry.CREATURE, 3).sizedIngredient(Items.PRISMARINE_SHARD));
+        this.makeRecipe("_from_prismarine_crystals", new Builder(SaltRegistry.CREATURE, 3).sizedIngredient(Items.PRISMARINE_CRYSTALS));
+        this.makeRecipe("_from_wither_skeleton_skull", new Builder(SaltRegistry.CREATURE, 3).sizedIngredient(Items.WITHER_SKELETON_SKULL));
+        this.makeRecipe("_from_ghast_tear", new Builder(SaltRegistry.CREATURE, 3).sizedIngredient(Items.GHAST_TEAR));
+        this.makeRecipe("_from_shulker_shell", new Builder(SaltRegistry.CREATURE, 3).sizedIngredient(Items.SHULKER_SHELL));
+        this.makeRecipe("_from_rabbit_foot", new Builder(SaltRegistry.CREATURE, 3).sizedIngredient(Items.RABBIT_FOOT));
+        this.makeRecipe("_from_elytra", new Builder(SaltRegistry.CREATURE, 3).sizedIngredient(Items.ELYTRA));
+
+        //creature items from mobs - precious (5 salt)
+        this.makeRecipe("_from_nether_star", new Builder(SaltRegistry.CREATURE, 5).sizedIngredient(Items.NETHER_STAR));
+        this.makeRecipe("_from_dragon_egg", new Builder(SaltRegistry.CREATURE, 5).sizedIngredient(Items.DRAGON_EGG));
+        this.makeRecipe("_from_heart_of_the_sea", new Builder(SaltRegistry.CREATURE, 5).sizedIngredient(Items.HEART_OF_THE_SEA));
     }
 
 

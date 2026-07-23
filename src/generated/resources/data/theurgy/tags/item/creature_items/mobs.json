@@ -1,0 +1,27 @@
+{
+  "values": [
+    "minecraft:rotten_flesh",
+    "minecraft:spider_eye",
+    "minecraft:string",
+    "minecraft:gunpowder",
+    "minecraft:bone",
+    "minecraft:bone_meal",
+    "minecraft:arrow",
+    "minecraft:slime_ball",
+    "minecraft:blaze_rod",
+    "minecraft:phantom_membrane",
+    "minecraft:magma_cream",
+    "minecraft:turtle_scute",
+    "minecraft:shulker_shell",
+    "minecraft:ender_pearl",
+    "minecraft:prismarine_shard",
+    "minecraft:prismarine_crystals",
+    "minecraft:skeleton_skull",
+    "minecraft:wither_skeleton_skull",
+    "minecraft:ghast_tear",
+    "minecraft:elytra",
+    "minecraft:nether_star",
+    "minecraft:dragon_egg",
+    "minecraft:heart_of_the_sea"
+  ]
+}

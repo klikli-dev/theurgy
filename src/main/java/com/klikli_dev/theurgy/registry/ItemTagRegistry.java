@@ -17,6 +17,12 @@ public class ItemTagRegistry {
     //complementary tag to Tags.Items.ORES, Tags.Items.RAW_MATERIALS, Tags.Items.INGOTS and Tags.Items.GEMS
     public static final TagKey<Item> OTHER_MINERALS = tag("other_minerals");
 
+    //Creature items that can be calcinated into creature salt
+    public static final TagKey<Item> CREATURE_ITEMS = tag("creature_items");
+    public static final TagKey<Item> CREATURE_ITEMS_ANIMALS = tag("creature_items/animals");
+    public static final TagKey<Item> CREATURE_ITEMS_MOBS = tag("creature_items/mobs");
+    public static final TagKey<Item> CREATURE_ITEMS_FISH = tag("creature_items/fish");
+
     public static final TagKey<Item> ALCHEMICAL_SULFURS_AND_NITERS = tag("alchemical_sulfurs_and_niters");
     public static final TagKey<Item> ALCHEMICAL_NITERS = tag("alchemical_niters");
     public static final TagKey<Item> ALCHEMICAL_SULFURS = tag("alchemical_sulfurs");

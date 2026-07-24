@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.76.0] - 2026-07-24
+### :zap: Performance Improvements
+- [`3696028`](https://github.com/klikli-dev/theurgy/commit/369602821a5edc1dae3eef8e43932f9817f97a20) - replace per-chunk wire sync scanning with per-player reference counting *(PR [#387](https://github.com/klikli-dev/theurgy/pull/387) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.75.1] - 2026-07-23
 ### :bug: Bug Fixes
 - [`81d3a8f`](https://github.com/klikli-dev/theurgy/commit/81d3a8f152e303076f30dda6c9c83d5cc79164d3) - terraformers maven and emi version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1330,3 +1335,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.73.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.73.0...release/v1.21.1-1.73.1
 [release/v1.21.1-1.74.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.73.1...release/v1.21.1-1.74.0
 [release/v1.21.1-1.75.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.75.0...release/v1.21.1-1.75.1
+[release/v1.21.1-1.76.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.75.1...release/v1.21.1-1.76.0

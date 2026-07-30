@@ -40,7 +40,7 @@ public class TheurgyDataGenerators {
 
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider.contentsGetter()));
+        generator.addProvider(true, new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider()));
 
         generator.addProvider(true, new LootTableProvider(
                         generator.getPackOutput(),

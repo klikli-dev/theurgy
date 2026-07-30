@@ -14,6 +14,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -79,7 +80,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
         this.makeMercuryShardRecipe(1, Items.RABBIT, 2);
         this.makeMercuryShardRecipe(1, Items.COOKED_RABBIT, 1);
         this.makeMercuryShardRecipe(1, Items.BREAD, 1);
-        this.makeMercuryShardRecipe(1, ItemTags.SMALL_FLOWERS, 3);
+        this.makeMercuryShardRecipe(1, BlockItemTags.SMALL_FLOWERS.item(), 3);
         this.makeMercuryShardRecipe(1, ItemTags.SAPLINGS, 3);
         this.makeMercuryShardRecipe(1, ItemTags.LEAVES, 5);
         this.makeMercuryShardRecipe(1, ItemTags.LOGS, 2);

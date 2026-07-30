@@ -226,7 +226,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(Items.RABBIT_FOOT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.RABBIT_FOOT.get());
         this.makeRecipe(Items.LEATHER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.LEATHER.get());
         this.makeRecipe(Items.FEATHER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.FEATHER.get());
-        this.makeRecipe(Items.WHITE_WOOL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.WOOL.get());
+        this.makeRecipe(net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(new net.minecraft.resources.ResourceLocation("white_wool")).asItem(), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.WOOL.get());
         this.makeRecipe(Items.COD, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.COD.get());
         this.makeRecipe(Items.SALMON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.SALMON.get());
         this.makeRecipe(Items.TROPICAL_FISH, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.TROPICAL_FISH.get());

@@ -65,7 +65,7 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> RABBIT_FOOT = registerForSourceItem(Items.RABBIT_FOOT, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> LEATHER = registerForSourceItem(Items.LEATHER, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> FEATHER = registerForSourceItem(Items.FEATHER, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> WOOL = registerForSourceItem(Items.WHITE_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> WOOL = registerForSourceItem(BuiltInRegistries.BLOCK.get(new net.minecraft.resources.ResourceLocation("white_wool")).asItem(), AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> COD = registerForSourceItem(Items.COD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> SALMON = registerForSourceItem(Items.SALMON, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> TROPICAL_FISH = registerForSourceItem(Items.TROPICAL_FISH, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);

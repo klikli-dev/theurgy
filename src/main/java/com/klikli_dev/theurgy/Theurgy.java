@@ -223,20 +223,21 @@ public class Theurgy {
         }
 
         public static void onRenderLevelStage(RenderLevelStageEvent.AfterTranslucentParticles event) {
-            PoseStack ms = event.getPoseStack();
-            ms.pushPose();
-
-            var buffer = Minecraft.getInstance().renderBuffers().bufferSource();
-            float partialTicks = ClientTicks.getPartialTicksHandlePause();
-            Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera()
-                    .position();
-
-            Outliner.get().render(ms, buffer, camera, partialTicks);
-
-            buffer.endBatch();
-            ms.popPose();
-
-            WireRenderer.get().onRenderLevelStage(event);
+            //TODO: port to MC 26.2 rendering API - MultiBufferSource/BufferSource removed
+            //PoseStack ms = event.getPoseStack();
+            //ms.pushPose();
+            //
+            //var buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+            //float partialTicks = ClientTicks.getPartialTicksHandlePause();
+            //Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera()
+            //        .position();
+            //
+            //Outliner.get().render(ms, buffer, camera, partialTicks);
+            //
+            //buffer.endBatch();
+            //ms.popPose();
+            //
+            //WireRenderer.get().onRenderLevelStage(event);
         }
 
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {

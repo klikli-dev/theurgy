@@ -13,10 +13,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 
 import java.util.Collections;
 import java.util.Set;
@@ -32,33 +30,33 @@ public class WireRenderer {
         return instance;
     }
 
-    public void onRenderLevelStage(RenderLevelStageEvent event) {
-        //TODO: port to MC 26.2 rendering API - MultiBufferSource/BufferSource removed
-        //var minecraft = Minecraft.getInstance();
-        //var bufferSource = minecraft.renderBuffers().bufferSource();
-        //var poseStack = event.getPoseStack();
-        //float lineWidth = minecraft.getWindow().getAppropriateLineWidth() * ClientConfig.get().rendering.wireLineWidth.get();
-        //
-        //EntityRenderDispatcher erd = minecraft.getEntityRenderDispatcher();
-        //double renderPosX = erd.camera.position().x();
-        //double renderPosY = erd.camera.position().y();
-        //double renderPosZ = erd.camera.position().z();
-        //
-        //poseStack.pushPose();
-        //poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
-        //
-        //var renderType = ClientConfig.get().rendering.useSimpleWireRenderer.get()
-        //        ? net.minecraft.client.renderer.rendertype.RenderTypes.lines()
-        //        : RenderTypes.distanceLines();
-        //var buffer = bufferSource.getBuffer(renderType);
-        //for (var wire : this.wires) {
-        //    poseStack.pushPose();
-        //    poseStack.translate(wire.from().getX(), wire.from().getY(), wire.from().getZ());
-        //    this.renderWire(buffer, poseStack, wire.from().getCenter(), wire.to().getCenter(), lineWidth);
-        //    poseStack.popPose();
-        //}
-        //poseStack.popPose();
-        //bufferSource.endBatch(renderType);
+    public void onSubmitCustomGeometry(SubmitCustomGeometryEvent event) {
+        var minecraft = Minecraft.getInstance();
+        var collector = event.getSubmitNodeCollector();
+        var poseStack = event.getPoseStack();
+        float lineWidth = minecraft.getWindow().getAppropriateLineWidth() * ClientConfig.get().rendering.wireLineWidth.get();
+
+        double renderPosX = minecraft.gameRenderer.mainCamera().position().x();
+        double renderPosY = minecraft.gameRenderer.mainCamera().position().y();
+        double renderPosZ = minecraft.gameRenderer.mainCamera().position().z();
+
+        poseStack.pushPose();
+        poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
+
+        var renderType = ClientConfig.get().rendering.useSimpleWireRenderer.get()
+                ? net.minecraft.client.renderer.rendertype.RenderTypes.lines()
+                : RenderTypes.distanceLines();
+
+        collector.submitCustomGeometry(poseStack, renderType, (pose, consumer) -> {
+            for (var wire : this.wires) {
+                poseStack.pushPose();
+                poseStack.translate(wire.from().getX(), wire.from().getY(), wire.from().getZ());
+                this.renderWire(consumer, poseStack, Vec3.atCenterOf(wire.from()), Vec3.atCenterOf(wire.to()), lineWidth);
+                poseStack.popPose();
+            }
+        });
+
+        poseStack.popPose();
     }
 
     private void renderWire(VertexConsumer vertexBuilder, PoseStack poseStack, Vec3 startPos, Vec3 endPos, float lineWidth) {

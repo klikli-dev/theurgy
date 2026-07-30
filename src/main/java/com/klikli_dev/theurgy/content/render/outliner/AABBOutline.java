@@ -69,42 +69,37 @@ public class AABBOutline extends Outline {
         if (lineWidth == 0)
             return;
 
-        //TODO: port to MC 26.2 rendering API - use SubmitNodeCollector.submitCustomGeometry instead
-        //VertexConsumer consumer = buffer.getBuffer(RenderTypes.outlineSolid());
-        VertexConsumer consumer = null;
-        this.renderBoxEdges(ms, consumer, minPos, maxPos, lineWidth, color, lightmap, disableLineNormals);
+        buffer.submitCustomGeometry(ms, RenderTypes.outlineSolid(), (pose, consumer) -> {
+            this.renderBoxEdges(ms, consumer, minPos, maxPos, lineWidth, color, lightmap, disableLineNormals);
+        });
     }
 
     protected void renderBoxFaces(PoseStack ms, SubmitNodeCollector buffer, boolean cull, Direction highlightedFace, Vector3f minPos, Vector3f maxPos, Vector4f color, int lightmap) {
-        PoseStack.Pose pose = ms.last();
-        this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.DOWN, color, lightmap);
-        this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.UP, color, lightmap);
-        this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.NORTH, color, lightmap);
-        this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.SOUTH, color, lightmap);
-        this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.WEST, color, lightmap);
-        this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.EAST, color, lightmap);
+        this.renderBoxFace(ms, buffer, cull, highlightedFace, minPos, maxPos, Direction.DOWN, color, lightmap);
+        this.renderBoxFace(ms, buffer, cull, highlightedFace, minPos, maxPos, Direction.UP, color, lightmap);
+        this.renderBoxFace(ms, buffer, cull, highlightedFace, minPos, maxPos, Direction.NORTH, color, lightmap);
+        this.renderBoxFace(ms, buffer, cull, highlightedFace, minPos, maxPos, Direction.SOUTH, color, lightmap);
+        this.renderBoxFace(ms, buffer, cull, highlightedFace, minPos, maxPos, Direction.WEST, color, lightmap);
+        this.renderBoxFace(ms, buffer, cull, highlightedFace, minPos, maxPos, Direction.EAST, color, lightmap);
     }
 
-    protected void renderBoxFace(PoseStack.Pose pose, SubmitNodeCollector buffer, boolean cull, Direction highlightedFace, Vector3f minPos, Vector3f maxPos, Direction face, Vector4f color, int lightmap) {
+    protected void renderBoxFace(PoseStack ms, SubmitNodeCollector buffer, boolean cull, Direction highlightedFace, Vector3f minPos, Vector3f maxPos, Direction face, Vector4f color, int lightmap) {
         boolean highlighted = face == highlightedFace;
 
-        // Presumably, the other texture should be used, but this was not noticed before so fixing it may lead to suboptimal visuals.
-//		Optional<AllSpecialTextures> optionalFaceTexture = highlighted ? params.hightlightedFaceTexture : params.faceTexture;
         var optionalFaceTexture = this.params.faceTexture;
         if (!optionalFaceTexture.isPresent())
             return;
         var faceTexture = optionalFaceTexture.get();
 
         RenderType renderType = RenderTypes.outlineTranslucent(faceTexture, cull);
-        //TODO: port to MC 26.2 rendering API - use SubmitNodeCollector.submitCustomGeometry instead
-        //VertexConsumer consumer = buffer.getBuffer(renderType);
-        VertexConsumer consumer = null;
 
         float alphaMult = highlighted ? 1 : 0.5f;
         this.colorTemp1.set(color.x(), color.y(), color.z(), color.w() * alphaMult);
-        color = this.colorTemp1;
+        Vector4f finalColor = this.colorTemp1;
 
-        this.renderBoxFace(pose, consumer, minPos, maxPos, face, color, lightmap);
+        buffer.submitCustomGeometry(ms, renderType, (pose, consumer) -> {
+            this.renderBoxFace(pose, consumer, minPos, maxPos, face, finalColor, lightmap);
+        });
     }
 
     protected void renderBoxFace(PoseStack.Pose pose, VertexConsumer consumer, Vector3f minPos, Vector3f maxPos, Direction face, Vector4f color, int lightmap) {

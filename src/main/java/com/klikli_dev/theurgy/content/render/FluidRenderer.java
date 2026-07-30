@@ -65,16 +65,12 @@ public class FluidRenderer {
         return 0xFFFFFFFF;
     }
 
-    public static VertexConsumer getFluidBuilder(SubmitNodeCollector buffer) {
-        //TODO: port to MC 26.2 - SubmitNodeCollector doesn't have getBuffer()
-        //return buffer.getBuffer(RenderTypes.fluid());
-        return null;
-    }
-
     public static void renderFluidBox(FluidStack fluidStack, float xMin, float yMin, float zMin, float xMax, float yMax,
                                       float zMax, SubmitNodeCollector buffer, PoseStack ms, int light, boolean renderBottom) {
-        renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, getFluidBuilder(buffer), ms, light,
-                renderBottom);
+        buffer.submitCustomGeometry(ms, RenderTypes.fluid(), (pose, consumer) -> {
+            renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, consumer, ms, light,
+                    renderBottom);
+        });
     }
 
     public static void renderFluidBox(FluidStack fluidStack, float xMin, float yMin, float zMin, float xMax, float yMax,

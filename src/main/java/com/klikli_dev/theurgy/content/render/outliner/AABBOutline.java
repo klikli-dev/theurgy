@@ -9,7 +9,7 @@ package com.klikli_dev.theurgy.content.render.outliner;
 import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
@@ -43,7 +43,7 @@ public class AABBOutline extends Outline {
     }
 
     @Override
-    public void render(PoseStack ms, MultiBufferSource.BufferSource buffer, Vec3 camera, float pt) {
+    public void render(PoseStack ms, SubmitNodeCollector buffer, Vec3 camera, float pt) {
         this.params.loadColor(this.colorTemp);
         Vector4f color = this.colorTemp;
         int lightmap = this.params.lightmap;
@@ -51,7 +51,7 @@ public class AABBOutline extends Outline {
         this.renderBox(ms, buffer, camera, this.bb, color, lightmap, disableLineNormals);
     }
 
-    protected void renderBox(PoseStack ms, MultiBufferSource.BufferSource buffer, Vec3 camera, AABB box, Vector4f color, int lightmap, boolean disableLineNormals) {
+    protected void renderBox(PoseStack ms, SubmitNodeCollector buffer, Vec3 camera, AABB box, Vector4f color, int lightmap, boolean disableLineNormals) {
         Vector3f minPos = this.minPosTemp1;
         Vector3f maxPos = this.maxPosTemp1;
 
@@ -69,11 +69,13 @@ public class AABBOutline extends Outline {
         if (lineWidth == 0)
             return;
 
-        VertexConsumer consumer = buffer.getBuffer(RenderTypes.outlineSolid());
+        //TODO: port to MC 26.2 rendering API - use SubmitNodeCollector.submitCustomGeometry instead
+        //VertexConsumer consumer = buffer.getBuffer(RenderTypes.outlineSolid());
+        VertexConsumer consumer = null;
         this.renderBoxEdges(ms, consumer, minPos, maxPos, lineWidth, color, lightmap, disableLineNormals);
     }
 
-    protected void renderBoxFaces(PoseStack ms, MultiBufferSource.BufferSource buffer, boolean cull, Direction highlightedFace, Vector3f minPos, Vector3f maxPos, Vector4f color, int lightmap) {
+    protected void renderBoxFaces(PoseStack ms, SubmitNodeCollector buffer, boolean cull, Direction highlightedFace, Vector3f minPos, Vector3f maxPos, Vector4f color, int lightmap) {
         PoseStack.Pose pose = ms.last();
         this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.DOWN, color, lightmap);
         this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.UP, color, lightmap);
@@ -83,7 +85,7 @@ public class AABBOutline extends Outline {
         this.renderBoxFace(pose, buffer, cull, highlightedFace, minPos, maxPos, Direction.EAST, color, lightmap);
     }
 
-    protected void renderBoxFace(PoseStack.Pose pose, MultiBufferSource.BufferSource buffer, boolean cull, Direction highlightedFace, Vector3f minPos, Vector3f maxPos, Direction face, Vector4f color, int lightmap) {
+    protected void renderBoxFace(PoseStack.Pose pose, SubmitNodeCollector buffer, boolean cull, Direction highlightedFace, Vector3f minPos, Vector3f maxPos, Direction face, Vector4f color, int lightmap) {
         boolean highlighted = face == highlightedFace;
 
         // Presumably, the other texture should be used, but this was not noticed before so fixing it may lead to suboptimal visuals.
@@ -94,7 +96,9 @@ public class AABBOutline extends Outline {
         var faceTexture = optionalFaceTexture.get();
 
         RenderType renderType = RenderTypes.outlineTranslucent(faceTexture, cull);
-        VertexConsumer consumer = buffer.getBuffer(renderType);
+        //TODO: port to MC 26.2 rendering API - use SubmitNodeCollector.submitCustomGeometry instead
+        //VertexConsumer consumer = buffer.getBuffer(renderType);
+        VertexConsumer consumer = null;
 
         float alphaMult = highlighted ? 1 : 0.5f;
         this.colorTemp1.set(color.x(), color.y(), color.z(), color.w() * alphaMult);

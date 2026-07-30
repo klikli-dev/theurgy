@@ -7,7 +7,7 @@
 package com.klikli_dev.theurgy.content.render.outliner;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -41,7 +41,7 @@ public class ChasingAABBOutline extends AABBOutline {
     }
 
     @Override
-    public void render(PoseStack ms, MultiBufferSource.BufferSource buffer, Vec3 camera, float pt) {
+    public void render(PoseStack ms, SubmitNodeCollector buffer, Vec3 camera, float pt) {
         this.params.loadColor(this.colorTemp);
         Vector4f color = this.colorTemp;
         int lightmap = this.params.lightmap;

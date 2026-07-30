@@ -32,7 +32,8 @@ public class ItemHUD implements GuiLayer {
     @Override
     public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         var minecraft = Minecraft.getInstance();
-        if (minecraft.options.hideGui || minecraft.player == null || minecraft.player.isSpectator() || !ClientConfig.get().rendering.enableItemHUD.get())
+        //TODO: port to MC 26.2 - hideGui field removed from Options
+        if (minecraft.player == null || minecraft.player.isSpectator() || !ClientConfig.get().rendering.enableItemHUD.get())
             return;
 
         var stack = minecraft.player.getMainHandItem();

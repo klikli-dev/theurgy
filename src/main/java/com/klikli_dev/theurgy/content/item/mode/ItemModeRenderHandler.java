@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.item.mode;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class ItemModeRenderHandler<T extends ItemMode> {
@@ -18,7 +18,7 @@ public class ItemModeRenderHandler<T extends ItemMode> {
     }
 
 
-    public void renderBlockHighlight(BlockHitResult hitResult, PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, Camera camera) {
+    public void renderBlockHighlight(BlockHitResult hitResult, PoseStack poseStack, SubmitNodeCollector bufferSource, Camera camera) {
 
     }
 }

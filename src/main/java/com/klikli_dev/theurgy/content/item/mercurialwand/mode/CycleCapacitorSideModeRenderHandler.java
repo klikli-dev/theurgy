@@ -9,7 +9,7 @@ import com.klikli_dev.theurgy.content.item.mode.SideModeSetter;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -20,7 +20,7 @@ public class CycleCapacitorSideModeRenderHandler extends ItemModeRenderHandler<C
     }
 
     @Override
-    public void renderBlockHighlight(BlockHitResult rayTraceResult, PoseStack ps, MultiBufferSource.BufferSource bufferSource, Camera camera) {
+    public void renderBlockHighlight(BlockHitResult rayTraceResult, PoseStack ps, SubmitNodeCollector bufferSource, Camera camera) {
         Player player = Minecraft.getInstance().player;
         if (player == null)
             return;

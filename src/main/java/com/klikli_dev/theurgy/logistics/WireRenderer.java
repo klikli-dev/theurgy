@@ -33,32 +33,32 @@ public class WireRenderer {
     }
 
     public void onRenderLevelStage(RenderLevelStageEvent event) {
-        var minecraft = Minecraft.getInstance();
-        var bufferSource = minecraft.renderBuffers().bufferSource();
-        var poseStack = event.getPoseStack();
-        float lineWidth = minecraft.getWindow().getAppropriateLineWidth() * ClientConfig.get().rendering.wireLineWidth.get();
-
-        EntityRenderDispatcher erd = minecraft.getEntityRenderDispatcher();
-        double renderPosX = erd.camera.position().x();
-        double renderPosY = erd.camera.position().y();
-        double renderPosZ = erd.camera.position().z();
-
-        poseStack.pushPose();
-        poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
-
-        //we use lines() to avoid all the wires getting connected as it would happen with linestrip
-        var renderType = ClientConfig.get().rendering.useSimpleWireRenderer.get()
-                ? net.minecraft.client.renderer.rendertype.RenderTypes.lines()
-                : RenderTypes.distanceLines();
-        var buffer = bufferSource.getBuffer(renderType);
-        for (var wire : this.wires) {
-            poseStack.pushPose();
-            poseStack.translate(wire.from().getX(), wire.from().getY(), wire.from().getZ());
-            this.renderWire(buffer, poseStack, wire.from().getCenter(), wire.to().getCenter(), lineWidth);
-            poseStack.popPose();
-        }
-        poseStack.popPose();
-        bufferSource.endBatch(renderType);
+        //TODO: port to MC 26.2 rendering API - MultiBufferSource/BufferSource removed
+        //var minecraft = Minecraft.getInstance();
+        //var bufferSource = minecraft.renderBuffers().bufferSource();
+        //var poseStack = event.getPoseStack();
+        //float lineWidth = minecraft.getWindow().getAppropriateLineWidth() * ClientConfig.get().rendering.wireLineWidth.get();
+        //
+        //EntityRenderDispatcher erd = minecraft.getEntityRenderDispatcher();
+        //double renderPosX = erd.camera.position().x();
+        //double renderPosY = erd.camera.position().y();
+        //double renderPosZ = erd.camera.position().z();
+        //
+        //poseStack.pushPose();
+        //poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
+        //
+        //var renderType = ClientConfig.get().rendering.useSimpleWireRenderer.get()
+        //        ? net.minecraft.client.renderer.rendertype.RenderTypes.lines()
+        //        : RenderTypes.distanceLines();
+        //var buffer = bufferSource.getBuffer(renderType);
+        //for (var wire : this.wires) {
+        //    poseStack.pushPose();
+        //    poseStack.translate(wire.from().getX(), wire.from().getY(), wire.from().getZ());
+        //    this.renderWire(buffer, poseStack, wire.from().getCenter(), wire.to().getCenter(), lineWidth);
+        //    poseStack.popPose();
+        //}
+        //poseStack.popPose();
+        //bufferSource.endBatch(renderType);
     }
 
     private void renderWire(VertexConsumer vertexBuilder, PoseStack poseStack, Vec3 startPos, Vec3 endPos, float lineWidth) {

@@ -20,30 +20,29 @@ import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
  */
 public class BlockHighlightRenderer {
 
-    //TODO: port to MC 26.2 - ExtractBlockOutlineRenderStateEvent removed, need to find new block outline event
-    public static void onRenderBlockHighlight(/*ExtractBlockOutlineRenderStateEvent event*/) {
-        //Player player = Minecraft.getInstance().player;
-        //if (player == null)
-        //    return;
-        //
-        //var stack = player.getMainHandItem();
-        //if (!stack.is(ItemRegistry.MERCURIAL_WAND.get()))
-        //    return;
-        //
-        //var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
-        //if (mode == null)
-        //    return;
-        //
-        //BlockHitResult rayTraceResult = event.getHitResult();
-        //Camera camera = event.getCamera();
-        //boolean translucentPass = event.isInTranslucentPass();
-        //event.addCustomRenderer((renderState, buffer, poseStack, currentPass, levelRenderState) -> {
-        //    if (currentPass != translucentPass) {
-        //        return false;
-        //    }
-        //
-        //    mode.renderHandler().renderBlockHighlight(rayTraceResult, poseStack, buffer, camera);
-        //    return false;
-        //});
+    public static void onRenderBlockHighlight(ExtractBlockOutlineRenderStateEvent event) {
+        Player player = Minecraft.getInstance().player;
+        if (player == null)
+            return;
+
+        var stack = player.getMainHandItem();
+        if (!stack.is(ItemRegistry.MERCURIAL_WAND.get()))
+            return;
+
+        var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
+        if (mode == null)
+            return;
+
+        BlockHitResult rayTraceResult = event.getHitResult();
+        Camera camera = event.getCamera();
+        boolean translucentPass = event.isInTranslucentPass();
+        event.addCustomRenderer((renderState, buffer, poseStack, levelRenderState) -> {
+            if (renderState.isTranslucent() != translucentPass) {
+                return false;
+            }
+
+            mode.renderHandler().renderBlockHighlight(rayTraceResult, poseStack, buffer, camera);
+            return false;
+        });
     }
 }

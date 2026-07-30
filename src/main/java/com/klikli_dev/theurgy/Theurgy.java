@@ -155,8 +155,7 @@ public class Theurgy {
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClickEmpty);
-            //TODO: port to MC 26.2 - ExtractBlockOutlineRenderStateEvent removed
-            //NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
+            NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onKeyInput);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onMouseInput);
             NeoForge.EVENT_BUS.addListener(TheurgyRecipeManagerClient::onRecipesReceived);

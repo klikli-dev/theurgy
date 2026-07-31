@@ -43,21 +43,22 @@ public class CycleSelectedDirectionModeRenderHandler extends ItemModeRenderHandl
 
             var targetPos = directionSettable.targetPos();
 
-            //TODO: port to MC 26.2 rendering API - SubmitNodeCollector doesn't have getBuffer()
-            //Vec3 viewPosition = camera.position();
-            //ps.pushPose();
-            //ps.translate(targetPos.getX() - viewPosition.x, targetPos.getY() - viewPosition.y, targetPos.getZ() - viewPosition.z);
-            //CubeModelRenderer.renderCube(
-            //        CubeModel.getOverlayModel(newDirection, BlockOverlays.WHITE), ps, bufferSource.getBuffer(RenderTypes.translucentCullNoDepthBlockSheet()),
-            //        Color.GREEN.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
-            //        camera);
-            //if (currentDirection != newDirection) {
-            //    CubeModelRenderer.renderCube(
-            //            CubeModel.getOverlayModel(currentDirection, BlockOverlays.WHITE), ps, bufferSource.getBuffer(RenderTypes.translucentCullNoDepthBlockSheet()),
-            //            Color.YELLOW.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
-            //            camera);
-            //}
-            //ps.popPose();
+            bufferSource.submitCustomGeometry(ps, RenderTypes.translucentCullNoDepthBlockSheet(), (pose, consumer) -> {
+                ps.pushPose();
+                Vec3 cameraPos = camera.position();
+                ps.translate(targetPos.getX() - cameraPos.x, targetPos.getY() - cameraPos.y, targetPos.getZ() - cameraPos.z);
+                CubeModelRenderer.renderCube(
+                        CubeModel.getOverlayModel(newDirection, BlockOverlays.WHITE), ps, consumer,
+                        Color.GREEN.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
+                        camera);
+                if (currentDirection != newDirection) {
+                    CubeModelRenderer.renderCube(
+                            CubeModel.getOverlayModel(currentDirection, BlockOverlays.WHITE), ps, consumer,
+                            Color.YELLOW.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
+                            camera);
+                }
+                ps.popPose();
+            });
         }
     }
 }

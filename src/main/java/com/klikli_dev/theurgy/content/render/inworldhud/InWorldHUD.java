@@ -110,10 +110,10 @@ public class InWorldHUD implements GuiLayer {
     }
 
     private boolean canRun(Minecraft minecraft) {
-        //TODO: port to MC 26.2 - hideGui field removed from Options
         return minecraft.player != null
                 && minecraft.level != null
                 && !minecraft.player.isSpectator()
+                && !minecraft.gui.hud.isHidden()
                 && ClientConfig.get().rendering.enableInWorldHUD.get();
     }
 

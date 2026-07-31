@@ -36,59 +36,29 @@ public class WireRenderer {
         var poseStack = event.getPoseStack();
         float lineWidth = minecraft.getWindow().getAppropriateLineWidth() * ClientConfig.get().rendering.wireLineWidth.get();
 
-        double renderPosX = minecraft.gameRenderer.mainCamera().position().x();
-        double renderPosY = minecraft.gameRenderer.mainCamera().position().y();
-        double renderPosZ = minecraft.gameRenderer.mainCamera().position().z();
-
-        poseStack.pushPose();
-        poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
+        Vec3 camera = event.getLevelRenderState().cameraRenderState.pos;
 
         var renderType = ClientConfig.get().rendering.useSimpleWireRenderer.get()
                 ? net.minecraft.client.renderer.rendertype.RenderTypes.lines()
                 : RenderTypes.distanceLines();
 
-        collector.submitCustomGeometry(poseStack, renderType, (pose, consumer) -> {
-            for (var wire : this.wires) {
-                Vec3 startPos = Vec3.atCenterOf(wire.from()).subtract(renderPosX, renderPosY, renderPosZ);
-                Vec3 endPos = Vec3.atCenterOf(wire.to()).subtract(renderPosX, renderPosY, renderPosZ);
-                this.renderWire(pose, consumer, startPos, endPos, lineWidth);
-            }
-        });
+        for (var wire : this.wires) {
+            Vec3 fromCenter = Vec3.atCenterOf(wire.from());
+            Vec3 toCenter = Vec3.atCenterOf(wire.to());
+            Vec3 offset = fromCenter.subtract(camera);
 
-        poseStack.popPose();
+            poseStack.pushPose();
+            poseStack.translate(offset.x, offset.y, offset.z);
+            collector.submitCustomGeometry(poseStack, renderType, (pose, consumer) -> {
+                Vec3 localEnd = toCenter.subtract(fromCenter);
+                this.renderWire(pose, consumer, Vec3.ZERO, localEnd, lineWidth);
+            });
+            poseStack.popPose();
+        }
     }
 
     private void renderWire(PoseStack.Pose pose, VertexConsumer vertexBuilder, Vec3 startPos, Vec3 endPos, float lineWidth) {
-        boolean translateSwap = false;
-        if (startPos.y() > endPos.y()) {
-            Vec3 swap = startPos;
-            startPos = endPos;
-            endPos = swap;
-            translateSwap = true;
-        }
-
-        double startX = startPos.x();
-        double startY = startPos.y();
-        double startZ = startPos.z();
-
-        double endX = endPos.x();
-        double endY = endPos.y();
-        double endZ = endPos.z();
-        float dx = (float) (endX - startX);
-        float dy = (float) (endY - startY);
-        float dz = (float) (endZ - startZ);
-
-        Vec3 offset = new Vec3(0.5D, 0.5D, 0.5D);
-        if (translateSwap) {
-            offset = offset.subtract(dx, dy, dz);
-        }
-
         Vec3[] points = WireSlackHelper.getInterpolatedDifferences(endPos.subtract(startPos));
-
-        org.joml.Vector4f posTransformTemp = new org.joml.Vector4f();
-        org.joml.Vector3f normalTransformTemp = new org.joml.Vector3f();
-        org.joml.Matrix4f posMatrix = pose.pose();
-        org.joml.Matrix3f normalMatrix = pose.normal();
 
         float r = ((WIRE_COLOR >> 16) & 0xFF) / 255.0f;
         float g = ((WIRE_COLOR >> 8) & 0xFF) / 255.0f;
@@ -96,44 +66,20 @@ public class WireRenderer {
         float a = ((WIRE_COLOR >> 24) & 0xFF) / 255.0f;
 
         for (int line = 0; line < points.length - 1; line++) {
-            Vec3 firstPoint = points[line].add(offset);
-            Vec3 secondPoint = points[line + 1].add(offset);
+            Vec3 firstPoint = points[line];
+            Vec3 secondPoint = points[line + 1];
 
             Vec3 normal = secondPoint.subtract(firstPoint).normalize();
             Vec3 reverseNormal = firstPoint.subtract(secondPoint).normalize();
 
-            posTransformTemp.set((float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z(), 1);
-            posTransformTemp.mul(posMatrix);
-            float x0 = posTransformTemp.x();
-            float y0 = posTransformTemp.y();
-            float z0 = posTransformTemp.z();
-
-            posTransformTemp.set((float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z(), 1);
-            posTransformTemp.mul(posMatrix);
-            float x1 = posTransformTemp.x();
-            float y1 = posTransformTemp.y();
-            float z1 = posTransformTemp.z();
-
-            normalTransformTemp.set((float) normal.x(), (float) normal.y(), (float) normal.z());
-            normalTransformTemp.mul(normalMatrix);
-            float nx0 = normalTransformTemp.x();
-            float ny0 = normalTransformTemp.y();
-            float nz0 = normalTransformTemp.z();
-
-            normalTransformTemp.set((float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z());
-            normalTransformTemp.mul(normalMatrix);
-            float nx1 = normalTransformTemp.x();
-            float ny1 = normalTransformTemp.y();
-            float nz1 = normalTransformTemp.z();
-
-            vertexBuilder.addVertex(x0, y0, z0)
+            vertexBuilder.addVertex(pose, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
                     .setColor(r, g, b, a)
-                    .setNormal(nx0, ny0, nz0)
+                    .setNormal(pose, (float) normal.x(), (float) normal.y(), (float) normal.z())
                     .setLineWidth(lineWidth);
 
-            vertexBuilder.addVertex(x1, y1, z1)
+            vertexBuilder.addVertex(pose, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
                     .setColor(r, g, b, a)
-                    .setNormal(nx1, ny1, nz1)
+                    .setNormal(pose, (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
                     .setLineWidth(lineWidth);
         }
     }

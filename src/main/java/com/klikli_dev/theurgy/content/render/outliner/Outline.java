@@ -10,7 +10,7 @@ import com.klikli_dev.theurgy.content.render.Color;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -42,7 +42,7 @@ public abstract class Outline {
         return this.params;
     }
 
-    public abstract void render(PoseStack ms, MultiBufferSource.BufferSource buffer, Vec3 camera, float pt);
+    public abstract void render(PoseStack ms, SubmitNodeCollector buffer, Vec3 camera, float pt);
 
     public void tick() {
     }

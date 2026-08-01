@@ -158,8 +158,9 @@ dependencies {
         }
     }
 
+    //TODO: enable once 26.2 artifact is available
     //occultism
-    compileOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}") {transitive=false}
+//    compileOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}") {transitive=false}
 //    localRuntime ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}")
 
     //Jade (Hwyla/Waila)

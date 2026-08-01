@@ -52,6 +52,7 @@ import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
@@ -148,7 +149,7 @@ public class Theurgy {
             modEventBus.addListener(ParticleSprites::onTextureAtlasStitched);
             modEventBus.addListener(KeyMappingsRegistry::onRegisterKeyMappings);
             modEventBus.addListener(Client::onRegisterItemProperties);
-            NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
+            NeoForge.EVENT_BUS.addListener(Client::onSubmitCustomGeometry);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
             NeoForge.EVENT_BUS.addListener(Client::onMouseScrolling);
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
@@ -222,21 +223,20 @@ public class Theurgy {
             HeldStackFitOutline.onClientTick(player);
         }
 
-        public static void onRenderLevelStage(RenderLevelStageEvent.AfterTranslucentParticles event) {
+        public static void onSubmitCustomGeometry(SubmitCustomGeometryEvent event) {
             PoseStack ms = event.getPoseStack();
+            SubmitNodeCollector collector = event.getSubmitNodeCollector();
             ms.pushPose();
 
-            var buffer = Minecraft.getInstance().renderBuffers().bufferSource();
             float partialTicks = ClientTicks.getPartialTicksHandlePause();
-            Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera()
+            Vec3 camera = Minecraft.getInstance().gameRenderer.mainCamera()
                     .position();
 
-            Outliner.get().render(ms, buffer, camera, partialTicks);
+            Outliner.get().render(ms, collector, camera, partialTicks);
 
-            buffer.endBatch();
             ms.popPose();
 
-            WireRenderer.get().onRenderLevelStage(event);
+            WireRenderer.get().onSubmitCustomGeometry(event);
         }
 
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {

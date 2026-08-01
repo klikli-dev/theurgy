@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -42,7 +43,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeFermentationStarterRecipeForTag(Tags.Items.CROPS);
         this.makeFermentationStarterRecipeForTag(Tags.Items.SEEDS);
         this.makeFermentationStarterRecipeForTag(ItemTags.SAPLINGS);
-        this.makeFermentationStarterRecipeForTag(ItemTags.SMALL_FLOWERS);
+        this.makeFermentationStarterRecipeForTag(BlockItemTags.SMALL_FLOWERS.item());
         this.makeFermentationStarterRecipeForTag(Tags.Items.EGGS);
         this.makeFermentationStarterRecipeForTag(ItemTags.LOGS);
         this.makeFermentationStarterRecipeForTag(ItemTags.PLANKS);
@@ -53,7 +54,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipesForCropTag(Tags.Items.CROPS);
         this.makeRecipesForCropTag(Tags.Items.SEEDS);
         this.makeRecipesForCropTag(ItemTags.SAPLINGS);
-        this.makeRecipesForCropTag(ItemTags.SMALL_FLOWERS);
+        this.makeRecipesForCropTag(BlockItemTags.SMALL_FLOWERS.item());
         this.makeRecipesForCropTag(Tags.Items.EGGS);
         this.makeRecipesForCropTag(ItemTags.LOGS);
         this.makeRecipesForCropTag(ItemTags.PLANKS);

@@ -19,6 +19,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -195,7 +196,7 @@ public class Wires extends SavedData {
     }
 
     Stream<ChunkPos> calculateChunkPosForWire(Wire wire) {
-        return Arrays.stream(WireSlackHelper.getInterpolatedPoints(wire.from().getCenter(), wire.to().getCenter())).map(pos -> new ChunkPos(
+        return Arrays.stream(WireSlackHelper.getInterpolatedPoints(Vec3.atCenterOf(wire.from()), Vec3.atCenterOf(wire.to()))).map(pos -> new ChunkPos(
                 SectionPos.blockToSectionCoord(pos.x()),
                 SectionPos.blockToSectionCoord(pos.z())
         ));

@@ -13,10 +13,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 
 import java.util.Collections;
 import java.util.Set;
@@ -32,87 +30,57 @@ public class WireRenderer {
         return instance;
     }
 
-    public void onRenderLevelStage(RenderLevelStageEvent event) {
+    public void onSubmitCustomGeometry(SubmitCustomGeometryEvent event) {
         var minecraft = Minecraft.getInstance();
-        var bufferSource = minecraft.renderBuffers().bufferSource();
+        var collector = event.getSubmitNodeCollector();
         var poseStack = event.getPoseStack();
         float lineWidth = minecraft.getWindow().getAppropriateLineWidth() * ClientConfig.get().rendering.wireLineWidth.get();
 
-        EntityRenderDispatcher erd = minecraft.getEntityRenderDispatcher();
-        double renderPosX = erd.camera.position().x();
-        double renderPosY = erd.camera.position().y();
-        double renderPosZ = erd.camera.position().z();
+        Vec3 camera = event.getLevelRenderState().cameraRenderState.pos;
 
-        poseStack.pushPose();
-        poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
-
-        //we use lines() to avoid all the wires getting connected as it would happen with linestrip
         var renderType = ClientConfig.get().rendering.useSimpleWireRenderer.get()
                 ? net.minecraft.client.renderer.rendertype.RenderTypes.lines()
                 : RenderTypes.distanceLines();
-        var buffer = bufferSource.getBuffer(renderType);
+
         for (var wire : this.wires) {
+            Vec3 fromCenter = Vec3.atCenterOf(wire.from());
+            Vec3 toCenter = Vec3.atCenterOf(wire.to());
+            Vec3 offset = fromCenter.subtract(camera);
+
             poseStack.pushPose();
-            poseStack.translate(wire.from().getX(), wire.from().getY(), wire.from().getZ());
-            this.renderWire(buffer, poseStack, wire.from().getCenter(), wire.to().getCenter(), lineWidth);
+            poseStack.translate(offset.x, offset.y, offset.z);
+            collector.submitCustomGeometry(poseStack, renderType, (pose, consumer) -> {
+                Vec3 localEnd = toCenter.subtract(fromCenter);
+                this.renderWire(pose, consumer, Vec3.ZERO, localEnd, lineWidth);
+            });
             poseStack.popPose();
         }
-        poseStack.popPose();
-        bufferSource.endBatch(renderType);
     }
 
-    private void renderWire(VertexConsumer vertexBuilder, PoseStack poseStack, Vec3 startPos, Vec3 endPos, float lineWidth) {
-        poseStack.pushPose();
-        {
+    private void renderWire(PoseStack.Pose pose, VertexConsumer vertexBuilder, Vec3 startPos, Vec3 endPos, float lineWidth) {
+        Vec3[] points = WireSlackHelper.getInterpolatedDifferences(endPos.subtract(startPos));
 
-            boolean translateSwap = false;
-            if (startPos.y() > endPos.y()) {
-                Vec3 swap = startPos;
-                startPos = endPos;
-                endPos = swap;
-                translateSwap = true;
-            }
+        float r = ((WIRE_COLOR >> 16) & 0xFF) / 255.0f;
+        float g = ((WIRE_COLOR >> 8) & 0xFF) / 255.0f;
+        float b = (WIRE_COLOR & 0xFF) / 255.0f;
+        float a = ((WIRE_COLOR >> 24) & 0xFF) / 255.0f;
 
-            poseStack.translate(0.5D, 0.5D, 0.5D);
+        for (int line = 0; line < points.length - 1; line++) {
+            Vec3 firstPoint = points[line];
+            Vec3 secondPoint = points[line + 1];
 
-            double startX = startPos.x();
-            double startY = startPos.y();
-            double startZ = startPos.z();
+            Vec3 normal = secondPoint.subtract(firstPoint).normalize();
+            Vec3 reverseNormal = firstPoint.subtract(secondPoint).normalize();
 
-            double endX = endPos.x();
-            double endY = endPos.y();
-            double endZ = endPos.z();
-            float dx = (float) (endX - startX);
-            float dy = (float) (endY - startY);
-            float dz = (float) (endZ - startZ);
-            if (translateSwap) {
-                poseStack.translate(-dx, -dy, -dz);
-            }
-            var pose = poseStack.last();
+            vertexBuilder.addVertex(pose, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
+                    .setColor(r, g, b, a)
+                    .setNormal(pose, (float) normal.x(), (float) normal.y(), (float) normal.z())
+                    .setLineWidth(lineWidth);
 
-            Vec3[] points = WireSlackHelper.getInterpolatedDifferences(endPos.subtract(startPos));
-
-            poseStack.pushPose();
-            for (int line = 0; line < points.length - 1; line++) {
-                Vec3 firstPoint = points[line];
-                Vec3 secondPoint = points[line + 1];
-
-                Vec3 normal = secondPoint.subtract(firstPoint).normalize();
-                Vec3 reverseNormal = firstPoint.subtract(secondPoint).normalize();
-
-                vertexBuilder.addVertex(pose, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
-                        .setColor(WIRE_COLOR)
-                        .setNormal(pose, (float) normal.x(), (float) normal.y(), (float) normal.z())
-                        .setLineWidth(lineWidth);
-
-                vertexBuilder.addVertex(pose, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
-                        .setColor(WIRE_COLOR)
-                        .setNormal(pose, (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
-                        .setLineWidth(lineWidth);
-            }
-            poseStack.popPose();
-
+            vertexBuilder.addVertex(pose, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
+                    .setColor(r, g, b, a)
+                    .setNormal(pose, (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
+                    .setLineWidth(lineWidth);
         }
-        poseStack.popPose();
     }
 }

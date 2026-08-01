@@ -173,7 +173,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint<?>> {
     protected void showClientOverlay(Component message) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.gui != null) {
-            minecraft.gui.setOverlayMessage(message, true);
+            minecraft.gui.hud.setOverlayMessage(message, true);
         }
     }
 

@@ -9,7 +9,7 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -38,9 +38,9 @@ public class TooltipHandler {
             String extendedTooltipKey = stack.getItem().getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX;
             String usageTooltipKey = stack.getItem().getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX;
 
-            boolean tooltipExists = I18n.exists(tooltipKey);
-            boolean extendedTooltipExists = I18n.exists(extendedTooltipKey);
-            boolean usageTooltipExists = I18n.exists(usageTooltipKey);
+            boolean tooltipExists = !Language.getInstance().getOrDefault(tooltipKey).equals(tooltipKey);
+            boolean extendedTooltipExists = !Language.getInstance().getOrDefault(extendedTooltipKey).equals(extendedTooltipKey);
+            boolean usageTooltipExists = !Language.getInstance().getOrDefault(usageTooltipKey).equals(usageTooltipKey);
 
             var additionalTooltipData = getAdditionalTooltipData(stack);
 

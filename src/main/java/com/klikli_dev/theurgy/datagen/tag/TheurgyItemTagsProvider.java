@@ -11,11 +11,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagEntry;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -23,66 +23,74 @@ import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
-    public TheurgyItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagsProvider) {
-        super(output, Registries.ITEM, lookupProvider, item -> BuiltInRegistries.ITEM.wrapAsHolder(item).unwrapKey().orElseThrow(), Theurgy.MODID);
+public class TheurgyItemTagsProvider extends TagsProvider<Item> {
+    public TheurgyItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, Registries.ITEM, lookupProvider);
+    }
+
+    private ResourceKey<Item> key(Item item) {
+        return BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow();
+    }
+
+    private ResourceKey<Item> key(Block block) {
+        return BuiltInRegistries.ITEM.getResourceKey(block.asItem()).orElseThrow();
     }
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(ItemRegistry.THE_HERMETICA.get());
-        this.tag(ItemTags.LECTERN_BOOKS).add(ItemRegistry.THE_HERMETICA.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(this.key(ItemRegistry.THE_HERMETICA.get()));
+        this.tag(ItemTags.LECTERN_BOOKS).add(this.key(ItemRegistry.THE_HERMETICA.get()));
 
         //Note: we cannot use this.copy() here because our custom copy converts the block tag to an item
         //tag with the same location and adds it as a tag reference - which creates a self-reference
         //for tags that share the same path (e.g. c:ores/sal_ammoniac exists as both block and item tag).
         //Instead, we directly add the items to mirror what the block tag provider does.
         this.tag(ItemTagRegistry.ORES_SAL_AMMONIAC)
-                .add(BlockRegistry.SAL_AMMONIAC_ORE.get().asItem())
-                .add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get().asItem());
+                .add(this.key(BlockRegistry.SAL_AMMONIAC_ORE.get()))
+                .add(this.key(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
         this.tag(Tags.Items.ORES_IN_GROUND_STONE)
-                .add(BlockRegistry.SAL_AMMONIAC_ORE.get().asItem());
+                .add(this.key(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.tag(Tags.Items.ORES_IN_GROUND_DEEPSLATE)
-                .add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get().asItem());
+                .add(this.key(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
 
         this.tag(Tags.Items.ORES).addTag(ItemTagRegistry.ORES_SAL_AMMONIAC);
 
         this.tag(ItemTagRegistry.GEMS_SAL_AMMONIAC)
-                .add(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
+                .add(this.key(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get()));
         this.tag(Tags.Items.GEMS).addTag(ItemTagRegistry.GEMS_SAL_AMMONIAC);
 
         var mercuriesTag = this.tag(ItemTagRegistry.ALCHEMICAL_MERCURIES);
         ItemRegistry.ITEMS.getEntries().forEach(item -> {
             //theoretically this loop is unnecessary, but allows us to apply additional logic in the future
             if (item.get() == ItemRegistry.MERCURY_SHARD.get() || item.get() == ItemRegistry.MERCURY_CRYSTAL.get())
-                mercuriesTag.add(item.get());
+                mercuriesTag.add(this.key(item.get()));
         });
 
         var saltsTag = this.tag(ItemTagRegistry.ALCHEMICAL_SALTS);
         SaltRegistry.SALTS.getEntries().forEach(salt -> {
-            saltsTag.add(salt.get());
+            saltsTag.add(this.key(salt.get()));
         });
 
         var sulfursTag = this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS);
-        SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> sulfursTag.add(sulfur.get()));
+        SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> sulfursTag.add(this.key(sulfur.get())));
 
         var nitersTag = this.tag(ItemTagRegistry.ALCHEMICAL_NITERS);
-        NiterRegistry.NITERS.getEntries().forEach(niter -> nitersTag.add(niter.get()));
+        NiterRegistry.NITERS.getEntries().forEach(niter -> nitersTag.add(this.key(niter.get())));
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_NITERS);
 
         this.tag(ItemTagRegistry.SUGARS)
-                .add(Items.SUGAR);
+                .add(this.key(Items.SUGAR));
 
         this.tag(ItemTagRegistry.FERMENTATION_STARTERS)
-                .add(ItemRegistry.FERMENTATION_STARTER.get());
+                .add(this.key(ItemRegistry.FERMENTATION_STARTER.get()));
 
         // Populate the berry foods tag with vanilla berry items
         this.tag(ItemTagRegistry.FOODS_BERRY)
-                .add(Items.SWEET_BERRIES)
-                .add(Items.GLOW_BERRIES);
+                .add(this.key(Items.SWEET_BERRIES))
+                .add(this.key(Items.GLOW_BERRIES));
 
         //add the tier tags into the material tag
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS)
@@ -146,123 +154,123 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT);
         SulfurMappings.earthenMattersAbundant().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON);
         SulfurMappings.earthenMattersCommon().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON).add(this.key(sulfur));
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT);
         SulfurMappings.metalsAbundant().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON);
         SulfurMappings.metalsCommon().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE);
         SulfurMappings.metalsRare().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS);
         SulfurMappings.metalsPrecious().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS).add(this.key(sulfur));
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT);
         SulfurMappings.gemsAbundant().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON);
         SulfurMappings.gemsCommon().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE);
         SulfurMappings.gemsRare().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS);
         SulfurMappings.gemsPrecious().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS).add(this.key(sulfur));
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT);
         SulfurMappings.otherMineralsAbundant().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON);
         SulfurMappings.otherMineralsCommon().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE);
         SulfurMappings.otherMineralsRare().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS);
         SulfurMappings.otherMineralsPrecious().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS).add(this.key(sulfur));
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT);
         SulfurMappings.logsAbundant().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT).add(this.key(sulfur));
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT);
         SulfurMappings.cropsAbundant().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT).add(this.key(sulfur));
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT);
         SulfurMappings.animalsAbundant().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON);
         SulfurMappings.animalsCommon().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE);
         SulfurMappings.animalsRare().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE).add(this.key(sulfur));
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT);
         SulfurMappings.mobsAbundant().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON);
         SulfurMappings.mobsCommon().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES);
         SulfurMappings.mobsCommon()
                 .stream()
                 .filter(sulfur -> !SulfurMappings.noAutomaticRecipesFor().contains(sulfur))
                 .forEach(sulfur -> {
-                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES).add(sulfur);
+                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES).add(this.key(sulfur));
                 });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE);
         SulfurMappings.mobsRare().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES);
         SulfurMappings.mobsRare()
                 .stream()
                 .filter(sulfur -> !SulfurMappings.noAutomaticRecipesFor().contains(sulfur))
                 .forEach(sulfur -> {
-                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES).add(sulfur);
+                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES).add(this.key(sulfur));
                 });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS);
         SulfurMappings.mobsPrecious().forEach(sulfur -> {
-            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS).add(sulfur);
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS).add(this.key(sulfur));
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES);
         SulfurMappings.mobsPrecious()
                 .stream()
                 .filter(sulfur -> !SulfurMappings.noAutomaticRecipesFor().contains(sulfur))
                 .forEach(sulfur -> {
-                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES).add(sulfur);
+                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES).add(this.key(sulfur));
                 });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
@@ -464,57 +472,57 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
 
         //Creature items that can be calcinated into creature salt
         this.tag(ItemTagRegistry.CREATURE_ITEMS_ANIMALS)
-                .add(Items.PORKCHOP)
-                .add(Items.BEEF)
-                .add(Items.MUTTON)
-                .add(Items.CHICKEN)
-                .add(Items.COOKED_PORKCHOP)
-                .add(Items.COOKED_BEEF)
-                .add(Items.COOKED_MUTTON)
-                .add(Items.COOKED_CHICKEN)
-                .add(Items.RABBIT)
-                .add(Items.COOKED_RABBIT)
-                .add(Items.LEATHER)
-                .add(Items.FEATHER)
-                .add(Items.EGG)
-                .add(Items.RABBIT_HIDE)
-                .add(Items.INK_SAC)
-                .add(Items.GLOW_INK_SAC)
-                .add(Items.ARMADILLO_SCUTE)
+                .add(this.key(Items.PORKCHOP))
+                .add(this.key(Items.BEEF))
+                .add(this.key(Items.MUTTON))
+                .add(this.key(Items.CHICKEN))
+                .add(this.key(Items.COOKED_PORKCHOP))
+                .add(this.key(Items.COOKED_BEEF))
+                .add(this.key(Items.COOKED_MUTTON))
+                .add(this.key(Items.COOKED_CHICKEN))
+                .add(this.key(Items.RABBIT))
+                .add(this.key(Items.COOKED_RABBIT))
+                .add(this.key(Items.LEATHER))
+                .add(this.key(Items.FEATHER))
+                .add(this.key(Items.EGG))
+                .add(this.key(Items.RABBIT_HIDE))
+                .add(this.key(Items.INK_SAC))
+                .add(this.key(Items.GLOW_INK_SAC))
+                .add(this.key(Items.ARMADILLO_SCUTE))
                 .addTag(ItemTags.WOOL);
 
         this.tag(ItemTagRegistry.CREATURE_ITEMS_FISH)
-                .add(Items.COD)
-                .add(Items.COOKED_COD)
-                .add(Items.SALMON)
-                .add(Items.COOKED_SALMON)
-                .add(Items.TROPICAL_FISH)
-                .add(Items.PUFFERFISH);
+                .add(this.key(Items.COD))
+                .add(this.key(Items.COOKED_COD))
+                .add(this.key(Items.SALMON))
+                .add(this.key(Items.COOKED_SALMON))
+                .add(this.key(Items.TROPICAL_FISH))
+                .add(this.key(Items.PUFFERFISH));
 
         this.tag(ItemTagRegistry.CREATURE_ITEMS_MOBS)
-                .add(Items.ROTTEN_FLESH)
-                .add(Items.SPIDER_EYE)
-                .add(Items.STRING)
-                .add(Items.GUNPOWDER)
-                .add(Items.BONE)
-                .add(Items.BONE_MEAL)
-                .add(Items.ARROW)
-                .add(Items.SLIME_BALL)
-                .add(Items.BLAZE_ROD)
-                .add(Items.PHANTOM_MEMBRANE)
-                .add(Items.MAGMA_CREAM)
-                .add(Items.TURTLE_SCUTE)
-                .add(Items.SHULKER_SHELL)
-                .add(Items.ENDER_PEARL)
-                .add(Items.PRISMARINE_SHARD)
-                .add(Items.PRISMARINE_CRYSTALS)
-                .add(Items.SKELETON_SKULL)
-                .add(Items.WITHER_SKELETON_SKULL)
-                .add(Items.GHAST_TEAR)
-                .add(Items.ELYTRA)
-                .add(Items.NETHER_STAR)
-                .add(Items.DRAGON_EGG)
-                .add(Items.HEART_OF_THE_SEA);
+                .add(this.key(Items.ROTTEN_FLESH))
+                .add(this.key(Items.SPIDER_EYE))
+                .add(this.key(Items.STRING))
+                .add(this.key(Items.GUNPOWDER))
+                .add(this.key(Items.BONE))
+                .add(this.key(Items.BONE_MEAL))
+                .add(this.key(Items.ARROW))
+                .add(this.key(Items.SLIME_BALL))
+                .add(this.key(Items.BLAZE_ROD))
+                .add(this.key(Items.PHANTOM_MEMBRANE))
+                .add(this.key(Items.MAGMA_CREAM))
+                .add(this.key(Items.TURTLE_SCUTE))
+                .add(this.key(Items.SHULKER_SHELL))
+                .add(this.key(Items.ENDER_PEARL))
+                .add(this.key(Items.PRISMARINE_SHARD))
+                .add(this.key(Items.PRISMARINE_CRYSTALS))
+                .add(this.key(Items.SKELETON_SKULL))
+                .add(this.key(Items.WITHER_SKELETON_SKULL))
+                .add(this.key(Items.GHAST_TEAR))
+                .add(this.key(Items.ELYTRA))
+                .add(this.key(Items.NETHER_STAR))
+                .add(this.key(Items.DRAGON_EGG))
+                .add(this.key(Items.HEART_OF_THE_SEA));
 
         this.tag(ItemTagRegistry.CREATURE_ITEMS)
                 .addOptionalTag(ItemTagRegistry.CREATURE_ITEMS_ANIMALS)
@@ -524,22 +532,22 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
 
         //Set up tags for other mods that may not properly tag their mats
         this.tag(ItemTagRegistry.INGOTS_URANINITE)
-                .add(TagEntry.optionalElement(this.rl("powah:uraninite"))); //powah adds ore tags and raw material tags but not ingot tags
+                .addOptional(ResourceKey.create(Registries.ITEM, this.rl("powah:uraninite"))); //powah adds ore tags and raw material tags but not ingot tags
 
         this.tag(ItemTagRegistry.ORES_DARK_GEM)
-                .add(TagEntry.optionalTag(this.rl("evilcraft:dark_ores")))
-                .add(TagEntry.optionalTag(this.rl("evilcraft:ores/dark_gem"))); //does not exist as of 1.21, but if they unify the pattern it will
+                .addOptionalTag(TagKey.create(Registries.ITEM, this.rl("evilcraft:dark_ores")))
+                .addOptionalTag(TagKey.create(Registries.ITEM, this.rl("evilcraft:ores/dark_gem"))); //does not exist as of 1.21, but if they unify the pattern it will
 
         this.tag(ItemTagRegistry.GEMS_DARK)
-                .add(TagEntry.optionalTag(this.rl("evilcraft:gems/dark")));
+                .addOptionalTag(TagKey.create(Registries.ITEM, this.rl("evilcraft:gems/dark")));
 
         this.tag(ItemTagRegistry.RAW_MATERIALS_DEMONITE)
-                .add(TagEntry.optionalElement(this.rl("bloodmagic:rawdemonite")));
+                .addOptional(ResourceKey.create(Registries.ITEM, this.rl("bloodmagic:rawdemonite")));
         this.tag(ItemTagRegistry.INGOTS_DEMONITE)
-                .add(TagEntry.optionalElement(this.rl("bloodmagic:ingot_hellforged")));
+                .addOptional(ResourceKey.create(Registries.ITEM, this.rl("bloodmagic:ingot_hellforged")));
 
         this.tag(ItemTagRegistry.GEMS_CHIMERITE)
-                .add(TagEntry.optionalElement(this.rl("mna:chimerite_gem")));
+                .addOptional(ResourceKey.create(Registries.ITEM, this.rl("mna:chimerite_gem")));
     }
 
     public Identifier rl(String tag) {

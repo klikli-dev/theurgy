@@ -36,8 +36,8 @@ public class BlockHighlightRenderer {
         BlockHitResult rayTraceResult = event.getHitResult();
         Camera camera = event.getCamera();
         boolean translucentPass = event.isInTranslucentPass();
-        event.addCustomRenderer((renderState, buffer, poseStack, currentPass, levelRenderState) -> {
-            if (currentPass != translucentPass) {
+        event.addCustomRenderer((renderState, buffer, poseStack, levelRenderState) -> {
+            if (renderState.isTranslucent() != translucentPass) {
                 return false;
             }
 

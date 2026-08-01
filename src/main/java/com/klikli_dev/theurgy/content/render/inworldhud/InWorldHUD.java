@@ -110,10 +110,10 @@ public class InWorldHUD implements GuiLayer {
     }
 
     private boolean canRun(Minecraft minecraft) {
-        return !minecraft.options.hideGui
-                && minecraft.player != null
+        return minecraft.player != null
                 && minecraft.level != null
                 && !minecraft.player.isSpectator()
+                && !minecraft.gui.hud.isHidden()
                 && ClientConfig.get().rendering.enableInWorldHUD.get();
     }
 

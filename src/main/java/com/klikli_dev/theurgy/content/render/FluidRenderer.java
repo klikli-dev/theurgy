@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.content.fluid.SolventFluidType;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -65,14 +65,12 @@ public class FluidRenderer {
         return 0xFFFFFFFF;
     }
 
-    public static VertexConsumer getFluidBuilder(MultiBufferSource buffer) {
-        return buffer.getBuffer(RenderTypes.fluid());
-    }
-
     public static void renderFluidBox(FluidStack fluidStack, float xMin, float yMin, float zMin, float xMax, float yMax,
-                                      float zMax, MultiBufferSource buffer, PoseStack ms, int light, boolean renderBottom) {
-        renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, getFluidBuilder(buffer), ms, light,
-                renderBottom);
+                                      float zMax, SubmitNodeCollector buffer, PoseStack ms, int light, boolean renderBottom) {
+        buffer.submitCustomGeometry(ms, RenderTypes.fluid(), (pose, consumer) -> {
+            renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, consumer, ms, light,
+                    renderBottom);
+        });
     }
 
     public static void renderFluidBox(FluidStack fluidStack, float xMin, float yMin, float zMin, float xMax, float yMax,

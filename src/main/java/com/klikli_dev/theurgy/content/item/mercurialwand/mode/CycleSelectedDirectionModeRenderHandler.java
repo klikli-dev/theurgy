@@ -14,7 +14,7 @@ import com.klikli_dev.theurgy.content.render.cube.CubeModelRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Brightness;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +28,7 @@ public class CycleSelectedDirectionModeRenderHandler extends ItemModeRenderHandl
     }
 
     @Override
-    public void renderBlockHighlight(BlockHitResult rayTraceResult, PoseStack ps, MultiBufferSource.BufferSource bufferSource, Camera camera) {
+    public void renderBlockHighlight(BlockHitResult rayTraceResult, PoseStack ps, SubmitNodeCollector bufferSource, Camera camera) {
         Player player = Minecraft.getInstance().player;
         if (player == null)
             return;
@@ -43,25 +43,22 @@ public class CycleSelectedDirectionModeRenderHandler extends ItemModeRenderHandl
 
             var targetPos = directionSettable.targetPos();
 
-
-            //Note: for now we simply do not use transparency here because it does not work nicely with translucent blocks
-            //      specifically, it stops them from rendering, os the transparent highlight renders the world behind the bock.
-            //      If we want to play with it again, use     public final static Color GREEN = new Color(0, 255, 0, 155).setImmutable();
-
-            Vec3 viewPosition = camera.position();
-            ps.pushPose();
-            ps.translate(targetPos.getX() - viewPosition.x, targetPos.getY() - viewPosition.y, targetPos.getZ() - viewPosition.z);
-            CubeModelRenderer.renderCube(
-                    CubeModel.getOverlayModel(newDirection, BlockOverlays.WHITE), ps, bufferSource.getBuffer(RenderTypes.translucentCullNoDepthBlockSheet()),
-                    Color.GREEN.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
-                    camera);
-            if (currentDirection != newDirection) {
+            bufferSource.submitCustomGeometry(ps, RenderTypes.translucentCullNoDepthBlockSheet(), (pose, consumer) -> {
+                ps.pushPose();
+                Vec3 cameraPos = camera.position();
+                ps.translate(targetPos.getX() - cameraPos.x, targetPos.getY() - cameraPos.y, targetPos.getZ() - cameraPos.z);
                 CubeModelRenderer.renderCube(
-                        CubeModel.getOverlayModel(currentDirection, BlockOverlays.WHITE), ps, bufferSource.getBuffer(RenderTypes.translucentCullNoDepthBlockSheet()),
-                        Color.YELLOW.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
+                        CubeModel.getOverlayModel(newDirection, BlockOverlays.WHITE), ps, consumer,
+                        Color.GREEN.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
                         camera);
-            }
-            ps.popPose();
+                if (currentDirection != newDirection) {
+                    CubeModelRenderer.renderCube(
+                            CubeModel.getOverlayModel(currentDirection, BlockOverlays.WHITE), ps, consumer,
+                            Color.YELLOW.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
+                            camera);
+                }
+                ps.popPose();
+            });
         }
     }
 }

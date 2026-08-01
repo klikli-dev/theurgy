@@ -51,6 +51,7 @@ public class ServerConfig {
 
         protected ForgeConfigSpec.ConfigValue<List<? extends String>> sulfurSourceToBlockMappingList;
 
+        public final ForgeConfigSpec.BooleanValue vatBlocksInputOnRecipe;
         public final Lazy<Map<String, String>> sulfurSourceToBlockMapping = Lazy.of(() -> this.sulfurSourceToBlockMappingList.get().stream()
                 .map(s -> s.split(":"))
                 .collect(Collectors.toMap(s -> s[0], s -> s[1])));
@@ -66,6 +67,11 @@ public class ServerConfig {
                             "Format is: [\"source=block\", \"#sourcetag=#blocktag\", ...]"
                     )
                     .defineList("sulfurSourceToBlockMapping", List.of(), e -> ((String) e).contains("="));
+
+            this.vatBlocksInputOnRecipe = builder
+                    .comment("When set to true, digestion and fermentation vats will attempt to block item inputs if doing do would break an existing recipe.",
+                            "This is best used for any automation, ideally one that supplies all secondary inputs, and only the primary reagent is different. Note that if the container already holds a valid recipe, it will not allow input of an ingredient, even if the new ingredient will still create a valid recipe; use time-based inputs or disable this check for this scenario.")
+                            .define("vatBlocksInputOnRecipe", true);
 
             builder.pop();
         }

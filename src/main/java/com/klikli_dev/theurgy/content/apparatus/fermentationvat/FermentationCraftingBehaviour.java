@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
@@ -48,6 +49,10 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
 
         //now we use our custom cached check that checks only liquids:
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
+    }
+
+    public boolean hasRecipe() {
+        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

@@ -50,6 +50,10 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperW
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
+    public boolean hasRecipe() {
+        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel()).isPresent();
+    }
+
     @Override
     protected int getIngredientCount(DigestionRecipe recipe) {
         return 1;

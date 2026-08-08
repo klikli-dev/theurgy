@@ -7,6 +7,7 @@
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license = "${mod_license}"
+licenseUrl = "https://github.com/klikli-dev/theurgy#licensing"
 
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL = "https://github.com/klikli-dev/theurgy/issues" #optional
@@ -30,7 +31,7 @@ displayName = "${mod_name}" #mandatory
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/theurgy" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile = "theurgy.png" #optional
+iconFile  = "theurgy.png"
 
 # A text field displayed in the mod UI
 credits = """See https://github.com/klikli-dev/theurgy#licensing""" #optional

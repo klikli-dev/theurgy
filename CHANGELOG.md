@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.116.0] - 2026-08-08
+### :wrench: Chores
+- [`2cff0c1`](https://github.com/klikli-dev/theurgy/commit/2cff0c1ba9ec7cf243bf8b4f50c4733c7b16a8f3) - update code defined gui and magic particles lib versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.115.0] - 2026-08-08
 ### :wrench: Chores
 - [`6dde35d`](https://github.com/klikli-dev/theurgy/commit/6dde35d799e7ea42eff742daab5637166ef2a08c) - update dependencies to latest version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1714,3 +1719,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.114.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.113.0...release/v26.1.2-1.114.0
 [release/v26.2-1.114.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-0.0.0...release/v26.2-1.114.0
 [release/v26.2-1.115.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.114.0...release/v26.2-1.115.0
+[release/v26.2-1.116.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.115.0...release/v26.2-1.116.0

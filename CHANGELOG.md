@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.115.0] - 2026-08-08
+### :wrench: Chores
+- [`6dde35d`](https://github.com/klikli-dev/theurgy/commit/6dde35d799e7ea42eff742daab5637166ef2a08c) - update dependencies to latest version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c34ed18`](https://github.com/klikli-dev/theurgy/commit/c34ed18ab537da310b33f345928533ac3b045806) - update to latest neo mod info system *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.114.0] - 2026-08-01
 ### :sparkles: New Features
 - [`0e8214e`](https://github.com/klikli-dev/theurgy/commit/0e8214e4d9bc33867d8c4eb850697e0a867859f6) - update to 26.2 *(PR [#389](https://github.com/klikli-dev/theurgy/pull/389) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1707,3 +1713,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.113.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.2...release/v26.1.2-1.113.0
 [release/v26.1.2-1.114.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.113.0...release/v26.1.2-1.114.0
 [release/v26.2-1.114.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-0.0.0...release/v26.2-1.114.0
+[release/v26.2-1.115.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.114.0...release/v26.2-1.115.0

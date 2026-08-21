@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
+import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.*;
 import com.klikli_dev.theurgy.content.storage.*;
 import net.minecraft.core.Direction;
@@ -164,11 +166,21 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
+            boolean stackAlreadyPresent = false;
+
             //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
-            for (int i = 0; i < this.getSlots(); i++) {
-                if (i != slot && ItemHandlerHelper.canItemStacksStack(stack, this.getStackInSlot(i))) {
-                    return false;
+            for(int i = 0; i < this.getSlots(); i++){
+                if(ItemHandlerHelper.canItemStacksStack(stack,  this.getStackInSlot(i))) {
+                    if(i!=slot) {
+                        return  false;
+                    }
+                    stackAlreadyPresent = true;
                 }
+            }
+
+            // If we need a new slot, we check if there's no valid recipe currently
+            if(!stackAlreadyPresent && ServerConfig.get().recipes.vatBlocksInputOnRecipe.get() && DigestionStorageBehaviour.this.craftingBehaviour.get().hasRecipe()) {
+                return false;
             }
 
             return DigestionStorageBehaviour.this.craftingBehaviour.get().canProcess(stack) && super.isItemValid(slot, stack);

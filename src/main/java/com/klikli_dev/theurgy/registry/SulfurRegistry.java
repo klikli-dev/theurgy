@@ -317,6 +317,8 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> ANTIMONY = registerForSourceTag(ItemTagRegistry.INGOTS_ANTIMONY, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> TITANIUM = registerForSourceTag(ItemTagRegistry.INGOTS_TITANIUM, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> TUNGSTEN = registerForSourceTag(ItemTagRegistry.INGOTS_TUNGSTEN, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> MITHRIL = registerForSourceTag(ItemTagRegistry.INGOTS_MITHRIL, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> STELLARITE = registerForSourceTag(ItemTagRegistry.INGOTS_STELLARITE, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
 
     //Common Gems
     public static final DeferredItem<AlchemicalSulfurItem> DIAMOND = registerForSourceTag(Tags.Items.GEMS_DIAMOND, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.GEMS);

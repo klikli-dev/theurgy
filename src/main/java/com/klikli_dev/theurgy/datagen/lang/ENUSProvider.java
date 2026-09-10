@@ -941,6 +941,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.ANTIMONY, "Antimony");
         this.addDerivativeSource(SulfurRegistry.TITANIUM, "Titanium");
         this.addDerivativeSource(SulfurRegistry.TUNGSTEN, "Tungsten");
+        this.addDerivativeSource(SulfurRegistry.MITHRIL, "Mithril");
+        this.addDerivativeSource(SulfurRegistry.STELLARITE, "Stellarite");
 
         //Common Gems
         this.addDerivativeSource(SulfurRegistry.DIAMOND, "Diamond");

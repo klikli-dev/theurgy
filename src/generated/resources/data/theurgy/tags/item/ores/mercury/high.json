@@ -18,6 +18,10 @@
     {
       "id": "#c:ores/vibranium",
       "required": false
+    },
+    {
+      "id": "#c:ores/stellarite",
+      "required": false
     }
   ]
 }

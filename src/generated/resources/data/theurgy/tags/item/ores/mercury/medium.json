@@ -64,6 +64,10 @@
     {
       "id": "#c:ores/monazite",
       "required": false
+    },
+    {
+      "id": "#c:ores/mithril",
+      "required": false
     }
   ]
 }

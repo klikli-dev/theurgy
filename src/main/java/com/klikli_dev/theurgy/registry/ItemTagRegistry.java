@@ -305,6 +305,8 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ORES_ANTIMONY = cTag("ores/antimony");
     public static final TagKey<Item> ORES_TITANIUM = cTag("ores/titanium");
     public static final TagKey<Item> ORES_TUNGSTEN = cTag("ores/tungsten");
+    public static final TagKey<Item> ORES_MITHRIL = cTag("ores/mithril");
+    public static final TagKey<Item> ORES_STELLARITE = cTag("ores/stellarite");
 
     // Common Gem Ores
     public static final TagKey<Item> ORES_RUBY = cTag("ores/ruby");
@@ -353,6 +355,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> RAW_MATERIALS_ANTIMONY = cTag("raw_materials/antimony");
     public static final TagKey<Item> RAW_MATERIALS_TUNGSTEN = cTag("raw_materials/tungsten");
     public static final TagKey<Item> RAW_MATERIALS_TITANIUM = cTag("raw_materials/titanium");
+    public static final TagKey<Item> RAW_MATERIALS_MITHRIL = cTag("raw_materials/mithril");
 
     //Common Metal Ingots
     public static final TagKey<Item> INGOTS_URANIUM = cTag("ingots/uranium");
@@ -379,6 +382,8 @@ public class ItemTagRegistry {
     public static final TagKey<Item> INGOTS_ANTIMONY = cTag("ingots/antimony");
     public static final TagKey<Item> INGOTS_TITANIUM = cTag("ingots/titanium");
     public static final TagKey<Item> INGOTS_TUNGSTEN = cTag("ingots/tungsten");
+    public static final TagKey<Item> INGOTS_MITHRIL = cTag("ingots/mithril");
+    public static final TagKey<Item> INGOTS_STELLARITE = cTag("ingots/stellarite");
 
     //Common Gems
     public static final TagKey<Item> GEMS_RUBY = cTag("gems/ruby");

@@ -28,6 +28,10 @@
     {
       "id": "#c:ingots/platinum",
       "required": false
+    },
+    {
+      "id": "#c:ingots/mithril",
+      "required": false
     }
   ]
 }

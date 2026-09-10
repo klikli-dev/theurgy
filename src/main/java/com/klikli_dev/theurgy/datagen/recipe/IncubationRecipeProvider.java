@@ -306,6 +306,8 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(ItemTagRegistry.INGOTS_ANTIMONY, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.ANTIMONY.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_TUNGSTEN, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.TUNGSTEN.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_TITANIUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.TITANIUM.get());
+        this.makeRecipe(ItemTagRegistry.INGOTS_MITHRIL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.MITHRIL.get());
+        this.makeRecipe(ItemTagRegistry.INGOTS_STELLARITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.STELLARITE.get());
 
         //gems from sulfurs
         this.makeRecipe(Tags.Items.GEMS_DIAMOND, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.DIAMOND.get());

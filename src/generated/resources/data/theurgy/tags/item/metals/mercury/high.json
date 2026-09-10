@@ -12,6 +12,10 @@
     {
       "id": "#c:ingots/vibranium",
       "required": false
+    },
+    {
+      "id": "#c:ingots/stellarite",
+      "required": false
     }
   ]
 }

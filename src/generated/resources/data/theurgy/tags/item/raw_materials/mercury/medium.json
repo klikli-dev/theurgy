@@ -36,6 +36,10 @@
     {
       "id": "#c:raw_materials/tungsten",
       "required": false
+    },
+    {
+      "id": "#c:raw_materials/mithril",
+      "required": false
     }
   ]
 }

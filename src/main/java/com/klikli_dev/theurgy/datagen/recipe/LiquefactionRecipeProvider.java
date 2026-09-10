@@ -318,6 +318,8 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.OSTRUM.get(), 5, ItemTagRegistry.ORES_OSTRUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CALORITE.get(), 5, ItemTagRegistry.ORES_CALORITE, salAmmoniac, 50);
         this.makeRecipe(SulfurRegistry.IESNIUM.get(), 5, ItemTagRegistry.ORES_IESNIUM, salAmmoniac, 50);
+        this.makeRecipe(SulfurRegistry.MITHRIL.get(), 5, ItemTagRegistry.ORES_MITHRIL, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.STELLARITE.get(), 5, ItemTagRegistry.ORES_STELLARITE, salAmmoniac, 100);
 
         //Common Gems Ore Sulfurs
         this.makeRecipe(SulfurRegistry.DIAMOND.get(), 4, Tags.Items.ORES_DIAMOND, salAmmoniac, 100);
@@ -367,6 +369,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.OSTRUM.get(), 5, ItemTagRegistry.RAW_MATERIALS_OSTRUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CALORITE.get(), 5, ItemTagRegistry.RAW_MATERIALS_CALORITE, salAmmoniac, 50);
         this.makeRecipe(SulfurRegistry.IESNIUM.get(), 5, ItemTagRegistry.RAW_MATERIALS_IESNIUM, salAmmoniac, 50);
+        this.makeRecipe(SulfurRegistry.MITHRIL.get(), 3, ItemTagRegistry.RAW_MATERIALS_MITHRIL, salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.DEMONITE.get(), 3, ItemTagRegistry.RAW_MATERIALS_DEMONITE, salAmmoniac, 50);
 
         //Common Metal Ingots sulfurs
@@ -394,6 +397,8 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.OSTRUM.get(), 1, ItemTagRegistry.INGOTS_OSTRUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CALORITE.get(), 1, ItemTagRegistry.INGOTS_CALORITE, salAmmoniac, 50);
         this.makeRecipe(SulfurRegistry.IESNIUM.get(), 1, ItemTagRegistry.INGOTS_IESNIUM, salAmmoniac, 50);
+        this.makeRecipe(SulfurRegistry.MITHRIL.get(), 1, ItemTagRegistry.INGOTS_MITHRIL, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.STELLARITE.get(), 1, ItemTagRegistry.INGOTS_STELLARITE, salAmmoniac, 100);
         this.makeRecipe(SulfurRegistry.DEMONITE.get(), 1, ItemTagRegistry.INGOTS_DEMONITE, salAmmoniac, 50);
 
         //Common Gems Sulfurs

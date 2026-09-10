@@ -358,6 +358,7 @@ public class TheurgyItemTagsProvider extends TagsProvider<Item> {
                 .addOptionalTag(ItemTagRegistry.ORES_BAUXITE)
                 .addOptionalTag(ItemTagRegistry.ORES_ANTIMONY)
                 .addOptionalTag(ItemTagRegistry.ORES_MONAZITE)
+                .addOptionalTag(ItemTagRegistry.ORES_MITHRIL)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_ORES)
@@ -368,6 +369,7 @@ public class TheurgyItemTagsProvider extends TagsProvider<Item> {
                 .addOptionalTag(ItemTagRegistry.ORES_ALLTHEMODIUM)
                 .addOptionalTag(ItemTagRegistry.ORES_UNOBTAINIUM)
                 .addOptionalTag(ItemTagRegistry.ORES_VIBRANIUM)
+                .addOptionalTag(ItemTagRegistry.ORES_STELLARITE)
 
         ;
 
@@ -394,6 +396,7 @@ public class TheurgyItemTagsProvider extends TagsProvider<Item> {
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_PLATINUM)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_TITANIUM)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_TUNGSTEN)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_MITHRIL)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_RAW_MATERIALS)
@@ -421,6 +424,7 @@ public class TheurgyItemTagsProvider extends TagsProvider<Item> {
                 .addOptionalTag(ItemTagRegistry.INGOTS_IRIDIUM)
                 .addOptionalTag(ItemTagRegistry.INGOTS_CRIMSON_IRON)
                 .addOptionalTag(ItemTagRegistry.INGOTS_PLATINUM)
+                .addOptionalTag(ItemTagRegistry.INGOTS_MITHRIL)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_METALS)
@@ -428,6 +432,7 @@ public class TheurgyItemTagsProvider extends TagsProvider<Item> {
                 .addOptionalTag(ItemTagRegistry.INGOTS_ALLTHEMODIUM)
                 .addOptionalTag(ItemTagRegistry.INGOTS_UNOBTAINIUM)
                 .addOptionalTag(ItemTagRegistry.INGOTS_VIBRANIUM)
+                .addOptionalTag(ItemTagRegistry.INGOTS_STELLARITE)
         ;
 
         this.tag(ItemTagRegistry.LOW_MERCURY_GEMS)
@@ -545,6 +550,9 @@ public class TheurgyItemTagsProvider extends TagsProvider<Item> {
                 .addOptional(ResourceKey.create(Registries.ITEM, this.rl("bloodmagic:rawdemonite")));
         this.tag(ItemTagRegistry.INGOTS_DEMONITE)
                 .addOptional(ResourceKey.create(Registries.ITEM, this.rl("bloodmagic:ingot_hellforged")));
+
+        this.tag(ItemTagRegistry.INGOTS_STELLARITE)
+                .add(TagEntry.optionalElement(this.rl("forbidden_arcanus:stellarite_piece")));
 
         this.tag(ItemTagRegistry.GEMS_CHIMERITE)
                 .addOptional(ResourceKey.create(Registries.ITEM, this.rl("mna:chimerite_gem")));

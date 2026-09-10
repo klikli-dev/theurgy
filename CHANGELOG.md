@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.115.0] - 2026-09-10
+### :sparkles: New Features
+- [`69512bc`](https://github.com/klikli-dev/theurgy/commit/69512bc85b88201584cc134107689669587ffab4) - add mithril and stellarite metal support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.114.0] - 2026-07-23
 ### :zap: Performance Improvements
 - [`b25d3ed`](https://github.com/klikli-dev/theurgy/commit/b25d3edc96107aff8014b2243c4ea68c10080afd) - replace per-chunk wire sync scanning with per-player reference counting *(PR [#388](https://github.com/klikli-dev/theurgy/pull/388) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1701,3 +1706,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.112.2]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.1...release/v26.1.2-1.112.2
 [release/v26.1.2-1.113.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.112.2...release/v26.1.2-1.113.0
 [release/v26.1.2-1.114.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.113.0...release/v26.1.2-1.114.0
+[release/v26.1.2-1.115.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.114.0...release/v26.1.2-1.115.0

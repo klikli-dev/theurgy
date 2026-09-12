@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.117.0] - 2026-09-12
+### :sparkles: New Features
+- [`6dd3d4c`](https://github.com/klikli-dev/theurgy/commit/6dd3d4cd072416459719d499bfe8d7c711dc60d3) - add mithril and stellarite metal support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`1ada8ef`](https://github.com/klikli-dev/theurgy/commit/1ada8ef670ca40e5a887c5560601244a0de716c7) - optional tag content for stellarite *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.116.0] - 2026-08-08
 ### :wrench: Chores
 - [`2cff0c1`](https://github.com/klikli-dev/theurgy/commit/2cff0c1ba9ec7cf243bf8b4f50c4733c7b16a8f3) - update code defined gui and magic particles lib versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1720,3 +1728,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.114.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-0.0.0...release/v26.2-1.114.0
 [release/v26.2-1.115.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.114.0...release/v26.2-1.115.0
 [release/v26.2-1.116.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.115.0...release/v26.2-1.116.0
+[release/v26.2-1.117.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.116.0...release/v26.2-1.117.0

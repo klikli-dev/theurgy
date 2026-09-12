@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.118.0] - 2026-09-12
+### :recycle: Refactors
+- [`8f4fba1`](https://github.com/klikli-dev/theurgy/commit/8f4fba143b80ce30fa7da0b34b2d6b4dbeec2d01) - use transactions for fluid storage instead of simulate flags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.117.0] - 2026-09-12
 ### :sparkles: New Features
 - [`6dd3d4c`](https://github.com/klikli-dev/theurgy/commit/6dd3d4cd072416459719d499bfe8d7c711dc60d3) - add mithril and stellarite metal support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1729,3 +1734,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.115.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.114.0...release/v26.2-1.115.0
 [release/v26.2-1.116.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.115.0...release/v26.2-1.116.0
 [release/v26.2-1.117.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.116.0...release/v26.2-1.117.0
+[release/v26.2-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.117.0...release/v26.2-1.118.0

@@ -36,11 +36,11 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
 
         if (stackInHand.isEmpty() && pPlayer.isShiftKeyDown()) {
             //sneaking with empty hand means we're trying to void the liquid
-            FluidStorageHelper.drain(blockFluidHandler, Integer.MAX_VALUE, false);
+            FluidStorageHelper.drain(blockFluidHandler, Integer.MAX_VALUE, null);
             return InteractionResult.SUCCESS;
         }
 
-        if (FluidUtil.interactWithFluidHandler(pPlayer, pHand, pPos, blockFluidHandler)) {
+        if (FluidUtil.interactWithFluidHandler(pPlayer, pHand, pPos, blockFluidHandler, null)) {
             return InteractionResult.SUCCESS;
         }
 

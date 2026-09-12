@@ -20,6 +20,7 @@ import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<ResourceHandler<FluidResource>, @Nullable Direction> {
@@ -140,25 +141,30 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<Res
         if (!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
             return;
 
-        FluidStorageHelper.fill(insertCap, extractStack, false);
+        FluidStorageHelper.fill(insertCap, extractStack, null);
     }
 
     protected void performExtraction(ResourceHandler<FluidResource> extractCap, Filter extractFilter, ResourceHandler<FluidResource> insertCap, Filter insertFilter) {
-        //first simulate extraction, this tells us how much we can extract
-        var extractStack = FluidStorageHelper.drain(extractCap, this.extractionAmount, true);
-        if (extractStack.isEmpty())
-            return;
+        try (var tx = Transaction.openRoot()) {
+            //tentatively extract, this tells us which fluid and how much we can move
+            var extractStack = FluidStorageHelper.drain(extractCap, this.extractionAmount, tx);
+            if (extractStack.isEmpty())
+                return;
 
-        if (!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
-            return;
+            if (!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
+                return;
 
-        //and insertion
-        var inserted = FluidStorageHelper.fill(insertCap, extractStack, true);
+            //tentatively insert, this tells us how much actually fits into the target
+            var inserted = FluidStorageHelper.fill(insertCap, extractStack, tx);
+            if (inserted <= 0)
+                return;
 
-        //then if anything was inserted during the simulation, perform the real extraction and insertion
-        if (inserted > 0) {
-            inserted = FluidStorageHelper.fill(insertCap, extractStack, false);
-            FluidStorageHelper.drain(extractCap, inserted, false);
+            //return the part that did not fit back to the source
+            if (inserted < extractStack.getAmount()) {
+                FluidStorageHelper.fill(extractCap, extractStack.copyWithAmount(extractStack.getAmount() - inserted), tx);
+            }
+
+            tx.commit();
         }
     }
 

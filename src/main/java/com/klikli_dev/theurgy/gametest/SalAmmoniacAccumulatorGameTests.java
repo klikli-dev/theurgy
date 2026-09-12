@@ -51,7 +51,7 @@ public class SalAmmoniacAccumulatorGameTests {
             var blockEntity = helper.getBlockEntity(ACCUMULATOR_POS, SalAmmoniacAccumulatorBlockEntity.class);
             var filled = blockEntity.waterTank.fill(
                     new FluidStack(Fluids.WATER, 1000),
-                    false
+                    null
             );
             helper.assertTrue(filled == 1000, "Water tank should accept 1000mb of water");
             helper.assertTrue(blockEntity.waterTank.getFluidAmount() == 1000, "Water tank should contain 1000mb of water");

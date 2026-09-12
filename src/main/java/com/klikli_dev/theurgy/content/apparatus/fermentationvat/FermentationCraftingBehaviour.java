@@ -128,7 +128,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
                 }
             }
 
-            if (FluidStorageHelper.drain(this.fluidTankSupplier.get(), pRecipe.value().getFluidAmount(), tx) < pRecipe.value().getFluidAmount()) {
+            if (FluidStorageHelper.drain(this.fluidTankSupplier.get(), pRecipe.value().getFluidAmount(), tx).getAmount() < pRecipe.value().getFluidAmount()) {
                 return false;
             }
 

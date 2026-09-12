@@ -31,7 +31,7 @@ public class SalAmmoniacTankGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(TANK_POS, SalAmmoniacTankBlockEntity.class);
             var filled = blockEntity.tank.fill(
-                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
+                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), null
             );
             helper.assertTrue(filled > 0, "Tank should accept sal ammoniac fluid");
             helper.assertTrue(blockEntity.tank.getFluidAmount() == 1000, "Tank should contain 1000mb");
@@ -44,12 +44,12 @@ public class SalAmmoniacTankGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(TANK_POS, SalAmmoniacTankBlockEntity.class);
-            blockEntity.tank.fill(new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false);
+            blockEntity.tank.fill(new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), null);
         });
 
         helper.runAfterDelay(2, () -> {
             var blockEntity = helper.getBlockEntity(TANK_POS, SalAmmoniacTankBlockEntity.class);
-            var drained = blockEntity.tank.drain(500, false);
+            var drained = blockEntity.tank.drain(500, null);
             helper.assertTrue(drained.getAmount() == 500, "Should drain 500mb");
             helper.assertTrue(blockEntity.tank.getFluidAmount() == 500, "Tank should have 500mb remaining");
             helper.succeed();
@@ -61,7 +61,7 @@ public class SalAmmoniacTankGameTests {
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(TANK_POS, SalAmmoniacTankBlockEntity.class);
-            blockEntity.tank.fill(new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1500), false);
+            blockEntity.tank.fill(new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1500), null);
             helper.assertTrue(blockEntity.tank.getFluidAmount() == 1500, "Tank should contain 1500mb");
             helper.succeed();
         });

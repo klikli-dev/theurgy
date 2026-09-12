@@ -59,7 +59,7 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<ItemHandler
             return false;
 
         //then drain the solvent
-        FluidStorageHelper.drain(this.solventTankSupplier.get(), pRecipe.value().getSolventAmount(), false);
+        FluidStorageHelper.drain(this.solventTankSupplier.get(), pRecipe.value().getSolventAmount(), null);
 
         return true;
     }

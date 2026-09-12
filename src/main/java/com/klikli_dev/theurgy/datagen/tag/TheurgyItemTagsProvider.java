@@ -552,7 +552,7 @@ public class TheurgyItemTagsProvider extends TagsProvider<Item> {
                 .addOptional(ResourceKey.create(Registries.ITEM, this.rl("bloodmagic:ingot_hellforged")));
 
         this.tag(ItemTagRegistry.INGOTS_STELLARITE)
-                .add(TagEntry.optionalElement(this.rl("forbidden_arcanus:stellarite_piece")));
+                .addOptional(ResourceKey.create(Registries.ITEM, this.rl("forbidden_arcanus:stellarite_piece")));
 
         this.tag(ItemTagRegistry.GEMS_CHIMERITE)
                 .addOptional(ResourceKey.create(Registries.ITEM, this.rl("mna:chimerite_gem")));

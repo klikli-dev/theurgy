@@ -67,7 +67,7 @@ public class LiquefactionCauldronGameTests {
             cauldron.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.BONE, 1)), new ItemStack(Items.BONE, 1).getCount());
             // Insert solvent fluid (sal ammoniac, plenty for the recipe)
             cauldron.storageBehaviour.solventTank.fill(
-                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
+                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), null
             );
         });
     }
@@ -198,7 +198,7 @@ public class LiquefactionCauldronGameTests {
         helper.runAfterDelay(1, () -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
             var filled = cauldron.storageBehaviour.solventTank.fill(
-                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 500), false
+                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 500), null
             );
 
             helper.assertTrue(
@@ -223,7 +223,7 @@ public class LiquefactionCauldronGameTests {
         helper.runAfterDelay(1, () -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
             cauldron.storageBehaviour.solventTank.fill(
-                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
+                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), null
             );
             helper.assertTrue(
                     cauldron.storageBehaviour.solventTank.getFluidAmount() == 1000,
@@ -380,7 +380,7 @@ public class LiquefactionCauldronGameTests {
         helper.runAfterDelay(2, () -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
             cauldron.storageBehaviour.solventTank.fill(
-                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
+                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), null
             );
         });
 

@@ -86,7 +86,7 @@ public class FermentationVatGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(VAT_POS, FermentationVatBlockEntity.class);
             var filled = blockEntity.storageBehaviour.fluidTank.fill(
-                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
+                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), null
             );
 
             helper.assertTrue(filled == 1000, "Fluid tank should accept 1000mb of fluid");
@@ -133,7 +133,7 @@ public class FermentationVatGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(VAT_POS, FermentationVatBlockEntity.class);
             blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.OAK_LOG, 1)), 1);
-            blockEntity.storageBehaviour.fluidTank.fill(new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false);
+            blockEntity.storageBehaviour.fluidTank.fill(new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), null);
             blockEntity.storageBehaviour.outputInventory.set(0, ItemResource.of(new ItemStack(Items.COBBLESTONE, 1)), 1);
         });
 
@@ -161,7 +161,7 @@ public class FermentationVatGameTests {
             blockEntity.storageBehaviour.inputInventory.set(0, ItemResource.of(new ItemStack(Items.OAK_LOG, 1)), new ItemStack(Items.OAK_LOG, 1).getCount());
             // Insert fluid
             blockEntity.storageBehaviour.fluidTank.fill(
-                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
+                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), null
             );
         });
 

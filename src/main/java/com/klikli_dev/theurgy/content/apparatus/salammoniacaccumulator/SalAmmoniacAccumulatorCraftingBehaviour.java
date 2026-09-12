@@ -81,7 +81,12 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
             return false;
         } else {
             var tank = this.outputTankSupplier.get();
-            int fluidAccepted = FluidStorageHelper.fill(tank, assembledStack, true);
+
+            int fluidAccepted = 0;
+            //simulate the insertion by letting the transaction roll back
+            try (var tx = Transaction.openRoot()) {
+                fluidAccepted = FluidStorageHelper.fill(tank, assembledStack, tx);
+            }
 
             //Note: Disregard the below comment, we extended the capacity of the tank to avoid this issue.
             //  the solution to void some fluid is not great because if pipes remove e.g.
@@ -103,7 +108,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
         var assembledFluid = pRecipe.value().assembleFluid(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
         var outputFluidTank = this.outputTankSupplier.get();
 
-        FluidStorageHelper.fill(outputFluidTank, assembledFluid, false);
+        FluidStorageHelper.fill(outputFluidTank, assembledFluid, null);
 
         //only consume the solid solute, if the recipe requires it.
         //this avoids accidentally consuming a solute when a "water only" recipe is running while the solute is added.
@@ -117,7 +122,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
         }
 
         if (pRecipe.value().hasEvaporant()) {
-            FluidStorageHelper.drain(this.waterTankSupplier.get(), pRecipe.value().getEvaporantAmount(), false);
+            FluidStorageHelper.drain(this.waterTankSupplier.get(), pRecipe.value().getEvaporantAmount(), null);
         }
 
         return true;

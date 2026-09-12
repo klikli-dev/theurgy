@@ -10,7 +10,9 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
@@ -101,59 +103,47 @@ public class MonitoredFluidTank extends FluidStacksResourceHandler {
         return this.getAmountAsInt(0);
     }
 
-    public int fill(FluidStack toInsert, boolean simulate) {
-        if (!simulate) {
-            var oldStack = this.getFluid().copy();
-            var accepted = FluidStorageHelper.fill(this, toInsert, false);
-            var newStack = this.getFluid();
+    public int fill(FluidStack toInsert, @Nullable TransactionContext transaction) {
+        var oldStack = this.getFluid().copy();
+        var accepted = FluidStorageHelper.fill(this, toInsert, transaction);
+        var newStack = this.getFluid();
 
-            this.onFill(oldStack, newStack, toInsert, accepted, toInsert.getAmount() - accepted);
+        this.onFill(oldStack, newStack, toInsert, accepted, toInsert.getAmount() - accepted);
 
-            if (oldStack.getFluid() != newStack.getFluid() || oldStack.isEmpty() != newStack.isEmpty()) {
-                this.onContentTypeChanged(oldStack, newStack);
-            }
-
-            return accepted;
+        if (oldStack.getFluid() != newStack.getFluid() || oldStack.isEmpty() != newStack.isEmpty()) {
+            this.onContentTypeChanged(oldStack, newStack);
         }
 
-        return FluidStorageHelper.fill(this, toInsert, true);
+        return accepted;
     }
 
     //amount of fluid removed
-    public @NotNull FluidStack drain(FluidStack resource, boolean simulate) {
-        if (!simulate) {
-            var oldStack = this.getFluid().copy();
-            var extracted = FluidStorageHelper.drain(this, resource, false);
-            var newStack = this.getFluid();
+    public @NotNull FluidStack drain(FluidStack resource, @Nullable TransactionContext transaction) {
+        var oldStack = this.getFluid().copy();
+        var extracted = FluidStorageHelper.drain(this, resource, transaction);
+        var newStack = this.getFluid();
 
-            this.onDrain(oldStack, newStack, extracted);
+        this.onDrain(oldStack, newStack, extracted);
 
-            if (oldStack.getFluid() != newStack.getFluid() || oldStack.isEmpty() != newStack.isEmpty()) {
-                this.onContentTypeChanged(oldStack, newStack);
-            }
-
-            return extracted;
+        if (oldStack.getFluid() != newStack.getFluid() || oldStack.isEmpty() != newStack.isEmpty()) {
+            this.onContentTypeChanged(oldStack, newStack);
         }
 
-        return FluidStorageHelper.drain(this, resource, true);
+        return extracted;
     }
 
-    public @NotNull FluidStack drain(int maxDrain, boolean simulate) {
-        if (!simulate) {
-            var oldStack = this.getFluid().copy();
-            var extracted = FluidStorageHelper.drain(this, maxDrain, false);
-            var newStack = this.getFluid();
+    public @NotNull FluidStack drain(int maxDrain, @Nullable TransactionContext transaction) {
+        var oldStack = this.getFluid().copy();
+        var extracted = FluidStorageHelper.drain(this, maxDrain, transaction);
+        var newStack = this.getFluid();
 
-            this.onDrain(oldStack, newStack, extracted);
+        this.onDrain(oldStack, newStack, extracted);
 
-            if (oldStack.getFluid() != newStack.getFluid() || oldStack.isEmpty() != newStack.isEmpty()) {
-                this.onContentTypeChanged(oldStack, newStack);
-            }
-
-            return extracted;
+        if (oldStack.getFluid() != newStack.getFluid() || oldStack.isEmpty() != newStack.isEmpty()) {
+            this.onContentTypeChanged(oldStack, newStack);
         }
 
-        return FluidStorageHelper.drain(this, maxDrain, true);
+        return extracted;
     }
 
     public boolean isEmpty() {

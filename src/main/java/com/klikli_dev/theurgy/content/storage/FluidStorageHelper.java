@@ -10,6 +10,7 @@ import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.Nullable;
 
 public final class FluidStorageHelper {
@@ -32,68 +33,65 @@ public final class FluidStorageHelper {
         return stack.isEmpty() || handler.isValid(tank, FluidResource.of(stack));
     }
 
-    public static int fill(@Nullable ResourceHandler<FluidResource> handler, FluidStack stack, boolean simulate) {
+    /**
+     * Inserts the given stack into the handler.
+     *
+     * @param transaction The transaction context for the operation. Passing in {@code null} will open a root
+     *                    transaction that is committed at the end of this method. Passing in a transaction allows the
+     *                    caller to decide whether to commit or abort the operation, and to simulate by never committing.
+     * @return the amount that was inserted
+     */
+    public static int fill(@Nullable ResourceHandler<FluidResource> handler, FluidStack stack, @Nullable TransactionContext transaction) {
         if (handler == null || stack.isEmpty()) {
             return 0;
         }
 
-        try (var tx = Transaction.openRoot()) {
+        try (var tx = Transaction.open(transaction)) {
             int inserted = handler.insert(FluidResource.of(stack), stack.getAmount(), tx);
-            if (!simulate && inserted > 0) {
-                tx.commit();
-            }
+            tx.commit();
             return inserted;
         }
     }
 
-    public static FluidStack drain(@Nullable ResourceHandler<FluidResource> handler, FluidStack stack, boolean simulate) {
+    /**
+     * Extracts the given stack from the handler.
+     *
+     * @param transaction The transaction context for the operation. Passing in {@code null} will open a root
+     *                    transaction that is committed at the end of this method. Passing in a transaction allows the
+     *                    caller to decide whether to commit or abort the operation, and to simulate by never committing.
+     * @return the fluid that was extracted
+     */
+    public static FluidStack drain(@Nullable ResourceHandler<FluidResource> handler, FluidStack stack, @Nullable TransactionContext transaction) {
         if (handler == null || stack.isEmpty()) {
             return FluidStack.EMPTY;
         }
 
         var resource = FluidResource.of(stack);
-        try (var tx = Transaction.openRoot()) {
+        try (var tx = Transaction.open(transaction)) {
             int extracted = handler.extract(resource, stack.getAmount(), tx);
-            if (!simulate && extracted > 0) {
-                tx.commit();
+            if (extracted <= 0) {
+                return FluidStack.EMPTY;
             }
-            return extracted == 0 ? FluidStack.EMPTY : resource.toStack(extracted);
+
+            tx.commit();
+            return resource.toStack(extracted);
         }
     }
 
-    public static FluidStack drain(@Nullable ResourceHandler<FluidResource> handler, int maxDrain, boolean simulate) {
+    /**
+     * Extracts up to the given amount of the first available fluid from the handler.
+     *
+     * @param transaction The transaction context for the operation. Passing in {@code null} will open a root
+     *                    transaction that is committed at the end of this method. Passing in a transaction allows the
+     *                    caller to decide whether to commit or abort the operation, and to simulate by never committing.
+     * @return the fluid that was extracted
+     */
+    public static FluidStack drain(@Nullable ResourceHandler<FluidResource> handler, int maxDrain, @Nullable TransactionContext transaction) {
         if (handler == null || maxDrain <= 0) {
             return FluidStack.EMPTY;
         }
 
-        try (var tx = Transaction.openRoot()) {
-            var extracted = ResourceHandlerUtil.extractFirst(handler, resource -> true, maxDrain, tx);
-            if (extracted == null || extracted.amount() <= 0) {
-                return FluidStack.EMPTY;
-            }
-
-            if (!simulate) {
-                tx.commit();
-            }
-            return extracted.resource().toStack(extracted.amount());
-        }
-    }
-
-    public static int drain(@Nullable ResourceHandler<FluidResource> handler, FluidStack stack, Transaction transaction) {
-        if (handler == null || stack.isEmpty()) {
-            return 0;
-        }
-
-        return handler.extract(FluidResource.of(stack), stack.getAmount(), transaction);
-    }
-
-    public static int drain(@Nullable ResourceHandler<FluidResource> handler, int maxDrain, Transaction transaction) {
-        if (handler == null || maxDrain <= 0) {
-            return 0;
-        }
-
         var extracted = ResourceHandlerUtil.extractFirst(handler, resource -> true, maxDrain, transaction);
-        return extracted == null ? 0 : extracted.amount();
+        return extracted == null ? FluidStack.EMPTY : extracted.resource().toStack(extracted.amount());
     }
 }
-

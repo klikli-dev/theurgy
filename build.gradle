@@ -131,8 +131,8 @@ repositories {
         }
     }
     maven {
-        name = "TerraformersMC (emi)"
-        url = "https://maven.terraformersmc.com/repository/maven-public"
+        name = "Sleeping Town (emi)"
+        url = "https://repo.sleeping.town/"
         content {
             includeGroup "dev.emi"
         }

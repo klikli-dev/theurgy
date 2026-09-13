@@ -165,7 +165,12 @@ public class BlockRegistry {
             BLOCKS.register("fermentation_vat", () -> new FermentationVatBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
-                    .strength(1.0f))
+                    .strength(1.0f)
+                    //The vat only outputs redstone on its front (see VatRedstoneHasOutputBehaviour).
+                    //As a full cube it would otherwise conduct that signal to all sides
+                    //(SignalGetter.getSignal returns max(own signal, conducted direct signals)
+                    //for conductors), lighting dust and locking hoppers on every side.
+                    .isRedstoneConductor((state, level, pos) -> false))
             );
 
     public static final DeferredBlock<DigestionVatBlock> DIGESTION_VAT =
@@ -173,7 +178,10 @@ public class BlockRegistry {
                     .noOcclusion()
                     .mapColor(MapColor.CLAY)
                     .sound(SoundType.DECORATED_POT)
-                    .strength(1.0f))
+                    .strength(1.0f)
+                    //Same as fermentation vat: only output redstone on the front,
+                    //never conduct it to other sides.
+                    .isRedstoneConductor((state, level, pos) -> false))
             );
 
     public static final DeferredBlock<LogisticsConnectionNodeBlock> LOGISTICS_CONNECTION_NODE =

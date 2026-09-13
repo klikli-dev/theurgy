@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.76.1] - 2026-09-13
+### :bug: Bug Fixes
+- [`4c4731f`](https://github.com/klikli-dev/theurgy/commit/4c4731fe8dc032454e589a32c3a71708a01ec4bd) - make fermentation vat output redstone only on front *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2165fee`](https://github.com/klikli-dev/theurgy/commit/2165fee859ab11f1116702a508faff4caa19c6a4) - emi maven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.76.0] - 2026-07-24
 ### :zap: Performance Improvements
 - [`3696028`](https://github.com/klikli-dev/theurgy/commit/369602821a5edc1dae3eef8e43932f9817f97a20) - replace per-chunk wire sync scanning with per-player reference counting *(PR [#387](https://github.com/klikli-dev/theurgy/pull/387) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1336,3 +1342,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.74.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.73.1...release/v1.21.1-1.74.0
 [release/v1.21.1-1.75.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.75.0...release/v1.21.1-1.75.1
 [release/v1.21.1-1.76.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.75.1...release/v1.21.1-1.76.0
+[release/v1.21.1-1.76.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.76.0...release/v1.21.1-1.76.1

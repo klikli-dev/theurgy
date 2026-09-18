@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -105,9 +106,9 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
 
         var baseTexture = state.open ? BASE_OPEN_TEXTURE : BASE_TEXTURE;
         var baseRenderType = RenderTypes.entitySolid(baseTexture);
-        submitNodeCollector.submitModelPart(this.neck, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
-        submitNodeCollector.submitModelPart(this.top, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
-        submitNodeCollector.submitModelPart(this.bottom, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
+        this.submitPart(this.neck, pPoseStack, submitNodeCollector, baseRenderType, state);
+        this.submitPart(this.top, pPoseStack, submitNodeCollector, baseRenderType, state);
+        this.submitPart(this.bottom, pPoseStack, submitNodeCollector, baseRenderType, state);
         this.submitFront(this.frontSide, pPoseStack, submitNodeCollector, state.lightCoords, state.breakProgress, state.active);
         this.submitSide(this.backSide, pPoseStack, submitNodeCollector, state.lightCoords, state.breakProgress);
         this.submitSide(this.leftSide, pPoseStack, submitNodeCollector, state.lightCoords, state.breakProgress);
@@ -115,14 +116,27 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
         pPoseStack.popPose();
     }
 
+    private void submitPart(ModelPart pModelPart, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, RenderType renderType, DigestionVatRenderState state) {
+        submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null);
+        if (state.breakProgress != null) {
+            submitNodeCollector.submitCrumblingOverlay(pModelPart, pPoseStack, renderType, state.lightCoords, OverlayTexture.NO_OVERLAY, -1, state.breakProgress);
+        }
+    }
+
     private void submitSide(ModelPart pModelPart, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, int packedLight, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         var renderType = RenderTypes.entitySolid(SIDE_TEXTURE);
-        submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, null, -1, breakProgress);
+        submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, null);
+        if (breakProgress != null) {
+            submitNodeCollector.submitCrumblingOverlay(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, -1, breakProgress);
+        }
     }
 
     private void submitFront(ModelPart pModelPart, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, int packedLight, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress, boolean isActive) {
         var renderType = RenderTypes.entitySolid(isActive ? FRONT_ACTIVE_TEXTURE : FRONT_TEXTURE);
-        submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, null, -1, breakProgress);
+        submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, null);
+        if (breakProgress != null) {
+            submitNodeCollector.submitCrumblingOverlay(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, -1, breakProgress);
+        }
     }
 
     public static class DigestionVatRenderState extends BlockEntityRenderState {

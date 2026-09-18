@@ -106,7 +106,7 @@ public class InWorldHUD implements GuiLayer {
                 minecraft.font
         );
 
-        guiGraphics.tooltip(minecraft.font, components, guiGraphics.guiWidth() / 2, TOP_PADDING, TopCenterTooltipPositioner.INSTANCE, null);
+        guiGraphics.tooltip(minecraft.font, components, guiGraphics.guiWidth() / 2, TOP_PADDING, TopCenterTooltipPositioner.INSTANCE, null, false);
     }
 
     private boolean canRun(Minecraft minecraft) {

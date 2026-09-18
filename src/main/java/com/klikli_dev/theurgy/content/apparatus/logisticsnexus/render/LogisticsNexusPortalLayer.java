@@ -32,6 +32,6 @@ public class LogisticsNexusPortalLayer extends GeoRenderLayer<LogisticsNexusBloc
         poseStack.translate(-2 / 16f, -2 / 16f, -2 / 16f);
         poseStack.scale(4 / 16f, 4 / 16f, 4 / 16f);
 
-        AbstractEndPortalRenderer.submitSpecial(RenderTypes.endPortal(), poseStack, renderTasks);
+        AbstractEndPortalRenderer.submitSpecial(RenderTypes.endPortal(), poseStack, renderTasks, 0);
     }
 }

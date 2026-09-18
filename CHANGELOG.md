@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.118.0] - 2026-09-18
+### :bug: Bug Fixes
+- [`8c50649`](https://github.com/klikli-dev/theurgy/commit/8c50649ecb342c7a263627f17f83bcc94c388516) - adapt input, render, and datagen APIs for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ee11ee1`](https://github.com/klikli-dev/theurgy/commit/ee11ee15e1cf29ba5d76c015aacd01c0d740a16e) - adapt block and block item APIs for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4d57b39`](https://github.com/klikli-dev/theurgy/commit/4d57b396f40266add506322ec8d9268fab1fe9de) - adapt renderer submission APIs for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`1c86f05`](https://github.com/klikli-dev/theurgy/commit/1c86f0598222abbf73f5865c221f85a99e384622) - adapt fuel, inventory, and item APIs for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`1ecac4e`](https://github.com/klikli-dev/theurgy/commit/1ecac4e8e0485fe76f4679c71295c65f1df756dd) - adapt datagen to 26.3 bootstrap registries *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ff7eacc`](https://github.com/klikli-dev/theurgy/commit/ff7eacca22c935b721fb21c035b8c3f62cd2275f) - adapt worldgen entries provider and push reaction for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`86aa539`](https://github.com/klikli-dev/theurgy/commit/86aa53905404fdca2490fbbdcafe5d94b136dc46) - split datagen entries into world and reloadable layers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e4005fc`](https://github.com/klikli-dev/theurgy/commit/e4005fc17455814d1b0940fc6c067297b619969e) - only write own block loot tables in datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`b1e303f`](https://github.com/klikli-dev/theurgy/commit/b1e303fe9cb76ca472617df1109cc98f10dcbf44) - remove duplicate creative tab entries crashing tab build *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`169d93e`](https://github.com/klikli-dev/theurgy/commit/169d93e3b9ad53b7ac8fd6e7ded16998804129d4) - update dependencies to 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ccfc897`](https://github.com/klikli-dev/theurgy/commit/ccfc89788d88448b97e0f6bc333385ca7ee7780e) - regenerate data for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.118.1] - 2026-09-13
 ### :bug: Bug Fixes
 - [`4408623`](https://github.com/klikli-dev/theurgy/commit/4408623f187d4e8132cdd2ebe7c5720bf9b90b55) - make fermentation vat output redstone only on front *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1741,3 +1758,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.117.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.116.0...release/v26.2-1.117.0
 [release/v26.2-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.117.0...release/v26.2-1.118.0
 [release/v26.2-1.118.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.118.0...release/v26.2-1.118.1
+[release/v26.3-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-0.0.0...release/v26.3-1.118.0

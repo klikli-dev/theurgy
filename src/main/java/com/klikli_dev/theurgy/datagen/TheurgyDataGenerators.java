@@ -19,8 +19,6 @@ import com.klikli_dev.theurgy.datagen.tag.TheurgyFluidTagsProvider;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyItemTagsProvider;
 import com.klikli_dev.theurgy.datagen.worldgen.TheurgyRegistries;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.Set;
@@ -65,9 +63,8 @@ public class TheurgyDataGenerators {
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(true, new ENUSProvider(generator.getPackOutput(), langCache));
 
-        event.getGenerator().addProvider(true,
-                (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
-                        DatapackBuiltinEntriesProvider.forReloadableLayer(output, "reloadable", event.getWorldLookupProvider(), event.getReloadableLookupProvider(), TheurgyRegistries.BUILDER, Set.of(Theurgy.MODID)));
+        event.createWorldRegistryObjects(TheurgyRegistries.WORLD_BUILDER);
+        event.createReloadableRegistryObjects(TheurgyRegistries.RELOADABLE_BUILDER);
 
     }
 }

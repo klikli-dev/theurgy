@@ -19,11 +19,13 @@ import java.util.List;
 import java.util.Set;
 
 public class TheurgyRegistries {
-    public static final RegistrySetBuilder BUILDER = (new RegistrySetBuilder())
+    public static final RegistrySetBuilder WORLD_BUILDER = (new RegistrySetBuilder())
             .add(Registries.FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, PlacedFeatures::bootstrap)
             .add(Registries.BIOME, TheurgyRegistries::bootstrapBiomes)
-            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap)
+            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap);
+
+    public static final RegistrySetBuilder RELOADABLE_BUILDER = (new RegistrySetBuilder())
             .add(Registries.LOOT_TABLE, new LootTableProvider(Set.of(), List.of(
                     new LootTableProvider.SubProviderEntry(TheurgyBlockLootSubProvider::new, LootContextParamSets.BLOCK)
             )))

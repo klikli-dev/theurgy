@@ -16,7 +16,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 
@@ -39,11 +38,11 @@ public enum StandardAttributes implements ItemAttribute {
     BADLY_DAMAGED(s -> s.isDamaged() && (float) s.getDamageValue() / s.getMaxDamage() > 3 / 4f),
     NOT_STACKABLE(((Predicate<ItemStack>) ItemStack::isStackable).negate()),
     EQUIPABLE(s -> s.has(DataComponents.EQUIPPABLE)),
-    FURNACE_FUEL((s, level) -> level != null && s.getBurnTime(RecipeType.SMELTING, level.fuelValues()) > 0),
+    FURNACE_FUEL(s -> s.has(DataComponents.COOKING_FUEL)),
     SMELTABLE((s, w) -> testRecipe(s, w, RecipeType.SMELTING)),
     SMOKABLE((s, w) -> testRecipe(s, w, RecipeType.SMOKING)),
     BLASTABLE((s, w) -> testRecipe(s, w, RecipeType.BLASTING)),
-    COMPOSTABLE(s -> ComposterBlock.COMPOSTABLES.containsKey(s.getItem()));
+    COMPOSTABLE(s -> s.has(DataComponents.COMPOSTABLE));
 
     private Predicate<ItemStack> test;
     private BiPredicate<ItemStack, Level> testWithWorld;

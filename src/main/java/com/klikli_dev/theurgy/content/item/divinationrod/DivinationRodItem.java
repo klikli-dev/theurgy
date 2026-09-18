@@ -308,7 +308,7 @@ public class DivinationRodItem extends Item {
 
         if (stack.getDamageValue() >= stack.getMaxDamage()) {
             //if in the last usage cycle the item was used up, we now actually break it to avoid over-use
-            player.onEquippedItemBroken(stack.getItem(), player.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+            player.onEquippedItemBroken(stack, player.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
             var item = stack.getItem();
             stack.shrink(1);
             player.awardStat(Stats.ITEM_BROKEN.get(item));

@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.behaviour.filter;
 
 import com.klikli_dev.codedefinedgui.premade.filter.core.FilterItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -96,7 +97,7 @@ public class FilterBehaviour {
 
             this.filter(Filter.empty());
 
-            pPlayer.getInventory().placeItemBackInInventory(stack);
+            pPlayer.getInventory().placeItemBackInInventory(stack, Prediction.SERVER_ONLY);
 
             return InteractionResult.SUCCESS;
         }

@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -47,7 +48,7 @@ public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
                 }
                 if (!extracted.isEmpty()) {
                     tx.commit();
-                    pPlayer.getInventory().placeItemBackInInventory(extracted);
+                    pPlayer.getInventory().placeItemBackInInventory(extracted, Prediction.SERVER_ONLY);
                     return InteractionResult.SUCCESS;
                 }
             }

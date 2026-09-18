@@ -11,28 +11,35 @@ import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.util.NetworkTagHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CookingFuel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PyromanticBrazierBlockEntity extends BlockEntity implements Clearable, HeldStackFitProvider {
     public MonitoredItemStackHandler inventory;
@@ -98,11 +105,13 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements Clearab
     }
 
     protected int getBurnDuration(ItemStack pFuel) {
-        if (pFuel.isEmpty()) {
+        if (pFuel.isEmpty() || !(this.level instanceof ServerLevel serverLevel)) {
             return 0;
-        } else {
-            return pFuel.getBurnTime(RecipeTypeRegistry.PYROMANTIC_BRAZIER.get(), this.level.fuelValues());
         }
+        //Fuel burn times are an item component in 26.3; resolve it with an empty loot context like vanilla does.
+        var context = new LootContext.Builder(new LootParams.Builder(serverLevel).create(LootContextParamSets.EMPTY))
+                .create(Optional.empty());
+        return ResolvableInt.getFromItem(pFuel, DataComponents.COOKING_FUEL, CookingFuel::burnTime, context, 0);
     }
 
     public boolean isLit() {

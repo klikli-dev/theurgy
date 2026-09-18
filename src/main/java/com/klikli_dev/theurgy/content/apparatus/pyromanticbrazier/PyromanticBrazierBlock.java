@@ -10,6 +10,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Prediction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -58,7 +59,7 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
                 //Click with empty hand -> remove fuel from block entity
                 //Click with any hand but non fuel item in block entity, remove it -> clean out empty buckets etc
                 if (!inputStack.isEmpty()) {
-                    pPlayer.getInventory().placeItemBackInInventory(inputStack);
+                    pPlayer.getInventory().placeItemBackInInventory(inputStack, Prediction.SERVER_ONLY);
                     blockEntity.inventory.set(0, ItemResource.of(ItemStack.EMPTY), ItemStack.EMPTY.getCount());
                     return InteractionResult.SUCCESS;
                 }

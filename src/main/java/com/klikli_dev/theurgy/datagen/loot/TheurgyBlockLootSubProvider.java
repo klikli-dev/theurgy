@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -21,11 +22,28 @@ import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
+    private final Map<ResourceKey<LootTable>, LootTable.Builder> tables = new HashMap<>();
+
     public TheurgyBlockLootSubProvider(LootTableSubProvider.Context context) {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags(), context);
+    }
+
+    @Override
+    public void run() {
+        this.generate();
+        //Unlike the base implementation we only write our own tables instead of requiring one for every block.
+        this.tables.forEach(this.output::accept);
+    }
+
+    @Override
+    protected void add(Block block, LootTable.Builder builder) {
+        super.add(block, builder);
+        this.tables.put(block.getLootTable().orElseThrow(() -> new IllegalStateException("Block " + block + " does not have loot table")), builder);
     }
 
     @Override

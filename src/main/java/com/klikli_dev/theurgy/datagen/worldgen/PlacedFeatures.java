@@ -19,8 +19,8 @@ public class PlacedFeatures {
 
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-        PlacementUtils.register(context, SAL_AMMONIAC_ORE, configuredFeatures.getOrThrow(ConfiguredFeatures.SAL_AMMONIAC_ORE),
+        var features = context.lookup(Registries.FEATURE);
+        PlacementUtils.register(context, SAL_AMMONIAC_ORE, features.getOrThrow(ConfiguredFeatures.SAL_AMMONIAC_ORE),
                 commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(200))));
     }
 

@@ -9,10 +9,8 @@ import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider;
 import com.klikli_dev.modonomicon.api.datagen.NeoResearchProvider;
 import com.klikli_dev.modonomicon.api.datagen.research.ResearchCache;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.advancement.TheurgyAdvancementSubProvider;
 import com.klikli_dev.theurgy.datagen.book.TheurgyBookProvider;
 import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
-import com.klikli_dev.theurgy.datagen.loot.TheurgyBlockLootSubProvider;
 import com.klikli_dev.theurgy.datagen.model.TheurgyModelProvider;
 import com.klikli_dev.theurgy.datagen.multiblock.TheurgyMultiblockProvider;
 import com.klikli_dev.theurgy.datagen.recipe.*;
@@ -22,13 +20,9 @@ import com.klikli_dev.theurgy.datagen.tag.TheurgyItemTagsProvider;
 import com.klikli_dev.theurgy.datagen.worldgen.TheurgyRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.advancements.AdvancementProvider;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.List;
 import java.util.Set;
 
 public class TheurgyDataGenerators {
@@ -41,21 +35,6 @@ public class TheurgyDataGenerators {
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
         generator.addProvider(true, new TheurgyItemTagsProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
-
-        generator.addProvider(true, new LootTableProvider(
-                        generator.getPackOutput(),
-                        Set.of(),
-                        List.of(
-                                new LootTableProvider.SubProviderEntry(TheurgyBlockLootSubProvider::new, LootContextParamSets.BLOCK)
-                        ),
-                        event.getReloadableLookupProvider()
-                )
-        );
-
-        generator.addProvider(true,
-                new AdvancementProvider(generator.getPackOutput(), event.getReloadableLookupProvider(), List.of(
-                        new TheurgyAdvancementSubProvider()
-                )));
 
         generator.addProvider(true, new TheurgyModelProvider(generator.getPackOutput()));
         generator.addProvider(true, new ShapedRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));

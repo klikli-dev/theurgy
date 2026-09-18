@@ -7,10 +7,9 @@ package com.klikli_dev.theurgy.datagen.loot;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -20,20 +19,13 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
-    public TheurgyBlockLootSubProvider(HolderLookup.Provider pRegistries) {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), pRegistries);
-    }
-
-    @Override
-    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
-        this.generate();
-        this.map.forEach(pGenerator);
+    public TheurgyBlockLootSubProvider(LootTableSubProvider.Context context) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), context);
     }
 
     @Override
@@ -110,7 +102,7 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         return LootTable.lootTable()
                 .withPool(
                         this.applyExplosionCondition(pBlock,
-                                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                                LootPool.lootPool().setRolls(ContextIntProviders.exactly(1)).add(
                                         LootItem.lootTableItem(pBlock)
                                                 .apply(
                                                         data

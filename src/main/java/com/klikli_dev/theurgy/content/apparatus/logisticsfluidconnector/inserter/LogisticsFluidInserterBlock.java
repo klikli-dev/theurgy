@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserte
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlock;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,15 +15,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class LogisticsFluidInserterBlock extends LogisticsFluidConnectorBlock {
 
-    public static final MapCodec<LogisticsFluidInserterBlock> CODEC = simpleCodec(LogisticsFluidInserterBlock::new);
-
     public LogisticsFluidInserterBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

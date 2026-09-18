@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -35,8 +34,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 public class SulfuricFluxEmitterBlock extends DirectionalBlock implements EntityBlock {
-
-    public static final MapCodec<SulfuricFluxEmitterBlock> CODEC = simpleCodec(SulfuricFluxEmitterBlock::new);
 
     private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
@@ -147,10 +144,5 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock implements Entity
                 blockEntity.tickServer();
             }
         };
-    }
-
-    @Override
-    protected MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 }

@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsmercuryfluxconnector;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DirectionalBlock;
@@ -19,15 +18,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class LogisticsMercuryFluxConnectorBlock extends LogisticsItemConnectorBlock {
 
-    public static final MapCodec<LogisticsMercuryFluxConnectorBlock> CODEC = simpleCodec(LogisticsMercuryFluxConnectorBlock::new);
-
     public LogisticsMercuryFluxConnectorBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -31,7 +30,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityBlock {
-    public static final MapCodec<MercuryFluxEmitterBlock> CODEC = simpleCodec(MercuryFluxEmitterBlock::new);
     private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
@@ -121,10 +119,5 @@ public class MercuryFluxEmitterBlock extends DirectionalBlock implements EntityB
                 blockEntity.tickServer();
             }
         };
-    }
-
-    @Override
-    protected MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 }

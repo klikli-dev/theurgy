@@ -8,7 +8,6 @@ import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageShowLogisticsNodeStatus;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -40,17 +39,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class LogisticsCapabilityProxyBlock extends DirectionalBlock implements EntityBlock, HasWireEndPoint {
 
-    public static final MapCodec<LogisticsCapabilityProxyBlock> CODEC = simpleCodec(LogisticsCapabilityProxyBlock::new);
     public static final VoxelShape SHAPE = Shapes.block();
 
     public LogisticsCapabilityProxyBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
-    }
-
-    @Override
-    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

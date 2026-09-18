@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -39,7 +38,6 @@ import java.util.Map;
 public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityBlock {
 
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
-    public static final MapCodec<CaloricFluxEmitterBlock> CODEC = simpleCodec(CaloricFluxEmitterBlock::new);
     private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
@@ -160,10 +158,5 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
                 blockEntity.tickServer();
             }
         };
-    }
-
-    @Override
-    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 }

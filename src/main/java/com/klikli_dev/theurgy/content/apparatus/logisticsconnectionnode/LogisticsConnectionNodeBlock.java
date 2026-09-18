@@ -13,7 +13,6 @@ import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageShowLogisticsNodeStatus;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
@@ -43,8 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogisticsConnectionNodeBlock extends DirectionalBlock implements HasWireEndPoint {
-    public static final MapCodec<LogisticsConnectionNodeBlock> CODEC = simpleCodec(LogisticsConnectionNodeBlock::new);
-
     public static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(6, 6, 8);
 
 
@@ -52,11 +49,6 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
         super(properties);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
-    }
-
-    @Override
-    protected MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 
 

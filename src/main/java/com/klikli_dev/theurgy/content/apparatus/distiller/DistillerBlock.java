@@ -14,6 +14,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -86,13 +87,13 @@ public class DistillerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected void spawnDestroyParticles(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState) {
+    public void spawnDestroyByEntityParticles(Level pLevel, Entity pEntity, BlockPos pPos, BlockState pState) {
         //also spawn for other half
         var otherHalf = pPos.above(pState.getValue(HALF) == DoubleBlockHalf.LOWER ? 1 : -1);
-        pLevel.levelEvent(pPlayer, 2001, otherHalf, getId(pState));
+        pLevel.levelEvent(pEntity, 2001, otherHalf, getId(pState));
 
         //and for ourselves
-        super.spawnDestroyParticles(pLevel, pPlayer, pPos, pState);
+        super.spawnDestroyByEntityParticles(pLevel, pEntity, pPos, pState);
     }
 
     @Override

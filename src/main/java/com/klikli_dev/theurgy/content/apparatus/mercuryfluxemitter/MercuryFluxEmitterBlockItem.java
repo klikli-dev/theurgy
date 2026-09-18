@@ -19,6 +19,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -46,10 +47,14 @@ public class MercuryFluxEmitterBlockItem extends BlockItem {
     }
 
     @Override
-    protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, Player player, ItemStack stack, BlockState state) {
-        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer)
-            Networking.sendTo(serverPlayer, new MessageRequestMercuryFluxEmitterSelection(pos));
-        return super.updateCustomBlockEntityTag(pos, level, player, stack, state);
+    public InteractionResult place(BlockPlaceContext context) {
+        var result = super.place(context);
+        if (result == InteractionResult.SUCCESS) {
+            var level = context.getLevel();
+            if (!level.isClientSide() && context.getPlayer() instanceof ServerPlayer serverPlayer)
+                Networking.sendTo(serverPlayer, new MessageRequestMercuryFluxEmitterSelection(context.getClickedPos()));
+        }
+        return result;
     }
 
     public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {

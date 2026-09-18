@@ -12,15 +12,14 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import org.lwjgl.glfw.GLFW;
 
 public class KeyMappingsRegistry {
     public static final KeyMapping.Category CATEGORY = new KeyMapping.Category(Theurgy.loc("keybindings"));
 
     public static final KeyMapping CHANGE_ITEM_MODE =
-            new KeyMapping(TheurgyConstants.I18n.Key.CHANGE_ITEM_MODE, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
+            new KeyMapping(TheurgyConstants.I18n.Key.CHANGE_ITEM_MODE, InputConstants.Type.KEYBOARD, InputConstants.UNKNOWN.getValue(), CATEGORY);
     public static final KeyMapping SHOW_HELD_STACK_FIT_OUTLINE =
-            new KeyMapping(TheurgyConstants.I18n.Key.SHOW_HELD_STACK_FIT_OUTLINE, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
+            new KeyMapping(TheurgyConstants.I18n.Key.SHOW_HELD_STACK_FIT_OUTLINE, InputConstants.Type.KEYBOARD, InputConstants.UNKNOWN.getValue(), CATEGORY);
 
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.registerCategory(CATEGORY);

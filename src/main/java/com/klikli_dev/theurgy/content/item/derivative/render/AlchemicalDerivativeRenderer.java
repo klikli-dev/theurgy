@@ -158,19 +158,19 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<Alchem
                 float rotY = leftHand ? 90f : -90f;
                 float rotZ = leftHand ? -25f : 25f;
                 poseStack.translate(tx, 3.2f / 16f, 1.13f / 16f);
-                poseStack.mulPose(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, rotZ * 0.017453292f));
+                poseStack.rotate(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, rotZ * 0.017453292f));
                 poseStack.scale(0.68f, 0.68f, 0.68f);
             }
             case HEAD -> {
                 // head: translation [0, 13, 7], rotation [0, 180, 0], scale [1, 1, 1]
                 poseStack.translate(0, 13f / 16f, 7f / 16f);
                 float rotY = leftHand ? -180f : 180f;
-                poseStack.mulPose(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, 0));
+                poseStack.rotate(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, 0));
             }
             case FIXED -> {
                 // fixed: rotation [0, 180, 0], scale [1, 1, 1]
                 float rotY = leftHand ? -180f : 180f;
-                poseStack.mulPose(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, 0));
+                poseStack.rotate(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, 0));
             }
             // GUI and NONE: no compensation needed (identity transforms)
             default -> {

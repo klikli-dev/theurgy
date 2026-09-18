@@ -36,11 +36,11 @@ public class TheurgyDataGenerators {
     public static void onGatherData(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
 
-        var blockTagsProvider = new TheurgyBlockTagsProvider(generator.getPackOutput(), event.getLookupProvider());
+        var blockTagsProvider = new TheurgyBlockTagsProvider(generator.getPackOutput(), event.getReloadableLookupProvider());
 
         generator.addProvider(true, blockTagsProvider);
-        generator.addProvider(true, new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new TheurgyItemTagsProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
 
         generator.addProvider(true, new LootTableProvider(
                         generator.getPackOutput(),
@@ -48,28 +48,28 @@ public class TheurgyDataGenerators {
                         List.of(
                                 new LootTableProvider.SubProviderEntry(TheurgyBlockLootSubProvider::new, LootContextParamSets.BLOCK)
                         ),
-                        event.getLookupProvider()
+                        event.getReloadableLookupProvider()
                 )
         );
 
         generator.addProvider(true,
-                new AdvancementProvider(generator.getPackOutput(), event.getLookupProvider(), List.of(
+                new AdvancementProvider(generator.getPackOutput(), event.getReloadableLookupProvider(), List.of(
                         new TheurgyAdvancementSubProvider()
                 )));
 
         generator.addProvider(true, new TheurgyModelProvider(generator.getPackOutput()));
-        generator.addProvider(true, new ShapedRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new ShapelessRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new SmeltingRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new CalcinationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new LiquefactionRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new DistillationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new IncubationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new AccumulationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new CatalysationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new ReformationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new FermentationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new DigestionRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new ShapedRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new ShapelessRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new SmeltingRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new CalcinationRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new LiquefactionRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new DistillationRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new IncubationRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new AccumulationRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new CatalysationRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new ReformationRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new FermentationRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
+        generator.addProvider(true, new DigestionRecipeProvider(generator.getPackOutput(), event.getReloadableLookupProvider()));
 
         generator.addProvider(true, new TheurgyMultiblockProvider(generator.getPackOutput()));
 
@@ -88,7 +88,7 @@ public class TheurgyDataGenerators {
 
         event.getGenerator().addProvider(true,
                 (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
-                        new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), TheurgyRegistries.BUILDER, Set.of(Theurgy.MODID)));
+                        new DatapackBuiltinEntriesProvider(output, event.getReloadableLookupProvider(), TheurgyRegistries.BUILDER, Set.of(Theurgy.MODID)));
 
     }
 }

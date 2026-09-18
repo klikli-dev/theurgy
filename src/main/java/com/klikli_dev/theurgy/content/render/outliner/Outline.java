@@ -59,8 +59,8 @@ public abstract class Outline {
 
         poseStack.pushPose();
         poseStack.translate(start.x - camera.x, start.y - camera.y, start.z - camera.z);
-        poseStack.mulPose(Axis.YP.rotationDegrees(hAngle));
-        poseStack.mulPose(Axis.XP.rotationDegrees(vAngle));
+        poseStack.rotate(Axis.YP.rotationDegrees(hAngle));
+        poseStack.rotate(Axis.XP.rotationDegrees(vAngle));
 
         this.bufferCuboidLine(poseStack.last(), consumer, new Vector3f(), Direction.SOUTH, length, width, setColor, lightmap,
                 disableNormals);

@@ -5,10 +5,13 @@
 package com.klikli_dev.theurgy.content.render;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
-import net.minecraft.client.renderer.RenderPipelines;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.renderpearl.api.pipeline.ColorTargetState;
+import com.mojang.renderpearl.api.pipeline.DepthStencilState;
+import com.mojang.renderpearl.api.pipeline.PrimitiveTopology;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
+import net.minecraft.client.renderer.BindGroupLayouts;
 import net.minecraft.client.renderer.rendertype.LayeringTransform;
-import net.minecraft.client.renderer.rendertype.OutputTarget;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -23,11 +26,21 @@ public class RenderTypes {
      * Custom render pipeline for distance-scaled line rendering.
      * Mirrors the vanilla LINES pipeline but uses custom shaders that scale
      * line width based on camera distance so wires shrink with distance.
+     * RenderPipeline.toBuilder was removed in 26.3, so the pipeline is built explicitly.
      */
-    public static final RenderPipeline DISTANCE_LINES_PIPELINE = RenderPipelines.LINES.toBuilder()
+    public static final RenderPipeline DISTANCE_LINES_PIPELINE = RenderPipeline.builder()
             .withLocation(Theurgy.loc("pipeline/distance_lines"))
             .withVertexShader(Theurgy.loc("rendertype_distance_lines"))
             .withFragmentShader(Theurgy.loc("rendertype_distance_lines"))
+            .withBindGroupLayout(BindGroupLayouts.GLOBALS)
+            .withBindGroupLayout(BindGroupLayouts.PROJECTION)
+            .withBindGroupLayout(BindGroupLayouts.DYNAMIC_TRANSFORMS)
+            .withBindGroupLayout(BindGroupLayouts.FOG)
+            .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR_NORMAL_LINE_WIDTH)
+            .withPrimitiveTopology(PrimitiveTopology.LINES)
+            .withDepthStencilState(DepthStencilState.DEFAULT)
+            .withCull(false)
+            .withColorTargetState(ColorTargetState.DEFAULT)
             .build();
     protected static final Function<Identifier, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
     protected static final Function<Identifier, RenderType> PARTICLE_TRANSLUCENT = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture, true));
@@ -36,7 +49,6 @@ public class RenderTypes {
             "theurgy_distance_lines",
             RenderSetup.builder(DISTANCE_LINES_PIPELINE)
                     .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
                     .createRenderSetup());
     private static final Identifier BLANK_TEXTURE = Theurgy.loc("textures/misc/blank.png");
     private static final RenderType FLUID = net.minecraft.client.renderer.rendertype.RenderTypes.itemTranslucent(TextureAtlas.LOCATION_BLOCKS);

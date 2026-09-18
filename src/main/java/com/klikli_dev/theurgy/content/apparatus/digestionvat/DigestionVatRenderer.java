@@ -100,7 +100,7 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
         pPoseStack.pushPose();
         Direction direction = state.direction;
         pPoseStack.translate(0.5D, 0.0D, 0.5D);
-        pPoseStack.mulPose(Axis.YP.rotationDegrees(180.0F - direction.toYRot()));
+        pPoseStack.rotate(Axis.YP.rotationDegrees(180.0F - direction.toYRot()));
         pPoseStack.translate(-0.5D, 0.0D, -0.5D);
 
         var baseTexture = state.open ? BASE_OPEN_TEXTURE : BASE_TEXTURE;

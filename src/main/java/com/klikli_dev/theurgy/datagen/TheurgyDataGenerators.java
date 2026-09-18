@@ -67,7 +67,7 @@ public class TheurgyDataGenerators {
 
         event.getGenerator().addProvider(true,
                 (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
-                        new DatapackBuiltinEntriesProvider(output, event.getReloadableLookupProvider(), TheurgyRegistries.BUILDER, Set.of(Theurgy.MODID)));
+                        DatapackBuiltinEntriesProvider.forReloadableLayer(output, "reloadable", event.getWorldLookupProvider(), event.getReloadableLookupProvider(), TheurgyRegistries.BUILDER, Set.of(Theurgy.MODID)));
 
     }
 }

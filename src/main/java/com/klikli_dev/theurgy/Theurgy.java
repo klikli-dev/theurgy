@@ -88,8 +88,8 @@ public class Theurgy {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Theurgy(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
-        modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
+        modContainer.registerConfig(ModConfig.Type.SYNCED, ServerConfig.get().spec);
+        modContainer.registerConfig(ModConfig.Type.LOCAL, CommonConfig.get().spec);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);
 
         ItemRegistry.ITEMS.register(modEventBus);

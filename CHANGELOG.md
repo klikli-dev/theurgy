@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.119.0] - 2026-10-06
+### :sparkles: New Features
+- [`5000f9b`](https://github.com/klikli-dev/theurgy/commit/5000f9b8bb0d8b8b154274cafe2e30d76fc90a16) - Update zh_cn for 26.1.2 *(PR [#393](https://github.com/klikli-dev/theurgy/pull/393) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
+- [`93d1da4`](https://github.com/klikli-dev/theurgy/commit/93d1da43ea421bc9191254439dbb45726b412156) - update to latest neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.118.0] - 2026-09-18
 ### :bug: Bug Fixes
 - [`8c50649`](https://github.com/klikli-dev/theurgy/commit/8c50649ecb342c7a263627f17f83bcc94c388516) - adapt input, render, and datagen APIs for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1759,3 +1765,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.117.0...release/v26.2-1.118.0
 [release/v26.2-1.118.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.118.0...release/v26.2-1.118.1
 [release/v26.3-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-0.0.0...release/v26.3-1.118.0
+[release/v26.3-1.119.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.118.0...release/v26.3-1.119.0

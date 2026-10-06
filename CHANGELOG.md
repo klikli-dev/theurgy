@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.78.0] - 2026-10-06
+### :sparkles: New Features
+- [`95c01bb`](https://github.com/klikli-dev/theurgy/commit/95c01bbbf9be19b21feea8b1c471e98bccea2a42) - zh_cn lang update: formatting and syncing with 26.1.2 *(PR [#394](https://github.com/klikli-dev/theurgy/pull/394) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
+
+
 ## [release/v1.21.1-1.76.1] - 2026-09-13
 ### :bug: Bug Fixes
 - [`4c4731f`](https://github.com/klikli-dev/theurgy/commit/4c4731fe8dc032454e589a32c3a71708a01ec4bd) - make fermentation vat output redstone only on front *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1343,3 +1348,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.75.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.75.0...release/v1.21.1-1.75.1
 [release/v1.21.1-1.76.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.75.1...release/v1.21.1-1.76.0
 [release/v1.21.1-1.76.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.76.0...release/v1.21.1-1.76.1
+[release/v1.21.1-1.78.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.76.1...release/v1.21.1-1.78.0

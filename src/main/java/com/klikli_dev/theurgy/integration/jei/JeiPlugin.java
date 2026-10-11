@@ -39,7 +39,7 @@ public class JeiPlugin implements IModPlugin {
     public void registerItemSubtypes(@NotNull ISubtypeRegistration registration) {
         ItemRegistry.ITEMS.getEntries().stream().filter(item -> item.get() instanceof DivinationRodItem).forEach(item -> {
             registration.registerSubtypeInterpreter(item.get(), DivinationRodSubtypeInterpreter.get());
-            Theurgy.LOGGER.debug("Registered Divination Rod JEI Subtype Interpreter for: {}", item.getKey());
+            Theurgy.LOGGER.debug("Registered Divination Rod JEI Subtype Interpreter for: {}", item.key());
         });
     }
 

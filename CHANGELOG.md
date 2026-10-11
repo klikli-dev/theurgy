@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.120.0] - 2026-10-11
+### :sparkles: New Features
+- [`0d785b4`](https://github.com/klikli-dev/theurgy/commit/0d785b495ba2e293cb2eeb2cb776a268932cbe08) - updated to latest neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`5946010`](https://github.com/klikli-dev/theurgy/commit/5946010681287e4e489d9b83e6623796a8d260d0) - migrate datagen to GatherDataRegistryEntriesEvent *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`865616d`](https://github.com/klikli-dev/theurgy/commit/865616d0d83bba96e26e477c50d26f05b5b992f2) - replace deprecated IHolderExtension.getKey() with key() *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.119.0] - 2026-10-06
 ### :sparkles: New Features
 - [`5000f9b`](https://github.com/klikli-dev/theurgy/commit/5000f9b8bb0d8b8b154274cafe2e30d76fc90a16) - Update zh_cn for 26.1.2 *(PR [#393](https://github.com/klikli-dev/theurgy/pull/393) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
@@ -1766,3 +1777,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.118.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.2-1.118.0...release/v26.2-1.118.1
 [release/v26.3-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-0.0.0...release/v26.3-1.118.0
 [release/v26.3-1.119.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.118.0...release/v26.3-1.119.0
+[release/v26.3-1.120.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.119.0...release/v26.3-1.120.0

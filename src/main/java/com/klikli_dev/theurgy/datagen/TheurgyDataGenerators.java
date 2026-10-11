@@ -17,13 +17,39 @@ import com.klikli_dev.theurgy.datagen.recipe.*;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyBlockTagsProvider;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyFluidTagsProvider;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyItemTagsProvider;
+import com.klikli_dev.theurgy.datagen.advancement.TheurgyAdvancementSubProvider;
+import com.klikli_dev.theurgy.datagen.loot.TheurgyBlockLootSubProvider;
+import com.klikli_dev.theurgy.datagen.worldgen.BiomeModifiers;
+import com.klikli_dev.theurgy.datagen.worldgen.ConfiguredFeatures;
+import com.klikli_dev.theurgy.datagen.worldgen.PlacedFeatures;
 import com.klikli_dev.theurgy.datagen.worldgen.TheurgyRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-
-import java.util.Set;
+import net.neoforged.neoforge.data.event.GatherDataRegistryEntriesEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class TheurgyDataGenerators {
+
+    public static void onGatherDataRegistryEntries(GatherDataRegistryEntriesEvent event) {
+        // World (non-reloadable) layer - layer routing is handled internally, all calls are chainable.
+        // Entries mirror TheurgyRegistries.WORLD_BUILDER.
+        // Note: vanilla bootstraps (e.g. LootPredicates) are already registered globally by
+        // NeoForge, re-adding them causes duplicate registration errors.
+        event.add(Registries.FEATURE, ConfiguredFeatures::bootstrap)
+                .add(Registries.PLACED_FEATURE, PlacedFeatures::bootstrap)
+                .add(Registries.BIOME, TheurgyRegistries::bootstrapBiomes)
+                .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap);
+
+        // Reloadable layer - entries mirror TheurgyRegistries.RELOADABLE_BUILDER.
+        event.lootTable(
+                new LootTableProvider.SubProviderEntry(TheurgyBlockLootSubProvider::new, LootContextParamSets.BLOCK)
+        );
+
+        event.advancement(TheurgyAdvancementSubProvider::new);
+    }
 
     public static void onGatherData(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
@@ -62,9 +88,6 @@ public class TheurgyDataGenerators {
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(true, new ENUSProvider(generator.getPackOutput(), langCache));
-
-        event.createWorldRegistryObjects(TheurgyRegistries.WORLD_BUILDER);
-        event.createReloadableRegistryObjects(TheurgyRegistries.RELOADABLE_BUILDER);
 
     }
 }

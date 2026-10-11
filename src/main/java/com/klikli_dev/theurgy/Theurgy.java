@@ -116,6 +116,7 @@ public class Theurgy {
         modEventBus.addListener(Networking::register);
 
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
+        modEventBus.addListener(TheurgyDataGenerators::onGatherDataRegistryEntries);
 
         modEventBus.addListener(TheurgyRegistries::onRegisterRegistries);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);

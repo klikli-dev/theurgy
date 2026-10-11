@@ -23,6 +23,9 @@
     "id": "theurgy:logistics_item_inserter"
   },
   "id": "theurgy:logistics/item_inserter",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.item_inserter.name",
   "parents": [
     {

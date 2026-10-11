@@ -23,6 +23,9 @@
     "id": "theurgy:fermentation_vat"
   },
   "id": "theurgy:apparatus/fermentation_vat",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.fermentation_vat.name",
   "parents": [
     {

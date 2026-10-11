@@ -23,6 +23,9 @@
     "id": "minecraft:lever"
   },
   "id": "theurgy:apparatus/basic_vat_automation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.name",
   "parents": [
     {

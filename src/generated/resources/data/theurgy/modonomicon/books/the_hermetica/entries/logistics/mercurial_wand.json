@@ -23,6 +23,9 @@
     "id": "theurgy:mercurial_wand"
   },
   "id": "theurgy:logistics/mercurial_wand",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.mercurial_wand.name",
   "parents": [
     {

@@ -16,6 +16,9 @@
     "width": 64
   },
   "id": "theurgy:apparatus/transmutation_and_exaltation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.name",
   "parents": [
     {

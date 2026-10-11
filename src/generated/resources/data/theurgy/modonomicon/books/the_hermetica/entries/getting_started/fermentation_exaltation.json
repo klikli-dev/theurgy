@@ -23,6 +23,9 @@
     "id": "theurgy:alchemical_niter_metals_common"
   },
   "id": "theurgy:getting_started/fermentation_exaltation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.fermentation_exaltation.name",
   "parents": [
     {

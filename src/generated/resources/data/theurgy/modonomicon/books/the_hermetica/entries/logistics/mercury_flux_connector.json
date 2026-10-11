@@ -23,6 +23,9 @@
     "id": "theurgy:logistics_mercury_flux_connector"
   },
   "id": "theurgy:logistics/mercury_flux_connector",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.mercury_flux_connector.name",
   "parents": [
     {

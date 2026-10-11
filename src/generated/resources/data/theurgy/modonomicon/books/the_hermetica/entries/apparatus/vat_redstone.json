@@ -40,6 +40,9 @@
     "id": "minecraft:redstone_torch"
   },
   "id": "theurgy:apparatus/vat_redstone",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.vat_redstone.name",
   "parents": [
     {

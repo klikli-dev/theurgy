@@ -22,6 +22,9 @@
   "hide_while_locked": true,
   "icon": "theurgy:textures/gui/book/convert_tiers.png",
   "id": "theurgy:getting_started/convert_to_other_tier",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.name",
   "parents": [
     {

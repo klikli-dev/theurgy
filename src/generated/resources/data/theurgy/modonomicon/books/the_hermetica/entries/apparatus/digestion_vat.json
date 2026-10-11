@@ -23,6 +23,9 @@
     "id": "theurgy:digestion_vat"
   },
   "id": "theurgy:apparatus/digestion_vat",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.digestion_vat.name",
   "parents": [
     {

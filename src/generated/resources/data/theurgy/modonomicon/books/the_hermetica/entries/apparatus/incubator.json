@@ -23,6 +23,9 @@
     "id": "theurgy:incubator"
   },
   "id": "theurgy:apparatus/incubator",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.incubator.name",
   "parents": [
     {

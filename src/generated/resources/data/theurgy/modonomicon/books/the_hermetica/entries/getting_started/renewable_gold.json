@@ -22,6 +22,9 @@
   "hide_while_locked": true,
   "icon": "theurgy:textures/gui/book/renewable_gold.png",
   "id": "theurgy:getting_started/renewable_gold",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.renewable_gold.name",
   "parents": [
     {

@@ -25,6 +25,9 @@
     "width": 32
   },
   "id": "theurgy:getting_started/ore_refining",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.ore_refining.name",
   "parents": [
     {

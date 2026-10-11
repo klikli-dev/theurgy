@@ -23,6 +23,9 @@
     "id": "theurgy:amethyst_divination_rod"
   },
   "id": "theurgy:getting_started/amethyst_divination_rod",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.name",
   "parents": [
     {

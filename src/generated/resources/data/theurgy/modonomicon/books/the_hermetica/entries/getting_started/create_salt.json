@@ -23,6 +23,9 @@
     "id": "theurgy:alchemical_salt_mineral"
   },
   "id": "theurgy:getting_started/create_salt",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.create_salt.name",
   "parents": [
     {

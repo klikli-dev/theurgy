@@ -23,6 +23,9 @@
     "id": "theurgy:sulfur_attuned_divination_rod_abundant"
   },
   "id": "theurgy:getting_started/abundant_and_common_sulfur_attuned_divination_rod",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.name",
   "parents": [
     {

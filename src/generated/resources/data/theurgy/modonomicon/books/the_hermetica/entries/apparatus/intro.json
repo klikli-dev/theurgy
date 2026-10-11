@@ -14,6 +14,9 @@
     "id": "theurgy:calcination_oven"
   },
   "id": "theurgy:apparatus/intro",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.intro.name",
   "sort_number": 0,
   "x": -1,

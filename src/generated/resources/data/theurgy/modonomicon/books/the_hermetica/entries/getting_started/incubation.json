@@ -21,6 +21,9 @@
   "description": "book.theurgy.the_hermetica.getting_started.incubation.description",
   "icon": "theurgy:textures/gui/book/ingot_x3.png",
   "id": "theurgy:getting_started/incubation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.incubation.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "theurgy:reformation_source_pedestal"
   },
   "id": "theurgy:apparatus/result_pedestal",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.result_pedestal.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "theurgy:logistics_capability_proxy"
   },
   "id": "theurgy:logistics/capability_proxy",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.capability_proxy.name",
   "parents": [
     {

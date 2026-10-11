@@ -25,6 +25,9 @@
     "width": 64
   },
   "id": "theurgy:apparatus/insert_helper",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.insert_helper.name",
   "parents": [
     {

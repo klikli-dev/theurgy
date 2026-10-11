@@ -21,6 +21,9 @@
   "description": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.description",
   "icon": "theurgy:textures/gui/book/convert_items_rare.png",
   "id": "theurgy:getting_started/convert_within_type_and_tier",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.name",
   "parents": [
     {

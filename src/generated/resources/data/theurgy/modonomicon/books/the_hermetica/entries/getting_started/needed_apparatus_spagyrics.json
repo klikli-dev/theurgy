@@ -23,6 +23,9 @@
     "id": "theurgy:distiller"
   },
   "id": "theurgy:getting_started/needed_apparatus_spagyrics",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.name",
   "parents": [
     {

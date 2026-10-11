@@ -23,6 +23,9 @@
     "id": "theurgy:sal_ammoniac_tank"
   },
   "id": "theurgy:apparatus/sal_ammoniac_tank",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_tank.name",
   "parents": [
     {

@@ -16,6 +16,9 @@
     "width": 64
   },
   "id": "theurgy:apparatus/reformation_array",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.reformation_array.name",
   "parents": [
     {

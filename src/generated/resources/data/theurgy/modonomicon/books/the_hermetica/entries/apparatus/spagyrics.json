@@ -14,6 +14,9 @@
     "id": "theurgy:liquefaction_cauldron"
   },
   "id": "theurgy:apparatus/spagyrics",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.spagyrics.name",
   "parents": [
     {

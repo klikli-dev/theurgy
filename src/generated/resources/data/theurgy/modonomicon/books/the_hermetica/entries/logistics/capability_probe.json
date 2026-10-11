@@ -23,6 +23,9 @@
     "id": "theurgy:logistics_capability_probe"
   },
   "id": "theurgy:logistics/capability_probe",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.capability_probe.name",
   "parents": [
     {

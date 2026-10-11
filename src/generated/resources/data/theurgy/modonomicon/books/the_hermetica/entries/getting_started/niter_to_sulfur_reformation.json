@@ -23,6 +23,9 @@
     "id": "theurgy:alchemical_sulfur_iron"
   },
   "id": "theurgy:getting_started/niter_to_sulfur_reformation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.name",
   "parents": [
     {

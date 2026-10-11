@@ -23,6 +23,9 @@
     "id": "theurgy:liquefaction_cauldron"
   },
   "id": "theurgy:apparatus/liquefaction_cauldron",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.name",
   "parents": [
     {

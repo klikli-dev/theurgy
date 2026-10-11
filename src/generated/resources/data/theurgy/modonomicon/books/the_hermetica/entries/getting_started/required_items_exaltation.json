@@ -23,6 +23,9 @@
     "id": "minecraft:iron_ingot"
   },
   "id": "theurgy:getting_started/required_items_exaltation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.name",
   "parents": [
     {

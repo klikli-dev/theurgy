@@ -23,6 +23,9 @@
     "id": "minecraft:gold_ingot"
   },
   "id": "theurgy:getting_started/incubation_after_exaltation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.incubation_after_exaltation.name",
   "parents": [
     {

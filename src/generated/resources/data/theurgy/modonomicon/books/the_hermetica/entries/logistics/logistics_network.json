@@ -21,6 +21,9 @@
   "description": "book.theurgy.the_hermetica.logistics.logistics_network.description",
   "icon": "theurgy:textures/gui/book/logistics_network.png",
   "id": "theurgy:logistics/logistics_network",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.logistics_network.name",
   "parents": [
     {

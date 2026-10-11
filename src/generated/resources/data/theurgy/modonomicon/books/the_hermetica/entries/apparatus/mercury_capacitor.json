@@ -23,6 +23,9 @@
     "id": "theurgy:mercury_capacitor"
   },
   "id": "theurgy:apparatus/mercury_capacitor",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.mercury_capacitor.name",
   "parents": [
     {

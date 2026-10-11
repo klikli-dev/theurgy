@@ -23,6 +23,9 @@
     "id": "minecraft:quartz"
   },
   "id": "theurgy:getting_started/required_items_transmutation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.required_items_transmutation.name",
   "parents": [
     {

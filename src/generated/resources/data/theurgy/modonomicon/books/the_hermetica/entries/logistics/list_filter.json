@@ -23,6 +23,9 @@
     "id": "theurgy:list_filter"
   },
   "id": "theurgy:logistics/list_filter",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.list_filter.name",
   "parents": [
     {

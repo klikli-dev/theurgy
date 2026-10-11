@@ -23,6 +23,9 @@
     "id": "theurgy:logistics_connector_node"
   },
   "id": "theurgy:logistics/connection_node",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.connection_node.name",
   "parents": [
     {

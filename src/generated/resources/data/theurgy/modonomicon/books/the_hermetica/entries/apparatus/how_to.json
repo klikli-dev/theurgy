@@ -25,6 +25,9 @@
     "width": 64
   },
   "id": "theurgy:apparatus/how_to",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.how_to.name",
   "parents": [
     {

@@ -14,6 +14,9 @@
     "id": "theurgy:the_hermetica_icon"
   },
   "id": "theurgy:getting_started/intro",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.intro.name",
   "sort_number": 0,
   "x": -7,

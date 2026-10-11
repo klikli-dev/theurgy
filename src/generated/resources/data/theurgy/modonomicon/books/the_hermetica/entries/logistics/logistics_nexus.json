@@ -23,6 +23,9 @@
     "id": "theurgy:logistics_nexus"
   },
   "id": "theurgy:logistics/logistics_nexus",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.logistics.logistics_nexus.name",
   "parents": [
     {

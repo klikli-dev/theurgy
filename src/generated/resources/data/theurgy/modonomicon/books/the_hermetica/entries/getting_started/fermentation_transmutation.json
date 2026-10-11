@@ -23,6 +23,9 @@
     "id": "theurgy:alchemical_niter_gems_common"
   },
   "id": "theurgy:getting_started/fermentation_transmutation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.fermentation_transmutation.name",
   "parents": [
     {

@@ -21,6 +21,9 @@
   "description": "book.theurgy.the_hermetica.getting_started.strata_recycling.description",
   "icon": "theurgy:textures/gui/book/cobble_to_salt.png",
   "id": "theurgy:getting_started/strata_recycling",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.strata_recycling.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "theurgy:alchemical_sulfur_gold"
   },
   "id": "theurgy:getting_started/niter_to_sulfur_reformation_exaltation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation_exaltation.name",
   "parents": [
     {

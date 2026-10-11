@@ -2,6 +2,8 @@
   "allow_open_book_with_invalid_links": false,
   "creative_tab": "theurgy:theurgy",
   "custom_book_item": "theurgy:the_hermetica",
+  "default_allow_page_split": false,
+  "default_auto_scale": true,
   "description": "",
   "display_mode": "node",
   "font": "modonomicon:default",

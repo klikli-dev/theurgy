@@ -23,6 +23,9 @@
     "id": "theurgy:mercurial_wand"
   },
   "id": "theurgy:getting_started/logistics",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.logistics.name",
   "parents": [
     {

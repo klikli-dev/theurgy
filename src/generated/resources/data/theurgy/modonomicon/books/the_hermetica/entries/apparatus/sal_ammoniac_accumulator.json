@@ -23,6 +23,9 @@
     "id": "theurgy:sal_ammoniac_accumulator"
   },
   "id": "theurgy:apparatus/sal_ammoniac_accumulator",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.name",
   "parents": [
     {

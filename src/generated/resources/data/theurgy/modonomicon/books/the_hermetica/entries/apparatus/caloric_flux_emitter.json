@@ -23,6 +23,9 @@
     "id": "theurgy:caloric_flux_emitter"
   },
   "id": "theurgy:apparatus/caloric_flux_emitter",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.name",
   "parents": [
     {

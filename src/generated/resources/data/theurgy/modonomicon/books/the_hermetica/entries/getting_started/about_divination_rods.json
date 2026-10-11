@@ -23,6 +23,9 @@
     "id": "theurgy:divination_rod_t1"
   },
   "id": "theurgy:getting_started/about_divination_rods",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.about_divination_rods.name",
   "parents": [
     {

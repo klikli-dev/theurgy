@@ -23,6 +23,9 @@
     "id": "minecraft:lapis_lazuli"
   },
   "id": "theurgy:getting_started/required_items",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.required_items.name",
   "parents": [
     {

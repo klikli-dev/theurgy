@@ -23,6 +23,9 @@
     "id": "theurgy:mercury_catalyst"
   },
   "id": "theurgy:apparatus/mercury_catalyst",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "minecraft:iron_ingot"
   },
   "id": "theurgy:getting_started/incubation_after_transmutation",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.name",
   "parents": [
     {

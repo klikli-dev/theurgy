@@ -23,6 +23,9 @@
     "id": "theurgy:fermentation_starter"
   },
   "id": "theurgy:getting_started/fermentation_starter",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.fermentation_starter.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "theurgy:distiller"
   },
   "id": "theurgy:apparatus/distiller",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.theurgy.the_hermetica.apparatus.distiller.name",
   "parents": [
     {

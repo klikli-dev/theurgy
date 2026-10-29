@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.120.1] - 2026-10-29
+### :bug: Bug Fixes
+- [`33b959c`](https://github.com/klikli-dev/theurgy/commit/33b959c9ed0da1de2aff649e9728c1a03470b1bd) - water and lava bucket descriptions are mixed up *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`b06c230`](https://github.com/klikli-dev/theurgy/commit/b06c230106e9ce068f2832355e293f4d5af9f34b) - update modonomicon dependency version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.120.0] - 2026-10-11
 ### :sparkles: New Features
 - [`0d785b4`](https://github.com/klikli-dev/theurgy/commit/0d785b495ba2e293cb2eeb2cb776a268932cbe08) - updated to latest neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1778,3 +1786,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-0.0.0...release/v26.3-1.118.0
 [release/v26.3-1.119.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.118.0...release/v26.3-1.119.0
 [release/v26.3-1.120.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.119.0...release/v26.3-1.120.0
+[release/v26.3-1.120.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.120.0...release/v26.3-1.120.1

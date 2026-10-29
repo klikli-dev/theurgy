@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.116.1] - 2026-10-29
+### :bug: Bug Fixes
+- [`498b72e`](https://github.com/klikli-dev/theurgy/commit/498b72e0c66ec4d3a07c605ccdb9ef6ac00d2e8e) - water and lava bucket descriptions are mixed up *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.116.0] - 2026-10-06
 ### :sparkles: New Features
 - [`c44c963`](https://github.com/klikli-dev/theurgy/commit/c44c963ed55e7f7c2a5c421ac30e367a65911837) - Update zh_cn for 26.1.2 *(PR [#393](https://github.com/klikli-dev/theurgy/pull/393) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
@@ -1719,3 +1724,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.115.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.114.0...release/v26.1.2-1.115.0
 [release/v26.1.2-1.115.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.115.0...release/v26.1.2-1.115.1
 [release/v26.1.2-1.116.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.115.1...release/v26.1.2-1.116.0
+[release/v26.1.2-1.116.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.116.0...release/v26.1.2-1.116.1

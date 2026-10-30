@@ -24,3 +24,6 @@ runs
 
 # Files from Forge MDK
 forge*changelog.txt
+
+# datagen cache
+.cache/

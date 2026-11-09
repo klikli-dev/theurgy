@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.79.0] - 2026-11-09
+### :sparkles: New Features
+- [`b04c107`](https://github.com/klikli-dev/theurgy/commit/b04c107a2f2380f35dc31861820aab21d96323af) - PT_BR Localizations *(PR [#401](https://github.com/klikli-dev/theurgy/pull/401) by [@PrincessStellar](https://github.com/PrincessStellar))*
+
+### :bug: Bug Fixes
+- [`a1f4a64`](https://github.com/klikli-dev/theurgy/commit/a1f4a643271e978a08ace057c6f28e2c7d05268c) - prevent client-only entity ids colliding with server entities *(PR [#399](https://github.com/klikli-dev/theurgy/pull/399) by [@Dawnforger](https://github.com/Dawnforger))*
+
+### :wrench: Chores
+- [`860946f`](https://github.com/klikli-dev/theurgy/commit/860946f62da86d8743d1ddc0ef0abcb73d0750f9) - ignore datagen cache and mark generated files as auto-generated *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`df94639`](https://github.com/klikli-dev/theurgy/commit/df94639ef4858f8b396f7f9ff60bd39f547fdfcf) - **ci**: update GitHub Actions to latest versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.78.0] - 2026-10-06
 ### :sparkles: New Features
 - [`95c01bb`](https://github.com/klikli-dev/theurgy/commit/95c01bbbf9be19b21feea8b1c471e98bccea2a42) - zh_cn lang update: formatting and syncing with 26.1.2 *(PR [#394](https://github.com/klikli-dev/theurgy/pull/394) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
@@ -1349,3 +1361,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.76.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.75.1...release/v1.21.1-1.76.0
 [release/v1.21.1-1.76.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.76.0...release/v1.21.1-1.76.1
 [release/v1.21.1-1.78.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.76.1...release/v1.21.1-1.78.0
+[release/v1.21.1-1.79.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.78.0...release/v1.21.1-1.79.0

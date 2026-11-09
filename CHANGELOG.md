@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.121.0] - 2026-11-09
+### :sparkles: New Features
+- [`69651ed`](https://github.com/klikli-dev/theurgy/commit/69651ed8d0f68d2e94161b1de272e561e78de7b6) - PT_BR Localizations *(PR [#402](https://github.com/klikli-dev/theurgy/pull/402) by [@PrincessStellar](https://github.com/PrincessStellar))*
+
+### :wrench: Chores
+- [`89129eb`](https://github.com/klikli-dev/theurgy/commit/89129eb66832988fb357fd30d7d19b2c4a74f706) - ignore datagen cache and mark generated files as auto-generated *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`61ddad9`](https://github.com/klikli-dev/theurgy/commit/61ddad9d6d959a856aedba2a7491510e0487ada3) - **ci**: update GitHub Actions to latest versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.120.1] - 2026-10-29
 ### :bug: Bug Fixes
 - [`33b959c`](https://github.com/klikli-dev/theurgy/commit/33b959c9ed0da1de2aff649e9728c1a03470b1bd) - water and lava bucket descriptions are mixed up *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1787,3 +1796,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.119.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.118.0...release/v26.3-1.119.0
 [release/v26.3-1.120.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.119.0...release/v26.3-1.120.0
 [release/v26.3-1.120.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.120.0...release/v26.3-1.120.1
+[release/v26.3-1.121.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.120.1...release/v26.3-1.121.0

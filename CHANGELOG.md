@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.31.0] - 2026-11-09
+### :sparkles: New Features
+- [`31e571c`](https://github.com/klikli-dev/theurgy/commit/31e571cd08ee439b1f2b096d49cdd9036b32b073) - PT_BR Localizations *(PR [#400](https://github.com/klikli-dev/theurgy/pull/400) by [@PrincessStellar](https://github.com/PrincessStellar))*
+
+
 ## [release/v1.20.1-1.30.0] - 2026-08-21
 ### :sparkles: New Features
 - [`8c120ab`](https://github.com/klikli-dev/theurgy/commit/8c120ab0b61dad164917a39376069e98cc6e16bb) - add vats automation blocking server config *(PR [#390](https://github.com/klikli-dev/theurgy/pull/390) by [@KnewOne](https://github.com/KnewOne))*
@@ -618,3 +623,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.28.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.27.0...release/v1.20.1-1.28.0
 [release/v1.20.1-1.29.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.28.0...release/v1.20.1-1.29.0
 [release/v1.20.1-1.30.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.29.0...release/v1.20.1-1.30.0
+[release/v1.20.1-1.31.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.30.0...release/v1.20.1-1.31.0

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.121.1] - 2026-11-12
+### :bug: Bug Fixes
+- [`2d58794`](https://github.com/klikli-dev/theurgy/commit/2d5879436cff418a1c831261a5237224cdff39a2) - update magic particles lib to 1.9.1 to fix crash with Fabulous graphics *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.121.0] - 2026-11-09
 ### :sparkles: New Features
 - [`69651ed`](https://github.com/klikli-dev/theurgy/commit/69651ed8d0f68d2e94161b1de272e561e78de7b6) - PT_BR Localizations *(PR [#402](https://github.com/klikli-dev/theurgy/pull/402) by [@PrincessStellar](https://github.com/PrincessStellar))*
@@ -1797,3 +1802,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.120.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.119.0...release/v26.3-1.120.0
 [release/v26.3-1.120.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.120.0...release/v26.3-1.120.1
 [release/v26.3-1.121.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.120.1...release/v26.3-1.121.0
+[release/v26.3-1.121.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.121.0...release/v26.3-1.121.1

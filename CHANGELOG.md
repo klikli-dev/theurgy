@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.122.0] - 2026-11-16
+### :sparkles: New Features
+- [`41fc1bb`](https://github.com/klikli-dev/theurgy/commit/41fc1bb3aebfa14ee421dbd4e7681e41e5a2a09d) - sneak-right-click inserts a single fuel item into the pyromantic brazier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c94e845`](https://github.com/klikli-dev/theurgy/commit/c94e8454e266f3c47f88321b3aadc125c39dc9cd) - support dragging JEI ghost ingredients into filters *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`b5359de`](https://github.com/klikli-dev/theurgy/commit/b5359ded97bc4dad866c0523f165739d5a357c7c) - refer to sneak instead of shift in interaction texts *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`cbf4990`](https://github.com/klikli-dev/theurgy/commit/cbf499008e04af8e00fe7d3498c8215c98e6a3cf) - do not gate vanilla-backed recipes on common tags being non-empty *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.121.2] - 2026-11-16
 ### :bug: Bug Fixes
 - [`3b8fdd9`](https://github.com/klikli-dev/theurgy/commit/3b8fdd97b64e45684269665ec76e948e246a119c) - replace placeholder colors in machine textures and update crystal textures *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1812,3 +1822,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.121.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.120.1...release/v26.3-1.121.0
 [release/v26.3-1.121.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.121.0...release/v26.3-1.121.1
 [release/v26.3-1.121.2]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.121.1...release/v26.3-1.121.2
+[release/v26.3-1.122.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.121.2...release/v26.3-1.122.0

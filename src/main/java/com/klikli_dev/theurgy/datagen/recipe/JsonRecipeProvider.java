@@ -31,6 +31,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
@@ -48,6 +49,43 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public abstract class JsonRecipeProvider implements DataProvider {
+
+    /**
+     * NeoForge common tags that always contain vanilla items. Recipes using them do not need to be gated on the tag being non-empty,
+     * as the vanilla items will always be present. Gating would silently drop the recipe if another mod or datapack empties the tag.
+     */
+    protected static final Set<TagKey<Item>> VANILLA_BACKED_TAGS = Set.of(
+            Tags.Items.INGOTS,
+            Tags.Items.INGOTS_IRON,
+            Tags.Items.INGOTS_COPPER,
+            Tags.Items.INGOTS_GOLD,
+            Tags.Items.INGOTS_NETHERITE,
+            Tags.Items.GEMS,
+            Tags.Items.GEMS_DIAMOND,
+            Tags.Items.GEMS_EMERALD,
+            Tags.Items.GEMS_LAPIS,
+            Tags.Items.GEMS_QUARTZ,
+            Tags.Items.GEMS_AMETHYST,
+            Tags.Items.GEMS_PRISMARINE,
+            Tags.Items.ORES,
+            Tags.Items.ORES_IRON,
+            Tags.Items.ORES_COPPER,
+            Tags.Items.ORES_GOLD,
+            Tags.Items.ORES_NETHERITE_SCRAP,
+            Tags.Items.ORES_DIAMOND,
+            Tags.Items.ORES_EMERALD,
+            Tags.Items.ORES_LAPIS,
+            Tags.Items.ORES_QUARTZ,
+            Tags.Items.ORES_REDSTONE,
+            Tags.Items.RAW_MATERIALS,
+            Tags.Items.RAW_MATERIALS_IRON,
+            Tags.Items.RAW_MATERIALS_COPPER,
+            Tags.Items.RAW_MATERIALS_GOLD,
+            Tags.Items.NUGGETS_GOLD,
+            Tags.Items.DUSTS_REDSTONE,
+            Tags.Items.DUSTS_GLOWSTONE,
+            Tags.Items.STORAGE_BLOCKS_COPPER
+    );
 
     protected final CompletableFuture<HolderLookup.Provider> lookupProvider;
     protected final PackOutput.PathProvider recipePathProvider;
@@ -190,7 +228,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         public T result(String propertyName, RecipeResult result) {
             this.recipe.add(propertyName, RecipeResult.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
 
-            if (result instanceof TagRecipeResult tagRecipeResult) {
+            if (result instanceof TagRecipeResult tagRecipeResult && !VANILLA_BACKED_TAGS.contains(tagRecipeResult.tag())) {
                 this.condition(new NotCondition(new TagEmptyCondition<>(tagRecipeResult.tag())));
             }
 
@@ -230,7 +268,9 @@ public abstract class JsonRecipeProvider implements DataProvider {
         public T ingredient(String propertyName, TagKey<Item> tag) {
             this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, Ingredient.of(JsonRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow());
 
-            this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
+            if (!VANILLA_BACKED_TAGS.contains(tag)) {
+                this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
+            }
 
             return this.getThis();
         }
@@ -250,7 +290,9 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
         public T sizedIngredient(String propertyName, TagKey<Item> tag, int amount) {
             this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(JsonRecipeProvider.this.items.getOrThrow(tag)), amount)).getOrThrow());
-            this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
+            if (!VANILLA_BACKED_TAGS.contains(tag)) {
+                this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
+            }
             return this.getThis();
         }
 

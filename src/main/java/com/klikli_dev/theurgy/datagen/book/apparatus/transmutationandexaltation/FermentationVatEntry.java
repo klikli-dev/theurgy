@@ -54,7 +54,7 @@ public class FermentationVatEntry extends EntryProvider {
         this.pageText(
                 """
                         Unlike other apparatus the fermentation vat only works when closed.\\
-                        Shift-right-click with an empty hand to open or close the vat.\\
+                        Sneak-right-click with an empty hand to open or close the vat.\\
                         When closed, no items or fluids can be put in or taken out.
                         """
         );
@@ -71,7 +71,7 @@ public class FermentationVatEntry extends EntryProvider {
                         Place the vat on the ground.\\
                         Then right-click it with the ingredients (usually an Alchemical Sulfur and a source of sugar, such as a crop)\\
                         Right-click the block with a water bucket (or supply via pipes)\\
-                        Shift-right-click the vat with an empty hand to close it.
+                        Sneak-right-click the vat with an empty hand to close it.
                         """
         );
 

@@ -40,7 +40,7 @@ public class AboutDivinationRodsEntry extends EntryProvider {
                 """, this.entryLink("Spagyrics", GettingStartedCategoryProvider.CATEGORY_ID, "spagyrics"));
         this.page("usage", () -> BookTextPageModel.create().withTitle(this.context().pageTitle()).withText(this.context().pageText()));
         this.pageTitle("Usage"); this.pageText("""
-                - **Shift-Click** a block to attune the rod to it (unless it is pre-attuned).
+                - **Sneak-Click** a block to attune the rod to it (unless it is pre-attuned).
                 - **Right-Click and hold** to let the rod search for blocks.
                 - **Right-Click without holding** after a successful search will let the rod show the last found block without consuming durability.
                 """);

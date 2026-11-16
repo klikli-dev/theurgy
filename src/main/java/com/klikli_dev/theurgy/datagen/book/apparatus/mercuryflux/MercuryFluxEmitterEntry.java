@@ -44,7 +44,7 @@ public class MercuryFluxEmitterEntry extends EntryProvider {
         this.pageTitle("Usage");
         this.pageText(
                 """
-                        Right-click the target block with the {0} until it is highlighted. Then place the Emitter onto a Mercury Flux source (**Shift-Right-Click**!), such as a {1}.\\
+                        Right-click the target block with the {0} until it is highlighted. Then place the Emitter onto a Mercury Flux source (**Sneak-Right-Click**!), such as a {1}.\\
                         The maximum range is **8** blocks.\\
                         As long as the attached block can provide mercury flux and the target can receive it, the emitter will transfer mercury flux between them.
                         """,
@@ -58,7 +58,7 @@ public class MercuryFluxEmitterEntry extends EntryProvider {
         this.pageTitle("Placement Hint");
         this.pageText(
                 """
-                        When placing the emitter onto a block that already contains mercury flux, use **Shift-Right-Click**.\\
+                        When placing the emitter onto a block that already contains mercury flux, use **Sneak-Right-Click**.\\
                         A normal right-click would instead try to select that block as the emitter's target.
                         """
         );

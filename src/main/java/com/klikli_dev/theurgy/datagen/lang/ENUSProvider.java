@@ -145,10 +145,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_MERCURY_FLUX_EMITTER, "Mercury Flux Emitter targets %1$s.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_MERCURY_FLUX_EMITTER_NO_SELECTION, "Mercury Flux Emitter has no target.");
         this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_NO_RECIPE, "Cannot close vat, the items in it do not form a valid fermentation recipe.");
-        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.");
+        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Sneak+Click to open.");
 
         this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_NO_RECIPE, "Cannot close vat, the items in it do not form a valid digestion recipe.");
-        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.");
+        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Sneak+Click to open.");
     }
 
     private void addIntegrations() {
@@ -475,7 +475,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                                 {1} with an empty hand to close or open the vat to start or stop processing.
                                 """,
                         this.green("Right-Click"),
-                        this.green("Shift-right-Click")
+                        this.green("Sneak-right-Click")
                 )
         );
 
@@ -489,7 +489,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                                 {1} with an empty hand to close or open the vat to start or stop processing.
                                 """,
                         this.green("Right-Click"),
-                        this.green("Shift-right-Click")
+                        this.green("Sneak-right-Click")
                 )
         );
 
@@ -1193,7 +1193,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                                 {0} another connector block already wired to %1$s to remove the wire.
                                 """,
                         this.green("Right-Click"),
-                        this.green("Shift-Right-Click")
+                        this.green("Sneak-Right-Click")
                 )
         );
 

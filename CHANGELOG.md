@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.117.1] - 2026-11-16
+### :bug: Bug Fixes
+- [`81588db`](https://github.com/klikli-dev/theurgy/commit/81588dbaa2309311beb318af2cd846d449797493) - replace placeholder colors in machine textures and update crystal textures *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`0e226c1`](https://github.com/klikli-dev/theurgy/commit/0e226c1b6b22c67d4394da92755f23fe37ca2d99) - fix licensing info inconsistency *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.117.0] - 2026-11-09
 ### :sparkles: New Features
 - [`de31283`](https://github.com/klikli-dev/theurgy/commit/de312838b09c5a9584db331435b40e0786d6ac5b) - PT_BR Localizations *(PR [#402](https://github.com/klikli-dev/theurgy/pull/402) by [@PrincessStellar](https://github.com/PrincessStellar))*
@@ -1735,3 +1743,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.116.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.115.1...release/v26.1.2-1.116.0
 [release/v26.1.2-1.116.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.116.0...release/v26.1.2-1.116.1
 [release/v26.1.2-1.117.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.116.1...release/v26.1.2-1.117.0
+[release/v26.1.2-1.117.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.117.0...release/v26.1.2-1.117.1

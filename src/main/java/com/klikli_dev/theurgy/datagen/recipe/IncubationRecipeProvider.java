@@ -278,10 +278,10 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(ItemRegistry.CRYSTALLIZED_LAVA.get(), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.STRATA.get(), SulfurRegistry.LAVA.get());
 
         //metal ingots from sulfurs
-        this.makeRecipe(Tags.Items.INGOTS_IRON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.IRON.get());
-        this.makeRecipe(Tags.Items.INGOTS_COPPER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.COPPER.get());
-        this.makeRecipe(Tags.Items.INGOTS_GOLD, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.GOLD.get());
-        this.makeRecipe(Tags.Items.INGOTS_NETHERITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.NETHERITE.get());
+        this.makeVanillaRecipe(Tags.Items.INGOTS_IRON, Items.IRON_INGOT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.IRON.get());
+        this.makeVanillaRecipe(Tags.Items.INGOTS_COPPER, Items.COPPER_INGOT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.COPPER.get());
+        this.makeVanillaRecipe(Tags.Items.INGOTS_GOLD, Items.GOLD_INGOT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.GOLD.get());
+        this.makeVanillaRecipe(Tags.Items.INGOTS_NETHERITE, Items.NETHERITE_INGOT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.NETHERITE.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_URANIUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.URANIUM.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_URANINITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.URANINITE.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_SILVER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SILVER.get());
@@ -310,12 +310,12 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(ItemTagRegistry.INGOTS_STELLARITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.STELLARITE.get());
 
         //gems from sulfurs
-        this.makeRecipe(Tags.Items.GEMS_DIAMOND, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.DIAMOND.get());
-        this.makeRecipe(Tags.Items.GEMS_EMERALD, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.EMERALD.get());
-        this.makeRecipe(Tags.Items.GEMS_LAPIS, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.LAPIS.get());
-        this.makeRecipe(Tags.Items.GEMS_QUARTZ, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.QUARTZ.get());
-        this.makeRecipe(Tags.Items.GEMS_AMETHYST, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.AMETHYST.get());
-        this.makeRecipe(Tags.Items.GEMS_PRISMARINE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.PRISMARINE.get());
+        this.makeVanillaRecipe(Tags.Items.GEMS_DIAMOND, Items.DIAMOND, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.DIAMOND.get());
+        this.makeVanillaRecipe(Tags.Items.GEMS_EMERALD, Items.EMERALD, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.EMERALD.get());
+        this.makeVanillaRecipe(Tags.Items.GEMS_LAPIS, Items.LAPIS_LAZULI, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.LAPIS.get());
+        this.makeVanillaRecipe(Tags.Items.GEMS_QUARTZ, Items.QUARTZ, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.QUARTZ.get());
+        this.makeVanillaRecipe(Tags.Items.GEMS_AMETHYST, Items.AMETHYST_SHARD, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.AMETHYST.get());
+        this.makeVanillaRecipe(Tags.Items.GEMS_PRISMARINE, Items.PRISMARINE_SHARD, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.PRISMARINE.get());
         this.makeRecipe(ItemTagRegistry.GEMS_RUBY, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.RUBY.get());
         this.makeRecipe(ItemTagRegistry.GEMS_APATITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.APATITE.get());
         this.makeRecipe(ItemTagRegistry.GEMS_PERIDOT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.PERIDOT.get());
@@ -330,10 +330,10 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(ItemTagRegistry.GEMS_CINNABAR, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.CINNABAR.get());
 
         //other common minerals from sulfur
-        this.makeRecipe(Tags.Items.DUSTS_REDSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.REDSTONE.get());
+        this.makeVanillaRecipe(Tags.Items.DUSTS_REDSTONE, Items.REDSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.REDSTONE.get());
         this.makeRecipe(Items.COAL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.COAL.get());
         this.makeRecipe(ItemTagRegistry.GEMS_SULFUR, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SULFUR.get());
-        this.makeRecipe(Tags.Items.DUSTS_GLOWSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.GLOWSTONE.get());
+        this.makeVanillaRecipe(Tags.Items.DUSTS_GLOWSTONE, Items.GLOWSTONE_DUST, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.GLOWSTONE.get());
 
         this.makeRecipe(ItemTagRegistry.GEMS_LIGNITE_COAL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.LIGNITE_COAL.get());
         this.makeRecipe(ItemTagRegistry.DUSTS_MONAZITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.MONAZITE.get());
@@ -368,6 +368,10 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
                 this.modLoc(recipeName),
                 recipe
         );
+    }
+
+    public void makeVanillaRecipe(TagKey<Item> tag, Item result, Item mercury, AlchemicalSaltItem salt, AlchemicalSulfurItem sulfur) {
+        this.makeRecipe(this.name(tag) + "_from_" + this.name(sulfur), result, mercury, salt, sulfur, TIME);
     }
 
     public void makeRecipe(Item result, Item mercury, AlchemicalSaltItem salt, AlchemicalSulfurItem sulfur) {

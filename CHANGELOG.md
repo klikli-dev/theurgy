@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.119.0] - 2026-11-16
+### :sparkles: New Features
+- [`5c3d4e0`](https://github.com/klikli-dev/theurgy/commit/5c3d4e0823dea4b5b6f2cc449c6497c1b91c540b) - support dragging JEI ghost ingredients into filters *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.118.0] - 2026-11-16
 ### :sparkles: New Features
 - [`2212164`](https://github.com/klikli-dev/theurgy/commit/221216455909df0b4c2ff89db7627a5a40383d8f) - sneak-right-click inserts a single fuel item into the pyromantic brazier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1754,3 +1759,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.117.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.116.1...release/v26.1.2-1.117.0
 [release/v26.1.2-1.117.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.117.0...release/v26.1.2-1.117.1
 [release/v26.1.2-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.117.1...release/v26.1.2-1.118.0
+[release/v26.1.2-1.119.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.118.0...release/v26.1.2-1.119.0

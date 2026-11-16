@@ -18,6 +18,7 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsnexus.render.LogisticsN
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.MercuryCapacitorBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycapacitor.render.MercuryCapacitorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
+import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
@@ -131,6 +132,7 @@ public class Theurgy {
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onServerTick);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onPlayerLoggedOut);
         NeoForge.EVENT_BUS.addListener(TheurgyRecipeManager.get()::onDatapackSync);
+        NeoForge.EVENT_BUS.addListener(PyromanticBrazierBlock::onRightClickBlock);
 
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);

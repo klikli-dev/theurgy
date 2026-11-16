@@ -309,7 +309,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addTooltip(BlockRegistry.PYROMANTIC_BRAZIER.get()::asItem,
                 "A simple device to heat alchemical apparati.",
                 "Place this below other alchemical apparati to heat them up",
-                this.f("{0} with a fuel item to insert it (or using a hopper)", this.green("Right-Click")));
+                this.f("{0} with a fuel item to insert the whole stack, or {1} to insert a single item (or using a hopper)", this.green("Right-Click"), this.green("Sneak-Right-Click")));
 
         this.addBlock(BlockRegistry.LIQUEFACTION_CAULDRON, "Liquefaction Cauldron");
         this.addTooltip(BlockRegistry.LIQUEFACTION_CAULDRON.get()::asItem,

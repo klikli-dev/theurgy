@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.121.2] - 2026-11-16
+### :bug: Bug Fixes
+- [`3b8fdd9`](https://github.com/klikli-dev/theurgy/commit/3b8fdd97b64e45684269665ec76e948e246a119c) - replace placeholder colors in machine textures and update crystal textures *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`d7b8a2c`](https://github.com/klikli-dev/theurgy/commit/d7b8a2c4b4ef7effde3c54cb3c190510c8adf933) - fix licensing info inconsistency *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.121.1] - 2026-11-12
 ### :bug: Bug Fixes
 - [`2d58794`](https://github.com/klikli-dev/theurgy/commit/2d5879436cff418a1c831261a5237224cdff39a2) - update magic particles lib to 1.9.1 to fix crash with Fabulous graphics *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1803,3 +1811,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.120.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.120.0...release/v26.3-1.120.1
 [release/v26.3-1.121.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.120.1...release/v26.3-1.121.0
 [release/v26.3-1.121.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.121.0...release/v26.3-1.121.1
+[release/v26.3-1.121.2]: https://github.com/klikli-dev/theurgy/compare/release/v26.3-1.121.1...release/v26.3-1.121.2

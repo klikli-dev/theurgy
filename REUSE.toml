@@ -15,7 +15,7 @@ SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = "src/main/resources/**"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2024 klikli-dev"
 SPDX-License-Identifier = "CC-BY-4.0"
 
@@ -27,79 +27,91 @@ SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
 path = "src/generated/resources/**"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2024 klikli-dev"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
 path = ".github/**"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = ".gitattributes"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = ".gitignore"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = "settings.gradle"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = "build.gradle"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = "gradle.properties"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = "gradle/**"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2015 the original author or authors."
 SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]
 path = "gradlew**"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2015 the original author or authors."
 SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]
 path = "CHANGELOG.md"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = ".claude/skills/git-commit/SKILL.md"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "AungMyoKyaw"
-SPDX-License-Identifier = "MIT"
+path = "AGENTS.md"
+precedence = "closest"
+SPDX-FileCopyrightText = "2024 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = ".claude/skills/neoforge-updater/SKILL.md"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 klikli-dev"
-SPDX-License-Identifier = "MIT"
-
-[[annotations]]
-path = ".claude/skills/neoforge-updater/references/**/index.md"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "ChampionAsh5357"
+path = [
+    "src/main/resources/assets/theurgy/textures/block/calcination_oven.png",
+    "src/main/resources/assets/theurgy/textures/block/distiller.png",
+    "src/main/resources/assets/theurgy/textures/block/incubator_gold.png",
+    "src/main/resources/assets/theurgy/textures/block/liquefaction_cauldron.png",
+    "src/main/resources/assets/theurgy/textures/block/mercury_catalyst.png",
+    "src/main/resources/assets/theurgy/textures/block/pyromantic_brazier.png",
+    "src/main/resources/assets/theurgy/textures/block/pyromantic_brazier_lit.png",
+    "src/main/resources/assets/theurgy/textures/block/reformation_result_pedestal.png",
+    "src/main/resources/assets/theurgy/textures/block/reformation_source_pedestal.png",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = ["2024 klikli-dev", "2026 quequn07-sys"]
 SPDX-License-Identifier = "CC-BY-4.0"
 
+[[annotations]]
+path = [
+    "src/main/resources/assets/theurgy/textures/item/crystallized_lava.png",
+    "src/main/resources/assets/theurgy/textures/item/crystallized_water.png",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 quequn07-sys"
+SPDX-License-Identifier = "CC-BY-4.0"

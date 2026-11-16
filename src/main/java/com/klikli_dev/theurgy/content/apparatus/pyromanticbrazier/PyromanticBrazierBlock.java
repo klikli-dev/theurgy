@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Prediction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.TriState;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
@@ -42,6 +44,19 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
     public PyromanticBrazierBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, Boolean.FALSE));
+    }
+
+    /**
+     * By default, sneak-right-click with an item in hand bypasses the block interaction.
+     * We force block interaction so that sneak-right-click with fuel inserts a single item.
+     */
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        var player = event.getEntity();
+        if (player.isShiftKeyDown()
+                && !event.getItemStack().isEmpty()
+                && event.getLevel().getBlockState(event.getPos()).getBlock() instanceof PyromanticBrazierBlock) {
+            event.setUseBlock(TriState.TRUE);
+        }
     }
 
     @Override
@@ -64,11 +79,14 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
                     return InteractionResult.SUCCESS;
                 }
             } else {
+                //Sneak-click inserts a single item, normal click inserts the whole stack
+                var insertStack = pPlayer.isShiftKeyDown() ? stackInHand.copyWithCount(1) : stackInHand;
                 try (var tx = Transaction.openRoot()) {
-                    var remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, stackInHand, false, tx);
-                    if (remainder.getCount() != stackInHand.getCount()) {
+                    var remainder = ItemUtil.insertItemReturnRemaining(blockEntity.inventory, 0, insertStack, false, tx);
+                    if (remainder.getCount() != insertStack.getCount()) {
                         tx.commit();
-                        pPlayer.setItemInHand(pHand, remainder);
+                        var inserted = insertStack.getCount() - remainder.getCount();
+                        pPlayer.setItemInHand(pHand, stackInHand.copyWithCount(stackInHand.getCount() - inserted));
                         return InteractionResult.SUCCESS;
                     }
                 }

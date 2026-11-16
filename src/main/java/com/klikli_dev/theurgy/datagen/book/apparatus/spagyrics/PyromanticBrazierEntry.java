@@ -39,7 +39,10 @@ public class PyromanticBrazierEntry extends EntryProvider {
         this.pageTitle("Usage");
         this.pageText(
                 """
-                        Place the {0} below the Alchemical Device you want to power, then insert a fuel item by right-clicking the brazier with it.
+                        Place the {0} below the Alchemical Device you want to power, then insert a fuel item by right-clicking the brazier with it. This inserts the whole stack.
+                        \\
+                        \\
+                        To insert only a single fuel item, Sneak-Right-Click the brazier instead. Right-click with an empty hand to remove the fuel.
                         \\
                         \\
                         Alternatively a hopper (or pipes) can be used to insert fuel items.

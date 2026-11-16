@@ -67,7 +67,7 @@ public class DigestionEntry extends EntryProvider {
         );
         this.pageTitle("Process");
         this.pageText("""
-                        [#]($INPUT)Shift-right-click[#]() the {0} with an [#]($INPUT)empty hand[#]() to close the vat and start the digestion.
+                        [#]($INPUT)Sneak-right-click[#]() the {0} with an [#]($INPUT)empty hand[#]() to close the vat and start the digestion.
                         \\
                         \\
                         Once it opens again the process is complete.
@@ -89,7 +89,7 @@ public class DigestionEntry extends EntryProvider {
                 You can provide all these ingredients in bulk, the process will then repeat until all ingredients are consumed.
                 \\
                 \\
-                You can also [#]($INPUT)shift-right-click[#]() with an [#]($INPUT)empty hand[#]() to open the vat and interrupt processing to take out the intermediate result.
+                You can also [#]($INPUT)sneak-right-click[#]() with an [#]($INPUT)empty hand[#]() to open the vat and interrupt processing to take out the intermediate result.
                 """
         );
 

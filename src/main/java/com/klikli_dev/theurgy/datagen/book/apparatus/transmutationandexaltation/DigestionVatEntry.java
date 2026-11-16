@@ -46,7 +46,7 @@ public class DigestionVatEntry extends EntryProvider {
         this.pageText(
                 """
                         Unlike other apparatus the digestion vat only works when closed.\\
-                        Shift-right-click with an empty hand to open or close the vat.\\
+                        Sneak-right-click with an empty hand to open or close the vat.\\
                         When closed, no items or fluids can be put in or taken out.
                         """
         );
@@ -63,7 +63,7 @@ public class DigestionVatEntry extends EntryProvider {
                         Place the vat on the ground.\\
                         Then right-click it with the ingredients (usually an Alchemical Niter and {0})\\
                         Right-click the block with a Sal Ammoniac bucket (or supply via pipes)\\
-                        Shift-right-click the vat with an empty hand to close it.
+                        Sneak-right-click the vat with an empty hand to close it.
                         """,
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );

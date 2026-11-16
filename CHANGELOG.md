@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.118.0] - 2026-11-16
+### :sparkles: New Features
+- [`2212164`](https://github.com/klikli-dev/theurgy/commit/221216455909df0b4c2ff89db7627a5a40383d8f) - sneak-right-click inserts a single fuel item into the pyromantic brazier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`706080a`](https://github.com/klikli-dev/theurgy/commit/706080aeab7e37b560a9182539622d13addb7026) - refer to sneak instead of shift in interaction texts *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`7cbca6f`](https://github.com/klikli-dev/theurgy/commit/7cbca6f22979515838c5d0090783803244f4501b) - do not gate vanilla-backed recipes on common tags being non-empty *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.117.1] - 2026-11-16
 ### :bug: Bug Fixes
 - [`81588db`](https://github.com/klikli-dev/theurgy/commit/81588dbaa2309311beb318af2cd846d449797493) - replace placeholder colors in machine textures and update crystal textures *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1744,3 +1753,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.116.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.116.0...release/v26.1.2-1.116.1
 [release/v26.1.2-1.117.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.116.1...release/v26.1.2-1.117.0
 [release/v26.1.2-1.117.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.117.0...release/v26.1.2-1.117.1
+[release/v26.1.2-1.118.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.2-1.117.1...release/v26.1.2-1.118.0

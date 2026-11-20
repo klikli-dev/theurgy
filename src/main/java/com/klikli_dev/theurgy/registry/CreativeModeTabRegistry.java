@@ -89,9 +89,6 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.LOGISTICS_CAPABILITY_PROXY.get());
                 output.accept(ItemRegistry.LOGISTICS_MERCURY_FLUX_CONNECTOR.get());
 
-                output.accept(ItemRegistry.LIST_FILTER.get());
-                output.accept(ItemRegistry.ATTRIBUTE_FILTER.get());
-
                 output.accept(ItemRegistry.THE_HERMETICA.get());
             }).build());
 
